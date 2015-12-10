@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROI Analysis with Desikan-Killiany-Tourville Cortical Labeling Protocol &mdash; Brain Imaging and Behavior Lab</title>
+    <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/images/logo.png"/>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="Brain Imaging and Behavior Lab" />
+    <meta name="title" content="ROI Analysis with Desikan-Killiany-Tourville Cortical Labeling Protocol ">
+    <link rel="canonical" href="http://biabl.github.io/tutorials/structural/roi/">
+     
+           
+    <meta property="og:title" content="ROI Analysis with Desikan-Killiany-Tourville Cortical Labeling Protocol "/>
+    <meta property="og:url" content="http://biabl.github.io/tutorials/structural/roi/"/>
+    
+    
+    <meta property="og:site_name" content="Brain Imaging and Behavior Lab">     
+</head>
+<body>
+    <section class="site-nav">
+        <header>
+            <nav id="navigation">
+                <a class="brand" href="/"><img alt="Inc" src="/images/logo.png"></a> 
+                <a class="home" href="/">Blog</a>
+                <a class="home" href="/tags/">Tags</a>
+				<li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
+                    <ul class="dropdown-menu multi-level">
+                        <li class="dropdown-submenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">General Topics</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/tutorials/general/unix-cheat-sheet/">Unix Cheat Sheet</a></li>
+                				<li><a href="/tutorials/general/introduction-to-fulton-supercomputer-lab/">Introduction to Fulton Supercomputer</a></li>
+                				<li><a href="/tutorials/general/submitting_jobs/">Submitting Batch Jobs on Supercomputer</a></li>
+                				<li><a href="/tutorials/general/R/">Learn R</a></li>
+                				<li><a href="/tutorials/general/install-freesurfer/">How to Install Freesurfer on Supercomputer</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Structural Imaging Topics</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/tutorials/structural/preprocessing_T1_weighted_images/">Preprocessing T1 Weighted Images</a></li>
+                				<li><a href="/tutorials/structural/convert-to-nifti/">Other Ways to Convert to NIfTI</a></li>
+                				<li><a href="/tutorials/structural/normalization/">Normalization</a></li>
+                				<li><a href="/tutorials/structural/cortical_thickness/">Tissue Segmentation and Cortical Thickness</a></li>
+                				<li><a href="/tutorials/structural/morphometry/">Various Morphometry Analyses</a></li>
+                				<li><a href="/tutorials/structural/ANTsR/">ANTsR</a></li>
+                				<li><a href="/tutorials/structural/group_average/">Group Average Overlays with ANTsR</a></li>
+                				<li><a href="/tutorials/structural/roi/">ROI Analysis with DKT</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Diffusion Imaging Topics</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/tutorials/diffusion/preprocessing_diffusion_weighted_images/">Preprocessing Diffusion Weighted Images</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects<b class="caret"></b></a>
+                    <ul class="dropdown-menu multi-level">
+                        <li class="dropdown-submenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">MIOS</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/projects/MIOS/corpus-callosum/">Corpus Callosum</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </nav>
+        </header>
+    </section>
+    
+<article>
+
+    <div class="container">
+        <header>
+        	
+            <div class="meta">
+                By <address><a rel="author" href="" title="Naomi J. Goodrich-Hunsaker" target="_blank">Naomi J. Goodrich-Hunsaker</a></address> &mdash;
+                <time pubdate datetime="2015-09-December" title="December 09, 2015">December 09, 2015</time>
+            </div>
+            <h1 class="title">ROI Analysis with Desikan-Killiany-Tourville Cortical Labeling Protocol</h1>
+            
+        </header>
+
+        <section>
+            <p>Please cite the following article and this website when making use of Mindboggle-101 data:</p>
+
+<p>101 labeled brain images and a consistent human cortical labeling protocol
+Arno Klein, Jason Tourville. Frontiers in Brain Imaging Methods. 6:171. DOI: 10.3389/fnins.2012.00171
+http://journal.frontiersin.org/article/10.3389/fnins.2012.00171/full</p>
+
+<p><a href="T_template0_BrainCerebellum.nii.gz"><strong>CLICK HERE TO DOWNLOAD THE OASIS TEMPLATE IMAGE</strong></a></p>
+
+<p><a href="http://media.mindboggle.info/data/templates/atropos/OASIS-30_Atropos_template.tar.gz"><strong>CLICK HERE TO DOWNLOAD ALL THE OASIS TEMPLATES FOR antsCorticalThickness.sh</strong></a></p>
+
+<h2 id="extract-rois">Extract ROIs</h2>
+
+<p>There are quite a few possible ROIs in the label atlas (see below). If you want to extract a specific ROI, you can use the following Convert 3D code. Use the label image as your input image, threshold the label image the exact label you want. For example, if you want the left hippocampus use label number “17”. Convert 3D will take anything labeled “17” and make it a value of “1” and anything <strong>NOT</strong> labeled “17” a value of “0” and output the new ROI image:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">~/apps/c3d/bin/c3d <span class="se">\</span>
+OASIS-TRT-20_jointfusion_DKT31_CMA_labels_in_MNI152_v2.nii.gz <span class="se">\</span>
+-threshold &lt;labelnumber&gt; &lt;labelnumber&gt; <span class="m">1</span> <span class="m">0</span> <span class="se">\</span>
+-o &lt;outputname&gt;.nii.gz</code></pre></div>
+
+<p><a href="OASIS-TRT-20_jointfusion_DKT31_CMA_labels_in_OASIS-30_v2.nii.gz"><strong>CLICK HERE TO DOWNLOAD THE LABEL IMAGE</strong></a></p>
+
+<h3 id="cortex-labels-and-numbers">Cortex Labels and Numbers</h3>
+
+<ul>
+  <li>1002, “left caudal anterior cingulate”</li>
+  <li>1003, “left caudal middle frontal”</li>
+  <li>1005, “left cuneus”</li>
+  <li>1006, “left entorhinal”</li>
+  <li>1007, “left fusiform”</li>
+  <li>1008, “left inferior parietal”</li>
+  <li>1009, “left inferior temporal”</li>
+  <li>1010, “left isthmus cingulate”</li>
+  <li>1011, “left lateral occipital”</li>
+  <li>1012, “left lateral orbitofrontal”</li>
+  <li>1013, “left lingual”</li>
+  <li>1014, “left medial orbitofrontal”</li>
+  <li>1015, “left middle temporal”</li>
+  <li>1016, “left parahippocampal”</li>
+  <li>1017, “left paracentral”</li>
+  <li>1018, “left pars opercularis”</li>
+  <li>1019, “left pars orbitalis”</li>
+  <li>1020, “left pars triangularis”</li>
+  <li>1021, “left pericalcarine”</li>
+  <li>1022, “left postcentral”</li>
+  <li>1023, “left posterior cingulate”</li>
+  <li>1024, “left precentral”</li>
+  <li>1025, “left precuneus”</li>
+  <li>1026, “left rostral anterior cingulate”</li>
+  <li>1027, “left rostral middle frontal”</li>
+  <li>1028, “left superior frontal”</li>
+  <li>1029, “left superior parietal”</li>
+  <li>1030, “left superior temporal”</li>
+  <li>1031, “left supramarginal”</li>
+  <li>1034, “left transverse temporal”</li>
+  <li>1035, “left insula”</li>
+  <li>2002, “right caudal anterior cingulate”</li>
+  <li>2003, “right caudal middle frontal”</li>
+  <li>2005, “right cuneus”</li>
+  <li>2006, “right entorhinal”</li>
+  <li>2007, “right fusiform”</li>
+  <li>2008, “right inferior parietal”</li>
+  <li>2009, “right inferior temporal”</li>
+  <li>2010, “right isthmus cingulate”</li>
+  <li>2011, “right lateral occipital”</li>
+  <li>2012, “right lateral orbitofrontal”</li>
+  <li>2013, “right lingual”</li>
+  <li>2014, “right medial orbitofrontal”</li>
+  <li>2015, “right middle temporal”</li>
+  <li>2016, “right parahippocampal”</li>
+  <li>2017, “right paracentral”</li>
+  <li>2018, “right pars opercularis”</li>
+  <li>2019, “right pars orbitalis”</li>
+  <li>2020, “right pars triangularis”</li>
+  <li>2021, “right pericalcarine”</li>
+  <li>2022, “right postcentral”</li>
+  <li>2023, “right posterior cingulate”</li>
+  <li>2024, “right precentral”</li>
+  <li>2025, “right precuneus”</li>
+  <li>2026, “right rostral anterior cingulate”</li>
+  <li>2027, “right rostral middle frontal”</li>
+  <li>2028, “right superior frontal”</li>
+  <li>2029, “right superior parietal”</li>
+  <li>2030, “right superior temporal”</li>
+  <li>2031, “right supramarginal”</li>
+  <li>2034, “right transverse temporal”</li>
+  <li>2035, “right insula”</li>
+</ul>
+
+<h3 id="noncortex-labels-and-numbers">Noncortex Labels and Numbers</h3>
+
+<ul>
+  <li>16, “Brain stem”</li>
+  <li>24, “CSF”</li>
+  <li>14, “3rd ventricle”</li>
+  <li>15, “4th ventricle”</li>
+  <li>72, “5th ventricle”</li>
+  <li>85, “optic chiasm”</li>
+  <li>4, “left lateral ventricle”</li>
+  <li>5, “left inferior lateral ventricle”</li>
+  <li>6, “left cerebellum exterior”</li>
+  <li>7, “left cerebellum white matter”</li>
+  <li>10, “left thalamus proper”</li>
+  <li>11, “left caudate”</li>
+  <li>12, “left putamen”</li>
+  <li>13, “left pallidum”</li>
+  <li>17, “left hippocampus”</li>
+  <li>18, “left amygdala”</li>
+  <li>25, “left lesion”</li>
+  <li>26, “left accumbens area”</li>
+  <li>28, “left ventral DC”</li>
+  <li>30, “left vessel”</li>
+  <li>91, “left basal forebrain”</li>
+  <li>43, “right lateral ventricle”</li>
+  <li>44, “right inferior lateral ventricle”</li>
+  <li>45, “right cerebellum exterior”</li>
+  <li>46, “right cerebellum white matter”</li>
+  <li>49, “right thalamus proper”</li>
+  <li>50, “right caudate”</li>
+  <li>51, “right putamen”</li>
+  <li>52, “right pallidum”</li>
+  <li>53, “right hippocampus”</li>
+  <li>54, “right amygdala”</li>
+  <li>57, “right lesion”</li>
+  <li>58, “right accumbens area”</li>
+  <li>60, “right ventral DC”</li>
+  <li>62, “right vessel”</li>
+  <li>92, “right basal forebrain”</li>
+  <li>630, “cerebellar vermal lobules I-V”</li>
+  <li>631, “cerebellar vermal lobules VI-VII”</li>
+  <li>632, “cerebellar vermal lobules VIII-X”</li>
+</ul>
+
+<h2 id="warp-rois">Warp ROIs</h2>
+
+<p>When you’ve run <code>antsRegistrationSyNQuick.sh</code> you are given a warp and inverse warp image that lets you move between moving and fixed space. For example, let’s say you have the thalamus traced in your template image and you want to “trace” the thalamus in each of your participants. It makes sense then to have your template image as the moving image (<code>-m</code>) and each participant image is a new fixed image (<code>-f</code>).</p>
+
+<p>When you take the template and normalize to participant:</p>
+
+<ul>
+  <li>Warp matrix represents anything in template space and making it look like the participant</li>
+  <li>Inverse warp matrix represents anything in participant space and making it look like the template</li>
+</ul>
+
+<p>Applying the warp matrix to the thalamus ROI (template space) will change the ROI to participant space (the results we want).</p>
+
+<p>The ANTs code to do this is:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">WarpImageMultiTransform <span class="se">\</span>
+<span class="m">3</span> <span class="se">\</span>
+&lt;dktROI&gt;.nii.gz <span class="se">\</span>
+&lt;output&gt;.nii.gz <span class="se">\</span>
+&lt;warpImage&gt;.nii.gz <span class="se">\</span>
+&lt;affineFile&gt;.mat <span class="se">\</span>
+-R &lt;participantImage&gt;.nii.gz</code></pre></div>
+
+<hr />
+
+<p>Another example, let’s say you have a population of severe TBI participants in which you’ve already generated ROIs around the major brain lesions and you want to see if there’s similarity across participants where lesions occur. It makes sense then to have your template image as your fixed image (<code>-f</code>) and each participant image is moving (<code>-m</code>).</p>
+
+<p>When you take the participant and normalize to template:</p>
+
+<ul>
+  <li>Warp matrix represents anything in participant space and making it look like the template</li>
+  <li>Inverse warp matrix represents anything in template space and making it look like the participant</li>
+</ul>
+
+<p>Applying the warp matrix to the lesion ROI (participant space) will change the ROI to template space (the results we want).</p>
+
+<p>The ANTs code to do this is:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">WarpImageMultiTransform <span class="se">\</span>
+<span class="m">3</span> <span class="se">\</span>
+&lt;participantROI&gt;.nii.gz <span class="se">\</span>
+&lt;output&gt;.nii.gz <span class="se">\</span>
+&lt;warpImage&gt;.nii.gz <span class="se">\</span>
+&lt;affineFile&gt;.mat <span class="se">\</span>
+-R &lt;templateImage&gt;.nii.gz</code></pre></div>
+
+<hr />
+
+<p>You do not have to rerun <code>antsRegistractionSynQuick.sh</code> if your fixed and moving images are not precisely correct. You can always apply the inverse warp when needed. Let’s go back to the second example where the template image is the fixed image (<code>-f</code>) and each participant is a moving image (<code>-m</code>). Let’s say that you want to move a hippocampus ROI in template space to participant space:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">WarpImageMultiTransform <span class="se">\</span>
+<span class="m">3</span> <span class="se">\</span>
+&lt;dktROI&gt;.nii.gz <span class="se">\</span>
+&lt;output&gt;.nii.gz <span class="se">\</span>
+-i &lt;affineFile&gt;.mat <span class="se">\</span>
+&lt;inversewarpImage&gt;.nii.gz <span class="se">\</span>
+-R &lt;participantImage&gt;.nii.gz</code></pre></div>
+
+<h3 id="ants-cortical-thickness">ANTs Cortical Thickness</h3>
+
+<p>If you have already run ANTs Cortical Thickness using the OASIS template the code you need to use to move the ROI in template space to participant space is as follows:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">WarpImageMultiTransform <span class="se">\</span>
+<span class="m">3</span> <span class="se">\</span>
+&lt;dktROI&gt;.nii.gz <span class="se">\</span>
+&lt;output&gt;.nii.gz <span class="se">\</span>
+TemplateToSubject0Warp.nii.gz <span class="se">\</span>
+TemplateToSubject1GenericAffine.mat <span class="se">\</span>
+-R ExtractedBrain0N4.nii.gz</code></pre></div>
+
+<p>You can then clean these ROIs if they are tissue specific. For example, you can clean the hippocampus ROI by multiplying by the gray matter tissue segmentation to remove any extraneous CSF or WM:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">c3d <span class="se">\</span>
+BrainSegmentation.nii.gz <span class="se">\</span>
+-threshold <span class="m">2</span> <span class="m">2</span> <span class="m">1</span> <span class="m">0</span> <span class="se">\</span>
+-as MASK <span class="se">\</span>
+&lt;participantROI&gt;.nii.gz <span class="se">\</span>
+-push MASK <span class="se">\</span>
+-multiply <span class="se">\</span>
+-o &lt;output&gt;.nii.gz</code></pre></div>
+
+<h2 id="extract-roi-values">Extract ROI Values</h2>
+
+<p>For the example, we will use our tissue segmentation from the ANTs Cortical Thickness pipeline.</p>
+
+<h3 id="generate-data">Generate Data</h3>
+
+<p>After logging into the supercomputer, we are going to use Convert3D tool to extract the various tissue volumes:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">mkdir -p ~/compute/projects/brainvols/
+<span class="k">for</span> subj in <span class="k">$(</span>ls ~/compute/data/<span class="k">)</span><span class="p">;</span> <span class="k">do</span> 
+<span class="nv">subjDir</span><span class="o">=</span>~/compute/data/<span class="k">${</span><span class="nv">subj</span><span class="k">}</span>/
+<span class="nb">echo</span> <span class="nv">$subj</span> &gt;&gt; ~/compute/projects/brainvols/data.csv 
+~/apps/c3d/bin/c3d <span class="se">\</span>
+<span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/antsCorticalThickness/BrainSegmentation0N4.nii.gz <span class="se">\</span>
+<span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/antsCorticalThickness/BrainSegmentation.nii.gz <span class="se">\</span>
+-label-statistics &gt;&gt; ~/compute/projects/brainvols/data.csv
+<span class="k">done</span></code></pre></div>
+
+<h3 id="regular-expressions">Regular Expressions</h3>
+
+<p><img src="http://imgs.xkcd.com/comics/regular_expressions.png" alt="" /></p>
+
+<p>The file is not perfectly formatted so that it can be easily imported into R or even useful in Excel. Some editing of the file needs to happen and we can use the power of Regular Expressions in Terminal to edit the file. Just make sure to change the username in the first line of the code.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">input</span><span class="o">=</span><span class="s2">&quot;/fslhome/username/compute/projects/brainvols/data.csv&quot;</span>
+<span class="nv">output</span><span class="o">=</span><span class="s2">&quot;${input%.*}_modified.csv&quot;</span>
+<span class="nb">cd</span> <span class="k">$(</span>dirname <span class="nv">$input</span><span class="k">)</span>
+grep -vwE <span class="s2">&quot;(Reading #1|LabelID|^(    0))&quot;</span> <span class="k">${</span><span class="nv">input</span><span class="k">}</span> <span class="p">|</span> sed -e <span class="s2">&quot;s|/|,|&quot;</span> -Ee <span class="s2">&quot;s/[ ]+/,/g&quot;</span> &gt; temp.txt
+awk <span class="s1">&#39;/^[0-9][0-9][0-9][0-9]_[0-9][0-9][0-9][0-9][0-9][0-9]/{for(i=0;i&lt;6;i++)print}&#39;</span> temp.txt &gt; part1.txt
+awk <span class="s1">&#39;/^,/{print}&#39;</span> temp.txt &gt; part2.txt
+sed -i <span class="s1">&#39;&#39;</span> -e <span class="s2">&quot;s|,1,|,csf,|&quot;</span> -e <span class="s2">&quot;s|,2,|,gm,|&quot;</span> -e <span class="s2">&quot;s|,3,|,wm,|&quot;</span> -e <span class="s2">&quot;s|,4,|,subcortical,|&quot;</span> -e <span class="s2">&quot;s|,5,|,brainstem,|&quot;</span> -e <span class="s2">&quot;s|,6,|,cerebellum,|&quot;</span> part2.txt 
+paste part1.txt part2.txt &gt; <span class="k">${</span><span class="nv">output</span><span class="k">}</span>
+perl -pi -e <span class="s1">&#39;print &quot;subjectid, label, mean, std, max, min, count, volume (mm^3), extent x, extent y, extent z\n&quot; if($.==1)&#39;</span> <span class="k">${</span><span class="nv">output</span><span class="k">}</span>
+rm part1.txt
+rm part2.txt
+rm temp.txt</code></pre></div>
+
+<p>Note this code works for the SOBIK dataset. If you have different subject IDs, you’ll need to edit the regular expression in line #5. If you need more help figuring out regular expressions visit this website here:</p>
+
+<p><a href="https://regex101.com/">https://regex101.com/</a></p>
+
+<p>Happy Coding!</p>
+
+            
+        </section>
+
+        <footer>
+            <address>
+               <img src="/images/naomi.jpg">
+                <p>Written by <strong><a rel="author" href="https://twitter.com/" title="" target="_blank">Naomi J. Goodrich-Hunsaker</a></strong><br>
+                <span class="muted">Website Manager</span>
+                </p>
+            </address>
+
+        </footer>
+
+        
+        <section>
+            <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'biabl'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+        </section>
+        
+    </div>
+</article>
+
+    <footer class="site-footer">
+        <div class="container">
+            &copy; 2015
+            <nav>
+                <a href="http://biabl.github.io">Brain Imaging and Behavior Lab</a>
+            </nav>
+            <nav class="social">
+                 
+                 
+                <a href="/feed.xml" title="RSS Feed"><i class="icon icon-rss black"></i></a>
+            </nav>
+        </div>
+    </footer>
+    
+      <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js" defer></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" defer></script>
+  <script src="dist/js/bootstrap-submenu.min.js" defer></script>
+  <style type="text/css">
+<script src="/assets/main.js"></script>
+
+
+
+
+
+
+
+</body>
+</html>

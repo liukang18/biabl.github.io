@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>buildtemplateparallel.sh Bug &mdash; Brain Imaging and Behavior Lab</title>
+    <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/images/logo.png"/>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="Brain Imaging and Behavior Lab" />
+    <meta name="title" content="buildtemplateparallel.sh Bug ">
+    <link rel="canonical" href="http://biabl.github.io/2015/12/08/buildtemplateparallel.sh-bug/">
+     
+           
+    <meta property="og:title" content="buildtemplateparallel.sh Bug "/>
+    <meta property="og:url" content="http://biabl.github.io/2015/12/08/buildtemplateparallel.sh-bug/"/>
+    
+    
+    <meta property="og:description" content="When trying to run buildtemplateparallel.sh, I ran into several problems. Here are a list of changes I had to make."/>
+    <meta name="description" content="When trying to run buildtemplateparallel.sh, I ran into several problems. Here are a list of changes I had to make."/>
+    
+    <meta property="og:site_name" content="Brain Imaging and Behavior Lab">     
+</head>
+<body>
+    <section class="site-nav">
+        <header>
+            <nav id="navigation">
+                <a class="brand" href="/"><img alt="Inc" src="/images/logo.png"></a> 
+                <a class="home" href="/">Blog</a>
+                <a class="home" href="/tags/">Tags</a>
+				<li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
+                    <ul class="dropdown-menu multi-level">
+                        <li class="dropdown-submenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">General Topics</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/tutorials/general/unix-cheat-sheet/">Unix Cheat Sheet</a></li>
+                				<li><a href="/tutorials/general/introduction-to-fulton-supercomputer-lab/">Introduction to Fulton Supercomputer</a></li>
+                				<li><a href="/tutorials/general/submitting_jobs/">Submitting Batch Jobs on Supercomputer</a></li>
+                				<li><a href="/tutorials/general/R/">Learn R</a></li>
+                				<li><a href="/tutorials/general/install-freesurfer/">How to Install Freesurfer on Supercomputer</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Structural Imaging Topics</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/tutorials/structural/preprocessing_T1_weighted_images/">Preprocessing T1 Weighted Images</a></li>
+                				<li><a href="/tutorials/structural/convert-to-nifti/">Other Ways to Convert to NIfTI</a></li>
+                				<li><a href="/tutorials/structural/normalization/">Normalization</a></li>
+                				<li><a href="/tutorials/structural/cortical_thickness/">Tissue Segmentation and Cortical Thickness</a></li>
+                				<li><a href="/tutorials/structural/morphometry/">Various Morphometry Analyses</a></li>
+                				<li><a href="/tutorials/structural/ANTsR/">ANTsR</a></li>
+                				<li><a href="/tutorials/structural/group_average/">Group Average Overlays with ANTsR</a></li>
+                				<li><a href="/tutorials/structural/roi/">ROI Analysis with DKT</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Diffusion Imaging Topics</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/tutorials/diffusion/preprocessing_diffusion_weighted_images/">Preprocessing Diffusion Weighted Images</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects<b class="caret"></b></a>
+                    <ul class="dropdown-menu multi-level">
+                        <li class="dropdown-submenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">MIOS</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/projects/MIOS/corpus-callosum/">Corpus Callosum</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </nav>
+        </header>
+    </section>
+    
+<article>
+
+    <div class="container">
+        <header>
+        	
+            <div class="meta">
+                By <address><a rel="author" href="" title="Naomi J. Goodrich-Hunsaker" target="_blank">Naomi J. Goodrich-Hunsaker</a></address> &mdash;
+                <time pubdate datetime="2015-08-December" title="December 08, 2015">December 08, 2015</time>
+            </div>
+            <h1 class="title">buildtemplateparallel.sh Bug</h1>
+            
+        </header>
+
+        <section>
+            <p>When trying to run buildtemplateparallel.sh, I ran into several problems. Here are a list of changes I had to make. Here’s my code to run buildtemplateparallel.sh:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> /fslhome/intj5/compute/templates/SOBIK/data
+~/apps/ants-20151207/bin/buildtemplateparallel.sh <span class="se">\</span>
+-d <span class="m">3</span> <span class="se">\</span>
+-o sobik <span class="se">\</span>
+-c <span class="m">5</span> <span class="se">\</span>
+*.nii.gz</code></pre></div>
+
+<h2 id="problem-1">Problem 1</h2>
+
+<p>There was not a <em>qscript</em> variable after the <code>elif</code> command on line 1237.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="k">elif</span> <span class="o">[[</span> <span class="nv">$DOQSUB</span> -eq <span class="m">5</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+      <span class="nv">qscript</span><span class="o">=</span><span class="s2">&quot;job_${count}_${i}.sh&quot;</span>
+      <span class="nb">echo</span> <span class="s2">&quot;#!/bin/sh&quot;</span> &gt; <span class="k">${</span><span class="nv">qscript</span><span class="k">}</span></code></pre></div>
+
+<h2 id="problem-2">Problem 2</h2>
+
+<p>Next issue was the lack of specifying the amount of memory required for the sbatch submission. The FSL supercomputer requires memory listed, <code>--mem-per-cpu=32768M</code>. Here’s how I fixed the code on line 1242 (previously 1241 before fixing Problem #1).</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">id</span><span class="o">=</span><span class="sb">`</span>sbatch --job-name<span class="o">=</span>antsdef<span class="k">${</span><span class="nv">i</span><span class="k">}</span> --export<span class="o">=</span><span class="nv">ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS</span><span class="o">=</span>1,LD_LIBRARY_PATH<span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>,ANTSPATH<span class="o">=</span><span class="nv">$ANTSPATH</span> --nodes<span class="o">=</span><span class="m">1</span> --cpus-per-task<span class="o">=</span><span class="m">1</span> --mem-per-cpu<span class="o">=</span>32768M --time<span class="o">=</span>50:00:00 <span class="nv">$QSUBOPTS</span> <span class="nv">$qscript</span> <span class="p">|</span> rev <span class="p">|</span> cut -f1 -d<span class="se">\ </span><span class="p">|</span> rev<span class="sb">`</span></code></pre></div>
+
+<h2 id="problem-3">Problem 3</h2>
+
+<p>The latest version of <code>N4BiasFieldCorrection</code> was giving errors and aborting script. I was able to copy the script from the pre-complied code:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">cp -v <span class="se">\</span>
+~/apps/ants-2.1.0-redhat/N4BiasFieldCorrection <span class="se">\</span>
+~/apps/ants-20151207/bin/N4BiasFieldCorrection</code></pre></div>
+
+<p>Here’s the end result of using the 20 SOBIK participants. Goosebumps!</p>
+
+<p><img src="/images/posts/buildtemplateparallel.sh-bug/sobiktemplate.jpg" alt="SOBIK Template" /></p>
+
+            
+        </section>
+
+        <footer>
+            <address>
+               <img src="/images/naomi.jpg">
+                <p>Written by <strong><a rel="author" href="https://github.com/njhunsak" title="" target="_blank">Naomi J. Goodrich-Hunsaker</a></strong><br>
+                <span class="muted">Website Manager</span>
+                </p>
+            </address>
+
+        </footer>
+
+        
+        <section>
+            <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'biabl'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+        </section>
+        
+    </div>
+</article>
+
+    <footer class="site-footer">
+        <div class="container">
+            &copy; 2015
+            <nav>
+                <a href="http://biabl.github.io">Brain Imaging and Behavior Lab</a>
+            </nav>
+            <nav class="social">
+                 
+                 
+                <a href="/feed.xml" title="RSS Feed"><i class="icon icon-rss black"></i></a>
+            </nav>
+        </div>
+    </footer>
+    
+      <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js" defer></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" defer></script>
+  <script src="dist/js/bootstrap-submenu.min.js" defer></script>
+  <style type="text/css">
+<script src="/assets/main.js"></script>
+
+
+
+
+
+
+
+</body>
+</html>

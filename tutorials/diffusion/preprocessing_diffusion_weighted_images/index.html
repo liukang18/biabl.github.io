@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preprocessing Diffusion Weighted Images &mdash; Brain Imaging and Behavior Lab</title>
+    <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/images/logo.png"/>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="Brain Imaging and Behavior Lab" />
+    <meta name="title" content="Preprocessing Diffusion Weighted Images ">
+    <link rel="canonical" href="http://biabl.github.io/tutorials/diffusion/preprocessing_diffusion_weighted_images/">
+     
+           
+    <meta property="og:title" content="Preprocessing Diffusion Weighted Images "/>
+    <meta property="og:url" content="http://biabl.github.io/tutorials/diffusion/preprocessing_diffusion_weighted_images/"/>
+    
+    
+    <meta property="og:site_name" content="Brain Imaging and Behavior Lab">     
+</head>
+<body>
+    <section class="site-nav">
+        <header>
+            <nav id="navigation">
+                <a class="brand" href="/"><img alt="Inc" src="/images/logo.png"></a> 
+                <a class="home" href="/">Blog</a>
+                <a class="home" href="/tags/">Tags</a>
+				<li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
+                    <ul class="dropdown-menu multi-level">
+                        <li class="dropdown-submenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">General Topics</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/tutorials/general/unix-cheat-sheet/">Unix Cheat Sheet</a></li>
+                				<li><a href="/tutorials/general/introduction-to-fulton-supercomputer-lab/">Introduction to Fulton Supercomputer</a></li>
+                				<li><a href="/tutorials/general/submitting_jobs/">Submitting Batch Jobs on Supercomputer</a></li>
+                				<li><a href="/tutorials/general/R/">Learn R</a></li>
+                				<li><a href="/tutorials/general/install-freesurfer/">How to Install Freesurfer on Supercomputer</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Structural Imaging Topics</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/tutorials/structural/preprocessing_T1_weighted_images/">Preprocessing T1 Weighted Images</a></li>
+                				<li><a href="/tutorials/structural/convert-to-nifti/">Other Ways to Convert to NIfTI</a></li>
+                				<li><a href="/tutorials/structural/normalization/">Normalization</a></li>
+                				<li><a href="/tutorials/structural/cortical_thickness/">Tissue Segmentation and Cortical Thickness</a></li>
+                				<li><a href="/tutorials/structural/morphometry/">Various Morphometry Analyses</a></li>
+                				<li><a href="/tutorials/structural/ANTsR/">ANTsR</a></li>
+                				<li><a href="/tutorials/structural/group_average/">Group Average Overlays with ANTsR</a></li>
+                				<li><a href="/tutorials/structural/roi/">ROI Analysis with DKT</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Diffusion Imaging Topics</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/tutorials/diffusion/preprocessing_diffusion_weighted_images/">Preprocessing Diffusion Weighted Images</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects<b class="caret"></b></a>
+                    <ul class="dropdown-menu multi-level">
+                        <li class="dropdown-submenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">MIOS</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/projects/MIOS/corpus-callosum/">Corpus Callosum</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </nav>
+        </header>
+    </section>
+    
+<article>
+
+    <div class="container">
+        <header>
+        	
+            <div class="meta">
+                By <address><a rel="author" href="" title="Naomi J. Goodrich-Hunsaker" target="_blank">Naomi J. Goodrich-Hunsaker</a></address> &mdash;
+                <time pubdate datetime="2015-09-December" title="December 09, 2015">December 09, 2015</time>
+            </div>
+            <h1 class="title">Preprocessing Diffusion Weighted Images</h1>
+            
+        </header>
+
+        <section>
+            <h2 id="objectives">Objectives</h2>
+
+<p>After you complete this section, you should be able to:</p>
+
+<ol>
+  <li>Generate diffusion weighted image in NIfTI format and b-value and b-vector text file</li>
+  <li>Preprocess T1 image and acquire a brain only image</li>
+  <li>Set MATLAB environmental variables to use VISTASOFT software</li>
+  <li>Import brain only T1 image for use in the VISTASOFT pipeline</li>
+  <li>Fix any possible issues when using scans from Siemens or Phillips</li>
+  <li>Preprocess diffusion weighted images</li>
+  <li>Generate FA images</li>
+  <li>Check for errors in preprocessing steps</li>
+</ol>
+
+<p>Note that everything in “&lt; &gt;” is to be replaced. For example, &lt;fileName&gt; –&gt; iLovePeanuts.txt</p>
+
+<h2 id="diffusion-imaging">Diffusion Imaging</h2>
+
+<p><em>Diffusion weighted imaging</em> is based on water movement within a voxel of tissue. Therefore, the intensity value of each voxel represents the rate of water diffusion at that location. <em>Diffusion tensor imaging</em> is specific type of modeling of diffusion weighted images. The general theory behind DTI is that water molecules diffuse differently along the tissue depending on the tissue’s type and integrity. With DTI analyses it is possible to infer at the level of each voxel properties like molecular diffusion rate (mean diffusivity), the direction preference of diffusion (fractional anisotropy), diffusion along the main axis (axial diffusivity), and diffusion in transverse direction (radial diffusivity).</p>
+
+<p>All DTI preprocessing steps are conducted using the dtiInit preprocessing pipeline wrapper from Stanford open-source VISTASOFT package. The steps of preprocessing any diffusion weighted images includes the following:</p>
+
+<ol>
+  <li>Eddy-current correction</li>
+  <li>Register to T1 weighted image</li>
+  <li>Tensor Fitting</li>
+  <li>Compute DTI Scalars: FA, RD, MD, and AD</li>
+</ol>
+
+<h2 id="convert-dwis-and-scan-parameters-from-dicom-to-nifti">Convert DWIs and Scan Parameters from DICOM to NIfTI</h2>
+
+<p>First let’s create specific DWI directory within our participant directory. Often times you will be working with multiple scan modalities and you will want to put those in separate directories (e.g., DTI, fMRI, t2w, etc.). This directory is labeled raw and not dti simply because it follows the protocols as written by the <a href="http://white.stanford.edu/newlm/index.php/DTI_Preprocessing">Stanford group whose pipeline is being used</a>. You can change the name to something else if you prefer.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">subjDir</span><span class="o">=</span>&lt;/path/to/subject/directory&gt;
+mkdir <span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/raw</code></pre></div>
+
+<figure>
+	<img alt="" src="images/dti.png" />
+</figure>
+
+<p>Certain scan parameters must also be extracted from the DICOM files in order to determine tensor information in the DWIs. Two files need to be created: b-value file and diffusion gradient table.</p>
+
+<h3 id="b-value-bval">B-Value (.bval)</h3>
+
+<p>The b-values are the amount of diffusion weighting used for each volume. Depending on how many non-diffusion weighted or B0 scans you collect and what diffusion weighting max you use your b-value file is going to look something like this:</p>
+
+<figure>
+	<img alt="" src="images/bval.png" />
+	
+</figure>
+
+<h3 id="diffusion-gradient-table-bvec">Diffusion Gradient Table (.bvec)</h3>
+
+<p>Your b-vector are the gradient directions that you collect, often predetermined by the scanner depending on how many total directions you choose to collect. A b-vector file will look something like this:</p>
+
+<figure>
+	<img alt="" src="images/bvec.png" />
+	
+</figure>
+
+<p>In <code>dcm2nii</code> these files are automatically created. However, depending on the brand of the scanner, e.g., Siemens or GE, these scan parameters may not always be applied to the images correctly. <strong>Therefore, it is important to always visually check that tensors were applied correctly.</strong></p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">dcm2nii <span class="se">\</span>
+-a y 
+-g y <span class="se">\</span>
+-o <span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/raw <span class="se">\</span>
+<span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/DICOMs/*</code></pre></div>
+
+<h3 id="rename">Rename</h3>
+
+<p>The output from the <code>dcm2nii</code> program results in file names that are uniquely different across participants. For analyses though, we want all the files named exactly the same from participant to participant. In this case, we want all files to be named exactly the same, dti.nii.gz. The .bvec and .bval files also need to be renamed, dti.bvec and dti.bval, respectively.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> <span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/raw
+mv -f 2*.nii.gz dti.nii.gz
+mv -f 2*.bval dti.bval
+mv -f 2*.bvec dti.bvec</code></pre></div>
+
+<h2 id="preprocess-t1-weighted-images">Preprocess T1 Weighted Images</h2>
+
+<p>Refer to the information provided here: <a href="http://njhunsak.github.io/neuroimaging-analysis/topics/preprocessing_T1_weighted_images/">http://njhunsak.github.io/neuroimaging-analysis/topics/preprocessing_T1_weighted_images/</a>. You will need to perform the following steps:</p>
+
+<ol>
+  <li>Convert DICOMs to NIfTI, cropping and reorienting the image</li>
+  <li>AC-PC align the image</li>
+  <li>Resample image to 1 isotropic</li>
+  <li>Run the antsCorticalThickness.sh pipeline</li>
+</ol>
+
+<h2 id="vistasoft">VISTASOFT</h2>
+
+<p>One of the outputs from the antsCorticalThickness.sh pipeline is a skull-stripped image; however, the image is sometimes named differently:</p>
+
+<ul>
+  <li>ExtractedBrain0N4.nii.gz</li>
+  <li>BrainSegmentation0N4.nii.gz</li>
+</ul>
+
+<p>Copy the brain only file into the <code>t1</code> directory and rename the file <code>brain.nii.gz</code>:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> <span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/t1
+cp antsCorticalThickness/ExtractedBrain0N4.nii.gz brain.nii.gz</code></pre></div>
+
+<h3 id="set-matlab-environmental-variables">Set MATLAB Environmental Variables</h3>
+
+<p>DTI preprocessing uses a toolbox through MATLAB called VISTASOFT. For more information about how to install VISTASOFT visit <a href="https://github.com/vistalab/vistasoft">https://github.com/vistalab/vistasoft</a>. You will need to set the environment variables for MATLAB to find SPM5, VISTASOFT, and AFQ (which we will discuss later). The order in which you enter these environmental variables is <strong><em>CRITICAL</em></strong>. Do not place vistaPath before SPM5. In MATLAB:</p>
+
+<div class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">SPM5Path</span> <span class="p">=</span> <span class="s">&#39;/1/spm5&#39;</span><span class="p">;</span>
+<span class="n">addpath</span><span class="p">(</span><span class="n">genpath</span><span class="p">(</span><span class="n">SPM5Path</span><span class="p">));</span>
+<span class="n">vistaPath</span> <span class="p">=</span> <span class="s">&#39;/1/git/vistasoft&#39;</span><span class="p">;</span>
+<span class="n">addpath</span><span class="p">(</span><span class="n">genpath</span><span class="p">(</span><span class="n">vistaPath</span><span class="p">));</span>
+<span class="n">AFQPath</span> <span class="p">=</span> <span class="s">&#39;/1/git/AFQ&#39;</span><span class="p">;</span>
+<span class="n">addpath</span><span class="p">(</span><span class="n">genpath</span><span class="p">(</span><span class="n">AFQPath</span><span class="p">));</span></code></pre></div>
+
+<h3 id="prior-to-running-dtiinit">Prior to Running <em>dtiInit</em></h3>
+
+<p>Make sure you have your directory structure set up such that you have:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">.
+<span class="p">|</span>-- &lt;subjectDirectory&gt;
+<span class="p">|</span>	<span class="p">|</span>-- t1
+<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- brain.nii.gz
+<span class="p">|</span>	<span class="p">|</span>-- raw
+<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- dti.nii.gz
+<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- dti.bvec
+<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- dti.bval</code></pre></div>
+
+<h3 id="import-t1-image">Import T1 image</h3>
+
+<p>If you have already processed your T1 files through another pipeline you could have difficulties aligning the DTI data to your T1. This is due to the header information being different from what is expected by the VISTASOFT software. This can be fixed by running (in MATLAB) <code>mrAnatAverageAcpcNifti</code>. Open MATLAB to update the brain image so it will work in the mrDiffusion pipeline and save the new brain image as aveT1.nii.gz. The T1 image (‘t1/brain.nii.gz’) is rigidly aligned to an MNI template (‘templates/matlab.nii.gz’). Note that this alignment is rather arbitrary and is only useful in establishing the correct header information (e.g. origin, FOV size, etc.):</p>
+
+<div class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">subjDir</span><span class="p">=</span> <span class="p">[</span><span class="s">&#39;&lt;/path/to/participant/directory/&gt;&#39;</span><span class="p">];</span>
+<span class="n">brainFile</span> <span class="p">=</span> <span class="p">[</span><span class="n">subjDir</span><span class="p">,</span><span class="s">&#39;/t1/brain.nii.gz&#39;</span><span class="p">];</span>
+<span class="n">t1File</span> <span class="p">=</span> <span class="p">[</span><span class="n">subjDir</span><span class="p">,</span><span class="s">&#39;/t1/aveT1.nii.gz&#39;</span><span class="p">];</span>
+<span class="n">dtiFile</span> <span class="p">=</span> <span class="p">[</span><span class="n">subjDir</span><span class="p">,</span><span class="s">&#39;/raw/dti.nii.gz&#39;</span><span class="p">];</span>
+<span class="n">cd</span> <span class="p">(</span><span class="n">subjDir</span><span class="p">);</span>
+<span class="n">mrAnatAverageAcpcNifti</span><span class="p">(</span><span class="n">brainFile</span><span class="p">,</span><span class="n">t1File</span><span class="p">,[</span><span class="s">&#39;&lt;/path/to/templates/matlab.nii.gz&gt;&#39;</span><span class="p">]);</span></code></pre></div>
+
+<h3 id="fix-dcm2nii-transformation">Fix <em>dcm2nii</em> Transformation</h3>
+
+<p>This section is for those who have collected diffusion data on a Siemens or Phillips scanner, or on a GE scanner using the GE-supplied diffusion sequence (rather than Roland Bammer’s DTI sequence at the Stanford Lucas center). <em>dcm2nii</em> does not properly handle the transforms for use with the VISTASOFT pipeline. To fix this, run a little code in MATLAB that will fix that transform and get things working.</p>
+
+<p>To fix T1 image:</p>
+
+<div class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">ni</span> <span class="p">=</span> <span class="n">readFileNifti</span><span class="p">(</span><span class="n">t1File</span><span class="p">);</span>
+<span class="n">ni</span> <span class="p">=</span> <span class="n">niftiSetQto</span><span class="p">(</span><span class="n">ni</span><span class="p">,</span><span class="n">ni</span><span class="p">.</span><span class="n">sto_xyz</span><span class="p">);</span>
+<span class="n">writeFileNifti</span><span class="p">(</span><span class="n">ni</span><span class="p">,</span><span class="n">t1File</span><span class="p">);</span></code></pre></div>
+
+<p>To fix diffusion image:</p>
+
+<div class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">ni</span><span class="p">=</span><span class="n">readFileNifti</span><span class="p">(</span><span class="n">dtiFile</span><span class="p">);</span>
+<span class="n">ni</span><span class="p">=</span><span class="n">niftiSetQto</span><span class="p">(</span><span class="n">ni</span><span class="p">,</span><span class="n">ni</span><span class="p">.</span><span class="n">sto_xyz</span><span class="p">);</span>
+<span class="n">writeFileNifti</span><span class="p">(</span><span class="n">ni</span><span class="p">,</span><span class="n">dtiFile</span><span class="p">);</span></code></pre></div>
+
+<h3 id="setting-parameters-dtiinitparams">Setting Parameters: <em>dtiInitParams</em></h3>
+
+<p>Specific parameters can be set using the function <em>dtiInitParams</em>:</p>
+
+<div class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">dwParams</span> <span class="p">=</span> <span class="n">dtiInitParams</span><span class="p">(</span><span class="s">&#39;rotateBvecsWithCanXform&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="s">&#39;phaseEncodeDir&#39;</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="s">&#39;clobber&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span></code></pre></div>
+
+<p>Note that for Siemens data, we need to change the parameter as follows:</p>
+
+<div class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">dwParams</span><span class="p">.</span><span class="n">rotateBvecsWithCanXform</span> <span class="p">=</span> <span class="mi">1</span></code></pre></div>
+
+<p>Check parameters. It should look like this:</p>
+
+<div class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="o">&gt;</span> <span class="n">dwParams</span>
+
+<span class="n">dwParams</span> <span class="p">=</span>
+
+    <span class="n">bvalue</span><span class="p">:</span> <span class="p">[]</span>
+    <span class="n">gradDirsCode</span><span class="p">:</span> <span class="p">[]</span>
+    <span class="n">dt6BaseName</span><span class="p">:</span> <span class="s">&#39;&#39;</span>
+    <span class="n">flipLrApFlag</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="n">numBootStrapSamples</span><span class="p">:</span> <span class="mi">500</span>
+    <span class="n">fitMethods</span><span class="p">:</span> <span class="s">&#39;ls&#39;</span>
+    <span class="n">nStep</span><span class="p">:</span> <span class="mi">50</span>
+    <span class="n">eddyCorrect</span><span class="p">:</span> <span class="mi">1</span>
+    <span class="n">exclude</span> <span class="n">Vols</span><span class="p">:</span> <span class="p">[]</span>
+    <span class="n">bsplineInterpFlag</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="n">phaseEncoderDir</span><span class="p">:</span> <span class="mi">2</span>
+    <span class="n">dwOutMm</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span> <span class="mi">2</span> <span class="mi">2</span><span class="p">]</span>
+    <span class="n">rotateBvecsWithRx</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="n">rotate</span> <span class="n">BvecsWithCanXform</span><span class="p">:</span> <span class="mi">1</span>
+    <span class="n">bvecsFile</span><span class="p">:</span> <span class="s">&#39;&#39;</span>
+    <span class="n">bvalsFile</span><span class="p">:</span> <span class="s">&#39;&#39;</span></code></pre></div>
+
+<h3 id="running-dtiinit">Running <em>dtiInit</em></h3>
+
+<p>Running dtiInit is very simple (usually):</p>
+
+<div class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">dtiInit</span><span class="p">(</span><span class="n">dtiFile</span><span class="p">,</span> <span class="n">t1File</span><span class="p">,</span> <span class="n">dwParams</span><span class="p">);</span></code></pre></div>
+
+<h3 id="wait-awhile">Wait Awhile</h3>
+
+<p>… and you’re done! You should have a directory structure that looks something like the following.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">.
+<span class="p">|</span>-- &lt;subjectDirectory&gt;
+<span class="p">|</span>	<span class="p">|</span>-- t1
+<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- brain.nii.gz
+<span class="p">|</span>	<span class="p">|</span>-- raw
+<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- dti.nii.gz
+<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- dti.bvec
+<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- dti.bval
+<span class="p">|</span>	<span class="p">|</span>-- dti32trilin
+<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- bin
+<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- tensors.nii.gz
+<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- b0.nii.gz
+<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- brainMask.nii.gz
+<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- vectorRBG.nii.gz
+<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- wmMask.nii.gz
+<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- wmProb.nii.gz
+<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- faStd.nii.gz
+<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- mdStd.nii.gz
+<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- pddDispersion.nii.gz
+<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- dt6.mat
+<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- t1ppd.png</code></pre></div>
+
+<h3 id="generate-fa-maps">Generate FA Maps</h3>
+
+<p>If you ever need to place landmarks on the DTI image (e.g. fornix), then it is easiest on an FA image. To generate the FA map, use the following code:</p>
+
+<div class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">subjDir</span><span class="p">=</span> <span class="p">[</span><span class="s">&#39;&lt;/path/to/participant/directory/&gt;&#39;</span><span class="p">];</span>
+<span class="n">cd</span> <span class="p">(</span><span class="n">subjDir</span><span class="p">);</span>
+<span class="p">[</span><span class="n">dt6</span><span class="p">,</span> <span class="n">xformToAcpc</span><span class="p">,</span> <span class="n">mmPerVox</span><span class="p">]</span> <span class="p">=</span> <span class="n">dtiLoadTensorsFromNifti</span><span class="p">(</span><span class="s">&#39;dt6dir/bin/tensors.nii.gz&#39;</span><span class="p">);</span>
+<span class="p">[</span><span class="n">fa</span><span class="p">,</span><span class="n">md</span><span class="p">]</span> <span class="p">=</span> <span class="n">dtiComputeFA</span><span class="p">(</span><span class="n">dt6</span><span class="p">);</span>
+<span class="n">dtiWriteNiftiWrapper</span><span class="p">(</span><span class="n">fa</span><span class="p">,</span><span class="n">xformToAcpc</span><span class="p">,</span><span class="s">&#39;t1/fa.nii.gz&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="s">&#39;FA&#39;</span><span class="p">);</span></code></pre></div>
+
+<figure>
+	<img alt="" src="images/fa.png" />
+	
+</figure>
+
+<h3 id="check-output">Check Output</h3>
+
+<p>Part of the output provides a file that shows the RGB vector overlay. The file is located under the dt6dir and is called, t1pdd.png. This file shows a montage of the brain with the RGB overlay. The colors of the overlay signify the tensor direction. When looking at DTI overlays, red indicates tensors that are orientated right to left, green indicates tensors that are orientated anterior to posterior, and blue indicates tensors that are orientated superior to inferior. When looking at the RGB overlay, the corpus callosum should be solid red, because the tensors are moving back and forth from the right hemisphere to left hemisphere. If the corpus callosum is not bright red, you know you immediately have an issue:</p>
+
+<figure>
+	<img alt="" src="images/rbg.png" />
+	
+</figure>
+
+<p>Depending on the scanner and whether or not dcm2nii properly reads the header information, it is highly probable that the diffusion gradient directions may be reversed. After preprocessing, it is important that you check to make sure the gradient directions are visually inline with the white matter pathways. Here’s an example of misalignment:</p>
+
+<figure>
+	<img alt="" src="images/notaligned.png" />
+	
+</figure>
+
+<p>If the tensors are aligned correctly, they should like this:</p>
+
+<figure>
+	<img alt="" src="images/aligned.png" />
+	
+</figure>
+
+<h4 id="reference-manuals">Reference Manuals</h4>
+
+<ul>
+  <li>mrDiffusion - http://white.stanford.edu/newlm/index.php/DTI_Preprocessing</li>
+</ul>
+
+<h3 id="additional-classroom-materials">Additional Classroom Materials</h3>
+
+<ul>
+  <li><a href="presentation">Lecture</a></li>
+  <li><a href="assignment">Assignment</a></li>
+</ul>
+
+            
+        </section>
+
+        <footer>
+            <address>
+               <img src="/images/naomi.jpg">
+                <p>Written by <strong><a rel="author" href="https://twitter.com/" title="" target="_blank">Naomi J. Goodrich-Hunsaker</a></strong><br>
+                <span class="muted">Website Manager</span>
+                </p>
+            </address>
+
+        </footer>
+
+        
+        <section>
+            <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'biabl'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+        </section>
+        
+    </div>
+</article>
+
+    <footer class="site-footer">
+        <div class="container">
+            &copy; 2015
+            <nav>
+                <a href="http://biabl.github.io">Brain Imaging and Behavior Lab</a>
+            </nav>
+            <nav class="social">
+                 
+                 
+                <a href="/feed.xml" title="RSS Feed"><i class="icon icon-rss black"></i></a>
+            </nav>
+        </div>
+    </footer>
+    
+      <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js" defer></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" defer></script>
+  <script src="dist/js/bootstrap-submenu.min.js" defer></script>
+  <style type="text/css">
+<script src="/assets/main.js"></script>
+
+
+
+
+
+
+
+</body>
+</html>

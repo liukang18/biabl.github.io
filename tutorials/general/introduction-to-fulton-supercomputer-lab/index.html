@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to Fulton Supercomputer Lab &mdash; Brain Imaging and Behavior Lab</title>
+    <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/images/logo.png"/>
+    <link href="/feed.xml" rel="alternate" type="application/rss+xml" title="Brain Imaging and Behavior Lab" />
+    <meta name="title" content="Introduction to Fulton Supercomputer Lab ">
+    <link rel="canonical" href="http://biabl.github.io/tutorials/general/introduction-to-fulton-supercomputer-lab/">
+     
+           
+    <meta property="og:title" content="Introduction to Fulton Supercomputer Lab "/>
+    <meta property="og:url" content="http://biabl.github.io/tutorials/general/introduction-to-fulton-supercomputer-lab/"/>
+    
+    
+    <meta property="og:site_name" content="Brain Imaging and Behavior Lab">     
+</head>
+<body>
+    <section class="site-nav">
+        <header>
+            <nav id="navigation">
+                <a class="brand" href="/"><img alt="Inc" src="/images/logo.png"></a> 
+                <a class="home" href="/">Blog</a>
+                <a class="home" href="/tags/">Tags</a>
+				<li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
+                    <ul class="dropdown-menu multi-level">
+                        <li class="dropdown-submenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">General Topics</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/tutorials/general/unix-cheat-sheet/">Unix Cheat Sheet</a></li>
+                				<li><a href="/tutorials/general/introduction-to-fulton-supercomputer-lab/">Introduction to Fulton Supercomputer</a></li>
+                				<li><a href="/tutorials/general/submitting_jobs/">Submitting Batch Jobs on Supercomputer</a></li>
+                				<li><a href="/tutorials/general/R/">Learn R</a></li>
+                				<li><a href="/tutorials/general/install-freesurfer/">How to Install Freesurfer on Supercomputer</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Structural Imaging Topics</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/tutorials/structural/preprocessing_T1_weighted_images/">Preprocessing T1 Weighted Images</a></li>
+                				<li><a href="/tutorials/structural/convert-to-nifti/">Other Ways to Convert to NIfTI</a></li>
+                				<li><a href="/tutorials/structural/normalization/">Normalization</a></li>
+                				<li><a href="/tutorials/structural/cortical_thickness/">Tissue Segmentation and Cortical Thickness</a></li>
+                				<li><a href="/tutorials/structural/morphometry/">Various Morphometry Analyses</a></li>
+                				<li><a href="/tutorials/structural/ANTsR/">ANTsR</a></li>
+                				<li><a href="/tutorials/structural/group_average/">Group Average Overlays with ANTsR</a></li>
+                				<li><a href="/tutorials/structural/roi/">ROI Analysis with DKT</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Diffusion Imaging Topics</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/tutorials/diffusion/preprocessing_diffusion_weighted_images/">Preprocessing Diffusion Weighted Images</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects<b class="caret"></b></a>
+                    <ul class="dropdown-menu multi-level">
+                        <li class="dropdown-submenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">MIOS</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/projects/MIOS/corpus-callosum/">Corpus Callosum</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </nav>
+        </header>
+    </section>
+    
+<article>
+
+    <div class="container">
+        <header>
+        	
+            <div class="meta">
+                By <address><a rel="author" href="" title="Naomi J. Goodrich-Hunsaker" target="_blank">Naomi J. Goodrich-Hunsaker</a></address> &mdash;
+                <time pubdate datetime="2015-09-December" title="December 09, 2015">December 09, 2015</time>
+            </div>
+            <h1 class="title">Introduction to Fulton Supercomputer Lab</h1>
+            
+        </header>
+
+        <section>
+            <p>After you complete this section, you should be able to:</p>
+
+<ol>
+  <li>Establish a secure shell with the supercomputer</li>
+  <li>Copy the applications from the byustudent group directory</li>
+  <li>Permanently set your environmental variables</li>
+</ol>
+
+<p>Note that everything in “{}” is to be replaced. For example, {fileName} –&gt; iLovePeanuts.txt</p>
+
+<h2 id="introduction-to-byus-supercomputer">Introduction to BYU’s Supercomputer</h2>
+
+<iframe width="840" height="630	" src="https://www.youtube.com/embed/i1r9BxHBG0I" frameborder="0" allowfullscreen=""></iframe>
+
+<h2 id="logging-in">Logging In</h2>
+
+<p>Interaction with the supercomputer is typically performed with command line tools. The command line tools can be run via a command prompt, also known as a shell. SSH is used to establish a secure shell with the supercomputer. In general, users should log in via the hostname ssh.fsl.byu.edu.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">ssh <span class="o">{</span>username<span class="o">}</span>@ssh.fsl.byu.edu</code></pre></div>
+
+<p>where {username} is your NetID. Programs can be tested from the interactive nodes, but anything left running for more than an hour will be killed automatically.</p>
+
+<h2 id="installing-programs">Installing Programs</h2>
+
+<p>First make sure you are apart of the <code>fslg_byustudent</code> group. You can check which groups you belong to by typing:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">groups</code></pre></div>
+
+<p>Create an apps directory in your home directory and go to that directory. First make sure you are in your home directory:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">pwd</span>
+/fslhome/&lt;username&gt;/</code></pre></div>
+
+<p>Next, make the new directory and go to that directory:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">mkdir apps
+<span class="nb">cd </span>apps</code></pre></div>
+
+<p>The apps can be found in the fslg_byustudent group:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">rsync -rauv ~/fsl_groups/fslg_byustudent/apps/ ~/apps</code></pre></div>
+
+<p><strong><em>I always like to add the option <code>--dry-run</code> before submitting an rsync to make sure the files I want to copy are the ones being copied.</em></strong></p>
+
+<p>Check to make sure you have all the correct applications:</p>
+
+<p><img src="images/apps.png" alt="" /></p>
+
+<h2 id="set-environment-variables">Set Environment Variables</h2>
+
+<p>Every time a shell window opens, a process takes place to gather and compile information that needs to be available for all processes and child processes in that shell window. Many programs require certain environmental variables to be available in order to decipher the specifics of how to operate. In its simplest form, an environment variable is a variable with a name and a corresponding value. In most cases, it is simply the location of all the executable files for an application.</p>
+
+<p>Since many of the programs in this class do not have the standard GUI (window) based application, if you want to “launch” the application you have to first set the environmental variable to tell the computer where the executable files for that application are located. Otherwise, when you run the program, you will get an error that the program does not exist.</p>
+
+<h3 id="temporarily-set-environment-variable">Temporarily Set Environment Variable</h3>
+
+<p>Every time you open a shell window, if you have not permanently set the environmental variable, you will need to set it temporarily. The moment you close this window, the environmental variables are no longer set. If you run the program often, consider permanently setting the environment variable.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">export </span><span class="nv">ANTSPATH</span><span class="o">=</span>/usr/local/antsbin/bin/
+<span class="nv">PATH</span><span class="o">=</span><span class="k">${</span><span class="nv">ANTSPATH</span><span class="k">}</span>:<span class="k">${</span><span class="nv">PATH</span><span class="k">}</span></code></pre></div>
+
+<h3 id="permanently-set-environment-variable">Permanently Set Environment Variable</h3>
+
+<p><strong><em><a href="enviroVars.txt">Download an example bash_profile to use on the FSL supercomputer.</a></em></strong></p>
+
+<p>You can edit text files directly within the shell window.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">vi ~/.bash_profile</code></pre></div>
+
+<p>This will launch a text editor. The UNIX <code>vi</code> has two modes of operation:</p>
+
+<ol>
+  <li><em>Command mode</em> in which commands typed will cause action to be taken on the file</li>
+  <li><em>Insert mode</em> in which entered text is inserted or typed into the file.</li>
+</ol>
+
+<p>To begin insert mode to add text, press <code>a</code> and then type in the following information.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># ANTs Environmental Variables</span>
+<span class="nb">export </span><span class="nv">ANTSPATH</span><span class="o">=</span>/usr/local/antsbin/bin/
+<span class="nv">PATH</span><span class="o">=</span><span class="k">${</span><span class="nv">ANTSPATH</span><span class="k">}</span>:<span class="k">${</span><span class="nv">PATH</span><span class="k">}</span></code></pre></div>
+
+<p>Once you’ve typed the code, press <code>esc</code>. Pressing the escape turns off insert mode and returns you to command mode. To save the file and exit out of <code>vi</code> text editor, type <code>:wq&lt;Return&gt;</code>. This command will quit <code>vi</code>, writing out modified file to file named in original invocation.</p>
+
+<p>For more information on the basics of using <code>vi</code> go here:</p>
+
+<p><a href="http://www.cs.colostate.edu/helpdocs/vi.html">http://www.cs.colostate.edu/helpdocs/vi.html</a></p>
+
+<h2 id="to-wrap-or-not-to-wrap-that-is-the-question">To wrap or not to wrap, that is the question</h2>
+
+<p>When writing bash commands, lines of code can get really, really long and sometimes leave you scrolling right and left for extended amounts of time. Although there are no hard and fast rules about formatting code, good coding practices involve more human-friendly methods of organization. Take the following one-line of code as an example:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">N4BiasFieldCorrection -d <span class="m">3</span> -i &lt;inputImage&gt;.nii.gz -o <span class="o">[</span>&lt;correctedImage&gt;.nii.gz, &lt;biasfield&gt;.nii.gz<span class="o">]</span> -s <span class="m">4</span> -b <span class="o">[</span>200<span class="o">]</span> -c <span class="o">[</span>50x50x50x50,0.000001<span class="o">]</span></code></pre></div>
+
+<p>You are a lot more likely to make a mistake in your code (i.e., dropping a variable, making typos, etc.) when your code is all jumbled up like this. There’s a solution to make the code more human-readable, but does not change how the shell terminal reads the command. Remember that pressing &lt;Return&gt; in the shell terminal says, “run command”. How then do you take a long line of code and wrap it across multiple lines? Backslash!</p>
+
+<p>The backslash, \, in the shell window is called an escape character. It preserves the literal value of the next character that follows. In the case of a newline, the backslash marks the continuation of a line when the line of code is longer than the width of the terminal; when the command is finally submitted, the backslash that precedes a newline character is removed from the input stream and effectively ignored. In other words, the one line of code wrapped across multiple lines is run as if it was a single line of code.</p>
+
+<p>Test it out…</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="se">\</span>
+&gt; <span class="s2">&quot;Knowledge is power.&quot;</span></code></pre></div>
+
+<p>Now press the up arrow in your terminal. The previous command will appear and it should look something like this now.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">&quot;Knowledge is power.&quot;</span></code></pre></div>
+
+<p>The terminal will remove the backslash and run the code as normal. Now what does the above code look like when it has been wrapped:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>N4BiasFieldCorrection <span class="se">\</span>
+-d <span class="m">3</span> <span class="se">\</span>
+-i &lt;inputImage&gt;.nii.gz <span class="se">\</span>
+-o <span class="o">[</span>&lt;correctedImage&gt;.nii.gz,&lt;biasfield&gt;.nii.gz<span class="o">]</span> <span class="se">\</span>
+-s <span class="m">4</span> <span class="se">\ </span>
+-b <span class="o">[</span>200<span class="o">]</span> <span class="se">\</span>
+-c <span class="o">[</span>50x50x50x50,0.000001<span class="o">]</span></code></pre></div>
+
+<p>For this class, I will try to make the code as human-readable as possible.</p>
+
+<h3 id="additional-classroom-materials">Additional Classroom Materials</h3>
+
+<ul>
+  <li><a href="presentation">Lecture</a></li>
+  <li><a href="assignment">Assignment</a></li>
+</ul>
+
+            
+        </section>
+
+        <footer>
+            <address>
+               <img src="/images/naomi.jpg">
+                <p>Written by <strong><a rel="author" href="https://twitter.com/" title="" target="_blank">Naomi J. Goodrich-Hunsaker</a></strong><br>
+                <span class="muted">Website Manager</span>
+                </p>
+            </address>
+
+        </footer>
+
+        
+        <section>
+            <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'biabl'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+        </section>
+        
+    </div>
+</article>
+
+    <footer class="site-footer">
+        <div class="container">
+            &copy; 2015
+            <nav>
+                <a href="http://biabl.github.io">Brain Imaging and Behavior Lab</a>
+            </nav>
+            <nav class="social">
+                 
+                 
+                <a href="/feed.xml" title="RSS Feed"><i class="icon icon-rss black"></i></a>
+            </nav>
+        </div>
+    </footer>
+    
+      <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js" defer></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" defer></script>
+  <script src="dist/js/bootstrap-submenu.min.js" defer></script>
+  <style type="text/css">
+<script src="/assets/main.js"></script>
+
+
+
+
+
+
+
+</body>
+</html>
