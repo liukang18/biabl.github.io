@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>Average Cortical Thickness Consideration</title>
+    
+    <meta name="author" content="Naomi Goodrich-Hunsaker, Ph.D.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="/assets/themes//resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/themes//css/pygments.css">
+  
+    <!--[if lt IE 9]>
+      <script src="/assets/themes//resources/respond/Respond.min.js"></script>
+    <![endif]-->
+
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+  </head>
+
+  <body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Brain Imaging and Behavior Lab</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+          <li><a href="/tutorials">Tutorials </a></li>
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+          	<li class="dropdown-header">SOBIK</li>
+            <li><a href="/projects/SOBIK/template/">Template</a></li>
+            <li role="separator" class="divider"></li>
+            <li class="dropdown-header">MIOS</li>
+            <li><a href="/projects/MIOS/corpus-callosum">Corpus Callosum</a></li>
+          </ul>
+        </li>
+        <li>  </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+    <div class="container">
+      
+
+<div class="page-header">
+  <h1>Average Cortical Thickness Consideration </h1>
+  <h4>By Naomi J. Goodrich-Hunsaker &mdash;<time pubdate datetime="2015-06-December" title="December 06, 2015">December 06, 2015</time></h4>
+</div>
+
+<div class="row post-full">
+  <div class="col-md-12">
+    <div class="content">
+      <p>If you were to just take the average of all the voxels in the cortical thickness image, you would be including a lot of extra non-cortical voxels that will GREATLY skew your data!</p>
+
+<!-- more -->
+
+<p>In order to deal with this issue, if you use the gray matter segmentation as a mask, then when you acquire the average thickness, it will be for the cortical regions only. Remember the the human cortex ranges from about 1 to 4mm in thickness with an average around 2.5 to 3mm.</p>
+
+<h2 id="generate-data">Generate Data</h2>
+
+<p>In order to extract the average cortical thickness in a single participant:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> /path/to/antsCorticalThickness/directory/
+~/apps/c3d/bin/c3d BrainSegmentation.nii.gz -threshold <span class="m">2</span> <span class="m">2</span> <span class="m">1</span> <span class="m">0</span> -as MASK CorticalThickness.nii.gz -push MASK -lstat</code></pre></figure>
+
+<p>Let’s compare the output if we didn’t run this code, but ran the code to just get the average intensity of ALL the voxels:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">~/apps/c3d/bin/c3d CorticalThickness.nii.gz -info-full
+Image <span class="c">#1:</span>
+  Image Dimensions   : <span class="o">[</span>198, 236, 200<span class="o">]</span>
+  Bounding Box       : <span class="o">{[</span>100.999 96.2826 -87.5596<span class="o">]</span>, <span class="o">[</span>298.933 332.089 112.618<span class="o">]}</span>
+  Voxel Spacing      : <span class="o">[</span>0.999667, 0.99918, 1.00089<span class="o">]</span>
+  Intensity Range    : <span class="o">[</span>0, 10.4775<span class="o">]</span>
+  Mean Intensity     : 0.271343</code></pre></figure>
+
+<p>Obvious a cortical thickness of 0.271343 is not valid. With the correct code you can see that the average thickness is actually 4.09824 \( \pm \) 1.42453.</p>
+
+<p>If you want to try and run this specifically with our course dataset:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="k">for</span> subj in <span class="k">$(</span>ls ~/compute/data/<span class="k">)</span><span class="p">;</span> <span class="k">do</span> 
+<span class="nv">subjDir</span><span class="o">=</span>~/compute/data/<span class="k">${</span><span class="nv">subj</span><span class="k">}</span>/
+<span class="nb">echo</span> <span class="nv">$subj</span> &gt;&gt; ~/compute/projects/corticalthickness/data.csv 
+~/apps/c3d/bin/c3d <span class="se">\</span>
+<span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/antsCorticalThickness/BrainSegmentation.nii.gz <span class="se">\</span>
+-threshold <span class="m">2</span> <span class="m">2</span> <span class="m">1</span> <span class="m">0</span> <span class="se">\</span>
+-as MASK <span class="se">\</span>
+<span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/antsCorticalThickness/CorticalThickness.nii.gz <span class="se">\</span>
+-push MASK <span class="se">\</span>
+-label-statistics &gt;&gt; ~/compute/projects/corticalthickness/data.csv
+<span class="k">done</span></code></pre></figure>
+
+<h2 id="regular-expressions">Regular Expressions</h2>
+
+<p>The file is not perfectly formatted so that it can be easily imported into R or even useful in Excel. Some editing of the file needs to happen and we can use the power of Regular Expressions in Terminal to edit the file. Just make sure to change the username in the first line of the code.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">input</span><span class="o">=</span><span class="s2">&quot;/fslhome/username/compute/projects/corticalthickness/data.csv&quot;</span>
+<span class="nv">output</span><span class="o">=</span><span class="s2">&quot;${input%.*}_modified.csv&quot;</span>
+<span class="nb">cd</span> <span class="k">$(</span>dirname <span class="nv">$input</span><span class="k">)</span>
+grep -vwE <span class="s2">&quot;(Reading #1|LabelID|^(    0))&quot;</span> <span class="k">${</span><span class="nv">input</span><span class="k">}</span> <span class="p">|</span> sed -e <span class="s2">&quot;s|/|,|&quot;</span> -Ee <span class="s2">&quot;s/[ ]+/,/g&quot;</span> &gt; temp.txt
+awk <span class="s1">&#39;/^[0-9][0-9][0-9][0-9]_[0-9][0-9][0-9][0-9][0-9][0-9]/{for(i=0;i&lt;1;i++)print}&#39;</span> temp.txt &gt; part1.txt
+awk <span class="s1">&#39;/^,/{print}&#39;</span> temp.txt &gt; part2.txt
+sed -i <span class="s1">&#39;&#39;</span> -e <span class="s2">&quot;s|,1,|,corticalthickness,|&quot;</span> part2.txt 
+paste part1.txt part2.txt &gt; <span class="k">${</span><span class="nv">output</span><span class="k">}</span>
+perl -pi -e <span class="s1">&#39;print &quot;subjectid, label, mean, std, max, min, count, volume (mm^3), extent x, extent y, extent z\n&quot; if($.==1)&#39;</span> <span class="k">${</span><span class="nv">output</span><span class="k">}</span>
+rm part1.txt
+rm part2.txt
+rm temp.txt</code></pre></figure>
+
+<p>Note this code works for the SOBIK dataset. If you have different subject IDs, you’ll need to edit the regular expression in line #5. If you need more help figuring out regular expressions visit this website here:</p>
+
+<p><a href="https://regex101.com/">https://regex101.com/</a></p>
+
+<p>Happy Coding!</p>
+
+    </div>
+
+    <hr>
+      
+      <footer>
+          <div class="col-sm-1">
+              <img src="/images/naomi.jpg" class="img-circle" width="64" height="64">
+          </div>
+          <div class="col-sm-11">
+              <p>Written by <strong><a rel="author" href="https://github.com/njhunsak" title="" target="_blank">Naomi J. Goodrich-Hunsaker</a></strong><br>
+                  <span class="muted">Website Manager</span>
+              </p>
+          </div>
+      </footer>
+
+    <hr>
+    
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+</div>
+
+
+      <hr>
+      <footer>
+        <p>
+          &copy; 2015 Naomi Goodrich-Hunsaker, Ph.D.
+          <span class="pull-right text-muted">
+            powered by
+            <a href="http://dbtek.github.io/jekyll-bootstrap-3" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll-Bootstrap-3</a>
+            and <a href="http://getbootstrap.com" target="_blank">Twitter Bootstrap 3.0.3</a>
+          </span>
+        </p>
+      </footer>
+    </div>
+
+    
+
+    <script src="/assets/themes//resources/jquery/jquery.min.js"></script>
+    <script src="/assets/themes//resources/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
+

@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>How to Start Blogging</title>
+    
+    <meta name="author" content="Naomi Goodrich-Hunsaker, Ph.D.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="/assets/themes//resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/themes//css/pygments.css">
+  
+    <!--[if lt IE 9]>
+      <script src="/assets/themes//resources/respond/Respond.min.js"></script>
+    <![endif]-->
+
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+  </head>
+
+  <body>
+<nav class="navbar navbar-default navbar-static-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Brain Imaging and Behavior Lab</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+          <li><a href="/tutorials">Tutorials</a></li>
+          <li><a href="#">Projects</a></li>
+      </ul>
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+    <div class="container">
+      
+
+<div class="page-header">
+  <h1>How to Start Blogging </h1>
+  <h4><time pubdate datetime="2015-10-December" title="December 10, 2015">December 10, 2015</time></h4>
+</div>
+
+<div class="row post-full">
+  <div class="col-md-12">
+    <div class="content">
+      <p>Here are the basic steps for how to get started with Github and Jekyll. Posts are located until the <code>_posts</code> directory. The files are in markdown format. File names need to be specifically named and the top of each file needs to contain specific YAML Frontmatter. See current posts for usage:</p>
+
+<!-- more -->
+
+<h2 id="install-jekyll">Install Jekyll</h2>
+
+<p>There are several dependecies required before you install Jekyll:</p>
+
+<ol>
+  <li>Make sure you have the latest version of XCode.</li>
+  <li><a href="https://www.ruby-lang.org/en/downloads/">Ruby</a></li>
+  <li><a href="https://rubygems.org/pages/download">Ruby Gems</a></li>
+  <li><a href="https://nodejs.org/en/">NodeJS</a></li>
+  <li><a href="https://www.python.org/downloads/">Python 2.7</a></li>
+</ol>
+
+<p>Now install Jekyll:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">gem install jekyll</code></pre></figure>
+
+<h2 id="clone-repository">Clone Repository</h2>
+
+<p>The website is created under the <code>gh</code> branch and not the main branch. The website is launched through the main branch. Clone the repository where you want it on your local computer.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git clone https://github.com/biabl/biabl.github.io.git
+<span class="nb">cd </span>biabl.github.io
+git checkout gh</code></pre></figure>
+
+<p>When you have made changes to the website make sure to commit those changes</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git add --all
+git commit -m <span class="s2">&quot;message&quot;</span>
+git push origin gh</code></pre></figure>
+
+<h2 id="publish-website">Publish Website</h2>
+
+<p>In order to publish the website, you have to compile the pages. Within the ‘gh’ branch, type:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">rake site:publish</code></pre></figure>
+
+    </div>
+
+    <hr>
+      
+      <footer>
+          <div class="col-sm-1">
+              <img src="/images/naomi.jpg" class="img-circle" width="64" height="64">
+          </div>
+          <div class="col-sm-11">
+              <p>Written by <strong><a rel="author" href="https://github.com/njhunsak" title="" target="_blank">Naomi J. Goodrich-Hunsaker</a></strong><br>
+                  <span class="muted">Website Manager</span>
+              </p>
+          </div>
+      </footer>
+
+    <hr>
+    
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+</div>
+
+
+      <hr>
+      <footer>
+        <p>
+          &copy; 2015 Naomi Goodrich-Hunsaker, Ph.D.
+          <span class="pull-right text-muted">
+            powered by
+            <a href="http://dbtek.github.io/jekyll-bootstrap-3" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll-Bootstrap-3</a>
+            and <a href="http://getbootstrap.com" target="_blank">Twitter Bootstrap 3.0.3</a>
+          </span>
+        </p>
+      </footer>
+    </div>
+
+    
+
+    <script src="/assets/themes//resources/jquery/jquery.min.js"></script>
+    <script src="/assets/themes//resources/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
+

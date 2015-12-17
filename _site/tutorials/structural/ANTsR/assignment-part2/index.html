@@ -1,0 +1,134 @@
+<h2 id="log-into-supercomputer">Log Into Supercomputer</h2>
+
+<p>Change your <username></username></p>
+
+<p><code>bash
+ssh &lt;username&gt;@ssh.fsl.byu.edu
+</code></p>
+
+<h2 id="sync-projects">Sync Projects</h2>
+
+<p>Even if you were able to to run ANTs Cortical Thickness correctly and have all the files, let’s just double make sure that we are all using the same images for analyses.</p>
+
+<p><code>bash
+rsync \
+-rauv \
+~/fsl_groups/fslg_byustudent/compute/projects/ \
+~/compute/projects
+</code></p>
+
+<h2 id="load-environmental-variables">Load Environmental Variables</h2>
+
+<p><code>bash
+module load r/3.2.1
+</code></p>
+
+<h2 id="launch-r">Launch R</h2>
+
+<p><code>R
+R
+</code></p>
+
+<p>Let’s load our packages. Remember, you’ve already installed all the packages (<code>install.packages</code>) now all you have to do is load the packages you want to use (<code>library</code>):</p>
+
+<p><code>R
+library(ANTsR)
+</code></p>
+
+<p>Set path to directory containing your data:</p>
+
+<p><code>R
+setwd("~/compute/projects/corticalthickness/data")
+</code></p>
+
+<h2 id="import-files">Import Files</h2>
+
+<p>Import files and smooth - The following code creates a list of files in your working directory (<em>files</em>). Any empty list is created for when the images are smoothed they are added to the empty list (<em>ilist</em>). For each image in the <em>files</em> list, the are imported and smoothed and then added to the <em>ilist</em> list.</p>
+
+<p><code>R
+files&lt;-list.files()
+ilist&lt;-list()
+for ( i in 1:length(files) )
+{
+  img&lt;-antsImageRead(files[i])
+  img&lt;-smoothImage(img,1.5)
+  ilist[i]&lt;-img
+}
+</code></p>
+
+<p>Convert to matrices - A simple mask is created to know what is and is not data to analyze. You don’t want to analyze nonbrain data. The values are extracted from each voxel to form a 3D matrix.</p>
+
+<p><code>R
+mask&lt;-getMask(antsImageRead(files[1]))
+mat&lt;-imageListToMatrix(ilist, mask)
+</code></p>
+
+<h2 id="load-demographics-files">Load Demographics Files</h2>
+
+<p>Demographic data can be anything from group ID, age, and gender. Data can also include neuropsych outcomes etc. To make life easy, your demographics file sound have the same study IDs as your MRI files and also be in alphanumeric order.</p>
+
+<p><code>R
+mydata&lt;-read.table("~/compute/projects/demographics.csv", header=TRUE,sep=",")
+</code></p>
+
+<p>Subset data to demographics and desired variable column. For your first analyses let’s just compared TBI versus OI, so create a variable <em>var1</em> that contains group diagnosis, which is column 2 out of the whole demographic file.</p>
+
+<p><code>R
+vardata&lt;-mydata[c(1:2)]
+var1&lt;-vardata[,2]
+</code></p>
+
+<p>Get rid of any missing data. R does <strong>NOT</strong> like missing data and will often not run if there’s missing data.</p>
+
+<p><code>R
+vardata&lt;-na.omit(vardata)
+</code></p>
+
+<h2 id="merge-data">Merge Data</h2>
+
+<p>Taking the subject ID information from the files. Namely your files should be labeled as subject ID (again to make life easier). Since the names in the <em>files</em> list contain not only the subject ID but also the file type (.nii.gz), we want just the subject ID which is 10 characters long. We can then merge the <em>study id</em> list with the demographics <em>vardata</em> and make sure we just have demographics data for the participants with images.</p>
+
+<p><code>R
+studyid=substr(files,1,11)
+studyid=data.frame(studyid)
+vardata=merge(vardata,studyid,all.y=TRUE)
+varlist&lt;-rownames(vardata)
+varlist&lt;-as.numeric(varlist)
+varlist&lt;-list(varlist)
+for(i in varlist){
+varmat&lt;-subset(mat[i,])
+}
+</code></p>
+
+<h2 id="run-analysis">Run Analysis</h2>
+
+<p>By running a simple linear regression with a single independent variable (<em>var1</em>), we are able to compared TBI versus OI:</p>
+
+<p><code>R
+voxels&lt;-ncol(varmat)
+regpval&lt;-matrix(nrow=1,ncol=voxels)
+regtstat&lt;-matrix(nrow=1,ncol=voxels)
+for (i in 1:voxels){
+vox&lt;-varmat[,i]
+regfit&lt;-lm(vox~var1)
+regsum&lt;-summary(regfit)
+regpval[,i]&lt;-regsum$coefficients[2,4]
+regtstat[,i]&lt;-regsum$coefficients[2,3]
+}
+</code></p>
+
+<h2 id="convert-to-statistical-images">Convert to statistical images</h2>
+
+<p>The data is in the form of a 3D matrix and needs to be converted into a visual NIfTI image. Make sure the change the <username> to your supercomputer username:</username></p>
+
+<p><code>R
+i.regpval&lt;-makeImage(mask,regpval)
+antsImageWrite(i.regpval,file="/fslhome/&lt;username&gt;/compute/projects/corticalthickness/regpval.nii.gz")
+i.regtstat&lt;-makeImage(mask,regtstat)
+antsImageWrite(i.regtstat,file="/fslhome/&lt;username&gt;/compute/projects/corticalthickness/regtstat.nii.gz")
+</code></p>
+
+<h2 id="additional-analyses">Additional Analyses</h2>
+
+<p>We’ve created a statistical map for the cortical thickness data. Now you can rerun the analyses looking at the log Jacobians (TBM) and the modulated gray matter images (VBM).</p>
+

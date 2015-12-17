@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>SOBIK Template Construction</title>
+    <meta name="description" content="">
+    <meta name="author" content="Naomi Goodrich-Hunsaker, Ph.D.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="/assets/themes/bootstrap/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/themes/bootstrap/css/pygments.css">
+  
+    <!--[if lt IE 9]>
+      <script src="/assets/themes/bootstrap/resources/respond/Respond.min.js"></script>
+    <![endif]-->
+
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+  </head>
+
+  <body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Brain Imaging and Behavior Lab</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+          <li><a href="/tutorials">Tutorials </a></li>
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+          	<li class="dropdown-header">SOBIK</li>
+            <li><a href="/projects/SOBIK/template/">Template</a></li>
+            <li role="separator" class="divider"></li>
+            <li class="dropdown-header">MIOS</li>
+            <li><a href="/projects/MIOS/corpus-callosum">Corpus Callosum</a></li>
+          </ul>
+        </li>
+        <li>  </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+    <div class="container">
+      
+<div class="page-header">
+  <h1>SOBIK Template Construction </h1>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+      
+
+<noscript><pre>#!/bin/bash
+
+#SBATCH --time=50:00:00   # walltime
+#SBATCH --ntasks=1   # number of processor cores (i.e. tasks)
+#SBATCH --nodes=1   # number of nodes
+#SBATCH --mem-per-cpu=16384M  # memory per CPU core
+
+# Compatibility variables for PBS. Delete if not needed.
+export PBS_NODEFILE=`/fslapps/fslutils/generate_pbs_nodefile`
+export PBS_JOBID=$SLURM_JOB_ID
+export PBS_O_WORKDIR=&quot;$SLURM_SUBMIT_DIR&quot;
+export PBS_QUEUE=batch
+
+# Set the max number of threads to use for programs using OpenMP.
+export OMP_NUM_THREADS=$SLURM_CPUS_ON_NODE
+
+# LOAD MODULES, INSERT CODE, AND RUN YOUR PROGRAMS HERE
+export ANTSPATH=/fslhome/intj5/apps/ants-20151207/bin/
+PATH=${ANTSPATH}:${PATH}
+cd /fslhome/intj5/compute/templates/SOBIK/
+~/apps/ants-20151207/bin/buildtemplateparallel.sh \
+-d 3 \
+-o sobik \
+-c 5 \
+*.nii.gz</pre></noscript><script src="https://gist.github.com/njhunsak/a1f60562ed874ae089cc.js"> </script>
+  </div>
+</div>
+
+
+      <hr>
+      <footer>
+        <p>
+          &copy; 2015 Naomi Goodrich-Hunsaker, Ph.D.
+          <span class="pull-right text-muted">
+            powered by
+            <a href="http://dbtek.github.io/jekyll-bootstrap-3" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll-Bootstrap-3</a>
+            and <a href="http://getbootstrap.com" target="_blank">Twitter Bootstrap 3.0.3</a>
+          </span>
+        </p>
+      </footer>
+    </div>
+
+    
+
+    <script src="/assets/themes/bootstrap/resources/jquery/jquery.min.js"></script>
+    <script src="/assets/themes/bootstrap/resources/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
+

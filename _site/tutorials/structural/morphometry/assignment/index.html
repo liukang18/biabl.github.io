@@ -1,0 +1,82 @@
+<h2 id="log-into-the-supercomputer">Log Into the Supercomputer</h2>
+
+<p><code>bash
+ssh &lt;username&gt;@ssh.fsl.byu.edu
+</code></p>
+
+<p>Make directory for potential analyses</p>
+
+<p><code>bash
+mkdir -p ~/compute/projects/corticalthickness/data
+mkdir -p ~/compute/projects/tbm/data
+mkdir -p ~/compute/projects/vbm/data
+</code></p>
+
+<h2 id="sync-template-directory">Sync Template Directory</h2>
+
+<p><code>bash
+rsync \
+-rauv \
+~/fsl_groups/fslg_byustudent/templates/ \
+~/templates
+</code></p>
+
+<h2 id="copy-files-and-add-subject-id-to-filename">Copy Files and Add Subject ID to Filename</h2>
+
+<p>Copy cortical thickness normalized to template images:</p>
+
+<p><code>bash
+for subj in $(ls ~/compute/data); do
+SUBJ_DIR=~/compute/data/${subj}/antsCorticalThickness/
+cp -v \
+${SUBJ_DIR}/CorticalThicknessNormalizedToTemplate.nii.gz \
+~/compute/projects/corticalthickness/data/${subj}.nii.gz
+done
+</code></p>
+
+<p>Copy log Jacobian images:</p>
+
+<p><code>bash
+for subj in $(ls ~/compute/data); do
+SUBJ_DIR=~/compute/data/${subj}/antsCorticalThickness/
+cp -v \
+${SUBJ_DIR}/SubjectToTemplateLogJacobian.nii.gz \
+~/compute/projects/tbm/data/${subj}.nii.gz
+done
+</code></p>
+
+<h2 id="generate-normalized-gm-images">Generate Normalized GM Images</h2>
+
+<p><code>bash
+for subj in $(ls ~/compute/data); do
+SUBJ_DIR=~/compute/data/${subj}/antsCorticalThickness
+~/apps/c3d/bin/c3d \
+${SUBJ_DIR}/BrainNormalizedToTemplate.nii.gz \
+~/templates/NKI10andUnder/T_template0_GMMask.nii.gz \
+-multiply \
+-o ${SUBJ_DIR}/GMSegmented.nii.gz
+done
+</code></p>
+
+<h2 id="modulate-gm-images">Modulate GM Images</h2>
+
+<p><code>bash
+for subj in $(ls ~/compute/data); do
+SUBJ_DIR=~/compute/data/${subj}/antsCorticalThickness
+~/apps/c3d/bin/c3d \
+${SUBJ_DIR}/GMSegmented.nii.gz \
+${SUBJ_DIR}/SubjectToTemplateLogJacobian.nii.gz \
+-multiply \
+-o ${SUBJ_DIR}/GMModulated.nii.gz
+done
+</code></p>
+
+<h2 id="copy-images">Copy Images</h2>
+
+<p><code>bash
+for subj in $(ls ~/compute/data); do
+cp -v \
+~/compute/data/${subj}/antsCorticalThickness/GMModulated.nii.gz \
+~/compute/projects/vbm/data/${subj}.nii.gz
+done
+</code></p>

@@ -1,0 +1,207 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>Group Average Overlays with ANTsR</title>
+    
+    <meta name="author" content="Naomi Goodrich-Hunsaker, Ph.D.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="/assets/themes/bootstrap/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/themes/bootstrap/css/pygments.css">
+  
+    <!--[if lt IE 9]>
+      <script src="/assets/themes/bootstrap/resources/respond/Respond.min.js"></script>
+    <![endif]-->
+
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+  </head>
+
+  <body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Brain Imaging and Behavior Lab</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+          <li><a href="/tutorials">Tutorials </a></li>
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+          	<li class="dropdown-header">SOBIK</li>
+            <li><a href="/projects/SOBIK/template/">Template</a></li>
+            <li role="separator" class="divider"></li>
+            <li class="dropdown-header">MIOS</li>
+            <li><a href="/projects/MIOS/corpus-callosum">Corpus Callosum</a></li>
+          </ul>
+        </li>
+        <li>  </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+    <div class="container">
+      
+
+<div class="page-header">
+  <h1>Group Average Overlays with ANTsR </h1>
+</div>
+
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="sidebar-nav">
+                <div class="navbar navbar-default" role="navigation">
+                    <div class="navbar-header">
+                        <button class="navbar-toggle" data-target=".sidebar-navbar-collapse" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button> <span class="visible-xs navbar-brand">Sidebar menu</span>
+                    </div>
+                    <div class="navbar-collapse collapse sidebar-navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">General Topics <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                   <li><a href="/tutorials/general/unix-cheat-sheet/">Unix Cheat Sheet</a></li>
+                                    <li><a href="/tutorials/general/introduction-to-fulton-supercomputer-lab/">Introduction to Fulton Supercomputer</a></li>
+                                    <li><a href="/tutorials/general/submitting-jobs/">Submitting Batch Jobs on Supercomputer</a></li>
+                                    <li><a href="/tutorials/general/R/">Learn R</a></li>
+                                    <li><a href="/tutorials/general/install-freesurfer/">How to Install Freesurfer on Supercomputer</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Structural Imaging <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/tutorials/structural/preprocessing_T1_weighted_images/">Preprocessing T1 Weighted Images</a></li>
+                                    <li><a href="/tutorials/structural/convert-to-nifti/">Other Ways to Convert to NIfTI</a></li>
+                                    <li><a href="/tutorials/structural/normalization/">Normalization</a></li>
+                                    <li><a href="/tutorials/structural/cortical_thickness/">Tissue Segmentation and Cortical Thickness</a></li>
+                                    <li><a href="/tutorials/structural/morphometry/">Various Morphometry Analyses</a></li>
+                                    <li><a href="/tutorials/structural/ANTsR/">ANTsR</a></li>
+                                    <li><a href="/tutorials/structural/group_average/">Group Average Overlays with ANTsR</a></li>
+                                    <li><a href="/tutorials/structural/roi/">ROI Analysis with DKT</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Diffusion Imaging <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/tutorials/diffusion/preprocessing_diffusion_weighted_images/">Preprocessing Diffusion Weighted Images</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9">
+ <p>One of the best ways to look at group differences is to create an average of each group’s data. For example, if you wanted to look at cortical thickness differences in TBI versus OI, then you would want a group cortical thickness average for the TBI group and another group cortical thickness average of the OI group. Note that when creating group averages, images need to be in template space (i.e., warped to template).</p>
+
+<h2 id="run-r">Run R</h2>
+
+<p>Log into the supercomputer:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ssh &lt;username&gt;@ssh.fsl.byu.edu</code></pre></figure>
+
+<p>Load the environmental variables so that R will run on the supercomputer:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">module load r/3.2.1</code></pre></figure>
+
+<p>Launch R:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">R</code></pre></figure>
+
+<p>Let’s load our packages.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="kn">library</span><span class="p">(</span>ANTsR<span class="p">)</span></code></pre></figure>
+
+<p>Set path to directory containing your data:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="kp">setwd</span><span class="p">(</span><span class="s">&quot;/path/to/data/&quot;</span><span class="p">)</span></code></pre></figure>
+
+<h2 id="import-data">Import Data</h2>
+
+<p>Depending on how your groups are differentiated, for the SOBIK dataset:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r">files<span class="o">=</span><span class="kp">list.files</span><span class="p">(</span>pattern<span class="o">=</span><span class="s">&quot;13.*&quot;</span><span class="p">)</span></code></pre></figure>
+
+<p>Otherwise, you will need to edit the pattern according to <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/list.files.html">regular expression rules</a>.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r">ilist<span class="o">&lt;-</span><span class="kt">list</span><span class="p">()</span>
+<span class="kr">for</span> <span class="p">(</span> i <span class="kr">in</span> <span class="m">1</span><span class="o">:</span><span class="kp">length</span><span class="p">(</span>files<span class="p">)</span> <span class="p">)</span>
+<span class="p">{</span>
+  img<span class="o">&lt;-</span>antsImageRead<span class="p">(</span>files<span class="p">[</span>i<span class="p">])</span>
+  img<span class="o">&lt;-</span>smoothImage<span class="p">(</span>img<span class="p">,</span><span class="m">1.5</span><span class="p">)</span>
+  ilist<span class="p">[</span>i<span class="p">]</span><span class="o">&lt;-</span>img
+<span class="p">}</span>
+mask<span class="o">&lt;-</span>getMask<span class="p">(</span>antsImageRead<span class="p">(</span>files<span class="p">[</span><span class="m">1</span><span class="p">]))</span>
+mat<span class="o">&lt;-</span>imageListToMatrix<span class="p">(</span>ilist<span class="p">,</span> mask<span class="p">)</span></code></pre></figure>
+
+<h2 id="create-average-image">Create Average Image</h2>
+
+<p>It’s pretty simple to just take an average of each column. Be sure to change the name of your output file according to each group:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r">aveImage<span class="o">=</span><span class="kp">t</span><span class="p">(</span><span class="kp">as.matrix</span><span class="p">(</span><span class="kp">colMeans</span><span class="p">(</span>mat<span class="p">,</span>na.rm<span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span>dims<span class="o">=</span><span class="m">1</span><span class="p">)))</span>
+i.aveImage<span class="o">&lt;-</span>makeImage<span class="p">(</span>mask<span class="p">,</span>aveImage<span class="p">)</span>
+antsImageWrite<span class="p">(</span>i.aveImage<span class="p">,</span>file<span class="o">=</span><span class="s">&quot;/path/to/ouput/aveImage.nii.gz&quot;</span><span class="p">)</span></code></pre></figure>
+
+<h2 id="subtract-groups">Subtract Groups</h2>
+
+<p>For the equation x = a - b:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">c3d a.nii.gz b.nii.gz -scale -1 -add -o x.nii.gz</code></pre></figure>
+
+        </div>
+    </div>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+      <hr>
+      <footer>
+        <p>
+          &copy; 2015 Naomi Goodrich-Hunsaker, Ph.D.
+          <span class="pull-right text-muted">
+            powered by
+            <a href="http://dbtek.github.io/jekyll-bootstrap-3" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll-Bootstrap-3</a>
+            and <a href="http://getbootstrap.com" target="_blank">Twitter Bootstrap 3.0.3</a>
+          </span>
+        </p>
+      </footer>
+    </div>
+
+    
+
+    <script src="/assets/themes/bootstrap/resources/jquery/jquery.min.js"></script>
+    <script src="/assets/themes/bootstrap/resources/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
+

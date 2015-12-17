@@ -1,0 +1,67 @@
+<h2 id="log-into-supercomputer">Log Into Supercomputer</h2>
+
+<p><code>bash
+ssh &lt;username&gt;@ssh.fsl.byu.edu
+</code></p>
+
+<h2 id="load-environmental-variables">Load Environmental Variables</h2>
+
+<p><code>bash
+module load cmake/2.8.10
+module load r/3.2.1
+</code></p>
+
+<h2 id="set-package-directory">Set Package Directory</h2>
+
+<p>R relies on packages to run functions. There are currently 7462 packages available. Since any normal user probably only uses &lt;10% of packages, you have to install the packages you will want to use. You need to create directory in your home directory to keep these packages. Once you’ve created this directory, you also need to set your R environment to know where to look for this directory:</p>
+
+<p><code>bash
+mkdir ~/R
+echo 'R_LIBS_USER="~/R"' &gt;  $HOME/.Renviron
+</code></p>
+
+<h2 id="install-first-package">Install First Package</h2>
+
+<p>The first package needs to be downloaded directly from source, all the other packages can be installed from within R:</p>
+
+<p><code>bash
+cd ~/R
+wget https://github.com/Rexamine/stringi/archive/master.zip
+unzip master.zip
+R CMD INSTALL stringi-master
+</code>
+## Launch R</p>
+
+<p><code>
+R
+</code></p>
+
+<p>Let’s install a couple of packages and their dependencies:</p>
+
+<p><code>R
+options(download.file.method = "wget")
+pkgnames &lt;- c("Rcpp", "tools", "methods", "drat")
+install.packages(pkgnames, dependencies = TRUE, repos="http://cran.rstudio.com/")
+</code></p>
+
+<p><code>R
+pkgnames &lt;- c("stringr", "evaluate", "knitr", "magrittr")
+install.packages(pkgnames, dependencies = FALSE, repos="http://cran.rstudio.com/")
+</code></p>
+
+<h2 id="install-antsr">Install ANTsR</h2>
+
+<p><code>R
+drat::addRepo("ANTs-R")
+install.packages("ANTsR")
+</code></p>
+
+<h2 id="done">Done</h2>
+
+<p>Now anytime you want to run R, all you have to do is:</p>
+
+<p><code>bash
+module load r/3.2.1
+R
+</code></p>
+

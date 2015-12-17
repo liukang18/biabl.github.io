@@ -1,0 +1,279 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>Introduction to Fulton Supercomputer Lab</title>
+    
+    <meta name="author" content="Naomi Goodrich-Hunsaker, Ph.D.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="/assets/themes/bootstrap/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/themes/bootstrap/css/pygments.css">
+  
+    <!--[if lt IE 9]>
+      <script src="/assets/themes/bootstrap/resources/respond/Respond.min.js"></script>
+    <![endif]-->
+
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+  </head>
+
+  <body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Brain Imaging and Behavior Lab</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+          <li><a href="/tutorials">Tutorials </a></li>
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+          	<li class="dropdown-header">SOBIK</li>
+            <li><a href="/projects/SOBIK/template/">Template</a></li>
+            <li role="separator" class="divider"></li>
+            <li class="dropdown-header">MIOS</li>
+            <li><a href="/projects/MIOS/corpus-callosum">Corpus Callosum</a></li>
+          </ul>
+        </li>
+        <li>  </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+    <div class="container">
+      
+
+<div class="page-header">
+  <h1>Introduction to Fulton Supercomputer Lab </h1>
+</div>
+
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="sidebar-nav">
+                <div class="navbar navbar-default" role="navigation">
+                    <div class="navbar-header">
+                        <button class="navbar-toggle" data-target=".sidebar-navbar-collapse" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button> <span class="visible-xs navbar-brand">Sidebar menu</span>
+                    </div>
+                    <div class="navbar-collapse collapse sidebar-navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">General Topics <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                   <li><a href="/tutorials/general/unix-cheat-sheet/">Unix Cheat Sheet</a></li>
+                                    <li><a href="/tutorials/general/introduction-to-fulton-supercomputer-lab/">Introduction to Fulton Supercomputer</a></li>
+                                    <li><a href="/tutorials/general/submitting-jobs/">Submitting Batch Jobs on Supercomputer</a></li>
+                                    <li><a href="/tutorials/general/R/">Learn R</a></li>
+                                    <li><a href="/tutorials/general/install-freesurfer/">How to Install Freesurfer on Supercomputer</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Structural Imaging <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/tutorials/structural/preprocessing_T1_weighted_images/">Preprocessing T1 Weighted Images</a></li>
+                                    <li><a href="/tutorials/structural/convert-to-nifti/">Other Ways to Convert to NIfTI</a></li>
+                                    <li><a href="/tutorials/structural/normalization/">Normalization</a></li>
+                                    <li><a href="/tutorials/structural/cortical_thickness/">Tissue Segmentation and Cortical Thickness</a></li>
+                                    <li><a href="/tutorials/structural/morphometry/">Various Morphometry Analyses</a></li>
+                                    <li><a href="/tutorials/structural/ANTsR/">ANTsR</a></li>
+                                    <li><a href="/tutorials/structural/group_average/">Group Average Overlays with ANTsR</a></li>
+                                    <li><a href="/tutorials/structural/roi/">ROI Analysis with DKT</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Diffusion Imaging <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/tutorials/diffusion/preprocessing_diffusion_weighted_images/">Preprocessing Diffusion Weighted Images</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9">
+ <h2 id="objectives">Objectives</h2>
+
+<p>After you complete this section, you should be able to:</p>
+
+<ol>
+  <li>Establish a secure shell with the supercomputer</li>
+  <li>Copy the applications from the byustudent group directory</li>
+  <li>Permanently set your environmental variables</li>
+</ol>
+
+<p>Note that everything in “{}” is to be replaced. For example, {fileName} –&gt; iLovePeanuts.txt</p>
+
+<h2 id="introduction-to-byus-supercomputer">Introduction to BYU’s Supercomputer</h2>
+
+<iframe width="840" height="630	" src="https://www.youtube.com/embed/i1r9BxHBG0I" frameborder="0" allowfullscreen=""></iframe>
+
+<h2 id="logging-in">Logging In</h2>
+
+<p>Interaction with the supercomputer is typically performed with command line tools. The command line tools can be run via a command prompt, also known as a shell. SSH is used to establish a secure shell with the supercomputer. In general, users should log in via the hostname ssh.fsl.byu.edu.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ssh <span class="o">{</span>username<span class="o">}</span>@ssh.fsl.byu.edu</code></pre></figure>
+
+<p>where {username} is your NetID. Programs can be tested from the interactive nodes, but anything left running for more than an hour will be killed automatically.</p>
+
+<h2 id="installing-programs">Installing Programs</h2>
+
+<p>First make sure you are apart of the <code>fslg_byustudent</code> group. You can check which groups you belong to by typing:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">groups</code></pre></figure>
+
+<p>Create an apps directory in your home directory and go to that directory. First make sure you are in your home directory:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">pwd</span>
+/fslhome/&lt;username&gt;/</code></pre></figure>
+
+<p>Next, make the new directory and go to that directory:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">mkdir apps
+<span class="nb">cd </span>apps</code></pre></figure>
+
+<p>The apps can be found in the fslg_byustudent group:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">rsync -rauv ~/fsl_groups/fslg_byustudent/apps/ ~/apps</code></pre></figure>
+
+<p><strong><em>I always like to add the option <code>--dry-run</code> before submitting an rsync to make sure the files I want to copy are the ones being copied.</em></strong></p>
+
+<p>Check to make sure you have all the correct applications:</p>
+
+<p><img class="img-responsive" src="images/apps.png" /></p>
+
+<h2 id="set-environment-variables">Set Environment Variables</h2>
+
+<p>Every time a shell window opens, a process takes place to gather and compile information that needs to be available for all processes and child processes in that shell window. Many programs require certain environmental variables to be available in order to decipher the specifics of how to operate. In its simplest form, an environment variable is a variable with a name and a corresponding value. In most cases, it is simply the location of all the executable files for an application.</p>
+
+<p>Since many of the programs in this class do not have the standard GUI (window) based application, if you want to “launch” the application you have to first set the environmental variable to tell the computer where the executable files for that application are located. Otherwise, when you run the program, you will get an error that the program does not exist.</p>
+
+<h3 id="temporarily-set-environment-variable">Temporarily Set Environment Variable</h3>
+
+<p>Every time you open a shell window, if you have not permanently set the environmental variable, you will need to set it temporarily. The moment you close this window, the environmental variables are no longer set. If you run the program often, consider permanently setting the environment variable.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">export </span><span class="nv">ANTSPATH</span><span class="o">=</span>/usr/local/antsbin/bin/
+<span class="nv">PATH</span><span class="o">=</span><span class="k">${</span><span class="nv">ANTSPATH</span><span class="k">}</span>:<span class="k">${</span><span class="nv">PATH</span><span class="k">}</span></code></pre></figure>
+
+<h3 id="permanently-set-environment-variable">Permanently Set Environment Variable</h3>
+
+<p><strong><em><a href="enviroVars.txt">Download an example bash_profile to use on the FSL supercomputer.</a></em></strong></p>
+
+<p>You can edit text files directly within the shell window.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">vi ~/.bash_profile</code></pre></figure>
+
+<p>This will launch a text editor. The UNIX <code>vi</code> has two modes of operation:</p>
+
+<ol>
+  <li><em>Command mode</em> in which commands typed will cause action to be taken on the file</li>
+  <li><em>Insert mode</em> in which entered text is inserted or typed into the file.</li>
+</ol>
+
+<p>To begin insert mode to add text, press <code>a</code> and then type in the following information.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># ANTs Environmental Variables</span>
+<span class="nb">export </span><span class="nv">ANTSPATH</span><span class="o">=</span>/usr/local/antsbin/bin/
+<span class="nv">PATH</span><span class="o">=</span><span class="k">${</span><span class="nv">ANTSPATH</span><span class="k">}</span>:<span class="k">${</span><span class="nv">PATH</span><span class="k">}</span></code></pre></figure>
+
+<p>Once you’ve typed the code, press <code>esc</code>. Pressing the escape turns off insert mode and returns you to command mode. To save the file and exit out of <code>vi</code> text editor, type <code>:wq&lt;Return&gt;</code>. This command will quit <code>vi</code>, writing out modified file to file named in original invocation.</p>
+
+<p>For more information on the basics of using <code>vi</code> go here:</p>
+
+<p><a href="http://www.cs.colostate.edu/helpdocs/vi.html">http://www.cs.colostate.edu/helpdocs/vi.html</a></p>
+
+<h2 id="to-wrap-or-not-to-wrap-that-is-the-question">To wrap or not to wrap, that is the question</h2>
+
+<p>When writing bash commands, lines of code can get really, really long and sometimes leave you scrolling right and left for extended amounts of time. Although there are no hard and fast rules about formatting code, good coding practices involve more human-friendly methods of organization. Take the following one-line of code as an example:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">N4BiasFieldCorrection -d <span class="m">3</span> -i &lt;inputImage&gt;.nii.gz -o <span class="o">[</span>&lt;correctedImage&gt;.nii.gz, &lt;biasfield&gt;.nii.gz<span class="o">]</span> -s <span class="m">4</span> -b <span class="o">[</span>200<span class="o">]</span> -c <span class="o">[</span>50x50x50x50,0.000001<span class="o">]</span></code></pre></figure>
+
+<p>You are a lot more likely to make a mistake in your code (i.e., dropping a variable, making typos, etc.) when your code is all jumbled up like this. There’s a solution to make the code more human-readable, but does not change how the shell terminal reads the command. Remember that pressing &lt;Return&gt; in the shell terminal says, “run command”. How then do you take a long line of code and wrap it across multiple lines? Backslash!</p>
+
+<p>The backslash, \, in the shell window is called an escape character. It preserves the literal value of the next character that follows. In the case of a newline, the backslash marks the continuation of a line when the line of code is longer than the width of the terminal; when the command is finally submitted, the backslash that precedes a newline character is removed from the input stream and effectively ignored. In other words, the one line of code wrapped across multiple lines is run as if it was a single line of code.</p>
+
+<p>Test it out…</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="se">\</span>
+&gt; <span class="s2">&quot;Knowledge is power.&quot;</span></code></pre></figure>
+
+<p>Now press the up arrow in your terminal. The previous command will appear and it should look something like this now.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">&quot;Knowledge is power.&quot;</span></code></pre></figure>
+
+<p>The terminal will remove the backslash and run the code as normal. Now what does the above code look like when it has been wrapped:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>N4BiasFieldCorrection <span class="se">\</span>
+-d <span class="m">3</span> <span class="se">\</span>
+-i &lt;inputImage&gt;.nii.gz <span class="se">\</span>
+-o <span class="o">[</span>&lt;correctedImage&gt;.nii.gz,&lt;biasfield&gt;.nii.gz<span class="o">]</span> <span class="se">\</span>
+-s <span class="m">4</span> <span class="se">\ </span>
+-b <span class="o">[</span>200<span class="o">]</span> <span class="se">\</span>
+-c <span class="o">[</span>50x50x50x50,0.000001<span class="o">]</span></code></pre></figure>
+
+<p>For this class, I will try to make the code as human-readable as possible.</p>
+
+<h3 id="additional-classroom-materials">Additional Classroom Materials</h3>
+
+<ul>
+  <li><a href="presentation">Lecture</a></li>
+  <li><a href="assignment">Assignment</a></li>
+</ul>
+
+        </div>
+    </div>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+      <hr>
+      <footer>
+        <p>
+          &copy; 2015 Naomi Goodrich-Hunsaker, Ph.D.
+          <span class="pull-right text-muted">
+            powered by
+            <a href="http://dbtek.github.io/jekyll-bootstrap-3" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll-Bootstrap-3</a>
+            and <a href="http://getbootstrap.com" target="_blank">Twitter Bootstrap 3.0.3</a>
+          </span>
+        </p>
+      </footer>
+    </div>
+
+    
+
+    <script src="/assets/themes/bootstrap/resources/jquery/jquery.min.js"></script>
+    <script src="/assets/themes/bootstrap/resources/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
+

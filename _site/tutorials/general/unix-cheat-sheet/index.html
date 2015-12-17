@@ -1,0 +1,445 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>Unix Cheat Sheet</title>
+    
+    <meta name="author" content="Naomi Goodrich-Hunsaker, Ph.D.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="/assets/themes/bootstrap/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/themes/bootstrap/css/pygments.css">
+  
+    <!--[if lt IE 9]>
+      <script src="/assets/themes/bootstrap/resources/respond/Respond.min.js"></script>
+    <![endif]-->
+
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+  </head>
+
+  <body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Brain Imaging and Behavior Lab</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+          <li><a href="/tutorials">Tutorials </a></li>
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+          	<li class="dropdown-header">SOBIK</li>
+            <li><a href="/projects/SOBIK/template/">Template</a></li>
+            <li role="separator" class="divider"></li>
+            <li class="dropdown-header">MIOS</li>
+            <li><a href="/projects/MIOS/corpus-callosum">Corpus Callosum</a></li>
+          </ul>
+        </li>
+        <li>  </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+    <div class="container">
+      
+
+<div class="page-header">
+  <h1>Unix Cheat Sheet </h1>
+</div>
+
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="sidebar-nav">
+                <div class="navbar navbar-default" role="navigation">
+                    <div class="navbar-header">
+                        <button class="navbar-toggle" data-target=".sidebar-navbar-collapse" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button> <span class="visible-xs navbar-brand">Sidebar menu</span>
+                    </div>
+                    <div class="navbar-collapse collapse sidebar-navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">General Topics <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                   <li><a href="/tutorials/general/unix-cheat-sheet/">Unix Cheat Sheet</a></li>
+                                    <li><a href="/tutorials/general/introduction-to-fulton-supercomputer-lab/">Introduction to Fulton Supercomputer</a></li>
+                                    <li><a href="/tutorials/general/submitting-jobs/">Submitting Batch Jobs on Supercomputer</a></li>
+                                    <li><a href="/tutorials/general/R/">Learn R</a></li>
+                                    <li><a href="/tutorials/general/install-freesurfer/">How to Install Freesurfer on Supercomputer</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Structural Imaging <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/tutorials/structural/preprocessing_T1_weighted_images/">Preprocessing T1 Weighted Images</a></li>
+                                    <li><a href="/tutorials/structural/convert-to-nifti/">Other Ways to Convert to NIfTI</a></li>
+                                    <li><a href="/tutorials/structural/normalization/">Normalization</a></li>
+                                    <li><a href="/tutorials/structural/cortical_thickness/">Tissue Segmentation and Cortical Thickness</a></li>
+                                    <li><a href="/tutorials/structural/morphometry/">Various Morphometry Analyses</a></li>
+                                    <li><a href="/tutorials/structural/ANTsR/">ANTsR</a></li>
+                                    <li><a href="/tutorials/structural/group_average/">Group Average Overlays with ANTsR</a></li>
+                                    <li><a href="/tutorials/structural/roi/">ROI Analysis with DKT</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Diffusion Imaging <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/tutorials/diffusion/preprocessing_diffusion_weighted_images/">Preprocessing Diffusion Weighted Images</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9">
+ <h2 id="objectives">Objectives</h2>
+
+<p>After you complete the <a href="https://www.codecademy.com/courses/learn-the-command-line">Command Line course on Code Academy</a>, you should be able to:</p>
+
+<ol>
+  <li>Navigate directories and files from the command line</li>
+  <li>Copy, move, and delete files and directories from the command line</li>
+  <li>Redirect input and output to and from files and programs</li>
+  <li>Configure the environment using the command line</li>
+</ol>
+
+<p>Below are just some of the commands you need to know for this course. For a full introduction, go to https://www.codecademy.com/courses/learn-the-command-line and complete the course.</p>
+
+<h2 id="basic-terminal-commands">Basic Terminal Commands</h2>
+
+<p>Note that everything in “{}” is to be replaced. For example, {fileName} –&gt; iLovePeanuts.txt</p>
+
+<table rules="groups">
+  <thead>
+    <tr>
+      <th style="text-align: left">Command</th>
+      <th style="text-align: left"> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">CTRL L</td>
+      <td style="text-align: left">Clear the terminal</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">CTRL D</td>
+      <td style="text-align: left">Logout</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">SHIFT Page Up/Down</td>
+      <td style="text-align: left">Go up/down the terminal</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">CTRL A</td>
+      <td style="text-align: left">Cursor to start of line</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">CTRL E</td>
+      <td style="text-align: left">Cursor the end of line</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">CTRL U</td>
+      <td style="text-align: left">Delete left of the cursor</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">CTRL K</td>
+      <td style="text-align: left">Delete right of the cursor</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">CTRL W</td>
+      <td style="text-align: left">Delete word on the left</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">CTRL Y</td>
+      <td style="text-align: left">Paste (after CTRL U,K or W)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">TAB</td>
+      <td style="text-align: left">auto completion of file or command</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">CTRL R</td>
+      <td style="text-align: left">reverse search history</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>!!</code></td>
+      <td style="text-align: left">repeat last command</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="help-on-any-unix-command">Help on any Unix Command</h2>
+
+<table rules="groups">
+  <thead>
+    <tr>
+      <th style="text-align: left">Command</th>
+      <th style="text-align: left"> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code>man {command}</code></td>
+      <td style="text-align: left">Type man ls to read the manual for the ls command.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>man {command} &gt; {fileName}</code></td>
+      <td style="text-align: left">Redirect help to a file to download.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="list-a-directory">List a Directory</h2>
+
+<table rules="groups">
+  <thead>
+    <tr>
+      <th style="text-align: left">Command</th>
+      <th style="text-align: left"> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code>ls {path}</code></td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>ls {path_1} {path_2}</code></td>
+      <td style="text-align: left">List both {path_1} and {path_2}.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>ls -l {path}</code></td>
+      <td style="text-align: left">Long listing, with date, size and permissions.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>ls -a {path}</code></td>
+      <td style="text-align: left">Show all files, including important .dot files that don’t otherwise show.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>ls -F {path}</code></td>
+      <td style="text-align: left">Show type of each file. “/” = directory, “*” = executable.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>ls -R {path}</code></td>
+      <td style="text-align: left">Recursive listing, with all subdirs.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>ls {path} &gt; {filename}</code></td>
+      <td style="text-align: left">Redirect directory to a file.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="change-to-directory">Change to Directory</h2>
+
+<table rules="groups">
+  <thead>
+    <tr>
+      <th style="text-align: left">Command</th>
+      <th style="text-align: left"> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code>cd {dirname}</code></td>
+      <td style="text-align: left">Go to directory.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>cd ~</code></td>
+      <td style="text-align: left">Go back to home directory, useful if you’re lost.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>cd ..</code></td>
+      <td style="text-align: left">Go back one directory.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="make-new-directory">Make New Directory</h2>
+
+<table rules="groups">
+  <thead>
+    <tr>
+      <th style="text-align: left">Command</th>
+      <th style="text-align: left"> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code>mkdir {dirname}</code></td>
+      <td style="text-align: left">Make a new directory with name.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="remove-directory">Remove Directory</h2>
+
+<table rules="groups">
+  <thead>
+    <tr>
+      <th style="text-align: left">Command</th>
+      <th style="text-align: left"> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code>rmdir {dirname}</code></td>
+      <td style="text-align: left">Only works if {dirname} is empty.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>rm -r {dirname}</code></td>
+      <td style="text-align: left">Remove all files and subdirs. Careful!</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="print-working-directory">Print Working Directory</h2>
+
+<table rules="groups">
+  <thead>
+    <tr>
+      <th style="text-align: left">Command</th>
+      <th style="text-align: left"> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code>pwd</code></td>
+      <td style="text-align: left">Show where you are as full path. Useful if you’re lost or exploring.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="copy-a-file-or-directory">Copy a File or Directory</h2>
+
+<table rules="groups">
+  <thead>
+    <tr>
+      <th style="text-align: left">Command</th>
+      <th style="text-align: left"> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code>cp {file1} {file2}	</code></td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>cp -r {dir1} {dir2}</code></td>
+      <td style="text-align: left">Recursive, copy directory and all subdirs.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>cat {newfile} &gt;&gt; {oldfile}</code></td>
+      <td style="text-align: left">Append newfile to end of oldfile.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="move--rename-a-file-or-directory">Move / Rename a File or Directory</h2>
+
+<table rules="groups">
+  <thead>
+    <tr>
+      <th style="text-align: left">Command</th>
+      <th style="text-align: left"> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code>mv {oldfile} {newfile}</code></td>
+      <td style="text-align: left">Moving a file and renaming it are the same thing.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="view-a-text-file">View a Text File</h2>
+
+<table rules="groups">
+  <thead>
+    <tr>
+      <th style="text-align: left">Command</th>
+      <th style="text-align: left"> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code>cat {filename}</code></td>
+      <td style="text-align: left">View file, but it scrolls.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="edit-a-text-file">Edit a Text File</h2>
+
+<table rules="groups">
+  <thead>
+    <tr>
+      <th style="text-align: left">Command</th>
+      <th style="text-align: left"> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code>vi {filename}</code></td>
+      <td style="text-align: left">Basic text editor.</td>
+    </tr>
+  </tbody>
+</table>
+
+        </div>
+    </div>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+      <hr>
+      <footer>
+        <p>
+          &copy; 2015 Naomi Goodrich-Hunsaker, Ph.D.
+          <span class="pull-right text-muted">
+            powered by
+            <a href="http://dbtek.github.io/jekyll-bootstrap-3" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll-Bootstrap-3</a>
+            and <a href="http://getbootstrap.com" target="_blank">Twitter Bootstrap 3.0.3</a>
+          </span>
+        </p>
+      </footer>
+    </div>
+
+    
+
+    <script src="/assets/themes/bootstrap/resources/jquery/jquery.min.js"></script>
+    <script src="/assets/themes/bootstrap/resources/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
+

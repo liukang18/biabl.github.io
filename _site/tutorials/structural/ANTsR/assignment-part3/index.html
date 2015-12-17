@@ -1,0 +1,178 @@
+<h2 id="log-into-supercomputer">Log Into Supercomputer</h2>
+
+<p>Change your <username></username></p>
+
+<p><code>bash
+ssh &lt;username&gt;@ssh.fsl.byu.edu
+</code></p>
+
+<h2 id="launch-r">Launch R</h2>
+
+<p>Load Environmental Variables</p>
+
+<p><code>bash
+module load r/3.2.1
+</code>
+Launch R</p>
+
+<p><code>R
+R
+</code></p>
+
+<p>Let’s load our packages.</p>
+
+<p><code>R
+library(ANTsR)
+</code></p>
+
+<h2 id="set-path">Set path</h2>
+
+<p>If doing the cortical thickness analysis (cortical thickness images):</p>
+
+<p><code>R
+setwd("~/compute/projects/corticalthickness/data/")
+</code></p>
+
+<p>If doing the tensor based analysis (log jacobian images):</p>
+
+<p><code>R
+setwd("~/compute/projects/tbm/data/")
+</code></p>
+
+<p>If doing the voxel based analysis (modulated gray matter images):</p>
+
+<p><code>R
+setwd("~/compute/projects/vbm/data/")
+</code></p>
+
+<h2 id="import-files">Import Files</h2>
+
+<p>Import files and smooth - The following code creates a list of files in your working directory (<em>files</em>). Any empty list is created for when the images are smoothed they are added to the empty list (<em>ilist</em>). For each image in the <em>files</em> list, the are imported and smoothed and then added to the <em>ilist</em> list.</p>
+
+<p><code>R
+files&lt;-list.files()
+</code></p>
+
+<p>When you type <code>files</code> you should output a list of files:</p>
+
+<p><code>R
+ [1] "1304_082907.nii.gz" "1306_091707.nii.gz" "1307_121807.nii.gz"
+ [4] "1308_111207.nii.gz" "1310_010208.nii.gz" "1315_112808.nii.gz"
+ [7] "1319_042009.nii.gz" "1320_082409.nii.gz" "1326_061810.nii.gz"
+[10] "1327_031011.nii.gz" "2304_012808.nii.gz" "2307_031708.nii.gz"
+[13] "2310_010709.nii.gz" "2314_032709.nii.gz" "2316_062409.nii.gz"
+[16] "2317_123009.nii.gz" "2320_042310.nii.gz" "2323_083110.nii.gz"
+[19] "2324_120810.nii.gz" "2370_020111.nii.gz"
+</code></p>
+
+<h2 id="smooth-images">Smooth Images</h2>
+
+<p><code>R
+ilist&lt;-list()
+for ( i in 1:length(files) )
+{
+  img&lt;-antsImageRead(files[i])
+  img&lt;-smoothImage(img,1.5)
+  ilist[i]&lt;-img
+}
+</code></p>
+
+<p>Convert to matrices - A simple mask is created to know what is and is not data to analyze. You don’t want to analyze nonbrain data. The values are extracted from each voxel to form a 3D matrix.</p>
+
+<p><code>R
+mask&lt;-getMask(antsImageRead(files[1]))
+mat&lt;-imageListToMatrix(ilist, mask)
+</code></p>
+
+<h2 id="load-demographics-files">Load Demographics Files</h2>
+
+<p>Demographic data can be anything from group ID, age, and gender. Data can also include neuropsych outcomes etc. To make life easy, your demographics file sound have the same study IDs as your MRI files and also be in alphanumeric order.</p>
+
+<p><code>R
+mydata&lt;-read.table("~/compute/projects/demographics.csv", header=TRUE,sep=",")
+</code></p>
+
+<p>Subset data to demographics and desired variable column. For your first analyses let’s just compared TBI versus OI, so create a variable <em>var1</em> that contains group diagnosis, which is column 2 out of the whole demographic file.</p>
+
+<p><code>R
+vardata&lt;-mydata[c(1:2)]
+var1&lt;-vardata[,2]
+</code></p>
+
+<p>Get rid of any missing data. R does <strong>NOT</strong> like missing data and will often not run if there’s missing data.</p>
+
+<p><code>R
+vardata&lt;-na.omit(vardata)
+</code></p>
+
+<h2 id="merge-data">Merge Data</h2>
+
+<p>Taking the subject ID information from the files. Namely your files should be labeled as subject ID (again to make life easier). Since the names in the <em>files</em> list contain not only the subject ID but also the file type (.nii.gz), we want just the subject ID which is 10 characters long. We can then merge the <em>study id</em> list with the demographics <em>vardata</em> and make sure we just have demographics data for the participants with images.</p>
+
+<p><code>R
+studyid=substr(files,1,11)
+studyid=data.frame(studyid)
+vardata=merge(vardata,studyid,all.y=TRUE)
+varlist&lt;-rownames(vardata)
+varlist&lt;-as.numeric(varlist)
+varlist&lt;-list(varlist)
+for(i in varlist){
+varmat&lt;-subset(mat[i,])
+}
+</code></p>
+
+<h2 id="run-analysis">Run Analysis</h2>
+
+<p>By running a simple linear regression with a single independent variable (<em>var1</em>), we are able to compared TBI versus OI:</p>
+
+<p><code>R
+voxels&lt;-ncol(varmat)
+regpval&lt;-matrix(nrow=1,ncol=voxels)
+regtstat&lt;-matrix(nrow=1,ncol=voxels)
+for (i in 1:voxels){
+vox&lt;-varmat[,i]
+regfit&lt;-lm(vox~var1)
+regsum&lt;-summary(regfit)
+regpval[,i]&lt;-regsum$coefficients[2,4]
+regtstat[,i]&lt;-regsum$coefficients[2,3]
+}
+</code></p>
+
+<h2 id="convert-to-statistical-images">Convert to statistical images</h2>
+
+<p>The data is in the form of a 3D matrix and needs to be converted into a visual NIfTI image. Make sure the change the ***<username>*** to your supercomputer username:</username></p>
+
+<p><code>R
+i.regpval&lt;-makeImage(mask,regpval)
+antsImageWrite(i.regpval,file="/fslhome/&lt;username&gt;/compute/projects/corticalthickness/regpval.nii.gz")
+i.regtstat&lt;-makeImage(mask,regtstat)
+antsImageWrite(i.regtstat,file="/fslhome/&lt;username&gt;/compute/projects/corticalthickness/regtstat.nii.gz")
+</code></p>
+
+<h2 id="save-data-on-desktop">Save Data on Desktop</h2>
+
+<p>Log out of R (you do not need to save workspace):</p>
+
+<p><code>R
+q()
+</code></p>
+
+<p>Log out of supercomputer:</p>
+
+<p><code>bash
+exit
+</code></p>
+
+<p>Sync data:</p>
+
+<p><code>bash
+rsync -rauv --exclude="data" &lt;username&gt;@ssh.fsl.byu.edu:~/compute/projects/ ~/Desktop/
+</code></p>
+
+<h2 id="view-results-with-mango">View Results with Mango</h2>
+
+<p>You can download the NKI10andUnder template here:</p>
+
+<p><a href="http://files.figshare.com/1363203/NKI10andUnder.zip">http://files.figshare.com/1363203/NKI10andUnder.zip</a></p>
+
+<p>Load the MPRAGE image with any of your regtstat.nii.gz as an overlay.</p>

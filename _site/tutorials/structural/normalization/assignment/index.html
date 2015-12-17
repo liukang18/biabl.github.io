@@ -1,0 +1,130 @@
+<p>Make a new directory for example projects:</p>
+
+<p><code>
+mkdir ~/compute/examples
+</code></p>
+
+<p>Sync the new example from the byustudent group. The new example is called, morphometry:</p>
+
+<p><code>
+rsync \
+-rauv \
+~/fsl_groups/fslg_byustudent/compute/examples/morphometry \
+~/compute/examples
+</code></p>
+
+<p>Change to that new directory:</p>
+
+<p><code>
+cd ~/compute/examples/morphometry
+</code></p>
+
+<hr />
+
+<h2 id="rigid">Rigid</h2>
+
+<p>You always want to list full path names when referencing files. It is easiest if you create a variable with your path directory so you just reference that variable and not type your full path over and over again.</p>
+
+<p><code>
+pathDir=~/compute/examples/morphometry/
+</code></p>
+
+<p>Rigidly align the t1 image (moving) to the template (fixed).</p>
+
+<p><code>
+~/apps/ants/bin/antsRegistrationSyNQuick.sh \
+-d 3 \
+-f ${pathDir}/template.nii \
+-m ${pathDir}/t1.nii.gz \
+-o ${pathDir}/rigid_ \
+-t r
+</code></p>
+
+<p>The rigid alignment should take &lt;5 minutes.</p>
+
+<h2 id="what-you-should-end-up-with">What you should end up with</h2>
+
+<p><code>
+rigid_0GenericAffine.mat
+rigid_InverseWarped.nii.gz
+rigid_Warped.nii.gz
+</code></p>
+
+<h2 id="affine">Affine</h2>
+
+<p><code>
+~/apps/ants/bin/antsRegistrationSyNQuick.sh \
+-d 3 \
+-f ${pathDir}/template.nii \
+-m ${pathDir}/t1.nii.gz \
+-o ${pathDir}/affine_ \
+-t a
+</code></p>
+
+<p>Affine alignment should take ~10 minutes.</p>
+
+<h2 id="what-you-should-end-up-with-1">What you should end up with</h2>
+
+<p><code>
+affine_0GenericAffine.mat
+affine_InverseWarped.nii.gz
+affine_Warped.nii.gz
+</code></p>
+
+<h2 id="diffeomorphic">Diffeomorphic</h2>
+
+<p><code>
+~/apps/ants/bin/antsRegistrationSyNQuick.sh \
+-d 3 \
+-f ${pathDir}/template.nii \
+-m ${pathDir}/t1.nii.gz \
+-o ${pathDir}/syn_ \
+-t s
+</code></p>
+
+<p>Diffeomorphic registration should take ~30 minutes.</p>
+
+<h2 id="what-you-should-end-up-with-2">What you should end up with</h2>
+
+<p><code>
+syn_0GenericAffine.mat
+syn_1InverseWarp.nii.gz
+syn_1Warp.nii.gz
+syn_InverseWarped.nii.gz
+syn_Warped.nii.gz
+</code></p>
+
+<h2 id="copy-files-to-your-desktop">Copy files to your Desktop</h2>
+
+<p>Exit from your secure shell (you can also just open a new terminal window):</p>
+
+<p><code>
+exit
+</code></p>
+
+<p>Copy the files to your Desktop and don’t forget to change your username:</p>
+
+<p>```
+rsync \
+-rauv \</p>
+<username>@ssh.fsl.byu.edu:~/compute/examples/morphometry \
+~/Desktop
+```
+
+## Before leaving class if you could...
+
+Log into supercomputer:
+
+```
+ssh <username>@ssh.fsl.byu.edu
+```
+
+Copy over data:
+
+```
+rsync \
+-rauv \
+~/fsl_groups/fslg_byustudent/compute/data \
+~/compute/
+```
+</username></username>

@@ -1,0 +1,290 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>Normalization</title>
+    
+    <meta name="author" content="Naomi Goodrich-Hunsaker, Ph.D.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="/assets/themes/bootstrap/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/themes/bootstrap/css/pygments.css">
+  
+    <!--[if lt IE 9]>
+      <script src="/assets/themes/bootstrap/resources/respond/Respond.min.js"></script>
+    <![endif]-->
+
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+  </head>
+
+  <body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Brain Imaging and Behavior Lab</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+          <li><a href="/tutorials">Tutorials </a></li>
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+          	<li class="dropdown-header">SOBIK</li>
+            <li><a href="/projects/SOBIK/template/">Template</a></li>
+            <li role="separator" class="divider"></li>
+            <li class="dropdown-header">MIOS</li>
+            <li><a href="/projects/MIOS/corpus-callosum">Corpus Callosum</a></li>
+          </ul>
+        </li>
+        <li>  </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+    <div class="container">
+      
+
+<div class="page-header">
+  <h1>Normalization </h1>
+</div>
+
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="sidebar-nav">
+                <div class="navbar navbar-default" role="navigation">
+                    <div class="navbar-header">
+                        <button class="navbar-toggle" data-target=".sidebar-navbar-collapse" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button> <span class="visible-xs navbar-brand">Sidebar menu</span>
+                    </div>
+                    <div class="navbar-collapse collapse sidebar-navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">General Topics <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                   <li><a href="/tutorials/general/unix-cheat-sheet/">Unix Cheat Sheet</a></li>
+                                    <li><a href="/tutorials/general/introduction-to-fulton-supercomputer-lab/">Introduction to Fulton Supercomputer</a></li>
+                                    <li><a href="/tutorials/general/submitting-jobs/">Submitting Batch Jobs on Supercomputer</a></li>
+                                    <li><a href="/tutorials/general/R/">Learn R</a></li>
+                                    <li><a href="/tutorials/general/install-freesurfer/">How to Install Freesurfer on Supercomputer</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Structural Imaging <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/tutorials/structural/preprocessing_T1_weighted_images/">Preprocessing T1 Weighted Images</a></li>
+                                    <li><a href="/tutorials/structural/convert-to-nifti/">Other Ways to Convert to NIfTI</a></li>
+                                    <li><a href="/tutorials/structural/normalization/">Normalization</a></li>
+                                    <li><a href="/tutorials/structural/cortical_thickness/">Tissue Segmentation and Cortical Thickness</a></li>
+                                    <li><a href="/tutorials/structural/morphometry/">Various Morphometry Analyses</a></li>
+                                    <li><a href="/tutorials/structural/ANTsR/">ANTsR</a></li>
+                                    <li><a href="/tutorials/structural/group_average/">Group Average Overlays with ANTsR</a></li>
+                                    <li><a href="/tutorials/structural/roi/">ROI Analysis with DKT</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Diffusion Imaging <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/tutorials/diffusion/preprocessing_diffusion_weighted_images/">Preprocessing Diffusion Weighted Images</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9">
+ <h2 id="objectives">Objectives</h2>
+
+<p>After you complete this section, you should be able to:</p>
+
+<ol>
+  <li>Define rigid, affine, and diffeomorphic based morphometry</li>
+  <li>Understand when you do and do not need to include brain volume as a covariate</li>
+  <li>Define fixed and moving image as it pertains to image registration</li>
+  <li>Run rigid, affine, and diffeomorphic registration using ANTs</li>
+</ol>
+
+<p>Note that everything in “&lt; &gt;” is to be replaced. For example, &lt;fileName&gt; –&gt; iLovePeanuts.txt</p>
+
+<h2 id="types-of-morphometry">Types of Morphometry</h2>
+
+<h3 id="rigid-body">Rigid Body</h3>
+
+<p>For a rigid body, you can:</p>
+
+<h4 id="move">Move</h4>
+
+<p><img class="img-responsive" alt="" src="images/move.jpg" /></p>
+
+<h4 id="rotate">Rotate</h4>
+
+<p><img class="img-responsive" alt="" src="images/rotate.jpg" /></p>
+
+<h4 id="mirror">Mirror</h4>
+
+<p><img class="img-responsive" alt="" src="images/mirror.jpg" /></p>
+
+<p>Rigid-body transformations involve displacements and / or rotations of the whole object. An object can therefore move: up or down; left or right ; front or back; rotate; and reflect across an axis (2D) or plane (3D). Whether you are dealing with a 2 or 3 dimensional object, the whole object must move. In other words, if you want to move one point up and to the left, then you must move ALL points within the object that same amount up and to the left.</p>
+
+<p>Volume (size of the brain) is not affected by rigid body transformations.</p>
+
+<h3 id="affine">Affine</h3>
+
+<p>For an affine transformation, you can:</p>
+
+<h4 id="scale">Scale</h4>
+
+<p><img class="img-responsive" alt="" src="images/scale.jpg" /></p>
+
+<h4 id="shear">Shear</h4>
+
+<p><img class="img-responsive" alt="" src="images/shear.jpg" /></p>
+
+<p>Affine again effects the whole object as a rigid body and adds two additional transformations: scale and shear. Scaling means the object can increase or decrease in size. However, the ratio of each plane does not have to remain the same. You can increase the size along one plane only or all planes but differently. Shearing means you displace one plane, while leaving the rest of the planes fixed.</p>
+
+<p>Affine transformations preserve proportions, it does not preserve volume, because it can change angles and lengths. Therefore, affine transformations automatically account of brain size differences, since affine transformations will make all brains the same size.</p>
+
+<h3 id="diffeomorphism">Diffeomorphism</h3>
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Mug_and_Torus_morph.gif" alt="" class="img-responsive" /></p>
+
+<p>Based on the mathematical field of topology, the simplest definition is that through <em>smooth, continuous</em> deformation, one brain can be warped to look like another brain. Using diffeomorphic morphometry, this smooth, continuous deformation, preserves the topology of the brain (i.e., sulci and gyri). The solution (how and where each voxel needs to be moved) is bidirectional. In other words, the solution, warp field, not only solves the problem of how to make the participant image look like the template, but to make the solution more robust, also finds how the make the template look like the participant image. Because of this smooth, continuous warping, the errors inherent to nonlinear warping are reduced.</p>
+
+<h2 id="ants-nonlinear-registration">ANTs Nonlinear Registration</h2>
+
+<p><img src="images/comparing.jpg" alt="" class="img-responsive" /></p>
+
+<p>For reference, typically the <em>fixed</em> image is a <em>template</em> and the <em>moving</em> image is <em>each participant</em>.</p>
+
+<p>ANTs has two shell scripts for running image registration: antsRegistrationSyn.sh and antsRegistrationSynQuick.sh. Both of these commands are simplified shell scripts of the actual command <code>antsRegistration</code>. You can view the code in these scripts by running either:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">cat /usr/local/antsbin/bin/antsRegistrationSyn.sh
+cat /usr/local/antsbin/bin/antsRegistrationSynQuick.sh</code></pre></figure>
+
+<p>One of the differences between the two commands is the number of iterations in the last iteration step. For antsRegistrationSynQuick.sh there are 0 iterations and for antsRegistrationSyn.sh there are 100 iterations. The other difference is the metric used for registration. For antsRegistrationSynQuick.sh, the registration metric is based on mutual information (great for multimodal images). For antsRegistrationSyn.sh, the registration metric is based on cross correlation (great for T1 weighted image registration). The options for each is the same, but for this class, we will just show the quick version.</p>
+
+<h3 id="rigid">Rigid</h3>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">antsRegistrationSynQuick.sh <span class="se">\ </span>
+-d <span class="m">3</span> <span class="se">\</span>
+-f &lt;fixedImage&gt;.nii.gz <span class="se">\</span>
+-m &lt;movingImage&gt;.nii.gz <span class="se">\</span>
+-o &lt;outputPrefix&gt;
+-t r</code></pre></figure>
+
+<p>Here the participant image (moving) was rigidly aligned to the template (fixed). As you can see the participant brain was moved to the same location within the field of view box. The size of the participant image was not altered.</p>
+
+<p><img src="images/rigid.jpeg" alt="" class="img-responsive" /></p>
+
+<p>Here the inverse warp occurred (a unique feature of ANTs). The template (fixed) image was rigidly moved to the same space as the participant image (moving). The warp matrix was just reversed even though the original mapping was the participant image (moving image) to the template image (fixed image).</p>
+
+<p><img src="images/rigidInverse.jpeg" alt="" class="img-responsive" /></p>
+
+<h3 id="affine-1">Affine</h3>
+
+<p>For this transformation, rigid transformation is done first, then affine transformation.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">antsRegistrationSynQuick.sh <span class="se">\ </span>
+-d <span class="m">3</span> <span class="se">\</span>
+-f &lt;fixedImage&gt;.nii.gz <span class="se">\</span>
+-m &lt;movingImage&gt;.nii.gz <span class="se">\</span>
+-o &lt;outputPrefix&gt;
+-t a</code></pre></figure>
+
+<p>Here the participant image (moving) was affine aligned to the template (fixed). The participant image was scaled to template. In this case the small participant image was enlarged to fit in the template space.</p>
+
+<p><img src="images/affine.jpeg" alt="" class="img-responsive" /></p>
+
+<p>The opposite is true when the inverse warp matrix is applied. The template image shrinks in size to match the participant image.</p>
+
+<p><img src="images/affineInverse.jpeg" alt="" class="img-responsive" /></p>
+
+<h3 id="diffeomorphic">Diffeomorphic</h3>
+
+<p>For this transformation, rigid transformation is done first, then affine transformation, and finally diffeomorphic. You always want to do an affine transformation before a diffeomorphic transformation, because you want to eliminate brain size as a covariate. Therefore, any group analyses that result in differences is due to actual differences in regional volume and not due to general brain volume differences.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">antsRegistrationSynQuick.sh <span class="se">\ </span>
+-d <span class="m">3</span> <span class="se">\</span>
+-f &lt;fixedImage&gt;.nii.gz <span class="se">\</span>
+-m &lt;movingImage&gt;.nii.gz <span class="se">\</span>
+-o &lt;outputPrefix&gt;
+-t s</code></pre></figure>
+
+<p>Here the participant image (moving) was warped to match the template (fixed). As far as possible, the participant image was nonlinearly morphed to look like the template. The participant in this case has some major brain damage and therefore the mapping isn’t perfect.</p>
+
+<p><img src="images/diffeomorphic.jpeg" alt="" class="img-responsive" /></p>
+
+<p>More drastic is taking the inverse warp and seeing how well the template can be made to look like the participant image. Particularly take note as how well or not so well the hippocampus and ventricles mapped! This was an extremely difficult case to diffeomoprhically warp because of the extensive brain damage.</p>
+
+<p><img src="images/diffeomorphicInverse.jpeg" alt="" class="img-responsive" /></p>
+
+<h2 id="warp-field">Warp Field</h2>
+
+<p>The output from a rigid or affine transformation is a simple text file (not really useful). However, the output from the nonlinear deformation is a warp field. It is a 3D map that contains the data for each voxel’s displacement. In other words, the warp matrix contains the directions for where each voxel in the participant image (moving image) needs to move in order to look like the template (fixed image). Because the ANTs nonlinear warp is bidirectional, ANTs also outputs the inverse warp field. This field contains opposite information; it contains the directions for where each voxel in the template (fixed image) needs to move in order to look like the participant image (moving image). These warp field files are not useful beyond providing displacement information, but more on that later.</p>
+
+<p><img src="images/warp.png" alt="" class="img-responsive" />
+<img src="images/inversewarp.png" alt="" class="img-responsive" /></p>
+
+<h3 id="additional-classroom-materials">Additional Classroom Materials</h3>
+
+<ul>
+  <li><a href="presentation">Lecture</a></li>
+  <li><a href="assignment">Assignment</a></li>
+</ul>
+
+        </div>
+    </div>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+      <hr>
+      <footer>
+        <p>
+          &copy; 2015 Naomi Goodrich-Hunsaker, Ph.D.
+          <span class="pull-right text-muted">
+            powered by
+            <a href="http://dbtek.github.io/jekyll-bootstrap-3" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll-Bootstrap-3</a>
+            and <a href="http://getbootstrap.com" target="_blank">Twitter Bootstrap 3.0.3</a>
+          </span>
+        </p>
+      </footer>
+    </div>
+
+    
+
+    <script src="/assets/themes/bootstrap/resources/jquery/jquery.min.js"></script>
+    <script src="/assets/themes/bootstrap/resources/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
+

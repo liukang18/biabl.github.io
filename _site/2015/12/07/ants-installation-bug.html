@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>ANTs Installation Bug</title>
+    
+    <meta name="author" content="Naomi Goodrich-Hunsaker, Ph.D.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="/assets/themes//resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/themes//css/pygments.css">
+  
+    <!--[if lt IE 9]>
+      <script src="/assets/themes//resources/respond/Respond.min.js"></script>
+    <![endif]-->
+
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+  </head>
+
+  <body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Brain Imaging and Behavior Lab</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+          <li><a href="/tutorials">Tutorials </a></li>
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+          	<li class="dropdown-header">SOBIK</li>
+            <li><a href="/projects/SOBIK/template/">Template</a></li>
+            <li role="separator" class="divider"></li>
+            <li class="dropdown-header">MIOS</li>
+            <li><a href="/projects/MIOS/corpus-callosum">Corpus Callosum</a></li>
+          </ul>
+        </li>
+        <li>  </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+    <div class="container">
+      
+
+<div class="page-header">
+  <h1>ANTs Installation Bug </h1>
+  <h4>By Trevor Huff &mdash;<time pubdate datetime="2015-07-December" title="December 07, 2015">December 07, 2015</time></h4>
+</div>
+
+<div class="row post-full">
+  <div class="col-md-12">
+    <div class="content">
+      <p>There’s a bug with how GCC is installed on the supercomputer, which prevents installation of ANTs. Luckily there’s a solution.</p>
+
+<!-- more -->
+
+<p>Make sure you start with a completely fresh install. Remove the <code>ANTs</code> and <code>antsbin</code> directories:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> ~/apps/
+rm -rf ANTs
+rm -rf antsbin</code></pre></figure>
+
+<p>Follow the directions provided by ANTs:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> ~/apps/
+git clone git://github.com/stnava/ANTs.git
+mkdir ants-20151207
+<span class="nb">cd </span>ants-20151207
+ccmake ../ANTs</code></pre></figure>
+
+<p>In CMAKE, type “c” to load the configuration information and then type “t” to toggle to advanced mode. You want to edit the option, “CMAKE_EXE_LINKER_FLAGS” which by default is blank, but needs to be <code>-fuse-ld=bfd</code> instead. Press “ENTER” to edit the option.</p>
+
+<p><img src="/images/2015-12-07-ants-installation-bug/screenshot-image1.png" alt="" /></p>
+
+<p>Type “c” and then “g” and then exit back to the terminal by typing “q”.</p>
+
+<p>Compile your code:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">make -j 4</code></pre></figure>
+
+<p>and wait awhile.</p>
+
+<p>Once ANTs is installed, remember to copy the scripts to your ANTs bin directory and set your environmental variables:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">cp -v ~/apps/ANTs/Scripts/* ~/apps/ants-20151207/bin/
+<span class="nb">echo</span> <span class="s2">&quot;export ANTSPATH=/fslhome/&lt;USERNAME&gt;/antsbin-20151207/bin/&quot;</span> &gt;&gt; ~/.bash_profile
+<span class="nb">echo</span> <span class="s2">&quot;export PATH=${ANTSPATH}:${PATH}&quot;</span> &gt;&gt; ~/.bash_profile</code></pre></figure>
+
+    </div>
+
+    <hr>
+      
+      <footer>
+          <div class="col-sm-1">
+              
+          </div>
+          <div class="col-sm-11">
+              <p>Written by <strong><a rel="author" href="https://github.com/" title="" target="_blank">Trevor Huff</a></strong><br>
+                  <span class="muted">Contributor</span>
+              </p>
+          </div>
+      </footer>
+
+    <hr>
+    
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+</div>
+
+
+      <hr>
+      <footer>
+        <p>
+          &copy; 2015 Naomi Goodrich-Hunsaker, Ph.D.
+          <span class="pull-right text-muted">
+            powered by
+            <a href="http://dbtek.github.io/jekyll-bootstrap-3" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll-Bootstrap-3</a>
+            and <a href="http://getbootstrap.com" target="_blank">Twitter Bootstrap 3.0.3</a>
+          </span>
+        </p>
+      </footer>
+    </div>
+
+    
+
+    <script src="/assets/themes//resources/jquery/jquery.min.js"></script>
+    <script src="/assets/themes//resources/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
+

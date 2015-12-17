@@ -1,0 +1,30 @@
+{% assign author = site.data.authors[page.author] %}
+<div class="page-header">
+  <h1>{{ page.title }} {% if page.tagline %}<small>{{page.tagline}}</small>{% endif %}</h1>
+  <h4>By {{ author.name }} &mdash;<time pubdate datetime="{{ page.date | date: "%Y-%d-%B" }}" title="{{ page.date | date: "%B %d, %Y" }}">{{ page.date | date: "%B %d, %Y" }}</time></h4>
+</div>
+
+<div class="row post-full">
+  <div class="col-md-12">
+    <div class="content">
+      {{ content }}
+    </div>
+
+    <hr>
+      
+      <footer>
+          <div class="col-sm-1">
+              {% if author.image %}<img src="/images/{{ author.image }}" class="img-circle" width="64" height="64">{% endif %}
+          </div>
+          <div class="col-sm-11">
+              <p>Written by <strong><a rel="author" href="https://github.com/{{ author.github }}" title="{{ author_name }}" target="_blank">{{ author.name }}</a></strong><br>
+                  <span class="muted">{{ author.bio }}</span>
+              </p>
+          </div>
+      </footer>
+
+    <hr>
+    
+    {% include JB/comments %}
+  </div>
+</div>

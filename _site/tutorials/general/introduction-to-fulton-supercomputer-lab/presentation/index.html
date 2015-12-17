@@ -1,0 +1,110 @@
+<h2 id="to-wrap-or-not-to-wrap">To wrap or not to wrap…</h2>
+
+<p><img src="images/long.png" width="50%" style="float:left" /><img src="images/short.png" width="50%" style="float:right" /></p>
+
+<hr />
+
+<iframe width="960" height="720" src="https://www.youtube.com/embed/i1r9BxHBG0I?rel=0" frameborder="0" allowfullscreen=""></iframe>
+
+<h2 id="logging-in">Logging In</h2>
+
+<p>Interaction with the supercomputer is typically performed with command line tools. The command line tools can be run via a command prompt, also known as a shell. SSH is used to establish a secure shell with the supercomputer. In general, users should log in via the hostname ssh.fsl.byu.edu.</p>
+
+<p><code>
+ssh {username}@ssh.fsl.byu.edu
+</code></p>
+
+<p>where {username} is your NetID. Programs can be tested from the interactive nodes, but anything left running for more than an hour will be killed automatically.</p>
+
+<h2 id="installing-programs">Installing Programs</h2>
+
+<p>First make sure you are apart of the fslg_byustudent group. You can check which groups you belong to by typing:</p>
+
+<p><code>
+groups
+</code></p>
+
+<p>Create an apps directory in your home directory and go to that directory. First make sure you are in your home directory:</p>
+
+<p><code>
+pwd
+/fslhome/&lt;username&gt;/
+</code></p>
+
+<p>Next, make the new directory and go to that directory:</p>
+
+<p><code>
+mkdir apps
+cd apps
+</code></p>
+
+<h2 id="rsync-applications-to-home-directory">rsync Applications to Home Directory</h2>
+
+<p>The apps can be found in the fslg_byustudent group:</p>
+
+<p><code>
+rsync \
+-rauv \
+~/fsl_group/fslg_byustudent/apps/ \
+~/apps
+</code>
+I always like to add the option <code>--dry-run</code> before submitting an rsync to make sure the files I want to copy are the ones being copied.</p>
+
+<hr />
+
+<p><img src="images/apps.png" width="90%" style="float:left" /></p>
+
+<h2 id="set-environment-variables">Set Environment Variables</h2>
+
+<p>For most of the neuroimaging programs we use, we need to set the environmental variable. The variable simply tells the computer the location of all the executable files for an application.</p>
+
+<h2 id="temporarily-set-environment-variable">Temporarily Set Environment Variable</h2>
+
+<p>For every open shell window, you can set the environment variable, but this is tedious if you are constantly using the program.</p>
+
+<p><code>
+export ANTSPATH=/usr/local/antsbin/bin/
+PATH=${ANTSPATH}:${PATH}
+</code></p>
+
+<p>You can automatically set environment variables when a new shell window opens as well.</p>
+
+<h2 id="permanently-set-environment-variable">Permanently Set Environment Variable</h2>
+
+<p>To edit text files directly in a shell window:</p>
+
+<p><code>
+vi ~/.bash_profile
+</code></p>
+
+<p>To enter into <code>insert mode</code>, type <code>a</code>.</p>
+
+<hr />
+
+<p>Change username and type the following into your bash_profile:</p>
+
+<p>```
+# ANTS ENVIRONMENTAL VARIABLES
+export ANTSPATH=/fslhome/<username>/apps/ants/bin/
+PATH=${ANTSPATH}:${PATH}</username></p>
+
+<h1 id="acpcdetect-environmental-variables">ACPCDETECT ENVIRONMENTAL VARIABLES</h1>
+<p>ARTHOME=/fslhome/<username>/apps/art/
+export ARTHOME</username></p>
+
+<h1 id="fsl-environmental-variables">FSL ENVIRONMENTAL VARIABLES</h1>
+<p>FSLDIR=/fslhome/<username>/apps/fsl
+PATH=${FSLDIR}/bin:${PATH}
+export FSLDIR PATH
+. ${FSLDIR}/etc/fslconf/fsl.sh</username></p>
+
+<h1 id="freesurfer-environmental-variables">FREESURFER ENVIRONMENTAL VARIABLES</h1>
+<p>export FREESURFER_HOME=/fslhome/<username>/apps/freesurfer
+source $FREESURFER_HOME/SetUpFreeSurfer.sh
+```</username></p>
+
+<p>To enter into <code>command mode</code>, press the <code>esc</code> key. To save the file and exit out of vi text editor, type <code>:wq&lt;Return&gt;</code>.</p>
+
+<h2 id="assignment-details">Assignment Details</h2>
+
+<p><img src="images/assignmentdetails.png" width="90%" style="float:left" /></p>

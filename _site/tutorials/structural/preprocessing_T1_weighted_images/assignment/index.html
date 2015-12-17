@@ -1,0 +1,122 @@
+<h2 id="lets-get-started">Let’s get started!</h2>
+
+<p>Log into supercomputer:</p>
+
+<p><code>
+ssh &lt;username&gt;@ssh.fsl.byu.edu
+</code></p>
+
+<p>Move files:</p>
+
+<p><code>
+rsync \
+-rauv \
+~/fsl_groups/fslg_byustudent/compute/data \
+~/compute/
+</code></p>
+
+<h2 id="convert-dicoms-to-nifti">Convert DICOMs to NIfTI</h2>
+
+<p>Set participant directory:</p>
+
+<p><code>
+subjDir=~/compute/data/1304_082907/
+</code></p>
+
+<p>Make a new directory for your NIfTI images:</p>
+
+<p><code>
+mkdir ${subjDir}/t1
+</code></p>
+
+<h2 id="dcm2nii">dcm2nii</h2>
+
+<p>The program <code>dcm2nii</code> will anonymize, reorient and crop images:</p>
+
+<p><code>
+~/apps/mricron/dcm2nii \
+-a y \
+-g n \
+-x y \
+-o ${subjDir}/t1 \
+${subjDir}/DICOMs/mprage/*
+</code></p>
+
+<h2 id="rename">Rename</h2>
+
+<p>The output from the <code>dcm2nii</code> program results in file names that are uniquely different across participants. For analyses though, we want all the files named exactly the same from participant to participant. In this case, we want all the files named t1.nii.</p>
+
+<p>In addition to renaming the file, we want to use just the cropped and reorientated file (co). We want to delete the reorientation only (o) and original file (no co or o prefix).</p>
+
+<p><code>
+cd ${subjDir}/t1
+mv co*.nii t1.nii
+rm o*.nii | rm 2*.nii
+</code></p>
+
+<h2 id="acpcdetect">acpcdetect</h2>
+
+<p>The program <code>acpcdetect</code> will AC-PC align images, but the program only runs on Linux:</p>
+
+<p><code>
+~/apps/art/acpcdetect \
+-M \
+-o ${subjDir}/t1/acpc.nii \
+-i ${subjDir}/t1/t1.nii
+</code></p>
+
+<h2 id="n4-bias-field-correction">N4 Bias Field Correction</h2>
+
+<p>The way to fix the bias field is to use ANTs N4 Bias Field Correction tool:</p>
+
+<p><code>
+~/apps/ants/bin/N4BiasFieldCorrection \
+-d 3 \
+-i ${subjDir}/t1/acpc.nii \
+-o [${subjDir}/t1/n4.nii.gz,${subjDir}/t1/biasfield.nii.gz] \
+-s 4 \
+-b [200] \
+-c [50x50x50x50,0.000001]
+</code></p>
+
+<h2 id="resample-to-1-mm-isotropic">Resample to 1 mm Isotropic</h2>
+
+<p><code>
+~/apps/c3d/bin/c3d \
+${subjDir}/t1/n4.nii.gz \
+-resample-mm 1x1x1mm \
+-o ${subjDir}/t1/resampled1iso.nii.gz
+</code></p>
+
+<p>Never perfect though!</p>
+
+<p><code>
+~/apps/c3d/bin/c3d \
+${subjDir}/t1/resampled1iso.nii.gz \
+-info-full
+</code></p>
+
+<h2 id="copy-to-desktop">Copy to Desktop</h2>
+
+<p>Exit from the secure shell or just open a new shell window:</p>
+
+<p><code>
+exit
+</code></p>
+
+<p>Sync leaving out the DICOM folders:</p>
+
+<p>```
+rsync \
+-rauv \
+–exclude=”DICOMs” \</p>
+<username>@ssh.fsl.byu.edu:~/data/1304_082907 \
+~/Desktop
+```
+
+### Homework
+
+Before class on Monday, November 2nd, 2015, process all the participants.
+
+
+</username>

@@ -1,0 +1,302 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>ANTsR</title>
+    
+    <meta name="author" content="Naomi Goodrich-Hunsaker, Ph.D.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="/assets/themes/bootstrap/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/themes/bootstrap/css/pygments.css">
+  
+    <!--[if lt IE 9]>
+      <script src="/assets/themes/bootstrap/resources/respond/Respond.min.js"></script>
+    <![endif]-->
+
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+  </head>
+
+  <body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Brain Imaging and Behavior Lab</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+          <li><a href="/tutorials">Tutorials </a></li>
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+          	<li class="dropdown-header">SOBIK</li>
+            <li><a href="/projects/SOBIK/template/">Template</a></li>
+            <li role="separator" class="divider"></li>
+            <li class="dropdown-header">MIOS</li>
+            <li><a href="/projects/MIOS/corpus-callosum">Corpus Callosum</a></li>
+          </ul>
+        </li>
+        <li>  </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+    <div class="container">
+      
+
+<div class="page-header">
+  <h1>ANTsR </h1>
+</div>
+
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="sidebar-nav">
+                <div class="navbar navbar-default" role="navigation">
+                    <div class="navbar-header">
+                        <button class="navbar-toggle" data-target=".sidebar-navbar-collapse" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button> <span class="visible-xs navbar-brand">Sidebar menu</span>
+                    </div>
+                    <div class="navbar-collapse collapse sidebar-navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">General Topics <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                   <li><a href="/tutorials/general/unix-cheat-sheet/">Unix Cheat Sheet</a></li>
+                                    <li><a href="/tutorials/general/introduction-to-fulton-supercomputer-lab/">Introduction to Fulton Supercomputer</a></li>
+                                    <li><a href="/tutorials/general/submitting-jobs/">Submitting Batch Jobs on Supercomputer</a></li>
+                                    <li><a href="/tutorials/general/R/">Learn R</a></li>
+                                    <li><a href="/tutorials/general/install-freesurfer/">How to Install Freesurfer on Supercomputer</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Structural Imaging <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/tutorials/structural/preprocessing_T1_weighted_images/">Preprocessing T1 Weighted Images</a></li>
+                                    <li><a href="/tutorials/structural/convert-to-nifti/">Other Ways to Convert to NIfTI</a></li>
+                                    <li><a href="/tutorials/structural/normalization/">Normalization</a></li>
+                                    <li><a href="/tutorials/structural/cortical_thickness/">Tissue Segmentation and Cortical Thickness</a></li>
+                                    <li><a href="/tutorials/structural/morphometry/">Various Morphometry Analyses</a></li>
+                                    <li><a href="/tutorials/structural/ANTsR/">ANTsR</a></li>
+                                    <li><a href="/tutorials/structural/group_average/">Group Average Overlays with ANTsR</a></li>
+                                    <li><a href="/tutorials/structural/roi/">ROI Analysis with DKT</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Diffusion Imaging <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/tutorials/diffusion/preprocessing_diffusion_weighted_images/">Preprocessing Diffusion Weighted Images</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9">
+ <h2 id="objectives">Objectives</h2>
+
+<p>After you complete this section, you should be able to:</p>
+
+<ol>
+  <li>Install ANTsR on the supercomputer</li>
+  <li>Complete a simple linear regression analysis</li>
+  <li>Visualize results</li>
+</ol>
+
+<p>Note that everything in “&lt;&gt;” is to be replaced. For example, &lt;fileName&gt; –&gt; iLovePeanuts.txt</p>
+
+<h2 id="install-antsr">Install ANTsR</h2>
+
+<p>R has already been installed on the supercomputer. Log into the supercomputer:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ssh &lt;username&gt;@ssh.fsl.byu.edu</code></pre></figure>
+
+<p>Load the environmental variables so that R will run on the supercomputer:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">module load cmake/2.8.10
+module load r/3.2.1</code></pre></figure>
+
+<p>R relies on packages to run functions. There are currently 7462 packages available. Since any normal user probably only uses &lt;10% of packages, you have to install the packages you will want to use. You need to create directory in your home directory to keep these packages. Once you’ve created this directory, you also need to set your R environment to know where to look for this directory:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">mkdir ~/R
+<span class="nb">echo</span> <span class="s1">&#39;R_LIBS_USER=&quot;~/R&quot;&#39;</span> &gt;  <span class="nv">$HOME</span>/.Renviron</code></pre></figure>
+
+<p>The first package needs to be downloaded directly from source, all the other packages can be installed from within R:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> ~/R
+wget https://github.com/Rexamine/stringi/archive/master.zip
+unzip master.zip
+R CMD INSTALL stringi-master</code></pre></figure>
+
+<p>Launch R:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">R</code></pre></figure>
+
+<p>Let’s install a couple of packages and their dependencies:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="kp">options</span><span class="p">(</span>download.file.method <span class="o">=</span> <span class="s">&quot;wget&quot;</span><span class="p">)</span>
+pkgnames <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;Rcpp&quot;</span><span class="p">,</span> <span class="s">&quot;tools&quot;</span><span class="p">,</span> <span class="s">&quot;methods&quot;</span><span class="p">,</span> <span class="s">&quot;drat&quot;</span><span class="p">)</span>
+install.packages<span class="p">(</span>pkgnames<span class="p">,</span> dependencies <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> repos<span class="o">=</span><span class="s">&quot;http://cran.rstudio.com/&quot;</span><span class="p">)</span></code></pre></figure>
+
+<p>The following packages also need to be installed, but without dependencies:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r">pkgnames <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;stringr&quot;</span><span class="p">,</span> <span class="s">&quot;evaluate&quot;</span><span class="p">,</span> <span class="s">&quot;knitr&quot;</span><span class="p">,</span> <span class="s">&quot;magrittr&quot;</span><span class="p">)</span>
+install.packages<span class="p">(</span>pkgnames<span class="p">,</span> dependencies <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span> repos<span class="o">=</span><span class="s">&quot;http://cran.rstudio.com/&quot;</span><span class="p">)</span></code></pre></figure>
+
+<p>Finally, you are ready to install ANTsR:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r">drat<span class="o">::</span>addRepo<span class="p">(</span><span class="s">&quot;ANTs-R&quot;</span><span class="p">)</span>
+install.packages<span class="p">(</span><span class="s">&quot;ANTsR&quot;</span><span class="p">)</span></code></pre></figure>
+
+<p>Now anytime you want to run R, all you have to do is:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">module load r/3.2.1
+R</code></pre></figure>
+
+<h2 id="simple-linear-regression-analysis">Simple Linear Regression Analysis</h2>
+
+<p>Let’s load our packages. Remember, you’ve already installed all the packages (<code>install.packages</code>) now all you have to do is load the packages you want to use (<code>library</code>):</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="kn">library</span><span class="p">(</span>ANTsR<span class="p">)</span></code></pre></figure>
+
+<p>Set path to directory containing your data:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="kp">setwd</span><span class="p">(</span><span class="s">&quot;/path/to/data/&quot;</span><span class="p">)</span></code></pre></figure>
+
+<h3 id="import-data">Import Data</h3>
+
+<p>Import files and smooth - The following code creates a list of files in your working directory (<em>files</em>). Any empty list is created for when the images are smoothed they are added to the empty list (<em>ilist</em>). For each image in the <em>files</em> list, the are imported and smoothed and then added to the <em>ilist</em> list.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r">files<span class="o">&lt;-</span><span class="kp">list.files</span><span class="p">()</span>
+ilist<span class="o">&lt;-</span><span class="kt">list</span><span class="p">()</span>
+<span class="kr">for</span> <span class="p">(</span> i <span class="kr">in</span> <span class="m">1</span><span class="o">:</span><span class="kp">length</span><span class="p">(</span>files<span class="p">)</span> <span class="p">)</span>
+<span class="p">{</span>
+  img<span class="o">&lt;-</span>antsImageRead<span class="p">(</span>files<span class="p">[</span>i<span class="p">])</span>
+  img<span class="o">&lt;-</span>smoothImage<span class="p">(</span>img<span class="p">,</span><span class="m">1.5</span><span class="p">)</span>
+  ilist<span class="p">[</span>i<span class="p">]</span><span class="o">&lt;-</span>img
+<span class="p">}</span></code></pre></figure>
+
+<p>Convert to matrices - A simple mask is created to know what is and is not data to analyze. You don’t want to analyze nonbrain data. The values are extracted from each voxel to form a 3D matrix.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r">mask<span class="o">&lt;-</span>getMask<span class="p">(</span>antsImageRead<span class="p">(</span>files<span class="p">[</span><span class="m">1</span><span class="p">]))</span>
+mat<span class="o">&lt;-</span>imageListToMatrix<span class="p">(</span>ilist<span class="p">,</span> mask<span class="p">)</span></code></pre></figure>
+
+<h3 id="merge-with-demographic-data">Merge with Demographic Data</h3>
+
+<p>Demographic data can be anything from group ID, age, and gender. Data can also include neuropsych outcomes etc. To make life easy, your demographics file sound have the same study IDs as your MRI files and also be in alphanumeric order.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r">mydata<span class="o">&lt;-</span>read.table<span class="p">(</span><span class="s">&quot;/path/to/directory/demographics.csv&quot;</span><span class="p">,</span> header<span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span>sep<span class="o">=</span><span class="s">&quot;,&quot;</span><span class="p">)</span></code></pre></figure>
+
+<p>Subset data to demographics and desired variable column:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r">vardata<span class="o">&lt;-</span>mydata<span class="p">[</span><span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">)]</span>
+var1<span class="o">&lt;-</span>vardata<span class="p">[,</span><span class="m">2</span><span class="p">]</span></code></pre></figure>
+
+<p>Get rid of any missing data. R does <strong>NOT</strong> like missing data and will often not run if there’s missing data.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r">vardata<span class="o">&lt;-</span>na.omit<span class="p">(</span>vardata<span class="p">)</span></code></pre></figure>
+
+<p>Take the subject ID information from the files. Namely your files should be labeled as subject ID (again to make life easier). Since the names in the <em>files</em> list contain not only the subject ID but also the file type (.nii.gz), we want just the subject ID which is 10 characters long. We can then merge the <em>study id</em> list with the demographics <em>vardata</em> and make sure we just have demographics data for the participants with images.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r">studyid<span class="o">=</span><span class="kp">substr</span><span class="p">(</span>files<span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">11</span><span class="p">)</span>
+studyid<span class="o">=</span><span class="kt">data.frame</span><span class="p">(</span>studyid<span class="p">)</span>
+vardata<span class="o">=</span><span class="kp">merge</span><span class="p">(</span>vardata<span class="p">,</span>studyid<span class="p">,</span>all.y<span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
+varlist<span class="o">&lt;-</span><span class="kp">rownames</span><span class="p">(</span>vardata<span class="p">)</span>
+varlist<span class="o">&lt;-</span><span class="kp">as.numeric</span><span class="p">(</span>varlist<span class="p">)</span>
+varlist<span class="o">&lt;-</span><span class="kt">list</span><span class="p">(</span>varlist<span class="p">)</span>
+<span class="kr">for</span><span class="p">(</span>i <span class="kr">in</span> varlist<span class="p">){</span>
+varmat<span class="o">&lt;-</span><span class="kp">subset</span><span class="p">(</span>mat<span class="p">[</span>i<span class="p">,])</span>
+<span class="p">}</span></code></pre></figure>
+
+<h3 id="run-analysis">Run analysis</h3>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r">voxels<span class="o">&lt;-</span><span class="kp">ncol</span><span class="p">(</span>varmat<span class="p">)</span>
+regpval<span class="o">&lt;-</span><span class="kt">matrix</span><span class="p">(</span>nrow<span class="o">=</span><span class="m">1</span><span class="p">,</span>ncol<span class="o">=</span>voxels<span class="p">)</span>
+regtstat<span class="o">&lt;-</span><span class="kt">matrix</span><span class="p">(</span>nrow<span class="o">=</span><span class="m">1</span><span class="p">,</span>ncol<span class="o">=</span>voxels<span class="p">)</span>
+<span class="kr">for</span> <span class="p">(</span>i <span class="kr">in</span> <span class="m">1</span><span class="o">:</span>voxels<span class="p">){</span>
+vox<span class="o">&lt;-</span>varmat<span class="p">[,</span>i<span class="p">]</span>
+regfit<span class="o">&lt;-</span>lm<span class="p">(</span>vox<span class="o">~</span>var1<span class="p">)</span>
+regsum<span class="o">&lt;-</span><span class="kp">summary</span><span class="p">(</span>regfit<span class="p">)</span>
+regpval<span class="p">[,</span>i<span class="p">]</span><span class="o">&lt;-</span>regsum<span class="o">$</span>coefficients<span class="p">[</span><span class="m">2</span><span class="p">,</span><span class="m">4</span><span class="p">]</span>
+regtstat<span class="p">[,</span>i<span class="p">]</span><span class="o">&lt;-</span>regsum<span class="o">$</span>coefficients<span class="p">[</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">]</span>
+<span class="p">}</span></code></pre></figure>
+
+<h3 id="convert-to-statistical-images">Convert to statistical images</h3>
+
+<p>The data is in the form of a 3D matrix and needs to be converted into a visual NIfTI image.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r">i.regpval<span class="o">&lt;-</span>makeImage<span class="p">(</span>mask<span class="p">,</span>regpval<span class="p">)</span>
+antsImageWrite<span class="p">(</span>i.regpval<span class="p">,</span>file<span class="o">=</span><span class="s">&quot;/path/to/output/directory/regpval.nii.gz&quot;</span><span class="p">)</span>
+i.regtstat<span class="o">&lt;-</span>makeImage<span class="p">(</span>mask<span class="p">,</span>regtstat<span class="p">)</span>
+antsImageWrite<span class="p">(</span>i.regtstat<span class="p">,</span>file<span class="o">=</span><span class="s">&quot;/path/to/output/directory/regtstat.nii.gz&quot;</span><span class="p">)</span></code></pre></figure>
+
+<h2 id="visualize-results">Visualize Results</h2>
+
+<p>Data can be download from the supercomputer to a local computer. Using your template image, you can add the <em>regtstat</em> file as an overlay to see results.</p>
+
+<p><img src="images/tstat.png" alt="" class="img-responsive" /></p>
+
+<h3 id="additional-classroom-materials">Additional Classroom Materials</h3>
+
+<ul>
+  <li><a href="assignment-part1">Assignment Part 1</a></li>
+  <li><a href="assignment-part2">Assignment Part 2</a></li>
+  <li><a href="assignment-part3">Assignment Part 3</a></li>
+</ul>
+
+        </div>
+    </div>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+      <hr>
+      <footer>
+        <p>
+          &copy; 2015 Naomi Goodrich-Hunsaker, Ph.D.
+          <span class="pull-right text-muted">
+            powered by
+            <a href="http://dbtek.github.io/jekyll-bootstrap-3" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll-Bootstrap-3</a>
+            and <a href="http://getbootstrap.com" target="_blank">Twitter Bootstrap 3.0.3</a>
+          </span>
+        </p>
+      </footer>
+    </div>
+
+    
+
+    <script src="/assets/themes/bootstrap/resources/jquery/jquery.min.js"></script>
+    <script src="/assets/themes/bootstrap/resources/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
+

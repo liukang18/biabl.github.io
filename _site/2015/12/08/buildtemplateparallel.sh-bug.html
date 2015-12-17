@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>buildtemplateparallel.sh Bug</title>
+    
+    <meta name="author" content="Naomi Goodrich-Hunsaker, Ph.D.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="/assets/themes//resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/themes//css/pygments.css">
+  
+    <!--[if lt IE 9]>
+      <script src="/assets/themes//resources/respond/Respond.min.js"></script>
+    <![endif]-->
+
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+  </head>
+
+  <body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Brain Imaging and Behavior Lab</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+          <li><a href="/tutorials">Tutorials </a></li>
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+          	<li class="dropdown-header">SOBIK</li>
+            <li><a href="/projects/SOBIK/template/">Template</a></li>
+            <li role="separator" class="divider"></li>
+            <li class="dropdown-header">MIOS</li>
+            <li><a href="/projects/MIOS/corpus-callosum">Corpus Callosum</a></li>
+          </ul>
+        </li>
+        <li>  </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+    <div class="container">
+      
+
+<div class="page-header">
+  <h1>buildtemplateparallel.sh Bug </h1>
+  <h4>By Naomi J. Goodrich-Hunsaker &mdash;<time pubdate datetime="2015-08-December" title="December 08, 2015">December 08, 2015</time></h4>
+</div>
+
+<div class="row post-full">
+  <div class="col-md-12">
+    <div class="content">
+      <p>When trying to run buildtemplateparallel.sh, I ran into several problems. Here are a list of changes I had to make. Here’s my code to run buildtemplateparallel.sh:</p>
+
+<!-- more -->
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> /fslhome/intj5/compute/templates/SOBIK/data
+~/apps/ants-20151207/bin/buildtemplateparallel.sh <span class="se">\</span>
+-d <span class="m">3</span> <span class="se">\</span>
+-o sobik <span class="se">\</span>
+-c <span class="m">5</span> <span class="se">\</span>
+*.nii.gz</code></pre></figure>
+
+<h2 id="problem-1">Problem 1</h2>
+
+<p>There was not a <em>qscript</em> variable after the <code>elif</code> command on line 1237.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="k">elif</span> <span class="o">[[</span> <span class="nv">$DOQSUB</span> -eq <span class="m">5</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+      <span class="nv">qscript</span><span class="o">=</span><span class="s2">&quot;job_${count}_${i}.sh&quot;</span>
+      <span class="nb">echo</span> <span class="s2">&quot;#!/bin/sh&quot;</span> &gt; <span class="k">${</span><span class="nv">qscript</span><span class="k">}</span></code></pre></figure>
+
+<h2 id="problem-2">Problem 2</h2>
+
+<p>Next issue was the lack of specifying the amount of memory required for the sbatch submission. The FSL supercomputer requires memory listed, <code>--mem-per-cpu=32768M</code>. Here’s how I fixed the code on line 1242 (previously 1241 before fixing Problem #1).</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">id</span><span class="o">=</span><span class="sb">`</span>sbatch --job-name<span class="o">=</span>antsdef<span class="k">${</span><span class="nv">i</span><span class="k">}</span> --export<span class="o">=</span><span class="nv">ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS</span><span class="o">=</span>1,LD_LIBRARY_PATH<span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>,ANTSPATH<span class="o">=</span><span class="nv">$ANTSPATH</span> --nodes<span class="o">=</span><span class="m">1</span> --cpus-per-task<span class="o">=</span><span class="m">1</span> --mem-per-cpu<span class="o">=</span>32768M --time<span class="o">=</span>50:00:00 <span class="nv">$QSUBOPTS</span> <span class="nv">$qscript</span> <span class="p">|</span> rev <span class="p">|</span> cut -f1 -d<span class="se">\ </span><span class="p">|</span> rev<span class="sb">`</span></code></pre></figure>
+
+<h2 id="problem-3">Problem 3</h2>
+
+<p>The latest version of <code>N4BiasFieldCorrection</code> was giving errors and aborting script. I was able to copy the script from the pre-complied code:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">cp -v <span class="se">\</span>
+~/apps/ants-2.1.0-redhat/N4BiasFieldCorrection <span class="se">\</span>
+~/apps/ants-20151207/bin/N4BiasFieldCorrection</code></pre></figure>
+
+<p>Here’s the end result of using the 20 SOBIK participants. Goosebumps!</p>
+
+<p><img src="/media/sobiktemplate.jpg" alt="sobiktemplate.jpg" class="img-responsive" /></p>
+
+
+    </div>
+
+    <hr>
+      
+      <footer>
+          <div class="col-sm-1">
+              <img src="/images/naomi.jpg" class="img-circle" width="64" height="64">
+          </div>
+          <div class="col-sm-11">
+              <p>Written by <strong><a rel="author" href="https://github.com/njhunsak" title="" target="_blank">Naomi J. Goodrich-Hunsaker</a></strong><br>
+                  <span class="muted">Website Manager</span>
+              </p>
+          </div>
+      </footer>
+
+    <hr>
+    
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+</div>
+
+
+      <hr>
+      <footer>
+        <p>
+          &copy; 2015 Naomi Goodrich-Hunsaker, Ph.D.
+          <span class="pull-right text-muted">
+            powered by
+            <a href="http://dbtek.github.io/jekyll-bootstrap-3" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll-Bootstrap-3</a>
+            and <a href="http://getbootstrap.com" target="_blank">Twitter Bootstrap 3.0.3</a>
+          </span>
+        </p>
+      </footer>
+    </div>
+
+    
+
+    <script src="/assets/themes//resources/jquery/jquery.min.js"></script>
+    <script src="/assets/themes//resources/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
+

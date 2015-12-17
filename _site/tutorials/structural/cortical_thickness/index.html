@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>Tissue Segmentation and Cortical Thickness</title>
+    
+    <meta name="author" content="Naomi Goodrich-Hunsaker, Ph.D.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="/assets/themes/bootstrap/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/themes/bootstrap/css/pygments.css">
+  
+    <!--[if lt IE 9]>
+      <script src="/assets/themes/bootstrap/resources/respond/Respond.min.js"></script>
+    <![endif]-->
+
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+  </head>
+
+  <body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Brain Imaging and Behavior Lab</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+          <li><a href="/tutorials">Tutorials </a></li>
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+          	<li class="dropdown-header">SOBIK</li>
+            <li><a href="/projects/SOBIK/template/">Template</a></li>
+            <li role="separator" class="divider"></li>
+            <li class="dropdown-header">MIOS</li>
+            <li><a href="/projects/MIOS/corpus-callosum">Corpus Callosum</a></li>
+          </ul>
+        </li>
+        <li>  </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+    <div class="container">
+      
+
+<div class="page-header">
+  <h1>Tissue Segmentation and Cortical Thickness </h1>
+</div>
+
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="sidebar-nav">
+                <div class="navbar navbar-default" role="navigation">
+                    <div class="navbar-header">
+                        <button class="navbar-toggle" data-target=".sidebar-navbar-collapse" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button> <span class="visible-xs navbar-brand">Sidebar menu</span>
+                    </div>
+                    <div class="navbar-collapse collapse sidebar-navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">General Topics <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                   <li><a href="/tutorials/general/unix-cheat-sheet/">Unix Cheat Sheet</a></li>
+                                    <li><a href="/tutorials/general/introduction-to-fulton-supercomputer-lab/">Introduction to Fulton Supercomputer</a></li>
+                                    <li><a href="/tutorials/general/submitting-jobs/">Submitting Batch Jobs on Supercomputer</a></li>
+                                    <li><a href="/tutorials/general/R/">Learn R</a></li>
+                                    <li><a href="/tutorials/general/install-freesurfer/">How to Install Freesurfer on Supercomputer</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Structural Imaging <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/tutorials/structural/preprocessing_T1_weighted_images/">Preprocessing T1 Weighted Images</a></li>
+                                    <li><a href="/tutorials/structural/convert-to-nifti/">Other Ways to Convert to NIfTI</a></li>
+                                    <li><a href="/tutorials/structural/normalization/">Normalization</a></li>
+                                    <li><a href="/tutorials/structural/cortical_thickness/">Tissue Segmentation and Cortical Thickness</a></li>
+                                    <li><a href="/tutorials/structural/morphometry/">Various Morphometry Analyses</a></li>
+                                    <li><a href="/tutorials/structural/ANTsR/">ANTsR</a></li>
+                                    <li><a href="/tutorials/structural/group_average/">Group Average Overlays with ANTsR</a></li>
+                                    <li><a href="/tutorials/structural/roi/">ROI Analysis with DKT</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Diffusion Imaging <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/tutorials/diffusion/preprocessing_diffusion_weighted_images/">Preprocessing Diffusion Weighted Images</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9">
+ <h2 id="objectives">Objectives</h2>
+
+<p>After the preprocessing steps, there are some things to do that will be helpful (and sometimes necessary) for other pipelines. Those things that are helpful are: (1) brain mask, (2) tissue segmentation, and (3) extracted brain only image. After you complete this section, you should be able to:</p>
+
+<ol>
+  <li>Understand the difference between ROIs and overlays</li>
+  <li>Define brain mask &amp; tissue segmentation</li>
+  <li>Understand the importance of a template</li>
+  <li>Run antsCorticalThickness.sh pipeline</li>
+  <li>Describe possible analyses from output files</li>
+</ol>
+
+<h2 id="rois-versus-overlays">ROIs versus Overlays</h2>
+
+<p>The intensity value of the brain can be plotted in a histogram with voxel count versus intensity value. From that histogram, you can that the background, CSF, WM, and GM have a range of potential values for each pixel (mixed Gaussians).</p>
+
+<p><img src="http://dbm.neuro.uni-jena.de/imas/intensity-gauss.jpg" alt="" /></p>
+
+<p>Regions of interest (ROIs) on the other hand have a single value within the ROI. That value can be any number, but within that ROI it is a single uniform number. A single ROI will often be 1 and the background would be 0. However, you can combine ROIs and give each ROI a different number. Although an ROI can be the whole brain, typically (by definition) it is a subset of the overall dataset.</p>
+
+<p><img class="img-responsive" alt="" src="images/roi.png" /></p>
+
+<p>An overlay on the other hand is more like a regular scan acquired from the scanner. In fact, different sequences can be overlaid on top of each other: PET scan over a T1, fMRI activation over a T1. Overlays contain data can be visualized on top of a T1 or T2 or whatever. Overlays like normal T1 images have a range of values and not a single binary value.</p>
+
+<p><img class="img-responsive" alt="" src="images/overlay.png" /></p>
+
+<p>The following pipeline creates various ROIs and overlays that can be used in a number of ways.</p>
+
+<h2 id="brain-mask">Brain Mask</h2>
+
+<p>The purpose of a brain mask is not for any specific quantification, but more generally, to remove “data” that does not need to be included in any analyses. Depending on what you want to analyze, it is always best to clean up your dataset. In terms of brain analyses, we want to remove anything not brain. This process is sometimes called brain extraction or skull-stripping. Most likely, you will never be analyzing the skull, dura mater, arachnoid space, etc. Therefore, you will want to remove these structures from the image. A “good” brain mask is typically the subarachnoid space and then all brain tissue therein contained.</p>
+
+<p><img class="img-responsive" alt="" src="images/layers.jpeg" /></p>
+
+<p>Many programs will have their own brain extraction protocols. These protocols are fast and not always reliable. For example, FSL brain extraction tool may be one of the more common brain extraction programs available. Here’s an example of the FSL BET toolbox:</p>
+
+<p><img class="img-responsive" alt="" src="images/fsl.png" /></p>
+
+<p>In my experience, if you are working with non-typical or even children images, these traditional brain extraction protocols will fail either leaving out brain tissue or including more than just brain.</p>
+
+<p>One alternative is to use a pipeline designed to utilize the analytical power of ANTs. Here’s an example of the brain extraction from ANTs:</p>
+
+<p><img class="img-responsive" alt="" src="images/ants.png" /></p>
+
+<p>Remember, the brain mask does not have to be perfect, but it does need to include all the brain tissue and then not too much extra. The ANTs protocol also does tissue segmentation and from that dataset, if you wanted to get a hyper-specific brain mask, you could use just GM and WM to generate a mask:</p>
+
+<p><img class="img-responsive" alt="" src="images/ants-no-csf.png" /></p>
+
+<h2 id="tissue-segmentation">Tissue Segmentation</h2>
+
+<p>Back to the histogram of a brain. Recall that the histogram is voxel count versus intensity values with CSF, GM, and WM all having their own range of intensity values. Optimally you would want each CSF, GM, and WM to have very distinct and separate Gaussians, so that it would be easy to determine which voxels were what type of tissue. However, there are many factors that will cause greater overlap between the mixed Gaussians:</p>
+
+<ul>
+  <li>Bias field</li>
+  <li>Blurring</li>
+  <li>Low resolution</li>
+  <li>Head motion</li>
+  <li>Noise</li>
+</ul>
+
+<p>Obviously, if you were just using histogram matching to do tissue segmentation, you would end up with a lot of incorrectly identified voxels. The ANTs pipeline accomplishes tissue segmentation not only using an algorithm to separate the various tissue gaussians, but also a probability approach. Part of the ANTs cortical thickness pipeline will take a template with known tissue segmentations and warp it to look like the participant image. The purpose is to create an overlay that gives the likelihood (or probability) for each voxel as to whether or not it is CSF, WM, or GM. By using this probability approach, you are able to reduce the total voxels within the histogram. By iterating between histograms and probability maps, ANTs cortical thickness is able to get closer to a valid tissue segmentation. The key ROIs generated are: CSF, WM, GM, subcortical gray matter, brainstem, and cerebellum.</p>
+
+<p>Let’s set the subject directory again and make an output directory for antsCorticalThickness.sh:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">subjDir</span><span class="o">=</span>&lt;/path/to/subject/directory&gt;
+mkdir <span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/antsCorticalThickness/</code></pre></figure>
+
+<p>Now let’s set the template directory:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">templateDir</span><span class="o">=</span>&lt;/path/to/template/directory&gt;</code></pre></figure>
+
+<p>Running this code will take 6+ hours, so run on the FSL supercomputer only:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">antsCorticalThickness.sh <span class="se">\</span>
+-d <span class="m">3</span> <span class="se">\</span>
+-a <span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/n4.nii.gz <span class="se">\ </span>
+-e <span class="k">${</span><span class="nv">templateDir</span><span class="k">}</span>/T_template0.nii.gz <span class="se">\</span>
+-t <span class="k">${</span><span class="nv">templateDir</span><span class="k">}</span>/T_template0_BrainCerebellum.nii.gz <span class="se">\</span>
+-m <span class="k">${</span><span class="nv">templateDir</span><span class="k">}</span>/T_template0_BrainCerebellumProbabilityMask.nii.gz <span class="se">\ </span>
+-f <span class="k">${</span><span class="nv">templateDir</span><span class="k">}</span>/T_template0_BrainCerebellumExtractionMask.nii.gz <span class="se">\ </span>
+-p <span class="k">${</span><span class="nv">templateDir</span><span class="k">}</span>/Priors2/priors%d.nii.gz <span class="se">\</span>
+-q <span class="m">1</span> <span class="se">\</span>
+-o <span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/antsCorticalThickness/</code></pre></figure>
+
+<p>The output from this process is pure <strong><em>gold!</em></strong> But let’s talk about templates first.</p>
+
+<h3 id="ants-cortical-thickness-templates">ANTs Cortical Thickness Templates</h3>
+
+<p>If you are studying children between 8 and 12, it does not make sense to use an adult template or worse a template that’s a 70 year old brain. Same goes for if you are just studying females, you don’t want a template that includes males. Select a template that best matches your population.</p>
+
+<p>ANTs has provided several templates already: http://figshare.com/articles/ANTs_ANTsR_Brain_Templates/915436</p>
+
+<h2 id="pot-o-gold">Pot ‘O Gold</h2>
+
+<p>The output of antsCorticalThickness.sh provides lots of outputs for tons of possible analyses:</p>
+
+<ol>
+  <li>Brain only image</li>
+  <li>Brain mask</li>
+  <li>Tissue ROI segmentation of CSF, GM, WM, subcortical, brainstem, and cerebellum</li>
+  <li>Tissue probability overlays of CSF, GM, WM, subcortical, brainstem, and cerebellum</li>
+  <li>Cortical thickness overlay in participant space</li>
+  <li>Cortical thickness overlay in template space</li>
+  <li>Subject to template warp transformation plus an image of the subject morphed to look like template</li>
+  <li>Template to subject warp transformation plus an image of the template morphed to look like subject</li>
+  <li>Log Jacobian!</li>
+</ol>
+
+<p><img class="img-responsive" alt="" src="images/segmentation.png" /></p>
+
+<p><img class="img-responsive" alt="" src="images/corticalthickness.png" /></p>
+
+<p>From these outputs, you can do:</p>
+
+<ol>
+  <li>Volumetric analysis on tissue segmentations</li>
+  <li>Group cortical thickness analyses</li>
+  <li>Morphometry</li>
+</ol>
+
+<h3 id="additional-classroom-materials">Additional Classroom Materials</h3>
+
+<ul>
+  <li><a href="presentation">Lecture</a></li>
+  <li><a href="assignment">Assignment</a></li>
+</ul>
+
+        </div>
+    </div>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+      <hr>
+      <footer>
+        <p>
+          &copy; 2015 Naomi Goodrich-Hunsaker, Ph.D.
+          <span class="pull-right text-muted">
+            powered by
+            <a href="http://dbtek.github.io/jekyll-bootstrap-3" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll-Bootstrap-3</a>
+            and <a href="http://getbootstrap.com" target="_blank">Twitter Bootstrap 3.0.3</a>
+          </span>
+        </p>
+      </footer>
+    </div>
+
+    
+
+    <script src="/assets/themes/bootstrap/resources/jquery/jquery.min.js"></script>
+    <script src="/assets/themes/bootstrap/resources/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
+

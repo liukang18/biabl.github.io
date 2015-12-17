@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>Optimizing ANTs Joint Label Fusion</title>
+    
+    <meta name="author" content="Naomi Goodrich-Hunsaker, Ph.D.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="/assets/themes//resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/themes//css/pygments.css">
+  
+    <!--[if lt IE 9]>
+      <script src="/assets/themes//resources/respond/Respond.min.js"></script>
+    <![endif]-->
+
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+  </head>
+
+  <body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Brain Imaging and Behavior Lab</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+          <li><a href="/tutorials">Tutorials </a></li>
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+          	<li class="dropdown-header">SOBIK</li>
+            <li><a href="/projects/SOBIK/template/">Template</a></li>
+            <li role="separator" class="divider"></li>
+            <li class="dropdown-header">MIOS</li>
+            <li><a href="/projects/MIOS/corpus-callosum">Corpus Callosum</a></li>
+          </ul>
+        </li>
+        <li>  </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+    <div class="container">
+      
+
+<div class="page-header">
+  <h1>Optimizing ANTs Joint Label Fusion </h1>
+  <h4>By Naomi J. Goodrich-Hunsaker &mdash;<time pubdate datetime="2015-14-December" title="December 14, 2015">December 14, 2015</time></h4>
+</div>
+
+<div class="row post-full">
+  <div class="col-md-12">
+    <div class="content">
+      <p>Ran into a problem or two, but mostly it was about optimizing the pipeline.</p>
+
+<!-- more -->
+
+<p>Here’s the final code I used to run the SOBIK template:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">TEMPLATE_DIR</span><span class="o">=</span>/fslhome/intj5/templates/OASIS-TRT-20_volumes
+<span class="nv">LABEL_DIR</span><span class="o">=</span>/fslhome/intj5/templates/OASIS-TRT-20_DKT31_CMA_labels_v2
+<span class="nb">cd</span> /fslhome/intj5/compute/templates/SOBIK
+mkdir labels
+<span class="k">${</span><span class="nv">ANTSPATH</span><span class="k">}</span>/antsJointLabelFusion.sh <span class="se">\</span>
+-d <span class="m">3</span> <span class="se">\</span>
+-c <span class="m">5</span> -j <span class="m">2</span> -y s -k <span class="m">1</span> <span class="se">\</span>
+-o /fslhome/intj5/compute/templates/SOBIK/labels/ <span class="se">\</span>
+-p /fslhome/intj5/compute/templates/SOBIK/labels/Posteriors%02d.nii.gz <span class="se">\</span>
+-t /fslhome/intj5/compute/templates/SOBIK/data/sobikbraintemplate.nii.gz <span class="se">\</span>
+-g <span class="k">${</span><span class="nv">TEMPLATE_DIR</span><span class="k">}</span>/OASIS-TRT-20-1/t1weighted_brain.nii.gz -l <span class="k">${</span><span class="nv">LABEL_DIR</span><span class="k">}</span>/OASIS-TRT-20-1_DKT31_CMA_labels.nii.gz <span class="se">\</span>
+-g <span class="k">${</span><span class="nv">TEMPLATE_DIR</span><span class="k">}</span>/OASIS-TRT-20-2/t1weighted_brain.nii.gz -l <span class="k">${</span><span class="nv">LABEL_DIR</span><span class="k">}</span>/OASIS-TRT-20-2_DKT31_CMA_labels.nii.gz <span class="se">\</span>
+-g <span class="k">${</span><span class="nv">TEMPLATE_DIR</span><span class="k">}</span>/OASIS-TRT-20-3/t1weighted_brain.nii.gz -l <span class="k">${</span><span class="nv">LABEL_DIR</span><span class="k">}</span>/OASIS-TRT-20-3_DKT31_CMA_labels.nii.gz <span class="se">\</span>
+-g <span class="k">${</span><span class="nv">TEMPLATE_DIR</span><span class="k">}</span>/OASIS-TRT-20-4/t1weighted_brain.nii.gz -l <span class="k">${</span><span class="nv">LABEL_DIR</span><span class="k">}</span>/OASIS-TRT-20-4_DKT31_CMA_labels.nii.gz <span class="se">\</span>
+-g <span class="k">${</span><span class="nv">TEMPLATE_DIR</span><span class="k">}</span>/OASIS-TRT-20-5/t1weighted_brain.nii.gz -l <span class="k">${</span><span class="nv">LABEL_DIR</span><span class="k">}</span>/OASIS-TRT-20-5_DKT31_CMA_labels.nii.gz <span class="se">\</span>
+-g <span class="k">${</span><span class="nv">TEMPLATE_DIR</span><span class="k">}</span>/OASIS-TRT-20-6/t1weighted_brain.nii.gz -l <span class="k">${</span><span class="nv">LABEL_DIR</span><span class="k">}</span>/OASIS-TRT-20-6_DKT31_CMA_labels.nii.gz</code></pre></figure>
+
+<h2 id="problem-1">Problem 1</h2>
+
+<p>My code wouldn’t run if I didn’t specifically state my transformation type is <code>-y s</code>, even though that’s the default. Make sure to add that option to your code.</p>
+
+<h2 id="problem-2">Problem 2</h2>
+
+<p>The generated <code>job_t1weighted_0.sh</code> file contained the wrong code:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/sh</span>
+/fslhome/intj5/apps/ants-20151207/bin//antsRegistrationSyNQuick.sh -d <span class="m">3</span> -p d -j <span class="m">1</span> -t s -f /fslhome/intj5/compute/templates/SOBIK/data/sobiktemplate.nii.gz -m /fslhome/intj5/templates/OASIS-TRT-20_volumes/OASIS-TRT-20-1/t1weighted.nii.gz -o /fslhome/intj5/compute/templates/SOBIK/labels/t1weighted_0_ &gt; /fslhome/intj5/compute/templates/SOBIK/labels/t1weighted_0_log.txt
+/fslhome/intj5/apps/ants-20151207/bin//antsApplyTransforms -d <span class="m">3</span> --float <span class="m">1</span>                           -i /fslhome/intj5/templates/OASIS-TRT-20_volumes/OASIS-TRT-20-1/labels.DKT25.manual.nii.gz -r /fslhome/intj5/compute/templates/SOBIK/data/sobiktemplate.nii.gz -o /fslhome/intj5/compute/templates/SOBIK/labels/t1weighted_0_WarpedLabels.nii.gz -n NearestNeighbor                           -t /fslhome/intj5/compute/templates/SOBIK/labels/t1weighted_0_0Warp.nii.gz &gt;&gt; /fslhome/intj5/compute/templates/SOBIK/labels/t1weighted_0_log.txt</code></pre></figure>
+
+<p>The error is that when you run antsRegistrationSynQuick.sh, the output warp file should be <em>t1weighted_0_1Warp.nii.gz</em> and not <em>t1weighted_0_0Warp.nii.gz</em>, so when it’s trying to run antsApplyTransforms, it can’t find the files. Moreover the affine.mat file is also required.</p>
+
+<p>I simply commented out the offending lines (532 - 542) in the antsJointLabelFusion.sh script:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#     if [[ ! -f &quot;${OUTPUT_PREFIX}${BASENAME}_${i}_0GenericAffine.mat&quot; ]];</span>
+<span class="c">#       then</span>
+<span class="c">#         labelXfrmCall=&quot;${ANTSPATH}/antsApplyTransforms \</span>
+<span class="c">#                               -d ${DIM} \</span>
+<span class="c">#                               --float 1 \</span>
+<span class="c">#                               -i ${ATLAS_LABELS[$i]} \</span>
+<span class="c">#                               -r ${TARGET_IMAGE} \</span>
+<span class="c">#                               -o ${OUTPUT_PREFIX}${BASENAME}_${i}_WarpedLabels.nii.gz \</span>
+<span class="c">#                               -n NearestNeighbor \</span>
+<span class="c">#                               -t ${OUTPUT_PREFIX}${BASENAME}_${i}_0Warp.nii.gz &gt;&gt; ${OUTPUT_PREFIX}${BASENAME}_${i}_log.txt&quot;</span>
+<span class="c">#       fi</span></code></pre></figure>
+
+<h2 id="problem-3">Problem 3</h2>
+
+<p>Throughout the antsJointLabelFusion.sh code, the slurm memory limit is set to 8GB, which is too low. The supercomputer will not complete the code with so few resources. I went through the script and changed everything to <code>--mem-per-cpu=32768M</code>. So far no problems completing the code with the memory set this high.</p>
+
+<h2 id="problem-4">Problem 4</h2>
+
+<p>I was originally trying to run my template which was 1x0.5x0.5 voxels. This was NOT going to run the final step. Make sure your target image is at least 1 isotropic.</p>
+
+<h2 id="problem-5--6">Problem 5 &amp; 6</h2>
+
+<p>Brain extracted image versus whole brain. I first ran with a target image that was not skull stripped. The first step of registering each labeled image to the target image resulted in bad registration. I tried to solve this problem by adding the option <code>-x</code> to include a target mask image. The initial registration was STILL awful, and instead of labeling the brain included in the mask, JLF only labeled the sparse few brain voxels that snuck outside the mask?!</p>
+
+<p>The final solution was to make sure the target and label images were all skull stripped and no target mask image was included.</p>
+
+<p><img src="/media/sagittal0050.png" alt="sagittal0050.png" class="img-responsive" />
+<img src="/media/sagittal0060.png" alt="sagittal0060.png" class="img-responsive" />
+<img src="/media/sagittal0070.png" alt="sagittal0070.png" class="img-responsive" />
+<img src="/media/sagittal0080.png" alt="sagittal0080.png" class="img-responsive" />
+<img src="/media/sagittal0090.png" alt="sagittal0090.png" class="img-responsive" />
+<img src="/media/sagittal0100.png" alt="sagittal0100.png" class="img-responsive" />
+<img src="/media/sagittal0110.png" alt="sagittal0110.png" class="img-responsive" />
+<img src="/media/sagittal0120.png" alt="sagittal0120.png" class="img-responsive" />
+<img src="/media/sagittal0130.png" alt="sagittal0130.png" class="img-responsive" />
+<img src="/media/sagittal0140.png" alt="sagittal0140.png" class="img-responsive" />
+<img src="/media/sagittal0150.png" alt="sagittal0150.png" class="img-responsive" />
+<img src="/media/sagittal0160.png" alt="sagittal0160.png" class="img-responsive" />
+<img src="/media/sagittal0170.png" alt="sagittal0170.png" class="img-responsive" />
+<img src="/media/sagittal0180.png" alt="sagittal0180.png" class="img-responsive" />
+<img src="/media/sagittal0190.png" alt="sagittal0190.png" class="img-responsive" />
+<img src="/media/sagittal0200.png" alt="sagittal0200.png" class="img-responsive" /></p>
+
+    </div>
+
+    <hr>
+      
+      <footer>
+          <div class="col-sm-1">
+              <img src="/images/naomi.jpg" class="img-circle" width="64" height="64">
+          </div>
+          <div class="col-sm-11">
+              <p>Written by <strong><a rel="author" href="https://github.com/njhunsak" title="" target="_blank">Naomi J. Goodrich-Hunsaker</a></strong><br>
+                  <span class="muted">Website Manager</span>
+              </p>
+          </div>
+      </footer>
+
+    <hr>
+    
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+</div>
+
+
+      <hr>
+      <footer>
+        <p>
+          &copy; 2015 Naomi Goodrich-Hunsaker, Ph.D.
+          <span class="pull-right text-muted">
+            powered by
+            <a href="http://dbtek.github.io/jekyll-bootstrap-3" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll-Bootstrap-3</a>
+            and <a href="http://getbootstrap.com" target="_blank">Twitter Bootstrap 3.0.3</a>
+          </span>
+        </p>
+      </footer>
+    </div>
+
+    
+
+    <script src="/assets/themes//resources/jquery/jquery.min.js"></script>
+    <script src="/assets/themes//resources/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
+

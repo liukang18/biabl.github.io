@@ -1,0 +1,108 @@
+<h2 id="log-into-supercomputer">Log Into Supercomputer</h2>
+
+<p><code>bash
+ssh &lt;username&gt;@ssh.fsl.byu.edu
+</code></p>
+
+<h2 id="create-script-and-logfile-directories">Create Script and Logfile Directories</h2>
+
+<p><code>bash
+mkdir -p ~/scripts/antsCorticalThickness
+mkdir -p ~/logfiles/2015_11_05_1600
+</code></p>
+
+<h2 id="generate-test-batch-script">Generate Test Batch Script</h2>
+
+<p><code>bash
+cd ~/scripts
+vi testBatchScript.sh
+</code></p>
+
+<p>Press <code>a</code> to enter into <em>insert</em> mode.</p>
+
+<h2 id="testbatchscriptsh">testBatchScript.sh</h2>
+
+<p><code>bash
+#!/bin/bash
+for subj in $(ls ~/compute/data/); do
+sbatch \
+-o ~/logfiles/2015_11_05_1600/output_${subj}.txt \
+-e ~/logfiles/2015_11_05_1600/error_${subj}.txt \
+~/scripts/testJobScript.sh \
+${subj}
+sleep 1
+done
+</code></p>
+
+<p>Press <code>esc</code> to enter into <em>command</em> mode. Type in <code>:wq</code> and press Return to save file.</p>
+
+<h2 id="positional-paramters">Positional Paramters</h2>
+
+<p>When you have a command line like this:</p>
+
+<p><code>
+command object1 object2 object3
+</code></p>
+
+<p>This is automagically parsed into positional variables:</p>
+
+<p><code>
+${0}=command
+${1}=object1
+${2}=object2
+${3}=object3
+</code></p>
+
+<p>In the sbatch command previously, ignoring all the options (i.e., <code>-e</code>), <code>${subj}</code> becomes variable <code>${1}</code> in the JobScript.sh. Therefore you can use <code>${1}</code> anywhere in your JobScript.sh for when you want to use variable <code>${subj}</code>.</p>
+
+<h2 id="generate-test-job-script">Generate Test Job Script</h2>
+
+<p><code>bash
+vi testJobScript.sh
+</code></p>
+
+<p>Press <code>a</code> to enter into <em>insert</em> mode.</p>
+
+<h2 id="testjobscriptsh">testJobScript.sh</h2>
+
+<p>```bash
+#!/bin/bash
+#SBATCH –time=50:00:00   # walltime
+#SBATCH –ntasks=1   # number of processor cores (i.e. tasks)
+#SBATCH –nodes=1   # number of nodes
+#SBATCH –mem-per-cpu=16384M  # memory per CPU core</p>
+
+<h1 id="insert-code-and-run-your-programs-here">INSERT CODE, AND RUN YOUR PROGRAMS HERE</h1>
+<p>SUBJ_DIR=~/compute/data/${1}
+FILE=${SUBJ_DIR}/t1/n4.nii.gz
+echo “Does this file exist” ${FILE}
+if [ -e ${FILE} ]; then
+echo “Yup”
+else
+echo “Nay”
+fi
+```</p>
+
+<p>Press <code>esc</code> to enter into <em>command</em> mode. Type in <code>:wq</code> and press Return to save file.</p>
+
+<h2 id="submit-testbatchscriptsh">Submit testBatchScript.sh</h2>
+
+<p>By submitting the <em>testBatchScript.sh</em>, you will be looping through all your subject IDs and submitting a <em>testJobScript.sh</em> for each participant in your list (i.e., ls).</p>
+
+<p><code>bash
+sh ~/scripts/testBatchScript.sh
+</code></p>
+
+<h2 id="read-output-files">Read Output Files</h2>
+
+<p><code>bash
+cd ~/logfiles/2015_11_05_1600
+tail output*.txt
+</code></p>
+
+<h2 id="read-error-files">Read Error Files</h2>
+
+<p><code>bash
+cd ~/logfiles/2015_11_05_1600
+tail error*.txt
+</code></p>

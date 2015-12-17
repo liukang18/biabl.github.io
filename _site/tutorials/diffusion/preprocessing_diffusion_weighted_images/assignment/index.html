@@ -1,0 +1,274 @@
+<h2 id="sync-example-participant">Sync Example Participant</h2>
+
+<p>Log into supercomputer:</p>
+
+<p><code>
+ssh &lt;username&gt;@ssh.fsl.byu.edu
+</code></p>
+
+<p>Copy over data:</p>
+
+<p><code>
+rsync \
+-rauv \
+~/fsl_groups/fslg_byustudent/compute/examples/dti \
+~/compute/examples
+</code></p>
+
+<h2 id="convert-dicom-to-nifti">Convert DICOM to NIfTI</h2>
+
+<p>Set participant directory:</p>
+
+<p><code>
+subjDir=~/compute/examples/dti/
+</code></p>
+
+<p>Make a new directory for your T1 NIfTI image:</p>
+
+<p><code>
+mkdir ${subjDir}/t1
+</code></p>
+
+<p>Make a new directory for your DWI NIfTI image:</p>
+
+<p><code>
+mkdir ${subjDir}/raw
+</code></p>
+
+<h2 id="dcm2nii">dcm2nii</h2>
+
+<p>Convert your T1 image:</p>
+
+<p><code>
+~/apps/mricron/dcm2nii \
+-a y \
+-g n \
+-x y \
+-o ${subjDir}/t1 \
+${subjDir}/DICOMs/sag-spgr/*
+</code></p>
+
+<p>Convert your DWI image:</p>
+
+<p><code>
+~/apps/mricron/dcm2nii \
+-a y \
+-g y \
+-o ${subjDir}/raw \
+${subjDir}/DICOMs/dti/*
+</code></p>
+
+<h2 id="rename">Rename</h2>
+
+<p>The output from the <code>dcm2nii</code> program results in file names that are uniquely different across participants. For analyses though, we want all the files named exactly the same from participant to participant. In this case, we want all the files named t1.nii. In addition to renaming the file, we want to use just the cropped and reorientated file (co). We want to delete the reorientation only (o) and original file (no co or o prefix).</p>
+
+<p><code>
+cd ${subjDir}/t1
+mv co*.nii t1.nii
+rm o*.nii | rm 2*.nii
+</code></p>
+
+<p>We want all files to be named exactly the same, dti.nii.gz. The .bvec and .bval files also need to be renamed, dti.bvec and dti.bval, respectively.</p>
+
+<p><code>
+cd ${subjDir}/raw
+mv -f 2*.nii.gz dti.nii.gz
+mv -f 2*.bval dti.bval
+mv -f 2*.bvec dti.bvec
+</code></p>
+
+<h2 id="acpcdetect">acpcdetect</h2>
+
+<p>The program <code>acpcdetect</code> will AC-PC align T1 images:</p>
+
+<p><code>
+~/apps/art/acpcdetect \
+-M \
+-o ${subjDir}/t1/acpc.nii \
+-i ${subjDir}/t1/t1.nii
+</code></p>
+
+<h2 id="n4-bias-field-correction">N4 Bias Field Correction</h2>
+
+<p>The way to fix the bias field is to use ANTs N4 Bias Field Correction tool:</p>
+
+<p><code>
+~/apps/ants/bin/N4BiasFieldCorrection \
+-d 3 \
+-i ${subjDir}/t1/acpc.nii \
+-o [${subjDir}/t1/n4.nii.gz,${subjDir}/t1/biasfield.nii.gz] \
+-s 4 \
+-b [200] \
+-c [50x50x50x50,0.000001]
+</code></p>
+
+<h2 id="brain-extraction">Brain Extraction</h2>
+
+<p>A job script has already been created, <code>BrainExtraction.sh</code>, but the username information needs to be changed. <em>Preferably you would run the full ANTs Cortical Thickness Pipeline</em>, but for the sake of time the brain extraction protocol is slightly “faster”. It takes ~1.5 hours instead of the 8+ hours that ANTs Cortical Thickness pipeline takes.</p>
+
+<p>To submit the job script:</p>
+
+<p><code>
+sbatch ~/compute/examples/dti/brainExtraction.sh
+</code></p>
+
+<p>You can check the status of your job by typing:</p>
+
+<p><code>
+cat ~/compute/examples/dti/output.txt
+</code></p>
+
+<h2 id="brainextractionsh">brainExtraction.sh</h2>
+
+<p>```
+#!/bin/bash</p>
+
+<h1 id="sbatch---time500000----walltime">SBATCH –time=50:00:00   # walltime</h1>
+<p>#SBATCH –ntasks=2  # number of processor cores (i.e. tasks)
+#SBATCH –nodes=1   # number of nodes
+#SBATCH –mem-per-cpu=8192M   # memory per CPU core
+#SBATCH -o /fslhome/<username>/examples/dti/output.txt
+#SBATCH -e /fslhome/<username>/examples/dti/error.txt
+#SBATCH -J "brainExtraction"   # job name</username></username></p>
+
+<h1 id="load-modules-insert-code-and-run-your-programs-here">LOAD MODULES, INSERT CODE, AND RUN YOUR PROGRAMS HERE</h1>
+<p>export ANTSPATH=/fslhome/<username>/apps/ants/bin/
+PATH=${ANTSPATH}:${PATH}
+subjDir=/fslhome/<username>/examples/dti/t1
+templateDir=/fslhome/<username>/examples/dti/templates/NKI10andUnder
+/fslhome/<username>/apps/ants/bin/antsBrainExtraction.sh \
+-d 3 \
+-a ${subjDir}/n4.nii.gz \
+-e ${templateDir}/T_template0_BrainCerebellum.nii.gz \
+-m ${templateDir}/T_template0_BrainCerebellumProbabilityMask.nii.gz \
+-o ${subjDir}/brain
+```</username></username></username></username></p>
+
+<h2 id="dtiinit">dtiInit</h2>
+
+<p>In order to run MATLAB on the super computer, you have to generate an extra script. You need to generate a MATLAB script (<code>*.m</code>) with your MATLAB code. You also need to generate a job script to submit the MATLAB script. Confused? Ask questions! Both scripts have already been generated.</p>
+
+<p>To submit the job script:</p>
+
+<p><code>
+sbatch ~/compute/examples/dti/dtiInitscript.sh
+</code></p>
+
+<p>You can check the status of your job by typing:</p>
+
+<p><code>
+cat ~/compute/examples/dti/output.txt
+</code></p>
+
+<h2 id="dtiinitscriptm">dtiInitscript.m</h2>
+
+<p>```
+SPM8Path = ‘/fslhome/<username>/apps/matlab/spm8';
+addpath(genpath(SPM8Path));
+vistaPath = '/fslhome/<username>/apps/matlab/git/vistasoft';
+addpath(genpath(vistaPath));
+AFQPath = '/fslhome/<username>/apps/matlab/git/AFQ';
+addpath(genpath(AFQPath));</username></username></username></p>
+
+<p>subjDir= [‘/fslhome/<username>/compute/examples/dti/'];
+brainFile = [subjDir,'/t1/brainBrainExtractionBrain.nii.gz'];
+t1File = [subjDir,'/t1/aveT1.nii.gz'];
+dtiFile = [subjDir,'/raw/dti.nii.gz'];
+cd (subjDir);</username></p>
+
+<p>mrAnatAverageAcpcNifti(brainFile,t1File,…
+[‘/fslhome/<username>/compute/examples/dti/templates/matlab.nii.gz']);</username></p>
+
+<p>ni = readFileNifti(t1File);
+ni = niftiSetQto(ni,ni.sto_xyz);
+writeFileNifti(ni,t1File);</p>
+
+<p>ni=readFileNifti(dtiFile);
+ni=niftiSetQto(ni,ni.sto_xyz);
+writeFileNifti(ni,dtiFile);</p>
+
+<p>dwParams = dtiInitParams(‘rotateBvecsWithCanXform’,1,…
+‘phaseEncodeDir’,2,’clobber’,1);
+dtiInit(dtiFile, t1File, dwParams); 
+```</p>
+
+<h2 id="dtiinitscriptsh">dtiInitscript.sh</h2>
+
+<p>```
+#!/bin/bash</p>
+
+<h1 id="sbatch---time500000----walltime-1">SBATCH –time=50:00:00   # walltime</h1>
+<p>#SBATCH –ntasks=2  # number of processor cores (i.e. tasks)
+#SBATCH –nodes=1   # number of nodes
+#SBATCH –mem-per-cpu=8192M   # memory per CPU core
+#SBATCH -o /fslhome/<username>/compute/examples/dti/output.txt
+#SBATCH -e /fslhome/<username>/compute/examples/dti/error.txt
+#SBATCH -J "dtiInit"   # job name</username></username></p>
+
+<h1 id="load-modules-insert-code-and-run-your-programs-here-1">LOAD MODULES, INSERT CODE, AND RUN YOUR PROGRAMS HERE</h1>
+<p>cd /fslhome/<username>/compute/examples/dti/
+module load matlab
+matlab -nodisplay -nojvm -nosplash -r dtiInitscript
+```</username></p>
+
+<h2 id="clean-up-the-directory">Clean up the directory</h2>
+
+<p><code>
+cd /fslhome/&lt;username&gt;/compute/examples/dti/
+mv dti*trilin/ dt6dir
+mv dti_* raw/
+mv dtiInitLog.mat raw/
+</code></p>
+
+<h2 id="generate-fa-map">Generate FA Map</h2>
+
+<p>Load MATLAB:</p>
+
+<p><code>bash
+module load matlab
+matlab -nodisplay -nojvm -nosplash
+</code></p>
+
+<p>Run in MATLAB:</p>
+
+<p>```matlab
+SPM8Path = ‘/fslhome/<username>/apps/matlab/spm8';
+addpath(genpath(SPM8Path));
+vistaPath = '/fslhome/<username>/apps/matlab/git/vistasoft';
+addpath(genpath(vistaPath));
+AFQPath = '/fslhome/<username>/apps/matlab/git/AFQ';
+addpath(genpath(AFQPath));</username></username></username></p>
+
+<p>subjDir= [‘/fslhome/<username>/compute/examples/dti/'];
+cd (subjDir);
+[dt6, xformToAcpc, mmPerVox] = dtiLoadTensorsFromNifti('dt6dir/bin/tensors.nii.gz');
+[fa,md] = dtiComputeFA(dt6);
+dtiWriteNiftiWrapper(fa,xformToAcpc,'t1/fa.nii.gz',1,'FA');
+```</username></p>
+
+<h2 id="check-output">Check Output</h2>
+
+<p>Part of the output provides a file that shows the RGB vector overlay. The file is located under the dt6dir and is called, t1pdd.png. This file shows a montage of the brain with the RGB overlay. The colors of the overlay signify the tensor direction. When looking at DTI overlays, red indicates tensors that are orientated right to left, green indicates tensors that are orientated anterior to posterior, and blue indicates tensors that are orientated superior to inferior. When looking at the RGB overlay, the corpus callosum should be solid red, because the tensors are moving back and forth from the right hemisphere to left hemisphere. If the corpus callosum is not bright red, you know you immediately have an issue.</p>
+
+<h2 id="copy-files-to-desktop">Copy files to Desktop</h2>
+
+<p><code>
+rsync \
+-rauv \
+--exclude="DICOMs" \
+--exclude="templates" \
+intj5@ssh.fsl.byu.edu:~/compute/examples/dti \
+~/Desktop
+</code></p>
+
+<h2 id="montage">Montage</h2>
+
+<p>Open a montage image to see the tensor information. The corpus callosum should be bright red. The longitudinal fasciculus should be green. The cortical spinal tract (i.e., internal capsule) should be blue.</p>
+
+<p><code>
+open ~/Desktop/dti/dt6dir/t1pdd.png
+</code></p>
+
+<hr />
+
+<p>&lt;img src=”images/rbg.png” width=”100% style=”float:center” /&gt;</p>

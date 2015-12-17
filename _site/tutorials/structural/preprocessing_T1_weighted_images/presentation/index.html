@@ -1,0 +1,174 @@
+<h2 id="convert-dicoms-to-nifti">Convert DICOMs to NIfTI</h2>
+
+<p>Most imaging programs do not use DICOMs, but require a “standard” imaging format. Similar to how pictures can be in various formats: PNG, JPEG, EPS,  TIFF, etc., MR images can be in different formats as well. The most common format is the NIfTI format (.nii) or the zipped NIfTI format (.nii.gz).</p>
+
+<p>First let’s create a T1 directory within our participant directory. Often times you will be working with multiple scan modalities and you will want to put those in separate directories (e.g., DTI, fMRI, T2w, etc.).</p>
+
+<p><code>
+subjDir=/path/to/subject
+mkdir ${subjDir}/t1
+</code></p>
+
+<h2 id="anonymize">Anonymize</h2>
+
+<p>&lt;img src=”images/anonymize.png” width=”45% style=”float:left” /&gt;</p>
+
+<h2 id="fixing-orientation-problems">Fixing orientation problems</h2>
+
+<p>There are three critical types of brain orientation that need to be done before any analysis:</p>
+
+<ol>
+  <li>moving the brain into “standard” orientation</li>
+  <li>field of view size</li>
+  <li>alignment</li>
+</ol>
+
+<h2 id="standard-orientation">Standard Orientation</h2>
+
+<p>Standard orientation means based on the MNI template and can be measured in terms of orientation on a x-, y-, and z-axis. However, sometimes scans are acquired sagittally and thus the “standard orientation” is off.</p>
+
+<ul>
+  <li>The center of the brain should be located at (0, 0, 0).</li>
+  <li>X coordinates go from left (-) to right (+).</li>
+  <li>Y coordinates go from posterior (-) to anterior (+).</li>
+  <li>Z coordinates go from inferior (-) to superior (+).</li>
+</ul>
+
+<h2 id="t1-not-in-standard-orientation">T1 not in Standard Orientation</h2>
+
+<p>&lt;img src=”images/t1.png” width=”50% style=”float:left” /&gt;&lt;img src=”images/t1-reorientated.png” width=”50% style=”float:right” /&gt;</p>
+
+<h2 id="field-of-view">Field of View</h2>
+
+<p>If studying children particularly, sometimes that FOV box is barely enough to acquire the brain, cutting parts of the skull out of the image. Other times the FOV box is so big that you are getting neck and spine in the image.</p>
+
+<p>When you begin any imaging analysis you want to make sure all the brains are orientated correctly and that you remove as much of the excess space and non-brain aspects of the image.</p>
+
+<h2 id="the-before-and-after">The Before and After</h2>
+
+<p>&lt;img src=”images/t1-reorientated.png” width=”50% style=”float:left” /&gt;&lt;img src=”images/t1-cropped-reorientated.png” width=”50% style=”float:right” /&gt;</p>
+
+<h2 id="dcm2nii">dcm2nii</h2>
+
+<p>The program <code>dcm2nii</code> will anonymize, reorient and crop images:</p>
+
+<p><code>
+dcm2nii \
+-a y \
+-g n \
+-x y \
+-o ${subjDir}/t1 \
+${subjDir}/DICOMs/*
+</code></p>
+
+<p>Because the <code>acpcdetect</code> program is sensitive to the type of image it can read, use this program first in your pipeline. The program only uses NIfTI images and <strong><em>not NIfTI zipped</em></strong> images.</p>
+
+<h2 id="rename">Rename</h2>
+
+<p>The output from the <code>dcm2nii</code> program results in file names that are uniquely different across participants. For analyses though, we want all the files named exactly the same from participant to participant. In this case, we want all the files named t1.nii.</p>
+
+<p><code>
+20070829_155401MR99SocialOutcomesis003a1011.nii
+co20070829_155401MR99SocialOutcomesis003a1011.nii
+o20070829_155401MR99SocialOutcomesis003a1011.nii
+</code></p>
+
+<h2 id="delete-unnecessary-files">Delete Unnecessary Files</h2>
+
+<p>In addition to renaming the file, we want to use just the cropped and reorientated file (co). We want to delete the reorientation only (o) and original file (no co or o prefix).</p>
+
+<p><code>
+cd ${subjDir}/t1
+mv co*.nii t1.nii
+rm o*.nii | rm 2*.nii
+</code></p>
+
+<h2 id="ac-pc-alignment">AC-PC Alignment</h2>
+
+<p>Participants are often not perfectly positioned in the scanner. Image quality is compromised when the brain is not aligned in the scanner and there’s a lack of standardization.</p>
+
+<p>&lt;img src=”images/acpc.jpg” width=”100% style=”float:left” /&gt;</p>
+
+<h2 id="acpcdetect">acpcdetect</h2>
+
+<p>The program <code>acpcdetect</code> will AC-PC align images, but the program only runs on Linux:</p>
+
+<p><code>
+acpcdetect \
+-M \
+-o ${subjDir}/t1/acpc.nii \
+-i ${subjDir}/t1/t1.nii
+</code></p>
+
+<hr />
+
+<p>&lt;img src=”images/t1-cropped-reorientated.png” width=”50% style=”float:left” /&gt;&lt;img src=”images/t1-acpc.png” width=”50% style=”float:right” /&gt;</p>
+
+<h2 id="center-at-midpoint">Center at midpoint</h2>
+
+<p>&lt;img src=”images/acpcAlign.png” width=”50% style=”float:left” /&gt;&lt;img src=”images/mAlign.png” width=”50% style=”float:right” /&gt;</p>
+
+<h2 id="bias-field">Bias Field</h2>
+
+<p>Images often exhibit image intensity non-uniformities that are the result of magnetic field variations. These artifacts, often described as shading or bias, can be produced by imperfections in the field coils. These variations are often seen as a signal gain change. This can result in white matter measurements in one part of the image with the same intensity value as grey matter measurements elsewhere; an ideal T1-weighted image would display brighter white matter throughout the brain image.</p>
+
+<p>Image processing algorithms such as tissue segmentation use the pixel gray level values. If there is a bias field, the gray level values of the pixels will cause the algorithms to produce unsatisfactory results.</p>
+
+<hr />
+
+<p>&lt;img src=”images/biasfield.png” width=”100% style=”float:center” /&gt;</p>
+
+<h2 id="n4-bias-field-correction">N4 Bias Field Correction</h2>
+
+<p>The way to fix the bias field is to use ANTs N4 Bias Field Correction tool:</p>
+
+<p><code>
+N4BiasFieldCorrection \
+-d 3 \
+-i ${subjDir}/t1/acpc.nii \
+-o [${subjDir}/t1/n4.nii.gz,${subjDir}/t1/biasfield.nii.gz] \
+-s 4 \
+-b [200] \
+-c [50x50x50x50,0.000001]
+</code></p>
+
+<hr />
+
+<p>&lt;img src=”images/n4b4.png” width=”45% style=”float:left” /&gt; &lt;img src=”images/n4a.png” width=”45% style=”float:right” /&gt;</p>
+
+<hr />
+
+<p>&lt;img src=”images/n4b4.png” width=”45% style=”float:left” /&gt; &lt;img src=”images/n4overlay.png” width=”45% style=”float:right” /&gt;</p>
+
+<h2 id="voxel-size">Voxel Size</h2>
+
+<p><code>
+c3d &lt;input&gt;.nii.gz -info-full
+Image #1:
+  Image Dimensions : [165, 503, 427]
+  Bounding Box : {[100.899 96.5478 -87.8256], [298.833 332.354 112.352]}
+  Voxel Spacing : [1.1996, 0.4688, 0.4688]
+  Intensity Range : [0, 3414.91]
+  Mean Intensity : 346.085
+  Canon. Orientation : LPI
+</code></p>
+
+<h2 id="resample-to-1-mm-isotropic">Resample to 1 mm Isotropic</h2>
+
+<p><code>
+c3d \
+&lt;input&gt;.nii.gz \
+-resample-mm 1x1x1mm \
+-o &lt;output&gt;.nii.gz
+</code></p>
+
+<p>Never perfect though!</p>
+
+<p><code>
+Image Dimensions : [198, 236, 200]
+Bounding Box : {[100.999 96.2826 -87.5596], [298.933 332.089 112.618]}
+Voxel Spacing : [0.999667, 0.99918, 1.00089]
+Intensity Range : [0, 3145]
+Mean Intensity : 346.092
+Canon. Orientation : LPI
+</code></p>
