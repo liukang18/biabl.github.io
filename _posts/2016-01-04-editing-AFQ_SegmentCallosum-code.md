@@ -4,11 +4,14 @@ author: Naomi
 tags: 
   - AFQ
   - DTI
+  - "tips 'n tricks"
 published: true
 title: Editing AFQ_SegmentCallosum Code
 ---
 
 At the end of the AFQ_SegmentCallosum.m code is a process to generate montage images of the segmented corpus callosum in each participant. If you are running this code on the Supercomputer, trying to generate figures will cause the process to abort. The only solution is to edit the code and comment out or delete this portion of the code:
+
+<!-- more -->
 
 ### Original Code
 
