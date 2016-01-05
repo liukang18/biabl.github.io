@@ -143,7 +143,6 @@ JB :
   
 excerpt_separator: "<!-- more -->"
 
-
 prose:
   rooturl: '_posts'
   siteurl: 'http://njhunsak.github.io/'
