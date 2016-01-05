@@ -145,7 +145,7 @@ excerpt_separator: "<!-- more -->"
 
 prose:
   rooturl: '_posts'
-  siteurl: 'http://njhunsak.github.io/'
+  siteurl: 'http://biabl.github.io/'
   media: 'media'
   ignore:
     - index.md
