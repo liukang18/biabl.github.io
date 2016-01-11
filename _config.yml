@@ -140,8 +140,6 @@ JB :
   # and include your custom code. Your custom file must be defined at:
   #   ./_includes/custom/[HELPER]
   # where [HELPER] is the name of the helper you are overriding.
-  
-excerpt_separator: "<!-- more -->"
 
 prose:
   rooturl: '_posts'
@@ -188,13 +186,7 @@ prose:
             - name: "tips 'n tricks"
               value: "tips 'n tricks"
           alterable: "true"
-    _posts/static:
-      - name: "layout"
+      - name: "excerpt_separator"
         field:
           element: "hidden"
-          value: "page"
-      - name: "permalink"
-        field:
-          element: "text"
-          label: "Permalink"
-          value: ""  
+          value: "<!--more-->"
