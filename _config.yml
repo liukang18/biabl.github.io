@@ -187,5 +187,14 @@ prose:
               value: "buildtemplateparallel.sh"
             - name: "tips 'n tricks"
               value: "tips 'n tricks"
-          alterable: "true"  
-          
+          alterable: "true"
+    _posts/static:
+      - name: "layout"
+        field:
+          element: "hidden"
+          value: "page"
+      - name: "permalink"
+        field:
+          element: "text"
+          label: "Permalink"
+          value: ""  
