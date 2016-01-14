@@ -6,7 +6,7 @@ tags:
   - ANTs
   - antsRegistrationSynQuick.sh
   - code improvement
-published: false
+published: true
 title: Improved antsRegistrationSynQuick.sh
 ---
 
