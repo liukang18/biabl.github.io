@@ -1,20 +1,27 @@
-naomi:
+naomihunsaker:
     name: Naomi J. Goodrich-Hunsaker
     email: naomi.hunsaker@byu.edu
     bio: Website Manager
     image: naomi.jpg
     github: njhunsak
     
-zach:
+zachchristensen:
     name: Zach Christensen
     email: zchristensen7@gmail.com
     bio: Contributor
     image:
-    github:
+    github: Tokazama
     
-trevor:
+trevorhuff:
     name: Trevor Huff
     email: trevh5@gmail.com
     bio: Contributor
     image:
-    github:
+    github: Trevh5
+    
+chriscutler:
+    name: Chriss Cutler
+    email: chris.b.cutler@gmail.com
+    bio: Contributor
+    image:
+    github: chriscrosscutler

@@ -165,10 +165,14 @@ prose:
           element: "select"
           placeholder: "Choose Author"
           options:
-          - name: "Naomi"
-            value: "naomi"
-          - name: "Trevor"
-            value: "trevor"
+          - name: "Naomi Hunsaker"
+            value: "naomihunsaker"
+          - name: "Trevor Huff"
+            value: "trevorhuff"
+          - name: "Zach Christensen"
+            value: "zachchristensen"
+          - name: "Chris Cutler"
+            value: "chriscutler"
       - name: "tags"
         field:
           element: "multiselect"
