@@ -1,7 +1,7 @@
 ---
 excerpt_separator: "<!--more-->"
 layout: post
-author: naomi
+author: naomihunsaker
 tags: 
   - ANTs
   - antsRegistrationSynQuick.sh
@@ -10,7 +10,10 @@ published: true
 title: Improved antsRegistrationSynQuick.sh
 ---
 
+
 Given our dataset, improvement of antsRegistrationSynQuick.sh was needed. Particularly when other scripts all antsRegistrationSynQuick.sh (e.g., antsJointLabelFusion.sh). The old antsRegistrationSynQuick.sh code was as follows:
+
+<!-- more -->
 
 {% highlight bash %}
 ##############################
