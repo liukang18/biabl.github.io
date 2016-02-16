@@ -1,9 +1,13 @@
 ---
 layout: post
 title: Average Cortical Thickness Consideration
-tags: [c3d,ANTs,antsCorticalThickness.sh]
 author: naomihunsaker
+tags: 
+  - c3d
+  - ANTs
+  - antsCorticalThickness.sh
 excerpt_separator: "<!-- more -->"
+published: true
 ---
 
 If you were to just take the average of all the voxels in the cortical thickness image, you would be including a lot of extra non-cortical voxels that will GREATLY skew your data!

@@ -166,6 +166,12 @@ prose:
           options:
           - name: "Naomi Hunsaker"
             value: "naomihunsaker"
+          - name: "Zach Christensen"
+            value: "zachchristensen"
+          - name: "Trevor Huff"
+            value: "trevorhuff"
+          - name: "Chris Cutler"
+            value: "chriscutler"
       - name: "tags"
         field:
           element: "multiselect"

@@ -1,14 +1,14 @@
 ---
 layout: post
-excerpt_separator: "<!-- more -->"
 title: buildtemplateparallel.sh Bug
-tags: 
-  - ANTs
-  - bug
-  - supercomputer
-  - buildtemplateparalellel.sh
 author: naomihunsaker
+tags: 
+  - supercomputer
+  - bug
+  - ANTs
+  - buildtemplateparalelle.sh
 published: true
+excerpt_separator: "<!-- more -->"
 ---
 
 When trying to run buildtemplateparallel.sh, I ran into several problems. Here are a list of changes I had to make. Here's my code to run buildtemplateparallel.sh:

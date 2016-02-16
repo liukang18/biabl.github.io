@@ -1,13 +1,13 @@
 ---
-excerpt_separator: "<!-- more -->"
 layout: post
+title: Improved antsRegistrationSynQuick.sh
 author: naomihunsaker
 tags: 
   - ANTs
   - antsRegistrationSynQuick.sh
   - code improvement
 published: true
-title: Improved antsRegistrationSynQuick.sh
+excerpt_separator: "<!-- more -->"
 ---
 
 Given our dataset, improvement of antsRegistrationSynQuick.sh was needed. Particularly when other scripts all antsRegistrationSynQuick.sh (e.g., antsJointLabelFusion.sh). The old antsRegistrationSynQuick.sh code was as follows:

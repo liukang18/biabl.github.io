@@ -1,14 +1,14 @@
 ---
 layout: post
-excerpt_separator: "<!-- more -->"
 title: Optimizing ANTs Joint Label Fusion
+author: naomihunsaker
 tags: 
   - ANTs
   - bug
   - "tips 'n tricks"
   - antsJointLabelFusion.sh
-author: naomihunsaker
 published: true
+excerpt_separator: "<!-- more -->"
 ---
 
 Ran into a problem or two, but mostly it was about optimizing the pipeline.

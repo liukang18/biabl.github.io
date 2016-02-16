@@ -1,8 +1,12 @@
 ---
 layout: post
 title: ANTs Installation Bug
-tags: [supercomputer,bug,ANTs]
 author: trevorhuff
+tags: 
+  - supercomputer
+  - bug
+  - ANTs
+published: true
 excerpt_separator: "<!-- more -->"
 ---
 
