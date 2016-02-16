@@ -39,17 +39,6 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
           <li><a href="/tutorials">Tutorials </a></li>
-          <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-          	<li class="dropdown-header">SOBIK</li>
-            <li><a href="/projects/SOBIK/template/">Template</a></li>
-            <li role="separator" class="divider"></li>
-            <li class="dropdown-header">MIOS</li>
-            <li><a href="/projects/MIOS/corpus-callosum">Corpus Callosum</a></li>
-          </ul>
-        </li>
-        <li>  </li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -158,22 +147,22 @@ mkdir <span class="k">${</span><span class="nv">subjDir</span><span class="k">}<
 
 <p><img class="img-responsive" alt="" src="images/bvec.png" /></p>
 
-<p>In <code>dcm2nii</code> these files are automatically created. However, depending on the brand of the scanner, e.g., Siemens or GE, these scan parameters may not always be applied to the images correctly. <strong>Therefore, it is important to always visually check that tensors were applied correctly.</strong></p>
+<p>In <code class="highlighter-rouge">dcm2nii</code> these files are automatically created. However, depending on the brand of the scanner, e.g., Siemens or GE, these scan parameters may not always be applied to the images correctly. <strong>Therefore, it is important to always visually check that tensors were applied correctly.</strong></p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">dcm2nii <span class="se">\</span>
 -a y 
 -g y <span class="se">\</span>
 -o <span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/raw <span class="se">\</span>
-<span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/DICOMs/*</code></pre></figure>
+<span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/DICOMs/<span class="k">*</span></code></pre></figure>
 
 <h3 id="rename">Rename</h3>
 
-<p>The output from the <code>dcm2nii</code> program results in file names that are uniquely different across participants. For analyses though, we want all the files named exactly the same from participant to participant. In this case, we want all files to be named exactly the same, dti.nii.gz. The .bvec and .bval files also need to be renamed, dti.bvec and dti.bval, respectively.</p>
+<p>The output from the <code class="highlighter-rouge">dcm2nii</code> program results in file names that are uniquely different across participants. For analyses though, we want all the files named exactly the same from participant to participant. In this case, we want all files to be named exactly the same, dti.nii.gz. The .bvec and .bval files also need to be renamed, dti.bvec and dti.bval, respectively.</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> <span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/raw
-mv -f 2*.nii.gz dti.nii.gz
-mv -f 2*.bval dti.bval
-mv -f 2*.bvec dti.bvec</code></pre></figure>
+mv -f 2<span class="k">*</span>.nii.gz dti.nii.gz
+mv -f 2<span class="k">*</span>.bval dti.bval
+mv -f 2<span class="k">*</span>.bvec dti.bvec</code></pre></figure>
 
 <h2 id="preprocess-t1-weighted-images">Preprocess T1 Weighted Images</h2>
 
@@ -195,7 +184,7 @@ mv -f 2*.bvec dti.bvec</code></pre></figure>
   <li>BrainSegmentation0N4.nii.gz</li>
 </ul>
 
-<p>Copy the brain only file into the <code>t1</code> directory and rename the file <code>brain.nii.gz</code>:</p>
+<p>Copy the brain only file into the <code class="highlighter-rouge">t1</code> directory and rename the file <code class="highlighter-rouge">brain.nii.gz</code>:</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> <span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/t1
 cp antsCorticalThickness/ExtractedBrain0N4.nii.gz brain.nii.gz</code></pre></figure>
@@ -204,36 +193,36 @@ cp antsCorticalThickness/ExtractedBrain0N4.nii.gz brain.nii.gz</code></pre></fig
 
 <p>DTI preprocessing uses a toolbox through MATLAB called VISTASOFT. For more information about how to install VISTASOFT visit <a href="https://github.com/vistalab/vistasoft">https://github.com/vistalab/vistasoft</a>. You will need to set the environment variables for MATLAB to find SPM5, VISTASOFT, and AFQ (which we will discuss later). The order in which you enter these environmental variables is <strong><em>CRITICAL</em></strong>. Do not place vistaPath before SPM5. In MATLAB:</p>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">SPM5Path</span> <span class="p">=</span> <span class="s">&#39;/1/spm5&#39;</span><span class="p">;</span>
-<span class="n">addpath</span><span class="p">(</span><span class="n">genpath</span><span class="p">(</span><span class="n">SPM5Path</span><span class="p">));</span>
-<span class="n">vistaPath</span> <span class="p">=</span> <span class="s">&#39;/1/git/vistasoft&#39;</span><span class="p">;</span>
-<span class="n">addpath</span><span class="p">(</span><span class="n">genpath</span><span class="p">(</span><span class="n">vistaPath</span><span class="p">));</span>
-<span class="n">AFQPath</span> <span class="p">=</span> <span class="s">&#39;/1/git/AFQ&#39;</span><span class="p">;</span>
-<span class="n">addpath</span><span class="p">(</span><span class="n">genpath</span><span class="p">(</span><span class="n">AFQPath</span><span class="p">));</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">SPM5Path</span> <span class="o">=</span> <span class="s1">'/1/spm5'</span><span class="p">;</span>
+<span class="nb">addpath</span><span class="p">(</span><span class="nb">genpath</span><span class="p">(</span><span class="n">SPM5Path</span><span class="p">));</span>
+<span class="n">vistaPath</span> <span class="o">=</span> <span class="s1">'/1/git/vistasoft'</span><span class="p">;</span>
+<span class="nb">addpath</span><span class="p">(</span><span class="nb">genpath</span><span class="p">(</span><span class="n">vistaPath</span><span class="p">));</span>
+<span class="n">AFQPath</span> <span class="o">=</span> <span class="s1">'/1/git/AFQ'</span><span class="p">;</span>
+<span class="nb">addpath</span><span class="p">(</span><span class="nb">genpath</span><span class="p">(</span><span class="n">AFQPath</span><span class="p">));</span></code></pre></figure>
 
 <h3 id="prior-to-running-dtiinit">Prior to Running <em>dtiInit</em></h3>
 
 <p>Make sure you have your directory structure set up such that you have:</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">.
-<span class="p">|</span>-- &lt;subjectDirectory&gt;
-<span class="p">|</span>	<span class="p">|</span>-- t1
-<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- brain.nii.gz
-<span class="p">|</span>	<span class="p">|</span>-- raw
-<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- dti.nii.gz
-<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- dti.bvec
-<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- dti.bval</code></pre></figure>
+|-- &lt;subjectDirectory&gt;
+|	|-- t1
+|	|	|-- brain.nii.gz
+|	|-- raw
+|	|	|-- dti.nii.gz
+|	|	|-- dti.bvec
+|	|	|-- dti.bval</code></pre></figure>
 
 <h3 id="import-t1-image">Import T1 image</h3>
 
-<p>If you have already processed your T1 files through another pipeline you could have difficulties aligning the DTI data to your T1. This is due to the header information being different from what is expected by the VISTASOFT software. This can be fixed by running (in MATLAB) <code>mrAnatAverageAcpcNifti</code>. Open MATLAB to update the brain image so it will work in the mrDiffusion pipeline and save the new brain image as aveT1.nii.gz. The T1 image (‘t1/brain.nii.gz’) is rigidly aligned to an MNI template (‘templates/matlab.nii.gz’). Note that this alignment is rather arbitrary and is only useful in establishing the correct header information (e.g. origin, FOV size, etc.):</p>
+<p>If you have already processed your T1 files through another pipeline you could have difficulties aligning the DTI data to your T1. This is due to the header information being different from what is expected by the VISTASOFT software. This can be fixed by running (in MATLAB) <code class="highlighter-rouge">mrAnatAverageAcpcNifti</code>. Open MATLAB to update the brain image so it will work in the mrDiffusion pipeline and save the new brain image as aveT1.nii.gz. The T1 image (‘t1/brain.nii.gz’) is rigidly aligned to an MNI template (‘templates/matlab.nii.gz’). Note that this alignment is rather arbitrary and is only useful in establishing the correct header information (e.g. origin, FOV size, etc.):</p>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">subjDir</span><span class="p">=</span> <span class="p">[</span><span class="s">&#39;&lt;/path/to/participant/directory/&gt;&#39;</span><span class="p">];</span>
-<span class="n">brainFile</span> <span class="p">=</span> <span class="p">[</span><span class="n">subjDir</span><span class="p">,</span><span class="s">&#39;/t1/brain.nii.gz&#39;</span><span class="p">];</span>
-<span class="n">t1File</span> <span class="p">=</span> <span class="p">[</span><span class="n">subjDir</span><span class="p">,</span><span class="s">&#39;/t1/aveT1.nii.gz&#39;</span><span class="p">];</span>
-<span class="n">dtiFile</span> <span class="p">=</span> <span class="p">[</span><span class="n">subjDir</span><span class="p">,</span><span class="s">&#39;/raw/dti.nii.gz&#39;</span><span class="p">];</span>
-<span class="n">cd</span> <span class="p">(</span><span class="n">subjDir</span><span class="p">);</span>
-<span class="n">mrAnatAverageAcpcNifti</span><span class="p">(</span><span class="n">brainFile</span><span class="p">,</span><span class="n">t1File</span><span class="p">,[</span><span class="s">&#39;&lt;/path/to/templates/matlab.nii.gz&gt;&#39;</span><span class="p">]);</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">subjDir</span><span class="o">=</span> <span class="p">[</span><span class="s1">'&lt;/path/to/participant/directory/&gt;'</span><span class="p">];</span>
+<span class="n">brainFile</span> <span class="o">=</span> <span class="p">[</span><span class="n">subjDir</span><span class="p">,</span><span class="s1">'/t1/brain.nii.gz'</span><span class="p">];</span>
+<span class="n">t1File</span> <span class="o">=</span> <span class="p">[</span><span class="n">subjDir</span><span class="p">,</span><span class="s1">'/t1/aveT1.nii.gz'</span><span class="p">];</span>
+<span class="n">dtiFile</span> <span class="o">=</span> <span class="p">[</span><span class="n">subjDir</span><span class="p">,</span><span class="s1">'/raw/dti.nii.gz'</span><span class="p">];</span>
+<span class="nb">cd</span> <span class="p">(</span><span class="n">subjDir</span><span class="p">);</span>
+<span class="n">mrAnatAverageAcpcNifti</span><span class="p">(</span><span class="n">brainFile</span><span class="p">,</span><span class="n">t1File</span><span class="p">,[</span><span class="s1">'&lt;/path/to/templates/matlab.nii.gz&gt;'</span><span class="p">]);</span></code></pre></figure>
 
 <h3 id="fix-dcm2nii-transformation">Fix <em>dcm2nii</em> Transformation</h3>
 
@@ -241,38 +230,38 @@ cp antsCorticalThickness/ExtractedBrain0N4.nii.gz brain.nii.gz</code></pre></fig
 
 <p>To fix T1 image:</p>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">ni</span> <span class="p">=</span> <span class="n">readFileNifti</span><span class="p">(</span><span class="n">t1File</span><span class="p">);</span>
-<span class="n">ni</span> <span class="p">=</span> <span class="n">niftiSetQto</span><span class="p">(</span><span class="n">ni</span><span class="p">,</span><span class="n">ni</span><span class="p">.</span><span class="n">sto_xyz</span><span class="p">);</span>
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">ni</span> <span class="o">=</span> <span class="n">readFileNifti</span><span class="p">(</span><span class="n">t1File</span><span class="p">);</span>
+<span class="n">ni</span> <span class="o">=</span> <span class="n">niftiSetQto</span><span class="p">(</span><span class="n">ni</span><span class="p">,</span><span class="n">ni</span><span class="o">.</span><span class="n">sto_xyz</span><span class="p">);</span>
 <span class="n">writeFileNifti</span><span class="p">(</span><span class="n">ni</span><span class="p">,</span><span class="n">t1File</span><span class="p">);</span></code></pre></figure>
 
 <p>To fix diffusion image:</p>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">ni</span><span class="p">=</span><span class="n">readFileNifti</span><span class="p">(</span><span class="n">dtiFile</span><span class="p">);</span>
-<span class="n">ni</span><span class="p">=</span><span class="n">niftiSetQto</span><span class="p">(</span><span class="n">ni</span><span class="p">,</span><span class="n">ni</span><span class="p">.</span><span class="n">sto_xyz</span><span class="p">);</span>
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">ni</span><span class="o">=</span><span class="n">readFileNifti</span><span class="p">(</span><span class="n">dtiFile</span><span class="p">);</span>
+<span class="n">ni</span><span class="o">=</span><span class="n">niftiSetQto</span><span class="p">(</span><span class="n">ni</span><span class="p">,</span><span class="n">ni</span><span class="o">.</span><span class="n">sto_xyz</span><span class="p">);</span>
 <span class="n">writeFileNifti</span><span class="p">(</span><span class="n">ni</span><span class="p">,</span><span class="n">dtiFile</span><span class="p">);</span></code></pre></figure>
 
 <h3 id="setting-parameters-dtiinitparams">Setting Parameters: <em>dtiInitParams</em></h3>
 
 <p>Specific parameters can be set using the function <em>dtiInitParams</em>:</p>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">dwParams</span> <span class="p">=</span> <span class="n">dtiInitParams</span><span class="p">(</span><span class="s">&#39;rotateBvecsWithCanXform&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="s">&#39;phaseEncodeDir&#39;</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="s">&#39;clobber&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">dwParams</span> <span class="o">=</span> <span class="n">dtiInitParams</span><span class="p">(</span><span class="s1">'rotateBvecsWithCanXform'</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="s1">'phaseEncodeDir'</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="s1">'clobber'</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span></code></pre></figure>
 
 <p>Note that for Siemens data, we need to change the parameter as follows:</p>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">dwParams</span><span class="p">.</span><span class="n">rotateBvecsWithCanXform</span> <span class="p">=</span> <span class="mi">1</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">dwParams</span><span class="o">.</span><span class="n">rotateBvecsWithCanXform</span> <span class="o">=</span> <span class="mi">1</span></code></pre></figure>
 
 <p>Check parameters. It should look like this:</p>
 
 <figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="o">&gt;</span> <span class="n">dwParams</span>
 
-<span class="n">dwParams</span> <span class="p">=</span>
+<span class="n">dwParams</span> <span class="o">=</span>
 
     <span class="n">bvalue</span><span class="p">:</span> <span class="p">[]</span>
     <span class="n">gradDirsCode</span><span class="p">:</span> <span class="p">[]</span>
-    <span class="n">dt6BaseName</span><span class="p">:</span> <span class="s">&#39;&#39;</span>
+    <span class="n">dt6BaseName</span><span class="p">:</span> <span class="s1">''</span>
     <span class="n">flipLrApFlag</span><span class="p">:</span> <span class="mi">0</span>
     <span class="n">numBootStrapSamples</span><span class="p">:</span> <span class="mi">500</span>
-    <span class="n">fitMethods</span><span class="p">:</span> <span class="s">&#39;ls&#39;</span>
+    <span class="n">fitMethods</span><span class="p">:</span> <span class="s1">'ls'</span>
     <span class="n">nStep</span><span class="p">:</span> <span class="mi">50</span>
     <span class="n">eddyCorrect</span><span class="p">:</span> <span class="mi">1</span>
     <span class="n">exclude</span> <span class="n">Vols</span><span class="p">:</span> <span class="p">[]</span>
@@ -280,9 +269,9 @@ cp antsCorticalThickness/ExtractedBrain0N4.nii.gz brain.nii.gz</code></pre></fig
     <span class="n">phaseEncoderDir</span><span class="p">:</span> <span class="mi">2</span>
     <span class="n">dwOutMm</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span> <span class="mi">2</span> <span class="mi">2</span><span class="p">]</span>
     <span class="n">rotateBvecsWithRx</span><span class="p">:</span> <span class="mi">0</span>
-    <span class="n">rotate</span> <span class="n">BvecsWithCanXform</span><span class="p">:</span> <span class="mi">1</span>
-    <span class="n">bvecsFile</span><span class="p">:</span> <span class="s">&#39;&#39;</span>
-    <span class="n">bvalsFile</span><span class="p">:</span> <span class="s">&#39;&#39;</span></code></pre></figure>
+    <span class="nb">rotate</span> <span class="n">BvecsWithCanXform</span><span class="p">:</span> <span class="mi">1</span>
+    <span class="n">bvecsFile</span><span class="p">:</span> <span class="s1">''</span>
+    <span class="n">bvalsFile</span><span class="p">:</span> <span class="s1">''</span></code></pre></figure>
 
 <h3 id="running-dtiinit">Running <em>dtiInit</em></h3>
 
@@ -295,36 +284,36 @@ cp antsCorticalThickness/ExtractedBrain0N4.nii.gz brain.nii.gz</code></pre></fig
 <p>… and you’re done! You should have a directory structure that looks something like the following.</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">.
-<span class="p">|</span>-- &lt;subjectDirectory&gt;
-<span class="p">|</span>	<span class="p">|</span>-- t1
-<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- brain.nii.gz
-<span class="p">|</span>	<span class="p">|</span>-- raw
-<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- dti.nii.gz
-<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- dti.bvec
-<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- dti.bval
-<span class="p">|</span>	<span class="p">|</span>-- dti32trilin
-<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- bin
-<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- tensors.nii.gz
-<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- b0.nii.gz
-<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- brainMask.nii.gz
-<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- vectorRBG.nii.gz
-<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- wmMask.nii.gz
-<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- wmProb.nii.gz
-<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- faStd.nii.gz
-<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- mdStd.nii.gz
-<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- pddDispersion.nii.gz
-<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- dt6.mat
-<span class="p">|</span>	<span class="p">|</span>	<span class="p">|</span>-- t1ppd.png</code></pre></figure>
+|-- &lt;subjectDirectory&gt;
+|	|-- t1
+|	|	|-- brain.nii.gz
+|	|-- raw
+|	|	|-- dti.nii.gz
+|	|	|-- dti.bvec
+|	|	|-- dti.bval
+|	|-- dti32trilin
+|	|	|-- bin
+|	|	|	|-- tensors.nii.gz
+|	|	|	|-- b0.nii.gz
+|	|	|	|-- brainMask.nii.gz
+|	|	|	|-- vectorRBG.nii.gz
+|	|	|	|-- wmMask.nii.gz
+|	|	|	|-- wmProb.nii.gz
+|	|	|	|-- faStd.nii.gz
+|	|	|	|-- mdStd.nii.gz
+|	|	|	|-- pddDispersion.nii.gz
+|	|	|-- dt6.mat
+|	|	|-- t1ppd.png</code></pre></figure>
 
 <h3 id="generate-fa-maps">Generate FA Maps</h3>
 
 <p>If you ever need to place landmarks on the DTI image (e.g. fornix), then it is easiest on an FA image. To generate the FA map, use the following code:</p>
 
-<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">subjDir</span><span class="p">=</span> <span class="p">[</span><span class="s">&#39;&lt;/path/to/participant/directory/&gt;&#39;</span><span class="p">];</span>
-<span class="n">cd</span> <span class="p">(</span><span class="n">subjDir</span><span class="p">);</span>
-<span class="p">[</span><span class="n">dt6</span><span class="p">,</span> <span class="n">xformToAcpc</span><span class="p">,</span> <span class="n">mmPerVox</span><span class="p">]</span> <span class="p">=</span> <span class="n">dtiLoadTensorsFromNifti</span><span class="p">(</span><span class="s">&#39;dt6dir/bin/tensors.nii.gz&#39;</span><span class="p">);</span>
-<span class="p">[</span><span class="n">fa</span><span class="p">,</span><span class="n">md</span><span class="p">]</span> <span class="p">=</span> <span class="n">dtiComputeFA</span><span class="p">(</span><span class="n">dt6</span><span class="p">);</span>
-<span class="n">dtiWriteNiftiWrapper</span><span class="p">(</span><span class="n">fa</span><span class="p">,</span><span class="n">xformToAcpc</span><span class="p">,</span><span class="s">&#39;t1/fa.nii.gz&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="s">&#39;FA&#39;</span><span class="p">);</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">subjDir</span><span class="o">=</span> <span class="p">[</span><span class="s1">'&lt;/path/to/participant/directory/&gt;'</span><span class="p">];</span>
+<span class="nb">cd</span> <span class="p">(</span><span class="n">subjDir</span><span class="p">);</span>
+<span class="p">[</span><span class="n">dt6</span><span class="p">,</span> <span class="n">xformToAcpc</span><span class="p">,</span> <span class="n">mmPerVox</span><span class="p">]</span> <span class="o">=</span> <span class="n">dtiLoadTensorsFromNifti</span><span class="p">(</span><span class="s1">'dt6dir/bin/tensors.nii.gz'</span><span class="p">);</span>
+<span class="p">[</span><span class="n">fa</span><span class="p">,</span><span class="n">md</span><span class="p">]</span> <span class="o">=</span> <span class="n">dtiComputeFA</span><span class="p">(</span><span class="n">dt6</span><span class="p">);</span>
+<span class="n">dtiWriteNiftiWrapper</span><span class="p">(</span><span class="n">fa</span><span class="p">,</span><span class="n">xformToAcpc</span><span class="p">,</span><span class="s1">'t1/fa.nii.gz'</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="s1">'FA'</span><span class="p">);</span></code></pre></figure>
 
 <p><img class="img-responsive" alt="" src="images/fa.png" /></p>
 
@@ -364,7 +353,7 @@ cp antsCorticalThickness/ExtractedBrain0N4.nii.gz brain.nii.gz</code></pre></fig
   <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_developer = 1;
-    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    var disqus_shortname = 'biabl'; // required: replace example with your forum shortname
     
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function() {
@@ -382,7 +371,7 @@ cp antsCorticalThickness/ExtractedBrain0N4.nii.gz brain.nii.gz</code></pre></fig
       <hr>
       <footer>
         <p>
-          &copy; 2015 Naomi Goodrich-Hunsaker, Ph.D.
+          &copy; 2016 Naomi Goodrich-Hunsaker, Ph.D.
           <span class="pull-right text-muted">
             powered by
             <a href="http://dbtek.github.io/jekyll-bootstrap-3" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll-Bootstrap-3</a>

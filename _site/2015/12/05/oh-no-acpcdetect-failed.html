@@ -39,17 +39,6 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
           <li><a href="/tutorials">Tutorials </a></li>
-          <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-          	<li class="dropdown-header">SOBIK</li>
-            <li><a href="/projects/SOBIK/template/">Template</a></li>
-            <li role="separator" class="divider"></li>
-            <li class="dropdown-header">MIOS</li>
-            <li><a href="/projects/MIOS/corpus-callosum">Corpus Callosum</a></li>
-          </ul>
-        </li>
-        <li>  </li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -71,25 +60,25 @@
 
 <h2 id="adjust-search-radius">Adjust Search Radius</h2>
 
-<p>By default the search radius for the VSPS is 50 mm. You can change this by adding the option <code>-rvsps &lt;r&gt;</code>.</p>
+<p>By default the search radius for the VSPS is 50 mm. You can change this by adding the option <code class="highlighter-rouge">-rvsps &lt;r&gt;</code>.</p>
 
-<p>The default search radii for the anterior and posterior commissure are 15 mm. You can change each of these by adding the options <code>-rac &lt;r&gt;</code> and <code>-rpc &lt;r&gt;</code>.</p>
+<p>The default search radii for the anterior and posterior commissure are 15 mm. You can change each of these by adding the options <code class="highlighter-rouge">-rac &lt;r&gt;</code> and <code class="highlighter-rouge">-rpc &lt;r&gt;</code>.</p>
 
 <p>Adjusting the search radius does not always work though.</p>
 
 <h2 id="specify-the-precise-location">Specify the Precise Location</h2>
 
-<p>You can also just tell the program where VSPS, AC, and PC are exactly located. To tell <em>acpcdetect</em> where the VSPS is located, add the following option: <code>-VSPS &lt;x&gt; &lt;y&gt; &lt;z&gt;</code>.</p>
+<p>You can also just tell the program where VSPS, AC, and PC are exactly located. To tell <em>acpcdetect</em> where the VSPS is located, add the following option: <code class="highlighter-rouge">-VSPS &lt;x&gt; &lt;y&gt; &lt;z&gt;</code>.</p>
 
 <p><strong><em>The best program to use is ITK-Snap to determine coordinates.</em></strong></p>
 
 <p><img src="/media/VSPS.png" alt="VSPS.png" class="img-responsive" /></p>
 
-<p>To specify the location of the anterior commissure: <code>-AC &lt;x&gt; &lt;y&gt; &lt;z&gt;</code>.</p>
+<p>To specify the location of the anterior commissure: <code class="highlighter-rouge">-AC &lt;x&gt; &lt;y&gt; &lt;z&gt;</code>.</p>
 
 <p><img src="/media/AC.png" alt="AC.png" class="img-responsive" /></p>
 
-<p>To specify the location of the posterior commissure: <code>-PC &lt;x&gt; &lt;y&gt; &lt;z&gt;</code>.</p>
+<p>To specify the location of the posterior commissure: <code class="highlighter-rouge">-PC &lt;x&gt; &lt;y&gt; &lt;z&gt;</code>.</p>
 
 <p><img src="/media/PC.png" alt="PC.png" class="img-responsive" /></p>
 
@@ -118,7 +107,7 @@
   <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_developer = 1;
-    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    var disqus_shortname = 'biabl'; // required: replace example with your forum shortname
     
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function() {
@@ -140,7 +129,7 @@
       <hr>
       <footer>
         <p>
-          &copy; 2015 Naomi Goodrich-Hunsaker, Ph.D.
+          &copy; 2016 Naomi Goodrich-Hunsaker, Ph.D.
           <span class="pull-right text-muted">
             powered by
             <a href="http://dbtek.github.io/jekyll-bootstrap-3" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll-Bootstrap-3</a>

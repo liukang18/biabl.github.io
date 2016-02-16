@@ -39,17 +39,6 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
           <li><a href="/tutorials">Tutorials </a></li>
-          <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-          	<li class="dropdown-header">SOBIK</li>
-            <li><a href="/projects/SOBIK/template/">Template</a></li>
-            <li role="separator" class="divider"></li>
-            <li class="dropdown-header">MIOS</li>
-            <li><a href="/projects/MIOS/corpus-callosum">Corpus Callosum</a></li>
-          </ul>
-        </li>
-        <li>  </li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -120,9 +109,9 @@
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">c3d &lt;input&gt;.hdr -o &lt;output&gt;.nii</code></pre></figure>
 
 <ul>
-  <li>Add the option <code>-type ushort</code> to format for acpcdetect.</li>
-  <li>Add the option <code>-orient PIR</code> to reorient images not in standard orientation.</li>
-  <li>Add the option <code>-trim 5vox</code> to crop image with excess background.</li>
+  <li>Add the option <code class="highlighter-rouge">-type ushort</code> to format for acpcdetect.</li>
+  <li>Add the option <code class="highlighter-rouge">-orient PIR</code> to reorient images not in standard orientation.</li>
+  <li>Add the option <code class="highlighter-rouge">-trim 5vox</code> to crop image with excess background.</li>
 </ul>
 
 <p>So for example if you were to include all the options:</p>
@@ -153,7 +142,7 @@
   <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_developer = 1;
-    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    var disqus_shortname = 'biabl'; // required: replace example with your forum shortname
     
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function() {
@@ -171,7 +160,7 @@
       <hr>
       <footer>
         <p>
-          &copy; 2015 Naomi Goodrich-Hunsaker, Ph.D.
+          &copy; 2016 Naomi Goodrich-Hunsaker, Ph.D.
           <span class="pull-right text-muted">
             powered by
             <a href="http://dbtek.github.io/jekyll-bootstrap-3" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll-Bootstrap-3</a>

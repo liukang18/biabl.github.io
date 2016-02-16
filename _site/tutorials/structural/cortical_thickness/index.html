@@ -39,17 +39,6 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
           <li><a href="/tutorials">Tutorials </a></li>
-          <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-          	<li class="dropdown-header">SOBIK</li>
-            <li><a href="/projects/SOBIK/template/">Template</a></li>
-            <li role="separator" class="divider"></li>
-            <li class="dropdown-header">MIOS</li>
-            <li><a href="/projects/MIOS/corpus-callosum">Corpus Callosum</a></li>
-          </ul>
-        </li>
-        <li>  </li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -178,16 +167,16 @@ mkdir <span class="k">${</span><span class="nv">subjDir</span><span class="k">}<
 
 <p>Running this code will take 6+ hours, so run on the FSL supercomputer only:</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">antsCorticalThickness.sh <span class="se">\</span>
--d <span class="m">3</span> <span class="se">\</span>
--a <span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/n4.nii.gz <span class="se">\ </span>
--e <span class="k">${</span><span class="nv">templateDir</span><span class="k">}</span>/T_template0.nii.gz <span class="se">\</span>
--t <span class="k">${</span><span class="nv">templateDir</span><span class="k">}</span>/T_template0_BrainCerebellum.nii.gz <span class="se">\</span>
--m <span class="k">${</span><span class="nv">templateDir</span><span class="k">}</span>/T_template0_BrainCerebellumProbabilityMask.nii.gz <span class="se">\ </span>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">antsCorticalThickness.sh <span class="se">\
+</span>-d 3 <span class="se">\
+</span>-a <span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/n4.nii.gz <span class="se">\ </span>
+-e <span class="k">${</span><span class="nv">templateDir</span><span class="k">}</span>/T_template0.nii.gz <span class="se">\
+</span>-t <span class="k">${</span><span class="nv">templateDir</span><span class="k">}</span>/T_template0_BrainCerebellum.nii.gz <span class="se">\
+</span>-m <span class="k">${</span><span class="nv">templateDir</span><span class="k">}</span>/T_template0_BrainCerebellumProbabilityMask.nii.gz <span class="se">\ </span>
 -f <span class="k">${</span><span class="nv">templateDir</span><span class="k">}</span>/T_template0_BrainCerebellumExtractionMask.nii.gz <span class="se">\ </span>
--p <span class="k">${</span><span class="nv">templateDir</span><span class="k">}</span>/Priors2/priors%d.nii.gz <span class="se">\</span>
--q <span class="m">1</span> <span class="se">\</span>
--o <span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/antsCorticalThickness/</code></pre></figure>
+-p <span class="k">${</span><span class="nv">templateDir</span><span class="k">}</span>/Priors2/priors%d.nii.gz <span class="se">\
+</span>-q 1 <span class="se">\
+</span>-o <span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/antsCorticalThickness/</code></pre></figure>
 
 <p>The output from this process is pure <strong><em>gold!</em></strong> But let’s talk about templates first.</p>
 
@@ -241,7 +230,7 @@ mkdir <span class="k">${</span><span class="nv">subjDir</span><span class="k">}<
   <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_developer = 1;
-    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    var disqus_shortname = 'biabl'; // required: replace example with your forum shortname
     
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function() {
@@ -259,7 +248,7 @@ mkdir <span class="k">${</span><span class="nv">subjDir</span><span class="k">}<
       <hr>
       <footer>
         <p>
-          &copy; 2015 Naomi Goodrich-Hunsaker, Ph.D.
+          &copy; 2016 Naomi Goodrich-Hunsaker, Ph.D.
           <span class="pull-right text-muted">
             powered by
             <a href="http://dbtek.github.io/jekyll-bootstrap-3" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll-Bootstrap-3</a>

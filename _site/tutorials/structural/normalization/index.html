@@ -39,17 +39,6 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
           <li><a href="/tutorials">Tutorials </a></li>
-          <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-          	<li class="dropdown-header">SOBIK</li>
-            <li><a href="/projects/SOBIK/template/">Template</a></li>
-            <li role="separator" class="divider"></li>
-            <li class="dropdown-header">MIOS</li>
-            <li><a href="/projects/MIOS/corpus-callosum">Corpus Callosum</a></li>
-          </ul>
-        </li>
-        <li>  </li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -168,7 +157,7 @@
 
 <p>For reference, typically the <em>fixed</em> image is a <em>template</em> and the <em>moving</em> image is <em>each participant</em>.</p>
 
-<p>ANTs has two shell scripts for running image registration: antsRegistrationSyn.sh and antsRegistrationSynQuick.sh. Both of these commands are simplified shell scripts of the actual command <code>antsRegistration</code>. You can view the code in these scripts by running either:</p>
+<p>ANTs has two shell scripts for running image registration: antsRegistrationSyn.sh and antsRegistrationSynQuick.sh. Both of these commands are simplified shell scripts of the actual command <code class="highlighter-rouge">antsRegistration</code>. You can view the code in these scripts by running either:</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">cat /usr/local/antsbin/bin/antsRegistrationSyn.sh
 cat /usr/local/antsbin/bin/antsRegistrationSynQuick.sh</code></pre></figure>
@@ -178,10 +167,10 @@ cat /usr/local/antsbin/bin/antsRegistrationSynQuick.sh</code></pre></figure>
 <h3 id="rigid">Rigid</h3>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">antsRegistrationSynQuick.sh <span class="se">\ </span>
--d <span class="m">3</span> <span class="se">\</span>
--f &lt;fixedImage&gt;.nii.gz <span class="se">\</span>
--m &lt;movingImage&gt;.nii.gz <span class="se">\</span>
--o &lt;outputPrefix&gt;
+-d 3 <span class="se">\
+</span>-f &lt;fixedImage&gt;.nii.gz <span class="se">\
+</span>-m &lt;movingImage&gt;.nii.gz <span class="se">\
+</span>-o &lt;outputPrefix&gt;
 -t r</code></pre></figure>
 
 <p>Here the participant image (moving) was rigidly aligned to the template (fixed). As you can see the participant brain was moved to the same location within the field of view box. The size of the participant image was not altered.</p>
@@ -197,10 +186,10 @@ cat /usr/local/antsbin/bin/antsRegistrationSynQuick.sh</code></pre></figure>
 <p>For this transformation, rigid transformation is done first, then affine transformation.</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">antsRegistrationSynQuick.sh <span class="se">\ </span>
--d <span class="m">3</span> <span class="se">\</span>
--f &lt;fixedImage&gt;.nii.gz <span class="se">\</span>
--m &lt;movingImage&gt;.nii.gz <span class="se">\</span>
--o &lt;outputPrefix&gt;
+-d 3 <span class="se">\
+</span>-f &lt;fixedImage&gt;.nii.gz <span class="se">\
+</span>-m &lt;movingImage&gt;.nii.gz <span class="se">\
+</span>-o &lt;outputPrefix&gt;
 -t a</code></pre></figure>
 
 <p>Here the participant image (moving) was affine aligned to the template (fixed). The participant image was scaled to template. In this case the small participant image was enlarged to fit in the template space.</p>
@@ -216,10 +205,10 @@ cat /usr/local/antsbin/bin/antsRegistrationSynQuick.sh</code></pre></figure>
 <p>For this transformation, rigid transformation is done first, then affine transformation, and finally diffeomorphic. You always want to do an affine transformation before a diffeomorphic transformation, because you want to eliminate brain size as a covariate. Therefore, any group analyses that result in differences is due to actual differences in regional volume and not due to general brain volume differences.</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">antsRegistrationSynQuick.sh <span class="se">\ </span>
--d <span class="m">3</span> <span class="se">\</span>
--f &lt;fixedImage&gt;.nii.gz <span class="se">\</span>
--m &lt;movingImage&gt;.nii.gz <span class="se">\</span>
--o &lt;outputPrefix&gt;
+-d 3 <span class="se">\
+</span>-f &lt;fixedImage&gt;.nii.gz <span class="se">\
+</span>-m &lt;movingImage&gt;.nii.gz <span class="se">\
+</span>-o &lt;outputPrefix&gt;
 -t s</code></pre></figure>
 
 <p>Here the participant image (moving) was warped to match the template (fixed). As far as possible, the participant image was nonlinearly morphed to look like the template. The participant in this case has some major brain damage and therefore the mapping isn’t perfect.</p>
@@ -253,7 +242,7 @@ cat /usr/local/antsbin/bin/antsRegistrationSynQuick.sh</code></pre></figure>
   <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_developer = 1;
-    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    var disqus_shortname = 'biabl'; // required: replace example with your forum shortname
     
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function() {
@@ -271,7 +260,7 @@ cat /usr/local/antsbin/bin/antsRegistrationSynQuick.sh</code></pre></figure>
       <hr>
       <footer>
         <p>
-          &copy; 2015 Naomi Goodrich-Hunsaker, Ph.D.
+          &copy; 2016 Naomi Goodrich-Hunsaker, Ph.D.
           <span class="pull-right text-muted">
             powered by
             <a href="http://dbtek.github.io/jekyll-bootstrap-3" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll-Bootstrap-3</a>

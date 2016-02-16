@@ -39,17 +39,6 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
           <li><a href="/tutorials">Tutorials </a></li>
-          <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-          	<li class="dropdown-header">SOBIK</li>
-            <li><a href="/projects/SOBIK/template/">Template</a></li>
-            <li role="separator" class="divider"></li>
-            <li class="dropdown-header">MIOS</li>
-            <li><a href="/projects/MIOS/corpus-callosum">Corpus Callosum</a></li>
-          </ul>
-        </li>
-        <li>  </li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -76,28 +65,28 @@
 <p>In order to extract the average cortical thickness in a single participant:</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> /path/to/antsCorticalThickness/directory/
-~/apps/c3d/bin/c3d BrainSegmentation.nii.gz -threshold <span class="m">2</span> <span class="m">2</span> <span class="m">1</span> <span class="m">0</span> -as MASK CorticalThickness.nii.gz -push MASK -lstat</code></pre></figure>
+~/apps/c3d/bin/c3d BrainSegmentation.nii.gz -threshold 2 2 1 0 -as MASK CorticalThickness.nii.gz -push MASK -lstat</code></pre></figure>
 
 <p>Let’s compare the output if we didn’t run this code, but ran the code to just get the average intensity of ALL the voxels:</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">~/apps/c3d/bin/c3d CorticalThickness.nii.gz -info-full
 Image <span class="c">#1:</span>
-  Image Dimensions   : <span class="o">[</span>198, 236, 200<span class="o">]</span>
-  Bounding Box       : <span class="o">{[</span>100.999 96.2826 -87.5596<span class="o">]</span>, <span class="o">[</span>298.933 332.089 112.618<span class="o">]}</span>
-  Voxel Spacing      : <span class="o">[</span>0.999667, 0.99918, 1.00089<span class="o">]</span>
-  Intensity Range    : <span class="o">[</span>0, 10.4775<span class="o">]</span>
+  Image Dimensions   : <span class="o">[</span>198, 236, 200]
+  Bounding Box       : <span class="o">{[</span>100.999 96.2826 -87.5596], <span class="o">[</span>298.933 332.089 112.618]<span class="o">}</span>
+  Voxel Spacing      : <span class="o">[</span>0.999667, 0.99918, 1.00089]
+  Intensity Range    : <span class="o">[</span>0, 10.4775]
   Mean Intensity     : 0.271343</code></pre></figure>
 
 <p>Obvious a cortical thickness of 0.271343 is not valid. With the correct code you can see that the average thickness is actually 4.09824 \( \pm \) 1.42453.</p>
 
 <p>If you want to try and run this specifically with our course dataset:</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="k">for</span> subj in <span class="k">$(</span>ls ~/compute/data/<span class="k">)</span><span class="p">;</span> <span class="k">do</span> 
-<span class="nv">subjDir</span><span class="o">=</span>~/compute/data/<span class="k">${</span><span class="nv">subj</span><span class="k">}</span>/
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="k">for </span>subj <span class="k">in</span> <span class="k">$(</span>ls ~/compute/data/<span class="k">)</span>; <span class="k">do 
+</span><span class="nv">subjDir</span><span class="o">=</span>~/compute/data/<span class="k">${</span><span class="nv">subj</span><span class="k">}</span>/
 <span class="nb">echo</span> <span class="nv">$subj</span> &gt;&gt; ~/compute/projects/corticalthickness/data.csv 
 ~/apps/c3d/bin/c3d <span class="se">\</span>
 <span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/antsCorticalThickness/BrainSegmentation.nii.gz <span class="se">\</span>
--threshold <span class="m">2</span> <span class="m">2</span> <span class="m">1</span> <span class="m">0</span> <span class="se">\</span>
+-threshold 2 2 1 0 <span class="se">\</span>
 -as MASK <span class="se">\</span>
 <span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/antsCorticalThickness/CorticalThickness.nii.gz <span class="se">\</span>
 -push MASK <span class="se">\</span>
@@ -108,15 +97,15 @@ Image <span class="c">#1:</span>
 
 <p>The file is not perfectly formatted so that it can be easily imported into R or even useful in Excel. Some editing of the file needs to happen and we can use the power of Regular Expressions in Terminal to edit the file. Just make sure to change the username in the first line of the code.</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">input</span><span class="o">=</span><span class="s2">&quot;/fslhome/username/compute/projects/corticalthickness/data.csv&quot;</span>
-<span class="nv">output</span><span class="o">=</span><span class="s2">&quot;${input%.*}_modified.csv&quot;</span>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">input</span><span class="o">=</span><span class="s2">"/fslhome/username/compute/projects/corticalthickness/data.csv"</span>
+<span class="nv">output</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">input</span><span class="p">%.*</span><span class="k">}</span><span class="s2">_modified.csv"</span>
 <span class="nb">cd</span> <span class="k">$(</span>dirname <span class="nv">$input</span><span class="k">)</span>
-grep -vwE <span class="s2">&quot;(Reading #1|LabelID|^(    0))&quot;</span> <span class="k">${</span><span class="nv">input</span><span class="k">}</span> <span class="p">|</span> sed -e <span class="s2">&quot;s|/|,|&quot;</span> -Ee <span class="s2">&quot;s/[ ]+/,/g&quot;</span> &gt; temp.txt
-awk <span class="s1">&#39;/^[0-9][0-9][0-9][0-9]_[0-9][0-9][0-9][0-9][0-9][0-9]/{for(i=0;i&lt;1;i++)print}&#39;</span> temp.txt &gt; part1.txt
-awk <span class="s1">&#39;/^,/{print}&#39;</span> temp.txt &gt; part2.txt
-sed -i <span class="s1">&#39;&#39;</span> -e <span class="s2">&quot;s|,1,|,corticalthickness,|&quot;</span> part2.txt 
+grep -vwE <span class="s2">"(Reading #1|LabelID|^(    0))"</span> <span class="k">${</span><span class="nv">input</span><span class="k">}</span> | sed -e <span class="s2">"s|/|,|"</span> -Ee <span class="s2">"s/[ ]+/,/g"</span> &gt; temp.txt
+awk <span class="s1">'/^[0-9][0-9][0-9][0-9]_[0-9][0-9][0-9][0-9][0-9][0-9]/{for(i=0;i&lt;1;i++)print}'</span> temp.txt &gt; part1.txt
+awk <span class="s1">'/^,/{print}'</span> temp.txt &gt; part2.txt
+sed -i <span class="s1">''</span> -e <span class="s2">"s|,1,|,corticalthickness,|"</span> part2.txt 
 paste part1.txt part2.txt &gt; <span class="k">${</span><span class="nv">output</span><span class="k">}</span>
-perl -pi -e <span class="s1">&#39;print &quot;subjectid, label, mean, std, max, min, count, volume (mm^3), extent x, extent y, extent z\n&quot; if($.==1)&#39;</span> <span class="k">${</span><span class="nv">output</span><span class="k">}</span>
+perl -pi -e <span class="s1">'print "subjectid, label, mean, std, max, min, count, volume (mm^3), extent x, extent y, extent z\n" if($.==1)'</span> <span class="k">${</span><span class="nv">output</span><span class="k">}</span>
 rm part1.txt
 rm part2.txt
 rm temp.txt</code></pre></figure>
@@ -150,7 +139,7 @@ rm temp.txt</code></pre></figure>
   <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_developer = 1;
-    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    var disqus_shortname = 'biabl'; // required: replace example with your forum shortname
     
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function() {
@@ -172,7 +161,7 @@ rm temp.txt</code></pre></figure>
       <hr>
       <footer>
         <p>
-          &copy; 2015 Naomi Goodrich-Hunsaker, Ph.D.
+          &copy; 2016 Naomi Goodrich-Hunsaker, Ph.D.
           <span class="pull-right text-muted">
             powered by
             <a href="http://dbtek.github.io/jekyll-bootstrap-3" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll-Bootstrap-3</a>

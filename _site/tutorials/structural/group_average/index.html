@@ -39,17 +39,6 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
           <li><a href="/tutorials">Tutorials </a></li>
-          <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-          	<li class="dropdown-header">SOBIK</li>
-            <li><a href="/projects/SOBIK/template/">Template</a></li>
-            <li role="separator" class="divider"></li>
-            <li class="dropdown-header">MIOS</li>
-            <li><a href="/projects/MIOS/corpus-callosum">Corpus Callosum</a></li>
-          </ul>
-        </li>
-        <li>  </li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -123,37 +112,37 @@
 
 <p>Let’s load our packages.</p>
 
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="kn">library</span><span class="p">(</span>ANTsR<span class="p">)</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">ANTsR</span><span class="p">)</span></code></pre></figure>
 
 <p>Set path to directory containing your data:</p>
 
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="kp">setwd</span><span class="p">(</span><span class="s">&quot;/path/to/data/&quot;</span><span class="p">)</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">setwd</span><span class="p">(</span><span class="s2">"/path/to/data/"</span><span class="p">)</span></code></pre></figure>
 
 <h2 id="import-data">Import Data</h2>
 
 <p>Depending on how your groups are differentiated, for the SOBIK dataset:</p>
 
-<figure class="highlight"><pre><code class="language-r" data-lang="r">files<span class="o">=</span><span class="kp">list.files</span><span class="p">(</span>pattern<span class="o">=</span><span class="s">&quot;13.*&quot;</span><span class="p">)</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">files</span><span class="o">=</span><span class="n">list.files</span><span class="p">(</span><span class="n">pattern</span><span class="o">=</span><span class="s2">"13.*"</span><span class="p">)</span></code></pre></figure>
 
 <p>Otherwise, you will need to edit the pattern according to <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/list.files.html">regular expression rules</a>.</p>
 
-<figure class="highlight"><pre><code class="language-r" data-lang="r">ilist<span class="o">&lt;-</span><span class="kt">list</span><span class="p">()</span>
-<span class="kr">for</span> <span class="p">(</span> i <span class="kr">in</span> <span class="m">1</span><span class="o">:</span><span class="kp">length</span><span class="p">(</span>files<span class="p">)</span> <span class="p">)</span>
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">ilist</span><span class="o">&lt;-</span><span class="n">list</span><span class="p">()</span>
+<span class="k">for</span> <span class="p">(</span> <span class="n">i</span> <span class="k">in</span> <span class="m">1</span><span class="o">:</span><span class="n">length</span><span class="p">(</span><span class="n">files</span><span class="p">)</span> <span class="p">)</span>
 <span class="p">{</span>
-  img<span class="o">&lt;-</span>antsImageRead<span class="p">(</span>files<span class="p">[</span>i<span class="p">])</span>
-  img<span class="o">&lt;-</span>smoothImage<span class="p">(</span>img<span class="p">,</span><span class="m">1.5</span><span class="p">)</span>
-  ilist<span class="p">[</span>i<span class="p">]</span><span class="o">&lt;-</span>img
+  <span class="n">img</span><span class="o">&lt;-</span><span class="n">antsImageRead</span><span class="p">(</span><span class="n">files</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+  <span class="n">img</span><span class="o">&lt;-</span><span class="n">smoothImage</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="m">1.5</span><span class="p">)</span>
+  <span class="n">ilist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;-</span><span class="n">img</span>
 <span class="p">}</span>
-mask<span class="o">&lt;-</span>getMask<span class="p">(</span>antsImageRead<span class="p">(</span>files<span class="p">[</span><span class="m">1</span><span class="p">]))</span>
-mat<span class="o">&lt;-</span>imageListToMatrix<span class="p">(</span>ilist<span class="p">,</span> mask<span class="p">)</span></code></pre></figure>
+<span class="n">mask</span><span class="o">&lt;-</span><span class="n">getMask</span><span class="p">(</span><span class="n">antsImageRead</span><span class="p">(</span><span class="n">files</span><span class="p">[</span><span class="m">1</span><span class="p">]))</span>
+<span class="n">mat</span><span class="o">&lt;-</span><span class="n">imageListToMatrix</span><span class="p">(</span><span class="n">ilist</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span></code></pre></figure>
 
 <h2 id="create-average-image">Create Average Image</h2>
 
 <p>It’s pretty simple to just take an average of each column. Be sure to change the name of your output file according to each group:</p>
 
-<figure class="highlight"><pre><code class="language-r" data-lang="r">aveImage<span class="o">=</span><span class="kp">t</span><span class="p">(</span><span class="kp">as.matrix</span><span class="p">(</span><span class="kp">colMeans</span><span class="p">(</span>mat<span class="p">,</span>na.rm<span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span>dims<span class="o">=</span><span class="m">1</span><span class="p">)))</span>
-i.aveImage<span class="o">&lt;-</span>makeImage<span class="p">(</span>mask<span class="p">,</span>aveImage<span class="p">)</span>
-antsImageWrite<span class="p">(</span>i.aveImage<span class="p">,</span>file<span class="o">=</span><span class="s">&quot;/path/to/ouput/aveImage.nii.gz&quot;</span><span class="p">)</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">aveImage</span><span class="o">=</span><span class="n">t</span><span class="p">(</span><span class="n">as.matrix</span><span class="p">(</span><span class="n">colMeans</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span><span class="n">na.rm</span><span class="o">=</span><span class="n">TRUE</span><span class="p">,</span><span class="n">dims</span><span class="o">=</span><span class="m">1</span><span class="p">)))</span>
+<span class="n">i.aveImage</span><span class="o">&lt;-</span><span class="n">makeImage</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span><span class="n">aveImage</span><span class="p">)</span>
+<span class="n">antsImageWrite</span><span class="p">(</span><span class="n">i.aveImage</span><span class="p">,</span><span class="n">file</span><span class="o">=</span><span class="s2">"/path/to/ouput/aveImage.nii.gz"</span><span class="p">)</span></code></pre></figure>
 
 <h2 id="subtract-groups">Subtract Groups</h2>
 
@@ -170,7 +159,7 @@ antsImageWrite<span class="p">(</span>i.aveImage<span class="p">,</span>file<spa
   <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_developer = 1;
-    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    var disqus_shortname = 'biabl'; // required: replace example with your forum shortname
     
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function() {
@@ -188,7 +177,7 @@ antsImageWrite<span class="p">(</span>i.aveImage<span class="p">,</span>file<spa
       <hr>
       <footer>
         <p>
-          &copy; 2015 Naomi Goodrich-Hunsaker, Ph.D.
+          &copy; 2016 Naomi Goodrich-Hunsaker, Ph.D.
           <span class="pull-right text-muted">
             powered by
             <a href="http://dbtek.github.io/jekyll-bootstrap-3" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll-Bootstrap-3</a>

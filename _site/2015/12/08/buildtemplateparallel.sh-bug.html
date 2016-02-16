@@ -39,17 +39,6 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
           <li><a href="/tutorials">Tutorials </a></li>
-          <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-          	<li class="dropdown-header">SOBIK</li>
-            <li><a href="/projects/SOBIK/template/">Template</a></li>
-            <li role="separator" class="divider"></li>
-            <li class="dropdown-header">MIOS</li>
-            <li><a href="/projects/MIOS/corpus-callosum">Corpus Callosum</a></li>
-          </ul>
-        </li>
-        <li>  </li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -71,28 +60,28 @@
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> /fslhome/intj5/compute/templates/SOBIK/data
 ~/apps/ants-20151207/bin/buildtemplateparallel.sh <span class="se">\</span>
--d <span class="m">3</span> <span class="se">\</span>
+-d 3 <span class="se">\</span>
 -o sobik <span class="se">\</span>
--c <span class="m">5</span> <span class="se">\</span>
-*.nii.gz</code></pre></figure>
+-c 5 <span class="se">\</span>
+<span class="k">*</span>.nii.gz</code></pre></figure>
 
 <h2 id="problem-1">Problem 1</h2>
 
-<p>There was not a <em>qscript</em> variable after the <code>elif</code> command on line 1237.</p>
+<p>There was not a <em>qscript</em> variable after the <code class="highlighter-rouge">elif</code> command on line 1237.</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="k">elif</span> <span class="o">[[</span> <span class="nv">$DOQSUB</span> -eq <span class="m">5</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
-      <span class="nv">qscript</span><span class="o">=</span><span class="s2">&quot;job_${count}_${i}.sh&quot;</span>
-      <span class="nb">echo</span> <span class="s2">&quot;#!/bin/sh&quot;</span> &gt; <span class="k">${</span><span class="nv">qscript</span><span class="k">}</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="k">elif</span> <span class="o">[[</span> <span class="nv">$DOQSUB</span> -eq 5 <span class="o">]]</span>; <span class="k">then
+      </span><span class="nv">qscript</span><span class="o">=</span><span class="s2">"job_</span><span class="k">${</span><span class="nv">count</span><span class="k">}</span><span class="s2">_</span><span class="k">${</span><span class="nv">i</span><span class="k">}</span><span class="s2">.sh"</span>
+      <span class="nb">echo</span> <span class="s2">"#!/bin/sh"</span> &gt; <span class="k">${</span><span class="nv">qscript</span><span class="k">}</span></code></pre></figure>
 
 <h2 id="problem-2">Problem 2</h2>
 
-<p>Next issue was the lack of specifying the amount of memory required for the sbatch submission. The FSL supercomputer requires memory listed, <code>--mem-per-cpu=32768M</code>. Here’s how I fixed the code on line 1242 (previously 1241 before fixing Problem #1).</p>
+<p>Next issue was the lack of specifying the amount of memory required for the sbatch submission. The FSL supercomputer requires memory listed, <code class="highlighter-rouge">--mem-per-cpu=32768M</code>. Here’s how I fixed the code on line 1242 (previously 1241 before fixing Problem #1).</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">id</span><span class="o">=</span><span class="sb">`</span>sbatch --job-name<span class="o">=</span>antsdef<span class="k">${</span><span class="nv">i</span><span class="k">}</span> --export<span class="o">=</span><span class="nv">ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS</span><span class="o">=</span>1,LD_LIBRARY_PATH<span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>,ANTSPATH<span class="o">=</span><span class="nv">$ANTSPATH</span> --nodes<span class="o">=</span><span class="m">1</span> --cpus-per-task<span class="o">=</span><span class="m">1</span> --mem-per-cpu<span class="o">=</span>32768M --time<span class="o">=</span>50:00:00 <span class="nv">$QSUBOPTS</span> <span class="nv">$qscript</span> <span class="p">|</span> rev <span class="p">|</span> cut -f1 -d<span class="se">\ </span><span class="p">|</span> rev<span class="sb">`</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">id</span><span class="o">=</span><span class="sb">`</span>sbatch --job-name<span class="o">=</span>antsdef<span class="k">${</span><span class="nv">i</span><span class="k">}</span> --export<span class="o">=</span><span class="nv">ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS</span><span class="o">=</span>1,LD_LIBRARY_PATH<span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>,ANTSPATH<span class="o">=</span><span class="nv">$ANTSPATH</span> --nodes<span class="o">=</span>1 --cpus-per-task<span class="o">=</span>1 --mem-per-cpu<span class="o">=</span>32768M --time<span class="o">=</span>50:00:00 <span class="nv">$QSUBOPTS</span> <span class="nv">$qscript</span> | rev | cut -f1 -d<span class="se">\ </span>| rev<span class="sb">`</span></code></pre></figure>
 
 <h2 id="problem-3">Problem 3</h2>
 
-<p>The latest version of <code>N4BiasFieldCorrection</code> was giving errors and aborting script. I was able to copy the script from the pre-complied code:</p>
+<p>The latest version of <code class="highlighter-rouge">N4BiasFieldCorrection</code> was giving errors and aborting script. I was able to copy the script from the pre-complied code:</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">cp -v <span class="se">\</span>
 ~/apps/ants-2.1.0-redhat/N4BiasFieldCorrection <span class="se">\</span>
@@ -126,7 +115,7 @@
   <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_developer = 1;
-    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    var disqus_shortname = 'biabl'; // required: replace example with your forum shortname
     
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function() {
@@ -148,7 +137,7 @@
       <hr>
       <footer>
         <p>
-          &copy; 2015 Naomi Goodrich-Hunsaker, Ph.D.
+          &copy; 2016 Naomi Goodrich-Hunsaker, Ph.D.
           <span class="pull-right text-muted">
             powered by
             <a href="http://dbtek.github.io/jekyll-bootstrap-3" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll-Bootstrap-3</a>

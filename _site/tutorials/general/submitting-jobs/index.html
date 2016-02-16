@@ -39,17 +39,6 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
           <li><a href="/tutorials">Tutorials </a></li>
-          <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-          	<li class="dropdown-header">SOBIK</li>
-            <li><a href="/projects/SOBIK/template/">Template</a></li>
-            <li role="separator" class="divider"></li>
-            <li class="dropdown-header">MIOS</li>
-            <li><a href="/projects/MIOS/corpus-callosum">Corpus Callosum</a></li>
-          </ul>
-        </li>
-        <li>  </li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -149,11 +138,11 @@
 <h2 id="slurm-commands">SLURM Commands</h2>
 
 <ul>
-  <li><code>sbatch</code> is used to submit jobs</li>
-  <li><code>squeue -u &lt;username&gt;</code> is used to show your queue</li>
-  <li><code>scancel &lt;jobid&gt;</code> cancels a specific job</li>
-  <li><code>scancel -u &lt;username&gt;</code> cancels all jobs for that user</li>
-  <li><code>sacct</code> shows current and historical job information</li>
+  <li><code class="highlighter-rouge">sbatch</code> is used to submit jobs</li>
+  <li><code class="highlighter-rouge">squeue -u &lt;username&gt;</code> is used to show your queue</li>
+  <li><code class="highlighter-rouge">scancel &lt;jobid&gt;</code> cancels a specific job</li>
+  <li><code class="highlighter-rouge">scancel -u &lt;username&gt;</code> cancels all jobs for that user</li>
+  <li><code class="highlighter-rouge">sacct</code> shows current and historical job information</li>
 </ul>
 
 <h2 id="example-job-script">Example Job Script</h2>
@@ -166,12 +155,12 @@
 <span class="c">#SBATCH --mem-per-cpu=8192M   # memory per CPUS core</span>
 <span class="c">#SBATCH -o /fslhome/&lt;username&gt;/logfiles/20151029/output0.txt</span>
 <span class="c">#SBATCH -e /fslhome/&lt;username&gt;/examples/20151029/error0.txt</span>
-<span class="c">#SBATCH -J &quot;antsCorticalThickness0&quot;   # job name</span>
+<span class="c">#SBATCH -J "antsCorticalThickness0"   # job name</span>
 
 <span class="c"># Compatibility variables for PBS. Delete if not needed.</span>
 <span class="nb">export </span><span class="nv">PBS_NODEFILE</span><span class="o">=</span><span class="sb">`</span>/fslapps/fslutils/generate_pbs_nodefile<span class="sb">`</span>
 <span class="nb">export </span><span class="nv">PBS_JOBID</span><span class="o">=</span><span class="nv">$SLURM_JOB_ID</span>
-<span class="nb">export </span><span class="nv">PBS_O_WORKDIR</span><span class="o">=</span><span class="s2">&quot;$SLURM_SUBMIT_DIR&quot;</span>
+<span class="nb">export </span><span class="nv">PBS_O_WORKDIR</span><span class="o">=</span><span class="s2">"</span><span class="nv">$SLURM_SUBMIT_DIR</span><span class="s2">"</span>
 <span class="nb">export </span><span class="nv">PBS_QUEUE</span><span class="o">=</span>batch
 
 <span class="c"># Set the max number of threads to use for programs using OpenMP.</span>
@@ -186,14 +175,14 @@
 <span class="nv">templateDir</span><span class="o">=</span>/fslhome/&lt;username&gt;/templates/OASIS
 
 antsCorticalThickness.sh <span class="se">\</span>
--d <span class="m">3</span> <span class="se">\</span>
+-d 3 <span class="se">\</span>
 -a <span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/n4.nii.gz <span class="se">\ </span>
 -e <span class="k">${</span><span class="nv">templateDir</span><span class="k">}</span>/T_template0.nii.gz <span class="se">\</span>
 -t <span class="k">${</span><span class="nv">templateDir</span><span class="k">}</span>/T_template0_BrainCerebellum.nii.gz <span class="se">\</span>
 -m <span class="k">${</span><span class="nv">templateDir</span><span class="k">}</span>/T_template0_BrainCerebellumProbabilityMask.nii.gz <span class="se">\ </span>
 -f <span class="k">${</span><span class="nv">templateDir</span><span class="k">}</span>/T_template0_BrainCerebellumExtractionMask.nii.gz <span class="se">\ </span>
 -p <span class="k">${</span><span class="nv">templateDir</span><span class="k">}</span>/Priors2/priors%d.nii.gz <span class="se">\</span>
--q <span class="m">1</span> <span class="se">\</span>
+-q 1 <span class="se">\</span>
 -o <span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/antsCorticalThickness/</code></pre></figure>
 
 <h2 id="read-output--error-files">Read Output / Error files</h2>
@@ -202,7 +191,7 @@ antsCorticalThickness.sh <span class="se">\</span>
 
 <h3 id="vi-versus-cat"><em>vi</em> versus <em>cat</em></h3>
 
-<p><em>Cat</em> is the main command to read and print out the standard output and error files. When you <em>just</em> want to display the contents of a file, use <code>cat</code>. <em>Cat</em> is the most convenient program from displaying the contents of a text file.</p>
+<p><em>Cat</em> is the main command to read and print out the standard output and error files. When you <em>just</em> want to display the contents of a file, use <code class="highlighter-rouge">cat</code>. <em>Cat</em> is the most convenient program from displaying the contents of a text file.</p>
 
 <p>On the other hand, if you want to edit a text file, use <em>vi</em> or <em>nano</em>, which are specifically text editors.</p>
 
@@ -222,8 +211,8 @@ antsCorticalThickness.sh <span class="se">\</span>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
 
-<span class="k">for</span> subj in <span class="k">$(</span>ls ~/path/to/subject/directories/<span class="k">)</span><span class="p">;</span> <span class="k">do</span>
-sbatch <span class="se">\</span>
+<span class="k">for </span>subj <span class="k">in</span> <span class="k">$(</span>ls ~/path/to/subject/directories/<span class="k">)</span>; <span class="k">do
+</span>sbatch <span class="se">\</span>
 -o ~/path/to/logfiles/output_<span class="k">${</span><span class="nv">subj</span><span class="k">}</span>.txt <span class="se">\</span>
 -e ~/path/to/logfiles/error_<span class="k">${</span><span class="nv">subj</span><span class="k">}</span>.txt <span class="se">\</span>
 ~/path/to/jobScript.sh <span class="se">\</span>
@@ -245,7 +234,7 @@ sleep 1
 <span class="c"># Compatibility variables for PBS. Delete if not needed.</span>
 <span class="nb">export </span><span class="nv">PBS_NODEFILE</span><span class="o">=</span><span class="sb">`</span>/fslapps/fslutils/generate_pbs_nodefile<span class="sb">`</span>
 <span class="nb">export </span><span class="nv">PBS_JOBID</span><span class="o">=</span><span class="nv">$SLURM_JOB_ID</span>
-<span class="nb">export </span><span class="nv">PBS_O_WORKDIR</span><span class="o">=</span><span class="s2">&quot;$SLURM_SUBMIT_DIR&quot;</span>
+<span class="nb">export </span><span class="nv">PBS_O_WORKDIR</span><span class="o">=</span><span class="s2">"</span><span class="nv">$SLURM_SUBMIT_DIR</span><span class="s2">"</span>
 <span class="nb">export </span><span class="nv">PBS_QUEUE</span><span class="o">=</span>batch
 
 <span class="c"># Set the max number of threads to use for programs using OpenMP.</span>
@@ -259,14 +248,14 @@ sleep 1
 <span class="nv">SUBJ_DIR</span><span class="o">=</span>~/path/to/subject/directories/<span class="k">${</span><span class="nv">1</span><span class="k">}</span>
 <span class="nv">TEMPLATE_DIR</span><span class="o">=</span>~/templates/NKI10andUnder
 <span class="nv">OUT_DIR</span><span class="o">=</span><span class="k">${</span><span class="nv">SUBJ_DIR</span><span class="k">}</span>/antsCorticalThickness
-~/apps/ants/bin/antsCorticalThickness.sh -d <span class="m">3</span> <span class="se">\</span>
+~/apps/ants/bin/antsCorticalThickness.sh -d 3 <span class="se">\</span>
 -a <span class="k">${</span><span class="nv">SUBJ_DIR</span><span class="k">}</span>/t1/resampled1iso.nii.gz <span class="se">\</span>
 -e <span class="k">${</span><span class="nv">TEMPLATE_DIR</span><span class="k">}</span>/T_template0.nii.gz <span class="se">\</span>
 -t <span class="k">${</span><span class="nv">TEMPLATE_DIR</span><span class="k">}</span>/T_template0_BrainCerebellum.nii.gz <span class="se">\</span>
 -m <span class="k">${</span><span class="nv">TEMPLATE_DIR</span><span class="k">}</span>/T_template0_BrainCerebellumProbabilityMask.nii.gz <span class="se">\</span>
 -f <span class="k">${</span><span class="nv">TEMPLATE_DIR</span><span class="k">}</span>/T_template0_BrainCerebellumExtractionMask.nii.gz <span class="se">\</span>
 -p <span class="k">${</span><span class="nv">TEMPLATE_DIR</span><span class="k">}</span>/Priors2/priors%d.nii.gz <span class="se">\</span>
--q <span class="m">1</span> <span class="se">\</span>
+-q 1 <span class="se">\</span>
 -o <span class="k">${</span><span class="nv">OUT_DIR</span><span class="k">}</span>/</code></pre></figure>
 
 <p>Then when you want to submit job scripts for all your participants, you simply have to submit your BatchScript.sh script:</p>
@@ -290,7 +279,7 @@ sleep 1
   <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_developer = 1;
-    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    var disqus_shortname = 'biabl'; // required: replace example with your forum shortname
     
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function() {
@@ -308,7 +297,7 @@ sleep 1
       <hr>
       <footer>
         <p>
-          &copy; 2015 Naomi Goodrich-Hunsaker, Ph.D.
+          &copy; 2016 Naomi Goodrich-Hunsaker, Ph.D.
           <span class="pull-right text-muted">
             powered by
             <a href="http://dbtek.github.io/jekyll-bootstrap-3" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll-Bootstrap-3</a>

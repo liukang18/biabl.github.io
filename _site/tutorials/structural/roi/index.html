@@ -39,17 +39,6 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
           <li><a href="/tutorials">Tutorials </a></li>
-          <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-          	<li class="dropdown-header">SOBIK</li>
-            <li><a href="/projects/SOBIK/template/">Template</a></li>
-            <li role="separator" class="divider"></li>
-            <li class="dropdown-header">MIOS</li>
-            <li><a href="/projects/MIOS/corpus-callosum">Corpus Callosum</a></li>
-          </ul>
-        </li>
-        <li>  </li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -121,7 +110,7 @@ http://journal.frontiersin.org/article/10.3389/fnins.2012.00171/full</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">~/apps/c3d/bin/c3d <span class="se">\</span>
 OASIS-TRT-20_jointfusion_DKT31_CMA_labels_in_MNI152_v2.nii.gz <span class="se">\</span>
--threshold &lt;labelnumber&gt; &lt;labelnumber&gt; <span class="m">1</span> <span class="m">0</span> <span class="se">\</span>
+-threshold &lt;labelnumber&gt; &lt;labelnumber&gt; 1 0 <span class="se">\</span>
 -o &lt;outputname&gt;.nii.gz</code></pre></figure>
 
 <p><a href="OASIS-TRT-20_jointfusion_DKT31_CMA_labels_in_OASIS-30_v2.nii.gz"><strong>CLICK HERE TO DOWNLOAD THE LABEL IMAGE</strong></a></p>
@@ -239,7 +228,7 @@ OASIS-TRT-20_jointfusion_DKT31_CMA_labels_in_MNI152_v2.nii.gz <span class="se">\
 
 <h2 id="warp-rois">Warp ROIs</h2>
 
-<p>When you’ve run <code>antsRegistrationSyNQuick.sh</code> you are given a warp and inverse warp image that lets you move between moving and fixed space. For example, let’s say you have the thalamus traced in your template image and you want to “trace” the thalamus in each of your participants. It makes sense then to have your template image as the moving image (<code>-m</code>) and each participant image is a new fixed image (<code>-f</code>).</p>
+<p>When you’ve run <code class="highlighter-rouge">antsRegistrationSyNQuick.sh</code> you are given a warp and inverse warp image that lets you move between moving and fixed space. For example, let’s say you have the thalamus traced in your template image and you want to “trace” the thalamus in each of your participants. It makes sense then to have your template image as the moving image (<code class="highlighter-rouge">-m</code>) and each participant image is a new fixed image (<code class="highlighter-rouge">-f</code>).</p>
 
 <p>When you take the template and normalize to participant:</p>
 
@@ -253,7 +242,7 @@ OASIS-TRT-20_jointfusion_DKT31_CMA_labels_in_MNI152_v2.nii.gz <span class="se">\
 <p>The ANTs code to do this is:</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">WarpImageMultiTransform <span class="se">\</span>
-<span class="m">3</span> <span class="se">\</span>
+3 <span class="se">\</span>
 &lt;dktROI&gt;.nii.gz <span class="se">\</span>
 &lt;output&gt;.nii.gz <span class="se">\</span>
 &lt;warpImage&gt;.nii.gz <span class="se">\</span>
@@ -262,7 +251,7 @@ OASIS-TRT-20_jointfusion_DKT31_CMA_labels_in_MNI152_v2.nii.gz <span class="se">\
 
 <hr />
 
-<p>Another example, let’s say you have a population of severe TBI participants in which you’ve already generated ROIs around the major brain lesions and you want to see if there’s similarity across participants where lesions occur. It makes sense then to have your template image as your fixed image (<code>-f</code>) and each participant image is moving (<code>-m</code>).</p>
+<p>Another example, let’s say you have a population of severe TBI participants in which you’ve already generated ROIs around the major brain lesions and you want to see if there’s similarity across participants where lesions occur. It makes sense then to have your template image as your fixed image (<code class="highlighter-rouge">-f</code>) and each participant image is moving (<code class="highlighter-rouge">-m</code>).</p>
 
 <p>When you take the participant and normalize to template:</p>
 
@@ -276,7 +265,7 @@ OASIS-TRT-20_jointfusion_DKT31_CMA_labels_in_MNI152_v2.nii.gz <span class="se">\
 <p>The ANTs code to do this is:</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">WarpImageMultiTransform <span class="se">\</span>
-<span class="m">3</span> <span class="se">\</span>
+3 <span class="se">\</span>
 &lt;participantROI&gt;.nii.gz <span class="se">\</span>
 &lt;output&gt;.nii.gz <span class="se">\</span>
 &lt;warpImage&gt;.nii.gz <span class="se">\</span>
@@ -285,10 +274,10 @@ OASIS-TRT-20_jointfusion_DKT31_CMA_labels_in_MNI152_v2.nii.gz <span class="se">\
 
 <hr />
 
-<p>You do not have to rerun <code>antsRegistractionSynQuick.sh</code> if your fixed and moving images are not precisely correct. You can always apply the inverse warp when needed. Let’s go back to the second example where the template image is the fixed image (<code>-f</code>) and each participant is a moving image (<code>-m</code>). Let’s say that you want to move a hippocampus ROI in template space to participant space:</p>
+<p>You do not have to rerun <code class="highlighter-rouge">antsRegistractionSynQuick.sh</code> if your fixed and moving images are not precisely correct. You can always apply the inverse warp when needed. Let’s go back to the second example where the template image is the fixed image (<code class="highlighter-rouge">-f</code>) and each participant is a moving image (<code class="highlighter-rouge">-m</code>). Let’s say that you want to move a hippocampus ROI in template space to participant space:</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">WarpImageMultiTransform <span class="se">\</span>
-<span class="m">3</span> <span class="se">\</span>
+3 <span class="se">\</span>
 &lt;dktROI&gt;.nii.gz <span class="se">\</span>
 &lt;output&gt;.nii.gz <span class="se">\</span>
 -i &lt;affineFile&gt;.mat <span class="se">\</span>
@@ -300,7 +289,7 @@ OASIS-TRT-20_jointfusion_DKT31_CMA_labels_in_MNI152_v2.nii.gz <span class="se">\
 <p>If you have already run ANTs Cortical Thickness using the OASIS template the code you need to use to move the ROI in template space to participant space is as follows:</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">WarpImageMultiTransform <span class="se">\</span>
-<span class="m">3</span> <span class="se">\</span>
+3 <span class="se">\</span>
 &lt;dktROI&gt;.nii.gz <span class="se">\</span>
 &lt;output&gt;.nii.gz <span class="se">\</span>
 TemplateToSubject0Warp.nii.gz <span class="se">\</span>
@@ -311,7 +300,7 @@ TemplateToSubject1GenericAffine.mat <span class="se">\</span>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">c3d <span class="se">\</span>
 BrainSegmentation.nii.gz <span class="se">\</span>
--threshold <span class="m">2</span> <span class="m">2</span> <span class="m">1</span> <span class="m">0</span> <span class="se">\</span>
+-threshold 2 2 1 0 <span class="se">\</span>
 -as MASK <span class="se">\</span>
 &lt;participantROI&gt;.nii.gz <span class="se">\</span>
 -push MASK <span class="se">\</span>
@@ -327,8 +316,8 @@ BrainSegmentation.nii.gz <span class="se">\</span>
 <p>After logging into the supercomputer, we are going to use Convert3D tool to extract the various tissue volumes:</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">mkdir -p ~/compute/projects/brainvols/
-<span class="k">for</span> subj in <span class="k">$(</span>ls ~/compute/data/<span class="k">)</span><span class="p">;</span> <span class="k">do</span> 
-<span class="nv">subjDir</span><span class="o">=</span>~/compute/data/<span class="k">${</span><span class="nv">subj</span><span class="k">}</span>/
+<span class="k">for </span>subj <span class="k">in</span> <span class="k">$(</span>ls ~/compute/data/<span class="k">)</span>; <span class="k">do 
+</span><span class="nv">subjDir</span><span class="o">=</span>~/compute/data/<span class="k">${</span><span class="nv">subj</span><span class="k">}</span>/
 <span class="nb">echo</span> <span class="nv">$subj</span> &gt;&gt; ~/compute/projects/brainvols/data.csv 
 ~/apps/c3d/bin/c3d <span class="se">\</span>
 <span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/antsCorticalThickness/BrainSegmentation0N4.nii.gz <span class="se">\</span>
@@ -342,15 +331,15 @@ BrainSegmentation.nii.gz <span class="se">\</span>
 
 <p>The file is not perfectly formatted so that it can be easily imported into R or even useful in Excel. Some editing of the file needs to happen and we can use the power of Regular Expressions in Terminal to edit the file. Just make sure to change the username in the first line of the code.</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">input</span><span class="o">=</span><span class="s2">&quot;/fslhome/username/compute/projects/brainvols/data.csv&quot;</span>
-<span class="nv">output</span><span class="o">=</span><span class="s2">&quot;${input%.*}_modified.csv&quot;</span>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">input</span><span class="o">=</span><span class="s2">"/fslhome/username/compute/projects/brainvols/data.csv"</span>
+<span class="nv">output</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">input</span><span class="p">%.*</span><span class="k">}</span><span class="s2">_modified.csv"</span>
 <span class="nb">cd</span> <span class="k">$(</span>dirname <span class="nv">$input</span><span class="k">)</span>
-grep -vwE <span class="s2">&quot;(Reading #1|LabelID|^(    0))&quot;</span> <span class="k">${</span><span class="nv">input</span><span class="k">}</span> <span class="p">|</span> sed -e <span class="s2">&quot;s|/|,|&quot;</span> -Ee <span class="s2">&quot;s/[ ]+/,/g&quot;</span> &gt; temp.txt
-awk <span class="s1">&#39;/^[0-9][0-9][0-9][0-9]_[0-9][0-9][0-9][0-9][0-9][0-9]/{for(i=0;i&lt;6;i++)print}&#39;</span> temp.txt &gt; part1.txt
-awk <span class="s1">&#39;/^,/{print}&#39;</span> temp.txt &gt; part2.txt
-sed -i <span class="s1">&#39;&#39;</span> -e <span class="s2">&quot;s|,1,|,csf,|&quot;</span> -e <span class="s2">&quot;s|,2,|,gm,|&quot;</span> -e <span class="s2">&quot;s|,3,|,wm,|&quot;</span> -e <span class="s2">&quot;s|,4,|,subcortical,|&quot;</span> -e <span class="s2">&quot;s|,5,|,brainstem,|&quot;</span> -e <span class="s2">&quot;s|,6,|,cerebellum,|&quot;</span> part2.txt 
+grep -vwE <span class="s2">"(Reading #1|LabelID|^(    0))"</span> <span class="k">${</span><span class="nv">input</span><span class="k">}</span> | sed -e <span class="s2">"s|/|,|"</span> -Ee <span class="s2">"s/[ ]+/,/g"</span> &gt; temp.txt
+awk <span class="s1">'/^[0-9][0-9][0-9][0-9]_[0-9][0-9][0-9][0-9][0-9][0-9]/{for(i=0;i&lt;6;i++)print}'</span> temp.txt &gt; part1.txt
+awk <span class="s1">'/^,/{print}'</span> temp.txt &gt; part2.txt
+sed -i <span class="s1">''</span> -e <span class="s2">"s|,1,|,csf,|"</span> -e <span class="s2">"s|,2,|,gm,|"</span> -e <span class="s2">"s|,3,|,wm,|"</span> -e <span class="s2">"s|,4,|,subcortical,|"</span> -e <span class="s2">"s|,5,|,brainstem,|"</span> -e <span class="s2">"s|,6,|,cerebellum,|"</span> part2.txt 
 paste part1.txt part2.txt &gt; <span class="k">${</span><span class="nv">output</span><span class="k">}</span>
-perl -pi -e <span class="s1">&#39;print &quot;subjectid, label, mean, std, max, min, count, volume (mm^3), extent x, extent y, extent z\n&quot; if($.==1)&#39;</span> <span class="k">${</span><span class="nv">output</span><span class="k">}</span>
+perl -pi -e <span class="s1">'print "subjectid, label, mean, std, max, min, count, volume (mm^3), extent x, extent y, extent z\n" if($.==1)'</span> <span class="k">${</span><span class="nv">output</span><span class="k">}</span>
 rm part1.txt
 rm part2.txt
 rm temp.txt</code></pre></figure>
@@ -370,7 +359,7 @@ rm temp.txt</code></pre></figure>
   <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_developer = 1;
-    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    var disqus_shortname = 'biabl'; // required: replace example with your forum shortname
     
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function() {
@@ -388,7 +377,7 @@ rm temp.txt</code></pre></figure>
       <hr>
       <footer>
         <p>
-          &copy; 2015 Naomi Goodrich-Hunsaker, Ph.D.
+          &copy; 2016 Naomi Goodrich-Hunsaker, Ph.D.
           <span class="pull-right text-muted">
             powered by
             <a href="http://dbtek.github.io/jekyll-bootstrap-3" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll-Bootstrap-3</a>

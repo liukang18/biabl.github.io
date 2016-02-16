@@ -39,17 +39,6 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
           <li><a href="/tutorials">Tutorials </a></li>
-          <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-          	<li class="dropdown-header">SOBIK</li>
-            <li><a href="/projects/SOBIK/template/">Template</a></li>
-            <li role="separator" class="divider"></li>
-            <li class="dropdown-header">MIOS</li>
-            <li><a href="/projects/MIOS/corpus-callosum">Corpus Callosum</a></li>
-          </ul>
-        </li>
-        <li>  </li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -175,7 +164,7 @@
       <td style="text-align: left">reverse search history</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code>!!</code></td>
+      <td style="text-align: left"><code class="highlighter-rouge">!!</code></td>
       <td style="text-align: left">repeat last command</td>
     </tr>
   </tbody>
@@ -192,11 +181,11 @@
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: left"><code>man {command}</code></td>
+      <td style="text-align: left"><code class="highlighter-rouge">man {command}</code></td>
       <td style="text-align: left">Type man ls to read the manual for the ls command.</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code>man {command} &gt; {fileName}</code></td>
+      <td style="text-align: left"><code class="highlighter-rouge">man {command} &gt; {fileName}</code></td>
       <td style="text-align: left">Redirect help to a file to download.</td>
     </tr>
   </tbody>
@@ -213,31 +202,31 @@
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: left"><code>ls {path}</code></td>
+      <td style="text-align: left"><code class="highlighter-rouge">ls {path}</code></td>
       <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td style="text-align: left"><code>ls {path_1} {path_2}</code></td>
+      <td style="text-align: left"><code class="highlighter-rouge">ls {path_1} {path_2}</code></td>
       <td style="text-align: left">List both {path_1} and {path_2}.</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code>ls -l {path}</code></td>
+      <td style="text-align: left"><code class="highlighter-rouge">ls -l {path}</code></td>
       <td style="text-align: left">Long listing, with date, size and permissions.</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code>ls -a {path}</code></td>
+      <td style="text-align: left"><code class="highlighter-rouge">ls -a {path}</code></td>
       <td style="text-align: left">Show all files, including important .dot files that don’t otherwise show.</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code>ls -F {path}</code></td>
+      <td style="text-align: left"><code class="highlighter-rouge">ls -F {path}</code></td>
       <td style="text-align: left">Show type of each file. “/” = directory, “*” = executable.</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code>ls -R {path}</code></td>
+      <td style="text-align: left"><code class="highlighter-rouge">ls -R {path}</code></td>
       <td style="text-align: left">Recursive listing, with all subdirs.</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code>ls {path} &gt; {filename}</code></td>
+      <td style="text-align: left"><code class="highlighter-rouge">ls {path} &gt; {filename}</code></td>
       <td style="text-align: left">Redirect directory to a file.</td>
     </tr>
   </tbody>
@@ -254,15 +243,15 @@
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: left"><code>cd {dirname}</code></td>
+      <td style="text-align: left"><code class="highlighter-rouge">cd {dirname}</code></td>
       <td style="text-align: left">Go to directory.</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code>cd ~</code></td>
+      <td style="text-align: left"><code class="highlighter-rouge">cd ~</code></td>
       <td style="text-align: left">Go back to home directory, useful if you’re lost.</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code>cd ..</code></td>
+      <td style="text-align: left"><code class="highlighter-rouge">cd ..</code></td>
       <td style="text-align: left">Go back one directory.</td>
     </tr>
   </tbody>
@@ -279,7 +268,7 @@
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: left"><code>mkdir {dirname}</code></td>
+      <td style="text-align: left"><code class="highlighter-rouge">mkdir {dirname}</code></td>
       <td style="text-align: left">Make a new directory with name.</td>
     </tr>
   </tbody>
@@ -296,11 +285,11 @@
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: left"><code>rmdir {dirname}</code></td>
+      <td style="text-align: left"><code class="highlighter-rouge">rmdir {dirname}</code></td>
       <td style="text-align: left">Only works if {dirname} is empty.</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code>rm -r {dirname}</code></td>
+      <td style="text-align: left"><code class="highlighter-rouge">rm -r {dirname}</code></td>
       <td style="text-align: left">Remove all files and subdirs. Careful!</td>
     </tr>
   </tbody>
@@ -317,7 +306,7 @@
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: left"><code>pwd</code></td>
+      <td style="text-align: left"><code class="highlighter-rouge">pwd</code></td>
       <td style="text-align: left">Show where you are as full path. Useful if you’re lost or exploring.</td>
     </tr>
   </tbody>
@@ -334,15 +323,15 @@
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: left"><code>cp {file1} {file2}	</code></td>
+      <td style="text-align: left"><code class="highlighter-rouge">cp {file1} {file2}	</code></td>
       <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td style="text-align: left"><code>cp -r {dir1} {dir2}</code></td>
+      <td style="text-align: left"><code class="highlighter-rouge">cp -r {dir1} {dir2}</code></td>
       <td style="text-align: left">Recursive, copy directory and all subdirs.</td>
     </tr>
     <tr>
-      <td style="text-align: left"><code>cat {newfile} &gt;&gt; {oldfile}</code></td>
+      <td style="text-align: left"><code class="highlighter-rouge">cat {newfile} &gt;&gt; {oldfile}</code></td>
       <td style="text-align: left">Append newfile to end of oldfile.</td>
     </tr>
   </tbody>
@@ -359,7 +348,7 @@
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: left"><code>mv {oldfile} {newfile}</code></td>
+      <td style="text-align: left"><code class="highlighter-rouge">mv {oldfile} {newfile}</code></td>
       <td style="text-align: left">Moving a file and renaming it are the same thing.</td>
     </tr>
   </tbody>
@@ -376,7 +365,7 @@
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: left"><code>cat {filename}</code></td>
+      <td style="text-align: left"><code class="highlighter-rouge">cat {filename}</code></td>
       <td style="text-align: left">View file, but it scrolls.</td>
     </tr>
   </tbody>
@@ -393,7 +382,7 @@
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: left"><code>vi {filename}</code></td>
+      <td style="text-align: left"><code class="highlighter-rouge">vi {filename}</code></td>
       <td style="text-align: left">Basic text editor.</td>
     </tr>
   </tbody>
@@ -408,7 +397,7 @@
   <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_developer = 1;
-    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    var disqus_shortname = 'biabl'; // required: replace example with your forum shortname
     
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function() {
@@ -426,7 +415,7 @@
       <hr>
       <footer>
         <p>
-          &copy; 2015 Naomi Goodrich-Hunsaker, Ph.D.
+          &copy; 2016 Naomi Goodrich-Hunsaker, Ph.D.
           <span class="pull-right text-muted">
             powered by
             <a href="http://dbtek.github.io/jekyll-bootstrap-3" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll-Bootstrap-3</a>

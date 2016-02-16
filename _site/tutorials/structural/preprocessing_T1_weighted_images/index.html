@@ -39,17 +39,6 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
           <li><a href="/tutorials">Tutorials </a></li>
-          <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-          	<li class="dropdown-header">SOBIK</li>
-            <li><a href="/projects/SOBIK/template/">Template</a></li>
-            <li role="separator" class="divider"></li>
-            <li class="dropdown-header">MIOS</li>
-            <li><a href="/projects/MIOS/corpus-callosum">Corpus Callosum</a></li>
-          </ul>
-        </li>
-        <li>  </li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -131,7 +120,7 @@ mkdir <span class="k">${</span><span class="nv">subjDir</span><span class="k">}<
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">dcm2nii <span class="se">\</span>
 -o <span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/t1 <span class="se">\</span>
-<span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/DICOMs/*</code></pre></figure>
+<span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/DICOMs/<span class="k">*</span></code></pre></figure>
 
 <h3 id="anonymize">Anonymize</h3>
 
@@ -139,7 +128,7 @@ mkdir <span class="k">${</span><span class="nv">subjDir</span><span class="k">}<
 
 <p><img class="img-responsive" alt="" src="images/anonymize.png" /></p>
 
-<p>The option <code>-a y</code> will anonymize participant information located in the DICOM files.</p>
+<p>The option <code class="highlighter-rouge">-a y</code> will anonymize participant information located in the DICOM files.</p>
 
 <h3 id="crop-and-reorient">Crop and Reorient</h3>
 
@@ -158,24 +147,24 @@ mkdir <span class="k">${</span><span class="nv">subjDir</span><span class="k">}<
 
 <p><img class="img-responsive" alt="" src="images/t1-cropped-reorientated.png" /></p>
 
-<p>The <code>dcm2nii</code> program will reorient and crop the images using the <code>-x</code> option. The following code below will anonymize the image <code>-a</code>, just provide a NIfTI file and <strong>NOT</strong> a zipped file <code>-g</code>, and crop / reorient the image <code>-x</code>.</p>
+<p>The <code class="highlighter-rouge">dcm2nii</code> program will reorient and crop the images using the <code class="highlighter-rouge">-x</code> option. The following code below will anonymize the image <code class="highlighter-rouge">-a</code>, just provide a NIfTI file and <strong>NOT</strong> a zipped file <code class="highlighter-rouge">-g</code>, and crop / reorient the image <code class="highlighter-rouge">-x</code>.</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">dcm2nii <span class="se">\</span>
 -a y <span class="se">\</span>
 -g n <span class="se">\</span>
 -x y <span class="se">\</span>
 -o <span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/t1 <span class="se">\</span>
-<span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/DICOMs/*</code></pre></figure>
+<span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/DICOMs/<span class="k">*</span></code></pre></figure>
 
 <h3 id="rename">Rename</h3>
 
-<p>Before we get to the issue of alignment, look closely, the file names that <code>dcm2nii</code> give look like Linux attacked, <code>19890302_162952MPRAGEs0003a001.nii.gz</code>. The output from the <code>dcm2nii</code> program results in file names that are uniquely different across participants. For analyses though, we want all the files named exactly the same from participant to participant. In this case, we want all the files named <code>t1.nii</code>.</p>
+<p>Before we get to the issue of alignment, look closely, the file names that <code class="highlighter-rouge">dcm2nii</code> give look like Linux attacked, <code class="highlighter-rouge">19890302_162952MPRAGEs0003a001.nii.gz</code>. The output from the <code class="highlighter-rouge">dcm2nii</code> program results in file names that are uniquely different across participants. For analyses though, we want all the files named exactly the same from participant to participant. In this case, we want all the files named <code class="highlighter-rouge">t1.nii</code>.</p>
 
-<p>In addition to renaming the file, we want to use just the cropped and reorientated file (<code>co</code>). We want to delete the reorientation only (<code>o</code>) and original file (no <code>co</code> or <code>o</code> prefix).</p>
+<p>In addition to renaming the file, we want to use just the cropped and reorientated file (<code class="highlighter-rouge">co</code>). We want to delete the reorientation only (<code class="highlighter-rouge">o</code>) and original file (no <code class="highlighter-rouge">co</code> or <code class="highlighter-rouge">o</code> prefix).</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> <span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/t1
-mv co*.nii t1.nii
-rm o*.nii <span class="p">|</span> rm 2*.nii</code></pre></figure>
+mv co<span class="k">*</span>.nii t1.nii
+rm o<span class="k">*</span>.nii | rm 2<span class="k">*</span>.nii</code></pre></figure>
 
 <h2 id="ac-pc-alignment">AC-PC Alignment</h2>
 
@@ -207,15 +196,15 @@ rm o*.nii <span class="p">|</span> rm 2*.nii</code></pre></figure>
 
 <p><img class="img-responsive" alt="" src="http://www.brainvoyager.com/bvqx/doc/UsersGuide/Segmentation/Images/IIHC_Explanation_sm.png" /></p>
 
-<p>Image processing algorithms such as tissue segmentation use the pixel gray level values. If there is a bias field, the gray level values of the pixels will cause the algorithms to produce unsatisfactory results. A pre-processing step is needed to correct for the bias field signal before submitting corrupted MRI images to such algorithms. <strong><em>Note that at this point, we will output our file as <code>.nii.gz</code>. From this point on, we will use <code>.nii.gz</code> files. Only the <code>acpcdetect</code> program requires NIfTI only files.</em></strong></p>
+<p>Image processing algorithms such as tissue segmentation use the pixel gray level values. If there is a bias field, the gray level values of the pixels will cause the algorithms to produce unsatisfactory results. A pre-processing step is needed to correct for the bias field signal before submitting corrupted MRI images to such algorithms. <strong><em>Note that at this point, we will output our file as <code class="highlighter-rouge">.nii.gz</code>. From this point on, we will use <code class="highlighter-rouge">.nii.gz</code> files. Only the <code class="highlighter-rouge">acpcdetect</code> program requires NIfTI only files.</em></strong></p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">N4BiasFieldCorrection <span class="se">\</span>
--d <span class="m">3</span> <span class="se">\</span>
+-d 3 <span class="se">\</span>
 -i <span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/t1/acpc.nii <span class="se">\</span>
--o <span class="o">[</span><span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/t1/n4.nii.gz,<span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/t1/biasfield.nii.gz<span class="o">]</span> <span class="se">\</span>
--s <span class="m">4</span> <span class="se">\ </span>
--b <span class="o">[</span>200<span class="o">]</span> <span class="se">\</span>
--c <span class="o">[</span>50x50x50x50,0.000001<span class="o">]</span></code></pre></figure>
+-o <span class="o">[</span><span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/t1/n4.nii.gz,<span class="k">${</span><span class="nv">subjDir</span><span class="k">}</span>/t1/biasfield.nii.gz] <span class="se">\</span>
+-s 4 <span class="se">\ </span>
+-b <span class="o">[</span>200] <span class="se">\</span>
+-c <span class="o">[</span>50x50x50x50,0.000001]</code></pre></figure>
 
 <h2 id="resample-to-1-mm-isotropic">Resample to 1 mm Isotropic</h2>
 
@@ -223,7 +212,7 @@ rm o*.nii <span class="p">|</span> rm 2*.nii</code></pre></figure>
 
 <p>If you want to register a DTI image to your T1 image, you will definitely have to resample your T1 image. Most likely your T1 image will have about 1mm voxels, but your diffusion weighted image will be 2mm voxels. Therefore, you will have to resample your T1 image to have 2mm voxels.</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>c3d <span class="se">\</span>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="gp">$ </span>c3d <span class="se">\</span>
 &lt;inputImage&gt;.nii.gz <span class="se">\</span>
 -resample-mm 1x1x1mm <span class="se">\</span>
 -o &lt;outputImage&gt;.nii.gz</code></pre></figure>
@@ -260,7 +249,7 @@ rm o*.nii <span class="p">|</span> rm 2*.nii</code></pre></figure>
   <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_developer = 1;
-    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    var disqus_shortname = 'biabl'; // required: replace example with your forum shortname
     
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function() {
@@ -278,7 +267,7 @@ rm o*.nii <span class="p">|</span> rm 2*.nii</code></pre></figure>
       <hr>
       <footer>
         <p>
-          &copy; 2015 Naomi Goodrich-Hunsaker, Ph.D.
+          &copy; 2016 Naomi Goodrich-Hunsaker, Ph.D.
           <span class="pull-right text-muted">
             powered by
             <a href="http://dbtek.github.io/jekyll-bootstrap-3" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll-Bootstrap-3</a>

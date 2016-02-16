@@ -39,17 +39,6 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
           <li><a href="/tutorials">Tutorials </a></li>
-          <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-          	<li class="dropdown-header">SOBIK</li>
-            <li><a href="/projects/SOBIK/template/">Template</a></li>
-            <li role="separator" class="divider"></li>
-            <li class="dropdown-header">MIOS</li>
-            <li><a href="/projects/MIOS/corpus-callosum">Corpus Callosum</a></li>
-          </ul>
-        </li>
-        <li>  </li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -69,7 +58,7 @@
 
 <!-- more -->
 
-<p>Make sure you start with a completely fresh install. Remove the <code>ANTs</code> and <code>antsbin</code> directories:</p>
+<p>Make sure you start with a completely fresh install. Remove the <code class="highlighter-rouge">ANTs</code> and <code class="highlighter-rouge">antsbin</code> directories:</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> ~/apps/
 rm -rf ANTs
@@ -83,7 +72,7 @@ mkdir ants-20151207
 <span class="nb">cd </span>ants-20151207
 ccmake ../ANTs</code></pre></figure>
 
-<p>In CMAKE, type “c” to load the configuration information and then type “t” to toggle to advanced mode. You want to edit the option, “CMAKE_EXE_LINKER_FLAGS” which by default is blank, but needs to be <code>-fuse-ld=bfd</code> instead. Press “ENTER” to edit the option.</p>
+<p>In CMAKE, type “c” to load the configuration information and then type “t” to toggle to advanced mode. You want to edit the option, “CMAKE_EXE_LINKER_FLAGS” which by default is blank, but needs to be <code class="highlighter-rouge">-fuse-ld=bfd</code> instead. Press “ENTER” to edit the option.</p>
 
 <p><img src="/images/2015-12-07-ants-installation-bug/screenshot-image1.png" alt="" /></p>
 
@@ -97,9 +86,9 @@ ccmake ../ANTs</code></pre></figure>
 
 <p>Once ANTs is installed, remember to copy the scripts to your ANTs bin directory and set your environmental variables:</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">cp -v ~/apps/ANTs/Scripts/* ~/apps/ants-20151207/bin/
-<span class="nb">echo</span> <span class="s2">&quot;export ANTSPATH=/fslhome/&lt;USERNAME&gt;/antsbin-20151207/bin/&quot;</span> &gt;&gt; ~/.bash_profile
-<span class="nb">echo</span> <span class="s2">&quot;export PATH=${ANTSPATH}:${PATH}&quot;</span> &gt;&gt; ~/.bash_profile</code></pre></figure>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">cp -v ~/apps/ANTs/Scripts/<span class="k">*</span> ~/apps/ants-20151207/bin/
+<span class="nb">echo</span> <span class="s2">"export ANTSPATH=/fslhome/&lt;USERNAME&gt;/antsbin-20151207/bin/"</span> &gt;&gt; ~/.bash_profile
+<span class="nb">echo</span> <span class="s2">"export PATH=</span><span class="k">${</span><span class="nv">ANTSPATH</span><span class="k">}</span><span class="s2">:</span><span class="k">${</span><span class="nv">PATH</span><span class="k">}</span><span class="s2">"</span> &gt;&gt; ~/.bash_profile</code></pre></figure>
 
     </div>
 
@@ -110,7 +99,7 @@ ccmake ../ANTs</code></pre></figure>
               
           </div>
           <div class="col-sm-11">
-              <p>Written by <strong><a rel="author" href="https://github.com/" title="" target="_blank">Trevor Huff</a></strong><br>
+              <p>Written by <strong><a rel="author" href="https://github.com/Trevh5" title="" target="_blank">Trevor Huff</a></strong><br>
                   <span class="muted">Contributor</span>
               </p>
           </div>
@@ -124,7 +113,7 @@ ccmake ../ANTs</code></pre></figure>
   <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_developer = 1;
-    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    var disqus_shortname = 'biabl'; // required: replace example with your forum shortname
     
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function() {
@@ -146,7 +135,7 @@ ccmake ../ANTs</code></pre></figure>
       <hr>
       <footer>
         <p>
-          &copy; 2015 Naomi Goodrich-Hunsaker, Ph.D.
+          &copy; 2016 Naomi Goodrich-Hunsaker, Ph.D.
           <span class="pull-right text-muted">
             powered by
             <a href="http://dbtek.github.io/jekyll-bootstrap-3" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll-Bootstrap-3</a>

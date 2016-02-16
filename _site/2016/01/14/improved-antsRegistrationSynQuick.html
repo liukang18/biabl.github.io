@@ -1,0 +1,250 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>Improved antsRegistrationSynQuick.sh</title>
+    
+    <meta name="author" content="Naomi Goodrich-Hunsaker, Ph.D.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="/assets/themes//resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/themes//css/pygments.css">
+  
+    <!--[if lt IE 9]>
+      <script src="/assets/themes//resources/respond/Respond.min.js"></script>
+    <![endif]-->
+
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+  </head>
+
+  <body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Brain Imaging and Behavior Lab</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+          <li><a href="/tutorials">Tutorials </a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+    <div class="container">
+      
+
+<div class="page-header">
+  <h1>Improved antsRegistrationSynQuick.sh </h1>
+  <h4>By Naomi J. Goodrich-Hunsaker &mdash;<time pubdate datetime="2016-14-January" title="January 14, 2016">January 14, 2016</time></h4>
+</div>
+
+<div class="row post-full">
+  <div class="col-md-12">
+    <div class="content">
+      <p>Given our dataset, improvement of antsRegistrationSynQuick.sh was needed. Particularly when other scripts all antsRegistrationSynQuick.sh (e.g., antsJointLabelFusion.sh). The old antsRegistrationSynQuick.sh code was as follows:</p>
+
+<!-- more -->
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">##############################</span>
+<span class="c">#</span>
+<span class="c"># Construct mapping stages</span>
+<span class="c">#</span>
+<span class="c">##############################</span>
+
+<span class="nv">RIGIDCONVERGENCE</span><span class="o">=</span><span class="s2">"[1000x500x250x0,1e-6,10]"</span>
+<span class="nv">RIGIDSHRINKFACTORS</span><span class="o">=</span><span class="s2">"8x4x2x1"</span>
+<span class="nv">RIGIDSMOOTHINGSIGMAS</span><span class="o">=</span><span class="s2">"3x2x1x0vox"</span>
+
+<span class="nv">AFFINECONVERGENCE</span><span class="o">=</span><span class="s2">"[1000x500x250x0,1e-6,10]"</span>
+<span class="nv">AFFINESHRINKFACTORS</span><span class="o">=</span><span class="s2">"8x4x2x1"</span>
+<span class="nv">AFFINESMOOTHINGSIGMAS</span><span class="o">=</span><span class="s2">"3x2x1x0vox"</span>
+
+<span class="nv">SYNCONVERGENCE</span><span class="o">=</span><span class="s2">"[100x70x50x0,1e-6,10]"</span>
+<span class="nv">SYNSHRINKFACTORS</span><span class="o">=</span><span class="s2">"8x4x2x1"</span>
+<span class="nv">SYNSMOOTHINGSIGMAS</span><span class="o">=</span><span class="s2">"3x2x1x0vox"</span>
+
+<span class="k">if</span> <span class="o">[[</span> <span class="nv">$ISLARGEIMAGE</span> -eq 1 <span class="o">]]</span>;
+  <span class="k">then
+    </span><span class="nv">RIGIDCONVERGENCE</span><span class="o">=</span><span class="s2">"[1000x500x250x0,1e-6,10]"</span>
+    <span class="nv">RIGIDSHRINKFACTORS</span><span class="o">=</span><span class="s2">"12x8x4x2"</span>
+    <span class="nv">RIGIDSMOOTHINGSIGMAS</span><span class="o">=</span><span class="s2">"4x3x2x1vox"</span>
+
+    <span class="nv">AFFINECONVERGENCE</span><span class="o">=</span><span class="s2">"[1000x500x250x0,1e-6,10]"</span>
+    <span class="nv">AFFINESHRINKFACTORS</span><span class="o">=</span><span class="s2">"12x8x4x2"</span>
+    <span class="nv">AFFINESMOOTHINGSIGMAS</span><span class="o">=</span><span class="s2">"4x3x2x1vox"</span>
+
+    <span class="nv">SYNCONVERGENCE</span><span class="o">=</span><span class="s2">"[100x100x70x50x0,1e-6,10]"</span>
+    <span class="nv">SYNSHRINKFACTORS</span><span class="o">=</span><span class="s2">"10x6x4x2x1"</span>
+    <span class="nv">SYNSMOOTHINGSIGMAS</span><span class="o">=</span><span class="s2">"5x3x2x1x0vox"</span>
+  <span class="k">fi
+
+</span><span class="nv">tx</span><span class="o">=</span>Rigid
+<span class="k">if</span> <span class="o">[[</span> <span class="nv">$TRANSFORMTYPE</span> <span class="o">==</span> <span class="s1">'t'</span> <span class="o">]]</span> ; <span class="k">then
+  </span><span class="nv">tx</span><span class="o">=</span>Translation
+<span class="k">fi
+
+</span><span class="nv">RIGIDSTAGE</span><span class="o">=</span><span class="s2">"--initial-moving-transform [</span><span class="k">${</span><span class="nv">FIXEDIMAGES</span><span class="p">[0]</span><span class="k">}</span><span class="s2">,</span><span class="k">${</span><span class="nv">MOVINGIMAGES</span><span class="p">[0]</span><span class="k">}</span><span class="s2">,1] </span><span class="se">\</span><span class="s2">
+            --transform </span><span class="k">${</span><span class="nv">tx</span><span class="k">}</span><span class="s2">[0.1] </span><span class="se">\</span><span class="s2">
+            --metric MI[</span><span class="k">${</span><span class="nv">FIXEDIMAGES</span><span class="p">[0]</span><span class="k">}</span><span class="s2">,</span><span class="k">${</span><span class="nv">MOVINGIMAGES</span><span class="p">[0]</span><span class="k">}</span><span class="s2">,1,32,Regular,0.25] </span><span class="se">\</span><span class="s2">
+            --convergence </span><span class="nv">$RIGIDCONVERGENCE</span><span class="s2"> </span><span class="se">\</span><span class="s2">
+            --shrink-factors </span><span class="nv">$RIGIDSHRINKFACTORS</span><span class="s2"> </span><span class="se">\</span><span class="s2">
+            --smoothing-sigmas </span><span class="nv">$RIGIDSMOOTHINGSIGMAS</span><span class="s2">"</span>
+
+<span class="nv">AFFINESTAGE</span><span class="o">=</span><span class="s2">"--transform Affine[0.1] </span><span class="se">\</span><span class="s2">
+             --metric MI[</span><span class="k">${</span><span class="nv">FIXEDIMAGES</span><span class="p">[0]</span><span class="k">}</span><span class="s2">,</span><span class="k">${</span><span class="nv">MOVINGIMAGES</span><span class="p">[0]</span><span class="k">}</span><span class="s2">,1,32,Regular,0.25] </span><span class="se">\</span><span class="s2">
+             --convergence </span><span class="nv">$AFFINECONVERGENCE</span><span class="s2"> </span><span class="se">\</span><span class="s2">
+             --shrink-factors </span><span class="nv">$AFFINESHRINKFACTORS</span><span class="s2"> </span><span class="se">\</span><span class="s2">
+             --smoothing-sigmas </span><span class="nv">$AFFINESMOOTHINGSIGMAS</span><span class="s2">"</span>
+
+<span class="nv">SYNMETRICS</span><span class="o">=</span><span class="s1">''</span>
+<span class="k">for</span><span class="o">((</span> <span class="nv">i</span><span class="o">=</span>0; i&lt;<span class="k">${#</span><span class="nv">FIXEDIMAGES</span><span class="p">[@]</span><span class="k">}</span>; i++ <span class="o">))</span>
+  <span class="k">do
+    </span><span class="nv">SYNMETRICS</span><span class="o">=</span><span class="s2">"</span><span class="nv">$SYNMETRICS</span><span class="s2"> --metric MI[</span><span class="k">${</span><span class="nv">FIXEDIMAGES</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="k">}</span><span class="s2">,</span><span class="k">${</span><span class="nv">MOVINGIMAGES</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="k">}</span><span class="s2">,1,</span><span class="k">${</span><span class="nv">NUMBEROFBINS</span><span class="k">}</span><span class="s2">]"</span>
+  <span class="k">done
+
+</span><span class="nv">SYNSTAGE</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">SYNMETRICS</span><span class="k">}</span><span class="s2"> </span><span class="se">\</span><span class="s2">
+          --convergence </span><span class="nv">$SYNCONVERGENCE</span><span class="s2"> </span><span class="se">\</span><span class="s2">
+          --shrink-factors </span><span class="nv">$SYNSHRINKFACTORS</span><span class="s2"> </span><span class="se">\</span><span class="s2">
+          --smoothing-sigmas </span><span class="nv">$SYNSMOOTHINGSIGMAS</span><span class="s2">"</span></code></pre></figure>
+
+<p>The new parameters are as follows:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">##############################</span>
+<span class="c">#</span>
+<span class="c"># Construct mapping stages</span>
+<span class="c">#</span>
+<span class="c">##############################</span>
+
+<span class="nv">RIGIDCONVERGENCE</span><span class="o">=</span><span class="s2">"[1000x500x250x0,1e-6,10]"</span>
+<span class="nv">RIGIDSHRINKFACTORS</span><span class="o">=</span><span class="s2">"6x4x2x1"</span>
+<span class="nv">RIGIDSMOOTHINGSIGMAS</span><span class="o">=</span><span class="s2">"4x2x1x0vox"</span>
+
+<span class="nv">AFFINECONVERGENCE</span><span class="o">=</span><span class="s2">"[1000x500x250x0,1e-6,10]"</span>
+<span class="nv">AFFINESHRINKFACTORS</span><span class="o">=</span><span class="s2">"6x4x2x1"</span>
+<span class="nv">AFFINESMOOTHINGSIGMAS</span><span class="o">=</span><span class="s2">"4x2x1x0vox"</span>
+
+<span class="nv">SYNCONVERGENCE</span><span class="o">=</span><span class="s2">"[100x100x70x20,1e-10,10]"</span>
+<span class="nv">SYNSHRINKFACTORS</span><span class="o">=</span><span class="s2">"6x4x2x1"</span>
+<span class="nv">SYNSMOOTHINGSIGMAS</span><span class="o">=</span><span class="s2">"3x2x1x0vox"</span>
+
+<span class="k">if</span> <span class="o">[[</span> <span class="nv">$ISLARGEIMAGE</span> -eq 1 <span class="o">]]</span>;
+  <span class="k">then
+    </span><span class="nv">RIGIDCONVERGENCE</span><span class="o">=</span><span class="s2">"[1000x500x250x0,1e-6,10]"</span>
+    <span class="nv">RIGIDSHRINKFACTORS</span><span class="o">=</span><span class="s2">"12x8x4x2"</span>
+    <span class="nv">RIGIDSMOOTHINGSIGMAS</span><span class="o">=</span><span class="s2">"4x3x2x1vox"</span>
+
+    <span class="nv">AFFINECONVERGENCE</span><span class="o">=</span><span class="s2">"[1000x500x250x0,1e-6,10]"</span>
+    <span class="nv">AFFINESHRINKFACTORS</span><span class="o">=</span><span class="s2">"12x8x4x2"</span>
+    <span class="nv">AFFINESMOOTHINGSIGMAS</span><span class="o">=</span><span class="s2">"4x3x2x1vox"</span>
+
+    <span class="nv">SYNCONVERGENCE</span><span class="o">=</span><span class="s2">"[100x100x70x50x0,1e-10,10]"</span>
+    <span class="nv">SYNSHRINKFACTORS</span><span class="o">=</span><span class="s2">"10x6x4x2x1"</span>
+    <span class="nv">SYNSMOOTHINGSIGMAS</span><span class="o">=</span><span class="s2">"5x3x2x1x0vox"</span>
+  <span class="k">fi
+
+</span><span class="nv">tx</span><span class="o">=</span>Rigid
+<span class="k">if</span> <span class="o">[[</span> <span class="nv">$TRANSFORMTYPE</span> <span class="o">==</span> <span class="s1">'t'</span> <span class="o">]]</span> ; <span class="k">then
+  </span><span class="nv">tx</span><span class="o">=</span>Translation
+<span class="k">fi
+
+</span><span class="nv">RIGIDSTAGE</span><span class="o">=</span><span class="s2">"--initial-moving-transform [</span><span class="k">${</span><span class="nv">FIXEDIMAGES</span><span class="p">[0]</span><span class="k">}</span><span class="s2">,</span><span class="k">${</span><span class="nv">MOVINGIMAGES</span><span class="p">[0]</span><span class="k">}</span><span class="s2">,1] </span><span class="se">\</span><span class="s2">
+            --transform </span><span class="k">${</span><span class="nv">tx</span><span class="k">}</span><span class="s2">[0.1] </span><span class="se">\</span><span class="s2">
+            --metric MI[</span><span class="k">${</span><span class="nv">FIXEDIMAGES</span><span class="p">[0]</span><span class="k">}</span><span class="s2">,</span><span class="k">${</span><span class="nv">MOVINGIMAGES</span><span class="p">[0]</span><span class="k">}</span><span class="s2">,1,32,Regular,0.25] </span><span class="se">\</span><span class="s2">
+            --convergence </span><span class="nv">$RIGIDCONVERGENCE</span><span class="s2"> </span><span class="se">\</span><span class="s2">
+            --shrink-factors </span><span class="nv">$RIGIDSHRINKFACTORS</span><span class="s2"> </span><span class="se">\</span><span class="s2">
+            --smoothing-sigmas </span><span class="nv">$RIGIDSMOOTHINGSIGMAS</span><span class="s2">"</span>
+
+<span class="nv">AFFINESTAGE</span><span class="o">=</span><span class="s2">"--transform Affine[0.1] </span><span class="se">\</span><span class="s2">
+             --metric MI[</span><span class="k">${</span><span class="nv">FIXEDIMAGES</span><span class="p">[0]</span><span class="k">}</span><span class="s2">,</span><span class="k">${</span><span class="nv">MOVINGIMAGES</span><span class="p">[0]</span><span class="k">}</span><span class="s2">,1,32,Regular,0.25] </span><span class="se">\</span><span class="s2">
+             --convergence </span><span class="nv">$AFFINECONVERGENCE</span><span class="s2"> </span><span class="se">\</span><span class="s2">
+             --shrink-factors </span><span class="nv">$AFFINESHRINKFACTORS</span><span class="s2"> </span><span class="se">\</span><span class="s2">
+             --smoothing-sigmas </span><span class="nv">$AFFINESMOOTHINGSIGMAS</span><span class="s2">"</span>
+
+<span class="nv">SYNMETRICS</span><span class="o">=</span><span class="s1">''</span>
+<span class="k">for</span><span class="o">((</span> <span class="nv">i</span><span class="o">=</span>0; i&lt;<span class="k">${#</span><span class="nv">FIXEDIMAGES</span><span class="p">[@]</span><span class="k">}</span>; i++ <span class="o">))</span>
+  <span class="k">do
+    </span><span class="nv">SYNMETRICS</span><span class="o">=</span><span class="s2">"</span><span class="nv">$SYNMETRICS</span><span class="s2"> --metric CC[</span><span class="k">${</span><span class="nv">FIXEDIMAGES</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="k">}</span><span class="s2">,</span><span class="k">${</span><span class="nv">MOVINGIMAGES</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="k">}</span><span class="s2">,1,4]"</span>
+  <span class="k">done
+
+</span><span class="nv">SYNSTAGE</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">SYNMETRICS</span><span class="k">}</span><span class="s2"> </span><span class="se">\</span><span class="s2">
+          --convergence </span><span class="nv">$SYNCONVERGENCE</span><span class="s2"> </span><span class="se">\</span><span class="s2">
+          --shrink-factors </span><span class="nv">$SYNSHRINKFACTORS</span><span class="s2"> </span><span class="se">\</span><span class="s2">
+          --smoothing-sigmas </span><span class="nv">$SYNSMOOTHINGSIGMAS</span><span class="s2">"</span></code></pre></figure>
+
+<p>Further testing is needed to evaluate when large lesions are present.</p>
+
+    </div>
+
+    <hr>
+      
+      <footer>
+          <div class="col-sm-1">
+              <img src="/images/naomi.jpg" class="img-circle" width="64" height="64">
+          </div>
+          <div class="col-sm-11">
+              <p>Written by <strong><a rel="author" href="https://github.com/njhunsak" title="" target="_blank">Naomi J. Goodrich-Hunsaker</a></strong><br>
+                  <span class="muted">Website Manager</span>
+              </p>
+          </div>
+      </footer>
+
+    <hr>
+    
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'biabl'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+</div>
+
+
+      <hr>
+      <footer>
+        <p>
+          &copy; 2016 Naomi Goodrich-Hunsaker, Ph.D.
+          <span class="pull-right text-muted">
+            powered by
+            <a href="http://dbtek.github.io/jekyll-bootstrap-3" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll-Bootstrap-3</a>
+            and <a href="http://getbootstrap.com" target="_blank">Twitter Bootstrap 3.0.3</a>
+          </span>
+        </p>
+      </footer>
+    </div>
+
+    
+
+    <script src="/assets/themes//resources/jquery/jquery.min.js"></script>
+    <script src="/assets/themes//resources/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
+
