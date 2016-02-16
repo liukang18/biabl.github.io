@@ -3,7 +3,7 @@ layout: post
 title: ANTs Installation Bug
 tags: [supercomputer,bug,ANTs]
 author: trevorhuff
-excerpt_separator: "<!--more-->"
+excerpt_separator: "<!-- more -->"
 ---
 
 There's a bug with how GCC is installed on the supercomputer, which prevents installation of ANTs. Luckily there's a solution.

@@ -6,10 +6,8 @@ tags:
   - acpcdetect
   - "tips 'n tricks"
 published: true
-excerpt_separator: "<!--more-->"
+excerpt_separator: "<!-- more -->"
 ---
-
-
 
 Occasionally, *acpcdetect* might not accurately find and adjust the images along the anterior and posterior commissure.  This can happen if there's a lot of damage in the brain and the ventricles are enlarged. There are several things you can do to help *acpcdetect*.
 

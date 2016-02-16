@@ -1,6 +1,6 @@
 ---
 layout: post
-excerpt_separator: "<!--more-->"
+excerpt_separator: "<!-- more -->"
 title: buildtemplateparallel.sh Bug
 tags: 
   - ANTs
