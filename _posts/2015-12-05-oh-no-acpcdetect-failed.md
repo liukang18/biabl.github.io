@@ -1,11 +1,12 @@
 ---
 layout: post
 title: "Oh noes, acpcdetect Failed!"
-author: naomi
+author: naomihunsaker
 tags: 
   - acpcdetect
   - "tips 'n tricks"
 published: true
+excerpt_separator: "<!--more-->"
 ---
 
 
