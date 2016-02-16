@@ -34,8 +34,6 @@ ccmake ../ANTs
 
 In CMAKE, type "c" to load the configuration information and then type "t" to toggle to advanced mode. You want to edit the option, "CMAKE\_EXE\_LINKER\_FLAGS" which by default is blank, but needs to be `-fuse-ld=bfd` instead. Press "ENTER" to edit the option.
 
-![](/images/2015-12-07-ants-installation-bug/screenshot-image1.png)
-
 Type "c" and then "g" and then exit back to the terminal by typing "q".
 
 Compile your code:
