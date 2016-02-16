@@ -11,9 +11,10 @@ title: Improved antsRegistrationSynQuick.sh
 ---
 
 
+
 Given our dataset, improvement of antsRegistrationSynQuick.sh was needed. Particularly when other scripts all antsRegistrationSynQuick.sh (e.g., antsJointLabelFusion.sh). The old antsRegistrationSynQuick.sh code was as follows:
 
-<!-- more -->
+<!--more-->
 
 {% highlight bash %}
 ##############################
