@@ -142,7 +142,7 @@ JB :
 
 prose:
   rooturl: '_posts'
-  siteurl: 'http://biabl.github.io/'
+  siteurl: 'http://biabl.github.io'
   media: 'media'
   ignore:
     - index.md
@@ -186,4 +186,4 @@ prose:
       - name: "excerpt_separator"
         field:
           element: "hidden"
-          value: "<!--more-->"
+          value: "<!-- more -->"
