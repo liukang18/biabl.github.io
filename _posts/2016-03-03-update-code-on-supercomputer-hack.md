@@ -4,9 +4,10 @@ layout: post
 author: naomihunsaker
 tags: 
   - "tips "
-published: false
+published: true
 title: Update Code on Supercomputer Hack
 ---
+
 
 I had a "duh" moment the other day to improve the process between updating code on my Github Gist and updating code on the Supercomputer. It seems obvious, but if you have a pipeline developed for processing data on gist (see below), you can easily use that directory on the supercomputer. I was able to clone my gist on the supercomputer: 
 
