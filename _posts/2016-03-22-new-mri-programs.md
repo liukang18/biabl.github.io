@@ -4,11 +4,14 @@ layout: post
 author: naomihunsaker
 tags: 
   - "tips "
-published: false
+published: true
 title: New MRI Programs
 ---
 
+
 There's been some recent programs that I've become aware of and that may be useful in lab:
+
+<!-- more -->
 
 ## SURF ICE
 
