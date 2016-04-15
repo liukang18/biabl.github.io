@@ -11,7 +11,7 @@ If you're part of the same generation as I am you yell at the microwave because 
 
 <!-- more -->
 
-https://github.com/Tokazama/rft/blob/master/R/renderFunctional.R
+[https://github.com/Tokazama/rft/blob/master/R/renderFunctional.R](https://github.com/Tokazama/rft/blob/master/R/renderFunctional.R)
 
 I loaded up an image and used the following code.
 
