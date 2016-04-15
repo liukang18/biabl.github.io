@@ -1,9 +1,9 @@
 ---
 excerpt_separator: "<!-- more -->"
 layout: post
-author: naomihunsaker
+author: zachchristensen
 tags: 
-  - "null"
+  - R
 published: true
 title: "R Tools for Visual Studio and P-values"
 ---
