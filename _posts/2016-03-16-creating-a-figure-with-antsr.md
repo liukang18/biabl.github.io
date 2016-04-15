@@ -21,6 +21,4 @@ fullView("Desktop/tests/")
 ```
 ...this picture
 
-![FullView.png]({{site.baseurl}}/media/FullView.png)
-
 ![]({{site.baseurl}}/media/FullView.png)
