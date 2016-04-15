@@ -15,6 +15,7 @@ While creating a figure for one of the labs recent publications I developed a fu
 This is using the ANTsR package and my little function can be found [here](https://github.com/Tokazama/rft/blob/master/R/fullView.R).
 
 As an example I used the following commands to make...
+
 ```
 renderSurfaceFunction(list(mask), list(roi), alphasurf = .5, smoothsval = 1.5, smoothfval = 1)
 fullView("Desktop/tests/")
