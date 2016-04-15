@@ -21,6 +21,7 @@ rgl.snapshot("Desktop/funimg.png", fmt = "png", top = TRUE)
 ```
 
 The `rgl.snapshot` function just takes a picture of the the interactive brain in the Quartz window, giving you:
+
 ![funimg.png]({{site.baseurl}}/media/funimg.png)
 
 It's not a super quick function, but in my experience I go through several different views/colors/perspectives of an image before I find the right one for a publication. Now it's easy to right up a script that will do it all in several minutes without having to personally fiddle around with settings. Now I'll finally have enough free time to eat the personal cake bowl.
