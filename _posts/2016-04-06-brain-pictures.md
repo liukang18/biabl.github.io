@@ -7,9 +7,7 @@ tags:
 published: true
 title: Brain Pictures
 ---
-If you're part of the same generation as I am you yell at the microwave because 30 seconds is a ludicrous amount of time to make a personal cake bowl (I want cake and I want it now!). Similarly the hassle that is involved in loading a nifti file into mango, rendering a surface, and adjusting the the range of values displayed is unbearable (don't even get me started on using the correct color gradient).
-
-This is why I made the following function:
+If you're part of the same generation as I am you yell at the microwave because 30 seconds is a ludicrous amount of time to make a personal cake bowl (I want cake and I want it now!). Similarly the hassle that is involved in loading a nifti file into mango, rendering a surface, and adjusting the the range of values displayed is unbearable (don't even get me started on using the correct color gradient). This is why I made the following function:
 
 <!-- more -->
 
