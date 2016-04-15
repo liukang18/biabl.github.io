@@ -5,7 +5,7 @@ author: zachchristensen
 tags: 
   - R
 published: true
-title: Creating A Figure With ANTsR
+title: Creating a Figure with ANTsR
 ---
 While creating a figure for one of the labs recent publications I developed a function that conveniently extracts a view of each side of the brain. 
 
