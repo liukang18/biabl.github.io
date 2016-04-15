@@ -19,6 +19,8 @@ As an example I used the following commands to make...
 renderSurfaceFunction(list(mask), list(roi), alphasurf = .5, smoothsval = 1.5, smoothfval = 1)
 fullView("Desktop/tests/")
 ```
-...this picture![FullView.png]({{site.baseurl}}/media/FullView.png)
+...this picture
+
+![FullView.png]({{site.baseurl}}/media/FullView.png)
 
 ![]({{site.baseurl}}/media/FullView.png)
