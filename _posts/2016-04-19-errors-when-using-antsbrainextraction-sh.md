@@ -12,7 +12,9 @@ tags:
 published: false
 title: Errors When Using antsBrainExtraction.sh
 ---
+Using antsBrainExtraction can be a pain. Here are some common problems you might run into and how to fix them. 
 
+<!-- more -->
 
 # ITK Warnings
 
