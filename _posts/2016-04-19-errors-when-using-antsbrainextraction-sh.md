@@ -16,7 +16,7 @@ Using antsBrainExtraction can be a pain. Here are some common problems you might
 
 <!-- more -->
 
-# ITK Warnings
+## ITK Warnings
 
 If you are ever trying to skull strip a participant using antsBrainExtraction.sh and you get an error like this somewhere in your terminal output or logfile:
 
@@ -60,7 +60,7 @@ To fix this you can add this code to antsBrainExtraction.sh:
 
 This flag will limit ANTs to running metric computation to a specific area in the scan. If your template doesn't include the above mask, try creating a template from your dataset or use another template that is not skull stripped.
 
-# Seg Fault Error
+## Seg Fault Error
 
 For awhile I also encountered this error that appeared even after updating ANTs to the most current version and debugging my code.
 
@@ -79,7 +79,7 @@ And then load the version we want. This will be a temporary change that will onl
 
 Now you can follow the instructions found here: [GitHub](https://brianavants.wordpress.com/2012/04/13/updated-ants-compile-instructions-april-12-2012/)
 
-# Other Tips for antsBrainExtraction.sh
+## Other Tips for antsBrainExtraction.sh
 
 Because the script runs N4 Bias correction, you do not need to run N4BiasFieldCorrection on your subjects before running antsBrainExtraction.
 
