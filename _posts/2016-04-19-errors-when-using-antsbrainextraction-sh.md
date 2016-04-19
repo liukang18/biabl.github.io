@@ -9,7 +9,7 @@ tags:
   - Skull Strip
   - Brain Extraction
   - ANTs version
-published: false
+published: true
 title: Errors When Using antsBrainExtraction.sh
 ---
 Using antsBrainExtraction can be a pain. Here are some common problems you might run into and how to fix them. 
