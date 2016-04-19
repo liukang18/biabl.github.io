@@ -86,10 +86,3 @@ Because the script runs N4 Bias correction, you do not need to run N4BiasFieldCo
 If all else fails, use BET.
     
 
-
-
-
-
-
-
-Enter text in [Markdown](http://daringfireball.net/projects/markdown/). Use the toolbar above, or click the **?** button for formatting help.
