@@ -13,9 +13,8 @@ tags:
   - NIFTI
   - nii
 ---
-Finding an error in dcm2nii led me to find a newer version dcm2niix that is constantly maintained.
-
-<!-- more —>
+Finding an error in dcm2nii led me to find a newer version dcm2niix that is constantly maintained:
+<!-- more -->
 
 ## dcm2nii Error
 
