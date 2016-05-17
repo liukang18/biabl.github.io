@@ -1,7 +1,7 @@
 ---
 excerpt_separator: "<!-- more -->"
 layout: post
-published: false
+published: true
 title: Installing dcm2niix from source
 author: chriscutler
 tags: 
@@ -48,8 +48,3 @@ Chris informed me of a new version of dcm2nii called dcm2niix. The github repo c
      make -j 4
      
 You should now have a complied version of dcm2niix.
-
-    
-    
-    
-
