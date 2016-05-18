@@ -1,7 +1,7 @@
 ---
 excerpt_separator: "<!-- more -->"
 layout: post
-published: false
+published: true
 title: Syntax for dcm2niix
 author: chriscutler
 tags: 
@@ -38,4 +38,3 @@ dcm2niix is also FAST! It will convert a image in about .5 seconds which greatly
 Additional information can be found at <http://www.nitrc.org/plugins/mwiki/index.php/dcm2nii:MainPage>
 
 or by typing in the path to dcm2niix without an arguments.
-
