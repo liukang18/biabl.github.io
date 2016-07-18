@@ -9,5 +9,6 @@ This site contains all of the handouts and information presented in BYU's Fall 2
 
 ### Beginner Topics
 
-1. [Unix Cheatsheet](general/unix-cheat-sheet)
-2. [Introduction to Fulton Supercomputer Lab](general/introduction-to-fulton-supercomputer-lab)
+1. [Learn the Command Line](https://www.codecademy.com/learn/learn-the-command-line)
+2. [Unix Cheatsheet](general/unix-cheat-sheet)
+3. [Introduction to Fulton Supercomputer Lab](general/introduction-to-fulton-supercomputer-lab)
