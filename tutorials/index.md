@@ -9,4 +9,5 @@ This site contains all of the handouts and information presented in BYU's Fall 2
 
 ### Beginner Topics
 
-1. [Introduction to Fulton Supercomputer Lab](general/introduction-to-fulton-supercomputer-lab/index.md)
+1. [Unix Cheatsheet](general/unix-cheat-sheet/index.md)
+2. [Introduction to Fulton Supercomputer Lab](general/introduction-to-fulton-supercomputer-lab/index.md)
