@@ -3,7 +3,7 @@ layout: tutorials
 title: Introduction to Fulton Supercomputer Lab
 author: naomi
 comments: true
-date: 2015-12-09
+date: 2016-07-18
 ---
 
 ## Objectives
@@ -11,7 +11,7 @@ date: 2015-12-09
 After you complete this section, you should be able to:
 
 1. Establish a secure shell with the supercomputer
-2. Copy the applications from the byustudent group directory
+2. Install ANTs, acpcdetect, ITK, Convert3D, FreeSurfer, and dcm2nii
 3. Permanently set your environmental variables
 
 Note that everything in "{}" is to be replaced. For example, \{fileName\} --> iLovePeanuts.txt
@@ -32,9 +32,4 @@ where {username} is your NetID. Programs can be tested from the interactive node
 
 ## Installing Programs
 
-<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTYXVNTGd5Z0ZPMEU/preview" width="840" height="630"></iframe>
-
-### Additional Classroom Materials
-
-* [Lecture](presentation)
-* [Assignment](assignment)
+<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTYXVNTGd5Z0ZPMEU/preview" width="840" height="600"></iframe>
