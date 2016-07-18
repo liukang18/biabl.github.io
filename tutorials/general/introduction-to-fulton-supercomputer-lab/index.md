@@ -32,4 +32,4 @@ where {username} is your NetID. Programs can be tested from the interactive node
 
 ## Installing Programs
 
-<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTYXVNTGd5Z0ZPMEU/preview" width="840" height="600"></iframe>
+<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTYXVNTGd5Z0ZPMEU/preview" width="840" height="540"></iframe>
