@@ -33,3 +33,26 @@ where {username} is your NetID. Programs can be tested from the interactive node
 ## Installing Programs
 
 <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTYXVNTGd5Z0ZPMEU/preview" width="840" height="540"></iframe>
+
+## Update your .bash_profile
+
+After following the instructions in the above video, your .bash_profile should have the following information. You can list the content of your .bash_profile:
+
+{% highlight bash %}
+cat ~/.bash_profile
+{% endhighlight %}
+
+The output should read:
+
+{% highlight bash %}
+# ANTs
+export ANTSPATH=/fslhome/intj5/apps/ants-20160716/bin/
+PATH=${ANTSPATH}:${PATH}
+
+# acpcdetect
+ARTHOME=/fslhome/intj5/apps/acpcdetect/
+export ARTHOME
+
+# FreeSurfer
+export FREESURFER_HOME=/fslhome/intj5/apps/freesurfer
+{% endhighlight %}
