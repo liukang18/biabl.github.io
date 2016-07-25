@@ -3,19 +3,15 @@ layout: tutorials
 title: Preprocessing T1 Weighted Images
 author: naomi
 comments: true
-date: 2015-12-09
+date: 2016-07-25
 ---
 
 After you complete this section, you should be able to:
 
 1. Convert a DICOM directory into a NIfTI image
-2. Check that your MR image contains no patient information
-3. Orientate MR images into standard orientation
-4. Align images along the horizontal anterior commissure and posterior commissure plane, and why
-5. Know what a bias field is and how to fix it
-6. Know when and how to resample the size of voxels in an MR image
-
-Note that everything in "<>" is to be replaced. For example, \<fileName\> --> iLovePeanuts.txt
+2. Align images along the horizontal anterior commissure and posterior commissure plane, and why
+3. Know what a bias field is and how to fix it
+4. Know when and how to resample the size of voxels in an MR image
 
 ## Convert DICOM to NIfTI
 
@@ -31,19 +27,17 @@ mkdir ${subjDir}/t1
 Time to convert the DICOMs to NIfTI format. The simplest way to run the code is:
 
 {% highlight bash %}
-dcm2nii \
+dcm2niix \
 -o ${subjDir}/t1 \
-${subjDir}/DICOMs/*
+-x y
+${subjDir}/DICOM/
 {% endhighlight %}
 
 ### Anonymize 
 
-However, there are many other options you probably want to take into consideration. First of all, it is never a bad habit to get into to automatically anonymize the data. DICOMs will contain patient name, date of birth, weight, location of scan, date and time of scan, etc. 
+DICOMs automatically contain patient name, date of birth, weight, location of scan, date and time of scan, etc. and this information needs to be removed for purposes of HIPPA regulations. Luckily, `dcm2niix` does this automatically.
 
 <img class="img-responsive" alt="" src="images/anonymize.png">
-
-
-The option `-a y` will anonymize participant information located in the DICOM files.
 
 ### Crop and Reorient
 
@@ -62,28 +56,7 @@ Second, each scan sequence has a set field of view (FOV) box. If studying childr
 
 <img class="img-responsive" alt="" src="images/t1-cropped-reorientated.png">
 	
-The `dcm2nii` program will reorient and crop the images using the `-x` option. The following code below will anonymize the image `-a`, just provide a NIfTI file and **NOT** a zipped file `-g`, and crop / reorient the image `-x`.
-
-{% highlight bash %}
-dcm2nii \
--a y \
--g n \
--x y \
--o ${subjDir}/t1 \
-${subjDir}/DICOMs/*
-{% endhighlight %}
-
-### Rename
-
-Before we get to the issue of alignment, look closely, the file names that `dcm2nii` give look like Linux attacked, `19890302_162952MPRAGEs0003a001.nii.gz`. The output from the `dcm2nii` program results in file names that are uniquely different across participants. For analyses though, we want all the files named exactly the same from participant to participant. In this case, we want all the files named `t1.nii`.
-
-In addition to renaming the file, we want to use just the cropped and reorientated file (`co`). We want to delete the reorientation only (`o`) and original file (no `co` or `o` prefix). 
-
-{% highlight bash %}
-cd ${subjDir}/t1
-mv co*.nii t1.nii
-rm o*.nii | rm 2*.nii
-{% endhighlight %}
+The `dcm2niix` program will reorient and crop the images using the `-x` option. 
 
 ## AC-PC Alignment
 
@@ -123,8 +96,8 @@ Image processing algorithms such as tissue segmentation use the pixel gray level
 N4BiasFieldCorrection \
 -d 3 \
 -i ${subjDir}/t1/acpc.nii \
--o [${subjDir}/t1/n4.nii.gz,${subjDir}/t1/biasfield.nii.gz] \
--s 4 \ 
+-o ${subjDir}/t1/n4.nii.gz \
+-s 4 \
 -b [200] \
 -c [50x50x50x50,0.000001]
 {% endhighlight %}
@@ -136,12 +109,40 @@ Sometimes you will need to resample your images. For instance, if the study invo
 If you want to register a DTI image to your T1 image, you will definitely have to resample your T1 image. Most likely your T1 image will have about 1mm voxels, but your diffusion weighted image will be 2mm voxels. Therefore, you will have to resample your T1 image to have 2mm voxels.
 
 {% highlight bash %}
-$ c3d \
-<inputImage>.nii.gz \
+c3d \
+${subjDir}/t1/n4.nii.gz \
 -resample-mm 1x1x1mm \
--o <outputImage>.nii.gz
+-o ${subjDir}/t1/resampled.nii.gz
 {% endhighlight %}
 	
+## Bringing It All Together
+
+Let's create a script you can use to run participants individually:
+
+{% highlight bash %}
+mkdir -p ~/scripts/class/
+vi preprocess.sh
+{% endhighlight %}
+
+In your script include:
+
+{% highlight bash %}
+mkdir $1/t1
+~/apps/dcm2niix/bin/dcm2niix -o $1/t1/ -x y $1/DICOM
+~/apps/acpcdetect/acpcdetect -M -o $1/t1/acpc.nii -i $1/t1/t1_Crop_1.nii
+~/apps/ants-20160716/bin/N4BiasFieldCorrection -v -d 3 -i $1/t1/acpc.nii -o $1/t1/n4.nii.gz -s 4 -b [200] -c [50x50x50x50,0.000001]
+~/apps/c3d-1.1.0-Linux-x86_64/bin/c3d $1/t1/n4.nii.gz -resample-mm 1x1x1mm -o $1/t1/resampled.nii.gz
+ls $1/t1/
+{% endhighlight %}
+
+To run your script:
+
+{% highlight bash %}
+sh ~/scripts/class/preprocess.sh ~/compute/class/1306
+{% endhighlight %}
+
+The variable $1 will represent the path to the participant that you provided, ~/compute/class/1306.
+ 
 #### Reference Manuals
 
 * dcm2nii - http://www.mccauslandcenter.sc.edu/mricro/mricron/dcm2nii.html
@@ -153,8 +154,3 @@ $ c3d \
 
 * Bias Correction - http://dx.doi.org/10.1109/TMI.2010.2046908
 * Automatic Detection of AC/PC - http://dx.doi.org/10.1016/j.neuroimage.2009.02.030
-
-### Additional Classroom Materials
-
-* [Lecture](presentation)
-* [Assignment](assignment)
