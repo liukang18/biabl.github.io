@@ -3,7 +3,7 @@ layout: tutorials
 title: Unix Cheat Sheet
 author: naomi 
 comments: true
-date: 2015-12-09
+date: 2016-07-25
 ---
 
 ## Objectives
@@ -19,11 +19,20 @@ Below are just some of the commands you need to know for this course. For a full
 
 ## Basic Terminal Commands
 
-Note that everything in "{}" is to be replaced. For example, \{fileName\} --> iLovePeanuts.txt
-
 | Command |  |
 |:--------|:--------|
-| CTRL L  | Clear the terminal || CTRL D  | Logout || SHIFT Page Up/Down | Go up/down the terminal || CTRL A | Cursor to start of line || CTRL E | Cursor the end of line || CTRL U | Delete left of the cursor || CTRL K | Delete right of the cursor || CTRL W | Delete word on the left || CTRL Y | Paste (after CTRL U,K or W) || TAB | auto completion of file or command || CTRL R | reverse search history || `!!` | repeat last command |
+| CTRL L  | Clear the terminal |
+| CTRL D  | Logout |
+| SHIFT Page Up/Down | Go up/down the terminal |
+| CTRL A | Cursor to start of line |
+| CTRL E | Cursor the end of line |
+| CTRL U | Delete left of the cursor |
+| CTRL K | Delete right of the cursor |
+| CTRL W | Delete word on the left |
+| CTRL Y | Paste (after CTRL U,K or W) |
+| TAB | auto completion of file or command |
+| CTRL R | reverse search history |
+| `!!` | repeat last command |
 {: rules="groups"}
 
 ## Help on any Unix Command

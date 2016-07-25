@@ -12,3 +12,8 @@ This site contains all of the handouts and information presented in BYU's Fall 2
 1. [Learn the Command Line](https://www.codecademy.com/learn/learn-the-command-line)
 2. [Unix Cheatsheet](general/unix-cheat-sheet)
 3. [Introduction to Fulton Supercomputer Lab](general/introduction-to-fulton-supercomputer-lab)
+4. [Preprocessing T1-Weighted Images](general/preprocessing_T1_weighted_images)
+
+### Advanced Topics
+
+Please review Beginner Topics 1 - 5 before beginning the Advanced Topics:

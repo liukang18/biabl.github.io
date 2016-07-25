@@ -61,35 +61,13 @@ When you begin any imaging analysis you want to make sure all the brains are ori
 The program `dcm2nii` will anonymize, reorient and crop images:
 
 ```
-dcm2nii \
--a y \
--g n \
+dcm2niix \
 -x y \
 -o ${subjDir}/t1 \
-${subjDir}/DICOMs/*
+${subjDir}/DICOM/
 ```
 
 Because the `acpcdetect` program is sensitive to the type of image it can read, use this program first in your pipeline. The program only uses NIfTI images and ***not NIfTI zipped*** images.
-
-## Rename
-
-The output from the `dcm2nii` program results in file names that are uniquely different across participants. For analyses though, we want all the files named exactly the same from participant to participant. In this case, we want all the files named t1.nii.
-
-```
-20070829_155401MR99SocialOutcomesis003a1011.nii
-co20070829_155401MR99SocialOutcomesis003a1011.nii
-o20070829_155401MR99SocialOutcomesis003a1011.nii
-```
-
-## Delete Unnecessary Files
-
-In addition to renaming the file, we want to use just the cropped and reorientated file (co). We want to delete the reorientation only (o) and original file (no co or o prefix).
-
-```
-cd ${subjDir}/t1
-mv co*.nii t1.nii
-rm o*.nii | rm 2*.nii
-```
 
 ## AC-PC Alignment
 
@@ -105,7 +83,7 @@ The program `acpcdetect` will AC-PC align images, but the program only runs on L
 acpcdetect \
 -M \
 -o ${subjDir}/t1/acpc.nii \
--i ${subjDir}/t1/t1.nii
+-i ${subjDir}/t1/t1_Crop_1.nii
 ```
 
 ----
@@ -134,7 +112,7 @@ The way to fix the bias field is to use ANTs N4 Bias Field Correction tool:
 N4BiasFieldCorrection \
 -d 3 \
 -i ${subjDir}/t1/acpc.nii \
--o [${subjDir}/t1/n4.nii.gz,${subjDir}/t1/biasfield.nii.gz] \
+-o ${subjDir}/t1/n4.nii.gz \
 -s 4 \
 -b [200] \
 -c [50x50x50x50,0.000001]
@@ -151,7 +129,7 @@ N4BiasFieldCorrection \
 ## Voxel Size
 
 ```
-c3d <input>.nii.gz -info-full
+c3d n4.nii.gz -info-full
 Image #1:
   Image Dimensions : [165, 503, 427]
   Bounding Box : {[100.899 96.5478 -87.8256], [298.833 332.354 112.352]}
@@ -165,9 +143,9 @@ Image #1:
 
 ```
 c3d \
-<input>.nii.gz \
+n4.nii.gz \
 -resample-mm 1x1x1mm \
--o <output>.nii.gz
+-o resampled.nii.gz
 ```
 
 Never perfect though!

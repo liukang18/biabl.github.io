@@ -121,6 +121,7 @@ Let's create a script you can use to run participants individually:
 
 {% highlight bash %}
 mkdir -p ~/scripts/class/
+cd ~/scripts/class/
 vi preprocess.sh
 {% endhighlight %}
 
@@ -141,16 +142,6 @@ To run your script:
 sh ~/scripts/class/preprocess.sh ~/compute/class/1306
 {% endhighlight %}
 
-The variable $1 will represent the path to the participant that you provided, ~/compute/class/1306.
- 
-#### Reference Manuals
+The variable `$1` will represent the path to the participant that you provided, i.e., `~/compute/class/1306`.
 
-* dcm2nii - http://www.mccauslandcenter.sc.edu/mricro/mricron/dcm2nii.html
-* Convert3D - http://www.itksnap.org/pmwiki/pmwiki.php?n=Convert3D.Documentation
-* ANTs - https://github.com/stnava/ANTsDoc/raw/master/ants2.pdf
-* acpcdetect - https://www.nitrc.org/docman/view.php/90/917/acpcdetect.pdf
-
-#### Further Readings
-
-* Bias Correction - http://dx.doi.org/10.1109/TMI.2010.2046908
-* Automatic Detection of AC/PC - http://dx.doi.org/10.1016/j.neuroimage.2009.02.030
+<iframe src="//slides.com/njhunsak/preprocessing-t1-images/embed" width="840" height="540" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
