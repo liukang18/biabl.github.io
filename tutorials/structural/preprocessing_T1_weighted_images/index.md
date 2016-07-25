@@ -143,5 +143,3 @@ sh ~/scripts/class/preprocess.sh ~/compute/class/1306
 {% endhighlight %}
 
 The variable `$1` will represent the path to the participant that you provided, i.e., `~/compute/class/1306`.
-
-<iframe src="//slides.com/njhunsak/preprocessing-t1-images/embed" width="840" height="540" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
