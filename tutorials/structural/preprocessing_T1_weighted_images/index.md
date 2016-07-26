@@ -12,8 +12,14 @@ After you complete this section, you should be able to:
 2. Align images along the horizontal anterior commissure and posterior commissure plane, and why
 3. Know what a bias field is and how to fix it
 4. Know when and how to resample the size of voxels in an MR image
+5. Write a script that will complete dcm2niix, acpcdetect, N4BiasFieldCorrection, and c3d
+6. Double check the accuracy of your pipeline
+
+<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTNXFCdkVmdG1XekE/preview" width="840" height="630"></iframe>
 
 ## Convert DICOM to NIfTI
+
+<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTQzBuc2phTGhIWkk/preview" width="840" height="630"></iframe>
 
 Most imaging programs and pipelines do not actually use DICOMs, but some other "standardized" image format. Similar to how pictures can be in various formats like jpeg, tiff, png, etc. MR images can come in different formats as well. The most common format is the NIfTI format (.nii) or the zipped NIfTI format (.nii.gz). Most programs will be able to use the NIfTI and the zipped NIfTI interchangeably, but there are still a few programs that prefer one over the other. **For the first part of our pipeline, we will use the NIfTI format, but eventually we will move to using the zipped NIfTI format exclusively for the rest of the pipeline.**
 
@@ -28,12 +34,12 @@ Time to convert the DICOMs to NIfTI format. The simplest way to run the code is:
 
 {% highlight bash %}
 dcm2niix \
--o ${subjDir}/t1 \
+-o ${subjDir}/t1/ \
 -x y
 ${subjDir}/DICOM/
 {% endhighlight %}
 
-### Anonymize 
+### Anonymize
 
 DICOMs automatically contain patient name, date of birth, weight, location of scan, date and time of scan, etc. and this information needs to be removed for purposes of HIPPA regulations. Luckily, `dcm2niix` does this automatically.
 
@@ -55,14 +61,16 @@ There are three critical issues with brain orientation: (1) moving the brain to 
 Second, each scan sequence has a set field of view (FOV) box. If studying children particularly, sometimes that FOV box is barely enough to acquire the brain, cutting parts of the skull out of the image. Other times the FOV box is so small that you are getting neck and spine in the image. When you begin any imaging analysis you want to make sure all the brains are orientated correctly and that you remove as much of the excess space and non-brain aspects of the image.
 
 <img class="img-responsive" alt="" src="images/t1-cropped-reorientated.png">
-	
-The `dcm2niix` program will reorient and crop the images using the `-x` option. 
+
+The `dcm2niix` program will reorient and crop the images using the `-x` option.
 
 ## AC-PC Alignment
 
-Participants are more times than not, not perfectly positioned in the scanner. In fact, misalignment is a common clinical occurrence. Image quality is compromised when the brain is not aligned in the scanner and there's a lack of standardization across participants and within participants if you are scanning over multiple sessions. Optimally, you want a way to standardize image acquisition and overall alignment. Because it is very difficult to perfectly position people, a short sequence will be run to get a midsagittal image. From there, the field of view box can be adjusted so that the anterior commissure and posterior commissure are on the same horizontal plane.
+<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTRDlrd0JGTndwVU0/preview" width="840" height="630"></iframe>
 
-Here's an image with the scanner FOV box (yellow). As you can see the box is adjusted so the AC and PC are on the same horizontal plane. You can also see in this image, how you can have a brain bigger than the FOV box (see issue above about cropping and reorientation). You cannot make the FOV box bigger, because that would change the number of slices in your scan sequence. 
+Participants are more times than not, not perfectly positioned in the scanner. In fact, misalignment is a common clinical occurrence. Image quality is compromised when the brain is not aligned in the scanner and there's a lack of standardization across participants and within participants if you are scanning over multiple sessions. Optimally, you want a way to standardize image acquisition and overall alignment.
+
+Because it is very difficult to perfectly position people, a short sequence will be run to get a midsagittal image. From there, the field of view box can be adjusted so that the anterior commissure and posterior commissure are on the same horizontal plane. Here's an image with the scanner FOV box (yellow). As you can see the box is adjusted so the AC and PC are on the same horizontal plane. You can also see in this image, how you can have a brain bigger than the FOV box (see issue above about cropping and reorientation). You cannot make the FOV box bigger, because that would change the number of slices in your scan sequence.
 
 <img class="img-responsive" alt="" src="images/acpc.jpg">
 
@@ -86,6 +94,8 @@ acpcdetect \
 
 ## Correct Bias Field
 
+<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTNmpoNkFZMkx3cGM/preview" width="840" height="630"></iframe>
+
 Images often exhibit image intensity non-uniformities that are the result of magnetic field variations. These artifacts, often described as shading or bias, can be produced by imperfections in the field coils. These variations are often seen as a signal gain change. This can result in white matter measurements in one part of the image with the same intensity value as grey matter measurements elsewhere; an ideal T1-weighted image would display brighter white matter throughout the brain image.
 
 <img class="img-responsive" alt="" src="http://www.brainvoyager.com/bvqx/doc/UsersGuide/Segmentation/Images/IIHC_Explanation_sm.png">
@@ -104,7 +114,9 @@ N4BiasFieldCorrection \
 
 ## Resample to 1 mm Isotropic
 
-Sometimes you will need to resample your images. For instance, if the study involves MR images acquired at different locations and they are not all using the same sequence, (2) the study is longitudinal and there's been a scanner or sequence upgrade between time points, or (3) the study involves DTI analyses, fMRI analyses, T2 weighted analyses, etc., then you will most likely have to resample your images. 
+<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTVnhJWXFXRWpDZzg/preview" width="840" height="630"></iframe>
+
+Sometimes you will need to resample your images. For instance, if the study involves MR images acquired at different locations and they are not all using the same sequence, (2) the study is longitudinal and there's been a scanner or sequence upgrade between time points, or (3) the study involves DTI analyses, fMRI analyses, T2 weighted analyses, etc., then you will most likely have to resample your images.
 
 If you want to register a DTI image to your T1 image, you will definitely have to resample your T1 image. Most likely your T1 image will have about 1mm voxels, but your diffusion weighted image will be 2mm voxels. Therefore, you will have to resample your T1 image to have 2mm voxels.
 
@@ -114,8 +126,10 @@ ${subjDir}/t1/n4.nii.gz \
 -resample-mm 1x1x1mm \
 -o ${subjDir}/t1/resampled.nii.gz
 {% endhighlight %}
-	
+
 ## Bringing It All Together
+
+<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTM0t5YmN2QlpubUk/preview" width="840" height="630"></iframe>
 
 Let's create a script you can use to run participants individually:
 
@@ -143,3 +157,25 @@ sh ~/scripts/class/preprocess.sh ~/compute/class/1306
 {% endhighlight %}
 
 The variable `$1` will represent the path to the participant that you provided, i.e., `~/compute/class/1306`.
+
+## View the Files Locally
+
+<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTT2dYdnFXZ3A2UGs/preview" width="840" height="630"></iframe>
+
+After you have processed all the participants, you'll want to confirm that your images weren't over cropped, AC-PC alignment was done correctly, and N4 bias field correction was enough. Remember that when you are logged onto the supercomputer, you are working on a remote machine and not your local machine. The connection is one way, so you cannot copy files to your local computer when you are logged on remotely. To pull the files from the remote directory to your local directory, you need to exit from the supercomputer then use rsync to copy files from the remote directory to a local directory.
+
+{% highlight bash %}
+rsync -rauv --exclude="DICOM" intj5@ssh.fsl.byu.edu:~/compute/class/1304 ~/Desktop/
+{% endhighlight %}
+
+## Advanced Techniques
+
+<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTXzlPTFlzSFRCOW8/preview" width="840" height="630"></iframe>
+
+After eluding to a possible analysis, AC-PC distance, here's how to extract the data efficiently for graphing or statistical analyses. Use the following code to grab the pertinent information:
+
+{% highlight bash %}
+find ~/compute/class/ -type f -name "t1_Crop_1_ACPC.txt" -exec grep -H "AC-PC distance" {} \;
+{% endhighlight %}
+
+Copy the data and edit using TextWrangler or Atom then graph beautifully!
