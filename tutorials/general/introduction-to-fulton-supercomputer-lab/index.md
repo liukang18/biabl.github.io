@@ -32,7 +32,15 @@ Programs can be tested from the interactive nodes, but anything left running for
 
 ## Installing Programs
 
-<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTYXVNTGd5Z0ZPMEU/preview" width="840" height="540"></iframe>
+### Insight Segmentation and Registration Toolkit (ITK)
+
+<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTNzhHTXFXUHRoM1U/preview" width="840" height="525"></iframe>
+
+### dcm2niix
+
+<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTMW5uTHJLUDhyZnM/preview" width="840" height="525"></iframe>
+
+### Advanced Normalization Tools (ANTs)
 
 ## Update your .bash_profile
 
@@ -46,7 +54,7 @@ The output should read:
 
 {% highlight bash %}
 # ANTs
-export ANTSPATH=/fslhome/BYUNetID/apps/ants-20160716/bin/
+export ANTSPATH=/fslhome/BYUNetID/apps/ants/bin/
 PATH=${ANTSPATH}:${PATH}
 
 # acpcdetect
