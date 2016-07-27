@@ -54,3 +54,7 @@ export ARTHOME
 # FreeSurfer
 export FREESURFER_HOME=/fslhome/BYUNetID/apps/freesurfer
 {% endhighlight %}
+
+#### Lecture Slides
+
+[http://slides.com/njhunsak/deck/fullscreen](http://slides.com/njhunsak/deck/fullscreen)
