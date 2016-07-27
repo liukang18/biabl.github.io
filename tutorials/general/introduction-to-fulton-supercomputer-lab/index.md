@@ -20,6 +20,8 @@ After you complete this section, you should be able to:
 
 ## Logging In
 
+<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTZXFBVmtlNnU3RjA/preview" width="840" height="525"></iframe>
+
 Interaction with the supercomputer is typically performed with command line tools. The command line tools can be run via a command prompt, also known as a shell. SSH is used to establish a secure shell with the supercomputer. In general, users should log in via the hostname ssh.fsl.byu.edu.
 
 {% highlight bash %}
@@ -54,7 +56,3 @@ export ARTHOME
 # FreeSurfer
 export FREESURFER_HOME=/fslhome/BYUNetID/apps/freesurfer
 {% endhighlight %}
-
-## Lecture Slides
-
-<iframe src="//slides.com/njhunsak/deck/embed" width="840" height="525" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
