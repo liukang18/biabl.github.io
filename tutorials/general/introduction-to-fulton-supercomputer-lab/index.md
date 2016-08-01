@@ -48,6 +48,10 @@ Programs can be tested from the interactive nodes, but anything left running for
 
 <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTMnNmRmdCcEtOYzA/preview" width="840" height="525"></iframe>
 
+### FreeSurfer
+
+<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTUjJzcHJleWRheVk/preview" width="840" height="525"></iframe>
+
 ## Update your .bash_profile
 
 After following the instructions in the above video, your .bash_profile should have the following information. You can list the content of your .bash_profile:
