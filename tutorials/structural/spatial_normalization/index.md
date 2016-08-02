@@ -103,7 +103,7 @@ The opposite is true when the inverse is applied. The template image shrinks in 
 
 ### Diffeomorphic
 
-<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTVmRnYnFKOU8xcGs/preview" width="640" height="480"></iframe>
+<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTVmRnYnFKOU8xcGs/preview" width="840" height="525"></iframe>
 
 For this transformation, rigid transformation is done first, then affine transformation, and finally diffeomorphic. You always want to do an affine transformation before a diffeomorphic transformation, because you want to eliminate brain size as a covariate. Therefore, any group analyses that result in differences is due to actual differences in regional volume and not due to general brain volume differences.
 
