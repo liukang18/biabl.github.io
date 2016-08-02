@@ -66,7 +66,7 @@ The `dcm2niix` program will reorient and crop the images using the `-x` option.
 
 ## AC-PC Alignment
 
-<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTRDlrd0JGTndwVU0/preview" width="840" height="525"></iframe>
+<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTUklPNzI3ODk4UUU/preview" width="840" height="525"></iframe>
 
 Participants are more times than not, not perfectly positioned in the scanner. In fact, misalignment is a common clinical occurrence. Image quality is compromised when the brain is not aligned in the scanner and there's a lack of standardization across participants and within participants if you are scanning over multiple sessions. Optimally, you want a way to standardize image acquisition and overall alignment.
 
@@ -94,7 +94,7 @@ acpcdetect \
 
 ## Correct Bias Field
 
-<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTNmpoNkFZMkx3cGM/preview" width="840" height="525"></iframe>
+<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTUFBKcUlDd0N5Szg/preview" width="840" height="525"></iframe>
 
 Images often exhibit image intensity non-uniformities that are the result of magnetic field variations. These artifacts, often described as shading or bias, can be produced by imperfections in the field coils. These variations are often seen as a signal gain change. This can result in white matter measurements in one part of the image with the same intensity value as grey matter measurements elsewhere; an ideal T1-weighted image would display brighter white matter throughout the brain image.
 
@@ -144,9 +144,9 @@ In your script include:
 {% highlight bash %}
 mkdir $1/t1
 ~/apps/dcm2niix/bin/dcm2niix -o $1/t1/ -x y $1/DICOM
-~/apps/acpcdetect/acpcdetect -M -o $1/t1/acpc.nii -i $1/t1/t1_Crop_1.nii
-~/apps/ants-20160716/bin/N4BiasFieldCorrection -v -d 3 -i $1/t1/acpc.nii -o $1/t1/n4.nii.gz -s 4 -b [200] -c [50x50x50x50,0.000001]
-~/apps/c3d-1.1.0-Linux-x86_64/bin/c3d $1/t1/n4.nii.gz -resample-mm 1x1x1mm -o $1/t1/resampled.nii.gz
+~/apps/art/acpcdetect -M -o $1/t1/acpc.nii -i $1/t1/t1_Crop_1.nii
+~/apps/ants/bin/N4BiasFieldCorrection -v -d 3 -i $1/t1/acpc.nii -o $1/t1/n4.nii.gz -s 4 -b [200] -c [50x50x50x50,0.000001]
+~/apps/c3d/bin/c3d $1/t1/n4.nii.gz -resample-mm 1x1x1mm -o $1/t1/resampled.nii.gz
 ls $1/t1/
 {% endhighlight %}
 
@@ -162,7 +162,7 @@ The variable `$1` will represent the path to the participant that you provided, 
 
 <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTT2dYdnFXZ3A2UGs/preview" width="840" height="525"></iframe>
 
-After you have processed all the participants, you'll want to confirm that your images weren't over cropped, AC-PC alignment was done correctly, and N4 bias field correction was enough. Remember that when you are logged onto the supercomputer, you are working on a remote machine and not your local machine. The connection is one way, so you cannot copy files to your local computer when you are logged on remotely. To pull the files from the remote directory to your local directory, you need to exit from the supercomputer then use rsync to copy files from the remote directory to a local directory.
+After you have processed all the participants, you'll want to confirm that your images weren't over cropped, AC-PC alignment was done correctly, and N4 bias field correction was enough. Remember that when you are logged onto the supercomputer, you are working on a remote machine and not your local machine. The connection is one way, so you cannot copy files to your local computer when you are logged on remotely. To pull the files from the remote computer to your local computer, you need to exit from the supercomputer then use rsync to copy files.
 
 {% highlight bash %}
 rsync -rauv --exclude="DICOM" intj5@ssh.fsl.byu.edu:~/compute/class/1304 ~/Desktop/
@@ -178,4 +178,4 @@ After eluding to a possible analysis, AC-PC distance, here's how to extract the 
 find ~/compute/class/ -type f -name "t1_Crop_1_ACPC.txt" -exec grep -H "AC-PC distance" {} \;
 {% endhighlight %}
 
-Copy the data and edit using TextWrangler or Atom then graph beautifully!
+Copy the data and edit using TextWrangler or Atom, then have fun making beautiful graphs!
