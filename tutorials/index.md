@@ -14,7 +14,8 @@ This site contains all of the handouts and information presented in BYU's Fall 2
 3. [Setting up your Mac](general/setting-up-your-mac)
 4. [Introduction to Fulton Supercomputer Lab](general/introduction-to-fulton-supercomputer-lab)
 5. [Preprocessing T1-Weighted Images](structural/preprocessing_T1_weighted_images)
+6. [Spatial Normalization](structural/spatial_normalization)
 
 ### Advanced Topics
 
-Please review Beginner Topics 1-6 before beginning the Advanced Topics:
+Please review Beginner Topics 1-8 before beginning the Advanced Topics:

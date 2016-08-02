@@ -67,6 +67,8 @@ For reference, typically the *fixed* image is a *template* and the *moving* imag
 
 ### Rigid
 
+<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTR1lscVRjOVdCSnM/preview" width="840" height="525"></iframe>
+
 Here the participant image (moving) is rigidly aligned to the template (fixed). As you can see the participant brain moves to the same location within the field of view box. The size of the participant image is not altered.
 
 {% highlight bash %}
@@ -82,6 +84,8 @@ Here the inverse warp occurred (a unique feature of ANTs). The template (fixed) 
 ![](images/rigidInverse.jpeg){: .img-responsive }
 
 ### Affine
+
+<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTOHpSUVo5LURhSU0/preview" width="840" height="525"></iframe>
 
 For this transformation, a rigid transformation is done first, then affine transformation. Here the participant image (moving) is affine aligned to the template (fixed). The participant image is also scaled to match the size of the template. In this case the small participant image was enlarged to fit.
 
@@ -99,6 +103,8 @@ The opposite is true when the inverse is applied. The template image shrinks in 
 
 ### Diffeomorphic
 
+<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTVmRnYnFKOU8xcGs/preview" width="640" height="480"></iframe>
+
 For this transformation, rigid transformation is done first, then affine transformation, and finally diffeomorphic. You always want to do an affine transformation before a diffeomorphic transformation, because you want to eliminate brain size as a covariate. Therefore, any group analyses that result in differences is due to actual differences in regional volume and not due to general brain volume differences.
 
 {% highlight bash %}
@@ -115,4 +121,19 @@ More drastic is taking the inverse warp and seeing how well the template can be 
 
 ![](images/diffeomorphicInverse.jpeg){: .img-responsive }
 
+## What You End Up With
+
+<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTbVl5Y3JnTGx3Mlk/preview" width="840" height="525"></iframe>
+
+You can view the images on your local computer. Exit from your secure shell or just open a new terminal window. Copy the files to your Desktop:
+
+{% highlight bash %}
+rsync \
+-rauv \
+<BYUNetID>@ssh.fsl.byu.edu:~/compute/examples/morphometry \
+~/Desktop
+{% endhighlight %}
+
 ## Class Slides
+
+<iframe src="//slides.com/njhunsak/preprocessing-t1-images-2/embed" width="840" height="525" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
