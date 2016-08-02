@@ -114,7 +114,7 @@ N4BiasFieldCorrection \
 
 ## Resample to 1 mm Isotropic
 
-<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTVnhJWXFXRWpDZzg/preview" width="840" height="525"></iframe>
+<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTZ2xnOXlWd25IYkk/preview" width="840" height="525"></iframe>
 
 Sometimes you will need to resample your images. For instance, if the study involves MR images acquired at different locations and they are not all using the same sequence, (2) the study is longitudinal and there's been a scanner or sequence upgrade between time points, or (3) the study involves DTI analyses, fMRI analyses, T2 weighted analyses, etc., then you will most likely have to resample your images.
 
@@ -129,7 +129,7 @@ ${subjDir}/t1/n4.nii.gz \
 
 ## Bringing It All Together
 
-<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTM0t5YmN2QlpubUk/preview" width="840" height="525"></iframe>
+<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTNEhRODdzcmV6TDQ/preview" width="840" height="525"></iframe>
 
 Let's create a script you can use to run participants individually:
 
@@ -179,3 +179,7 @@ find ~/compute/class/ -type f -name "t1_Crop_1_ACPC.txt" -exec grep -H "AC-PC di
 {% endhighlight %}
 
 Copy the data and edit using TextWrangler or Atom, then have fun making beautiful graphs!
+
+## Class Slides
+
+<iframe src="//slides.com/njhunsak/preprocessing-t1-images/embed" width="840" height="525" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>s
