@@ -78,3 +78,7 @@ export ARTHOME
 # FreeSurfer
 export FREESURFER_HOME=/fslhome/BYUNetID/apps/freesurfer
 {% endhighlight %}
+
+## Class Slides
+
+<iframe src="//slides.com/njhunsak/deck/embed" width="840" height="525" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
