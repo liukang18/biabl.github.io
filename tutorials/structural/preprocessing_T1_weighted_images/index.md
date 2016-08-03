@@ -15,11 +15,15 @@ After you complete this section, you should be able to:
 5. Write a script that will complete dcm2niix, acpcdetect, N4BiasFieldCorrection, and c3d
 6. Double check the accuracy of your pipeline
 
-<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTNXFCdkVmdG1XekE/preview" width="840" height="525"></iframe>
+<div class="embed-container">
+<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTNXFCdkVmdG1XekE/preview"></iframe>
+</div>
 
 ## Convert DICOM to NIfTI
 
-<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTQzBuc2phTGhIWkk/preview" width="840" height="525"></iframe>
+<div class="embed-container">
+<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTQzBuc2phTGhIWkk/preview"></iframe>
+</div>
 
 Most imaging programs and pipelines do not actually use DICOMs, but some other "standardized" image format. Similar to how pictures can be in various formats like jpeg, tiff, png, etc. MR images can come in different formats as well. The most common format is the NIfTI format (.nii) or the zipped NIfTI format (.nii.gz). Most programs will be able to use the NIfTI and the zipped NIfTI interchangeably, but there are still a few programs that prefer one over the other. **For the first part of our pipeline, we will use the NIfTI format, but eventually we will move to using the zipped NIfTI format exclusively for the rest of the pipeline.**
 
