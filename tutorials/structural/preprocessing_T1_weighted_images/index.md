@@ -182,4 +182,4 @@ Copy the data and edit using TextWrangler or Atom, then have fun making beautifu
 
 ## Class Slides
 
-<iframe src="//slides.com/njhunsak/preprocessing-t1-images/embed" width="840" height="525" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>s
+<iframe src="//slides.com/njhunsak/preprocessing-t1-images/embed" width="840" height="525" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>

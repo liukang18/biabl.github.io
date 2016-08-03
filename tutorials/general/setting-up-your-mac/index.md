@@ -33,7 +33,7 @@ The script explains what it will do and then pauses before it does it.
 
 ## Brew Install
 
-Homebrew installs the stuff you need that Apple didn’t like wget:
+Homebrew installs the stuff you need that Apple didn’t. First install wget:
 
 {% highlight bash %}
 brew install wget
