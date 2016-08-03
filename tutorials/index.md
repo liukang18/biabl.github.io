@@ -19,7 +19,8 @@ This site contains all of the handouts and information presented in BYU's Fall 2
 6. [Spatial Normalization](structural/spatial_normalization)
 7. [How to Submit a Job to Compute Node](general/submit-single-job)
 8. [Generate Template](structural/template)
+9. [ANTs Cortical Thickness](structural/cortical_thickness)
 
 ### Advanced Topics
 
-Please review Beginner Topics 1-8 before beginning the Advanced Topics:
+Please review Beginner Topics before starting the Advanced Topics:
