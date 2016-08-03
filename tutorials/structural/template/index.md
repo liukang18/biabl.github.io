@@ -54,6 +54,10 @@ In English, create a list of all the directories under the ~/compute/class direc
 
 ## Build Initial Template
 
+<div class="embed-container">
+  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTWGNwTDFpNjRSbUE/preview"></iframe>
+</div>
+
 When building a template you need to have a target image, it is advisable to run a few iterations with affine normalization only (-m 1x0x0) to get a sensible initial template, then pass this with -z to run full deformable registration. You will have to submit this script as a job:
 
 {% highlight bash %}
