@@ -10,10 +10,10 @@ date: 2016-08-02
 
 After you complete this section, you should be able to:
 
-1. Use a for loop and copy preprocessed images to a single directory
-2. Submit a single script to the supercomputer compute nodes
-3. Create a population template
-4. ...
+1. Use a for loop to copy  and rename preprocessed images to a single directory
+2. Write a job script and submit it to the supercomputer compute nodes
+3. Create an initial population template
+4. Create a high-resolution population template
 
 ## Copy Files
 
@@ -181,3 +181,7 @@ The final template image will look something like this:
 <img class="img-responsive" alt="" src="images/pt2template.png">
 
 ## Class Slides
+
+<div class="embed-container">
+  <iframe src="//slides.com/njhunsak/preprocessing-t1-images-2-3-4/embed" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
