@@ -17,7 +17,9 @@ After you complete this section, you should be able to:
 
 ## Copy Files
 
-<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTdFB6enJqRmFsZVE/preview" width="840" height="525"></iframe>
+<div class="embed-container">
+  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTdFB6enJqRmFsZVE/preview"></iframe>
+</div>
 
 The first step in generating a population template is to copy the preprocessed images (i.e., resampled.nii.gz) to a single directory, but the files must be uniquely named. Currently all the files are named exactly the same, so copying files to a single directory would result in files just being overwritten. Not only do files have to be copied, but they also need to be renamed. You cannot use just the move command, because you want to leave the original file in the original location. Using a for loop allows iterate over each item in the list of files it finds and copy it to a new directory.
 
