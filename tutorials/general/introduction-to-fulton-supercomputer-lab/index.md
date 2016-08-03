@@ -16,11 +16,15 @@ After you complete this section, you should be able to:
 
 ## Introduction to BYU's Supercomputer
 
-<iframe width="840" height="630	" src="https://www.youtube.com/embed/i1r9BxHBG0I" frameborder="0" allowfullscreen></iframe>
+<div class="embed-container">
+  <iframe width="840" height="630	" src="https://www.youtube.com/embed/i1r9BxHBG0I" frameborder="0" allowfullscreen></iframe>
+</div>
 
 ## Logging In
 
-<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTZXFBVmtlNnU3RjA/preview" width="840" height="525"></iframe>
+<div class="embed-container">
+  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTZXFBVmtlNnU3RjA/preview"></iframe>
+</div>
 
 Interaction with the supercomputer is typically performed with command line tools. The command line tools can be run via a command prompt, also known as a shell. SSH is used to establish a secure shell with the supercomputer. In general, users should log in via the hostname ssh.fsl.byu.edu.
 
@@ -34,27 +38,39 @@ Programs can be tested from the interactive nodes, but anything left running for
 
 ### Insight Segmentation and Registration Toolkit (ITK)
 
-<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTNzhHTXFXUHRoM1U/preview" width="840" height="525"></iframe>
+<div class="embed-container">
+  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTNzhHTXFXUHRoM1U/preview"></iframe>
+</div>
 
 ### dcm2niix
 
-<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTMW5uTHJLUDhyZnM/preview" width="840" height="525"></iframe>
+<div class="embed-container">
+  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTMW5uTHJLUDhyZnM/preview"></iframe>
+</div>
 
 ### Advanced Normalization Tools (ANTs)
 
-<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTd0E4anllMk56Snc/preview" width="840" height="525"></iframe>
+<div class="embed-container">
+  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTd0E4anllMk56Snc/preview"></iframe>
+</div>
 
 ### acpcdetect
 
-<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTMnNmRmdCcEtOYzA/preview" width="840" height="525"></iframe>
+<div class="embed-container">
+  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTMnNmRmdCcEtOYzA/preview"></iframe>
+</div>
 
 ### FreeSurfer
 
-<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTUjJzcHJleWRheVk/preview" width="840" height="525"></iframe>
+<div class="embed-container">
+  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTUjJzcHJleWRheVk/preview"></iframe>
+</div>
 
 ### Convert3D
 
-<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTMlhkZE8xdVg0czQ/preview" width="840" height="525"></iframe>
+<div class="embed-container">
+  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTMlhkZE8xdVg0czQ/preview"></iframe>
+</div>
 
 ## Update your .bash_profile
 
@@ -81,4 +97,6 @@ export FREESURFER_HOME=/fslhome/BYUNetID/apps/freesurfer
 
 ## Class Slides
 
-<iframe src="//slides.com/njhunsak/deck/embed" width="840" height="525" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+<div class="embed-container">
+  <iframe src="//slides.com/njhunsak/deck/embed"scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
