@@ -199,5 +199,5 @@ Copy the data and edit using TextWrangler or Atom, then have fun making beautifu
 ## Class Slides
 
 <div class="embed-container">
-  <iframe src="//slides.com/njhunsak/preprocessing-t1-images/embed" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+  <iframe src="http://slides.com/njhunsak/preprocessing-t1-images/embed" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>

@@ -145,5 +145,5 @@ rsync \
 ## Class Slides
 
 <div class="embed-container">
-  <iframe src="//slides.com/njhunsak/preprocessing-t1-images-2/embed" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+  <iframe src="http://slides.com/njhunsak/preprocessing-t1-images-2/embed" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>

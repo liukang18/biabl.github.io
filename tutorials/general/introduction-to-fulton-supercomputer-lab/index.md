@@ -98,5 +98,5 @@ export FREESURFER_HOME=/fslhome/BYUNetID/apps/freesurfer
 ## Class Slides
 
 <div class="embed-container">
-  <iframe src="//slides.com/njhunsak/deck/embed"scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+  <iframe src="http://slides.com/njhunsak/deck/embed"scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
