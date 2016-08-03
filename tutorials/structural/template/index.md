@@ -75,13 +75,11 @@ Copy and paste the following code into the script:
 #SBATCH --nodes=1   # number of nodes
 #SBATCH --mem-per-cpu=16384M  # memory per CPU core
 
-# Compatibility variables for PBS. Delete if not needed.
+# COMPATABILITY VARIABLES FOR PBS. DO NO DELETE.
 export PBS_NODEFILE=`/fslapps/fslutils/generate_pbs_nodefile`
 export PBS_JOBID=$SLURM_JOB_ID
 export PBS_O_WORKDIR="$SLURM_SUBMIT_DIR"
 export PBS_QUEUE=batch
-
-# Set the max number of threads to use for programs using OpenMP.
 export OMP_NUM_THREADS=$SLURM_CPUS_ON_NODE
 
 # LOAD ENVIRONMENTAL VARIABLES
@@ -116,11 +114,52 @@ Now wait! It takes approximately 2 - 3 hours for this initial template to be cre
 cat ~/logfiles/$var/output-template-pt1.txt
 {% endhighlight %}
 
-The inital template image will look something like this:
+The initial template image will look something like this:
 
 <img class="img-responsive" alt="" src="images/pt1template.png">
 
 ## Build Template
+
+Once you have an initial template created, now a complete template can be generated.
+
+{% highlight bash %}
+cd ~/scripts/class/
+vi template-pt2.sh
+{% endhighlight %}
+
+Create another job script, but add the initial template and change the output prefix:
+
+{% highlight bash %}
+#!/bin/bash
+
+#SBATCH --time=30:00:00   # walltime
+#SBATCH --ntasks=1   # number of processor cores (i.e. tasks)
+#SBATCH --nodes=1   # number of nodes
+#SBATCH --mem-per-cpu=16384M  # memory per CPU core
+
+# COMPATABILITY VARIABLES FOR PBS. DO NO DELETE.
+export PBS_NODEFILE=`/fslapps/fslutils/generate_pbs_nodefile`
+export PBS_JOBID=$SLURM_JOB_ID
+export PBS_O_WORKDIR="$SLURM_SUBMIT_DIR"
+export PBS_QUEUE=batch
+export OMP_NUM_THREADS=$SLURM_CPUS_ON_NODE
+
+# LOAD ENVIRONMENTAL VARIABLES
+var=`id -un`
+export ANTSPATH=/fslhome/$var/apps/ants/bin/
+PATH=${ANTSPATH}:${PATH}
+
+# INSERT CODE, AND RUN YOUR PROGRAMS HERE
+cd ~/templates/class
+~/apps/ants/bin/buildtemplateparallel.sh \
+-d 3 \
+-z ~/templates/class/pt1template.nii.gz \
+-o pt2 \
+-c 5 \
+img*.nii.gz
+{% endhighlight %}
+
+Submit the job script as before with a new timestamp:
 
 {% highlight bash %}
 var=`date +"%Y%m%d-%H%M%S"`
@@ -130,5 +169,15 @@ sbatch \
 -e ~/logfiles/$var/error-template-pt2.txt \
 ~/scripts/class/template-pt2.sh
 {% endhighlight %}
+
+Now really really wait! It takes approximately 12 - 24 hours for the template to be created. You can check the progress by looking at the output file:
+
+{% highlight bash %}
+cat ~/logfiles/$var/output-template-pt2.txt
+{% endhighlight %}
+
+The final template image will look something like this:
+
+<img class="img-responsive" alt="" src="images/pt2template.png">
 
 ## Class Slides
