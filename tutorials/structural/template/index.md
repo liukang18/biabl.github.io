@@ -106,6 +106,16 @@ sbatch \
 ~/scripts/class/template-pt1.sh
 {% endhighlight %}
 
+Now wait! It takes approximately 2 - 3 hours for this initial template to be created. You can short of check the progress by looking at the output file:
+
+{% highlight bash %}
+cat ~/logfiles/$var/output-template-pt1.txt
+{% endhighlight %}
+
+You final template image will look something like this:
+
+<img class="img-responsive" alt="" src="images/pt1template.png">
+
 ## Build Template
 
 {% highlight bash %}

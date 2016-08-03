@@ -3,7 +3,7 @@ layout: tutorials
 title: How to Submit a Single Job on Supercomputer
 author: naomi  
 comments: true
-date: 2015-12-09
+date: 2016-08-02
 ---
 
 ## Objectives
@@ -39,7 +39,7 @@ When the scheduling system chooses to start a job, it assigns it one or more nod
 ## How to Submit a Single Job on Supercomputer
 
 <div class="embed-container">
-  <iframe src="https://www.youtube.com/embed/h8TZokyI6yo" frameborder="0" allowfullscreen></iframe>
+  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTN1JkOWhRTlQySWs/preview"></iframe>
 </div>
 
 ### Job Script
@@ -116,3 +116,5 @@ If your script ends early, type:
 {% highlight bash %}
 cat ~/logfiles/error-hostname.txt
 {% endhighlight %}
+
+## Class Slides
