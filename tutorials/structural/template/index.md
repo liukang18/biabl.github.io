@@ -52,7 +52,7 @@ done
 
 In English, create a list of all the directories under the ~/compute/class directory. Conveniently, the directory names are also the subject ID names (that was intentionally done). For each item in that list, assign the item to the variable $x and do the following commands on $x. Copy the resampled.nii.gz found under ~/compute/class/$x/t1/ and paste the file to ~/templates/class with the file name of "img_${x}.nii.gz". Each file will now contain the subject ID!!
 
-## Build Template Affine Normalization
+## Build Initial Template
 
 When building a template you need to have a target image, it is advisable to run a few iterations with affine normalization only (-m 1x0x0) to get a sensible initial template, then pass this with -z to run full deformable registration. You will have to submit this script as a job:
 
@@ -106,13 +106,13 @@ sbatch \
 ~/scripts/class/template-pt1.sh
 {% endhighlight %}
 
-Now wait! It takes approximately 2 - 3 hours for this initial template to be created. You can short of check the progress by looking at the output file:
+Now wait! It takes approximately 2 - 3 hours for this initial template to be created. You can kind of check the progress by looking at the output file:
 
 {% highlight bash %}
 cat ~/logfiles/$var/output-template-pt1.txt
 {% endhighlight %}
 
-You final template image will look something like this:
+The inital template image will look something like this:
 
 <img class="img-responsive" alt="" src="images/pt1template.png">
 
