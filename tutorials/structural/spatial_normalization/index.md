@@ -66,9 +66,8 @@ Based on the mathematical field of topology, the simplest definition is that thr
 For reference, typically the *fixed* image is a *template* and the *moving* image is *each participant*.
 
 ### Rigid
-
-<div class="videoWrapper">
-<iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTR1lscVRjOVdCSnM/preview" width="840" height="525"></iframe>
+<div class="embed-responsive embed-responsive-16by9">
+<iframe class="embed-responsive-item" src="https://drive.google.com/file/d/0B7gwoaKa2xaTR1lscVRjOVdCSnM/preview"></iframe>
 </div>
 
 Here the participant image (moving) is rigidly aligned to the template (fixed). As you can see the participant brain moves to the same location within the field of view box. The size of the participant image is not altered.
