@@ -67,7 +67,9 @@ For reference, typically the *fixed* image is a *template* and the *moving* imag
 
 ### Rigid
 
+<div class="videoWrapper">
 <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTR1lscVRjOVdCSnM/preview" width="840" height="525"></iframe>
+</div>
 
 Here the participant image (moving) is rigidly aligned to the template (fixed). As you can see the participant brain moves to the same location within the field of view box. The size of the participant image is not altered.
 
