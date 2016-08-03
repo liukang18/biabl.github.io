@@ -18,7 +18,7 @@ After you complete this section, you should be able to:
 ## Copy Files
 
 <div class="embed-container">
-  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTdFB6enJqRmFsZVE/preview"></iframe>
+  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTTlcwSFhuSWtqX1E/preview"></iframe>
 </div>
 
 The first step in generating a population template is to copy the preprocessed images (i.e., resampled.nii.gz) to a single directory, but the files must be uniquely named. Currently all the files are named exactly the same, so copying files to a single directory would result in files just being overwritten. Not only do files have to be copied, but they also need to be renamed. You cannot use just the move command, because you want to leave the original file in the original location. Using a for loop allows iterate over each item in the list of files it finds and copy it to a new directory.
@@ -45,13 +45,12 @@ mkdir -p ~/templates/class
 Next, run this for loop to copy and rename the files:
 
 {% highlight bash %}
-for i in $(find ~/compute/class/ -type f -name "resampled.nii.gz"); do
-subjID=`echo "${i}" | cut -d/ -f6`
-cp -v $i ~/templates/class/img_${subjID}.nii.gz
+for x in $(ls ~/compute/class/); do
+cp -v ~/compute/class/$x/t1/resampled.nii.gz ~/templates/class/img_${x}.nii.gz
 done
 {% endhighlight %}
 
-In English, create a list of all the files named "resampled.nii.gz" in the ~/compute/class directory. For each item in that list, assign the item to the variable $x and do the following commands on $x. Create a new variable, $subjID, in which we extract the subject ID from $x. Copy $x, which is the full path and file name, and paste the file under ~/templates/class with the file name of "img_${subjID}.nii.gz".
+In English, create a list of all the directories under the ~/compute/class directory. Conveniently, the directory names are also the subject ID names (that was intentionally done). For each item in that list, assign the item to the variable $x and do the following commands on $x. Copy the resampled.nii.gz found under ~/compute/class/$x/t1/ and paste the file to ~/templates/class with the file name of "img_${x}.nii.gz". Each file will now contain the subject ID!!
 
 ## Build Template Affine Normalization
 
@@ -82,7 +81,8 @@ export PBS_QUEUE=batch
 export OMP_NUM_THREADS=$SLURM_CPUS_ON_NODE
 
 # LOAD ENVIRONMENTAL VARIABLES
-export ANTSPATH=/fslhome/intj5/apps/ants/bin/
+var=`id -un`
+export ANTSPATH=/fslhome/$var/apps/ants/bin/
 PATH=${ANTSPATH}:${PATH}
 
 # INSERT CODE, AND RUN YOUR PROGRAMS HERE
