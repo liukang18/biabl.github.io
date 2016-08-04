@@ -135,7 +135,7 @@ Create another job script, but add the initial template and change the output pr
 #SBATCH --time=30:00:00   # walltime
 #SBATCH --ntasks=1   # number of processor cores (i.e. tasks)
 #SBATCH --nodes=1   # number of nodes
-#SBATCH --mem-per-cpu=16384M  # memory per CPU core
+#SBATCH --mem-per-cpu=32768M  # memory per CPU core
 
 # COMPATABILITY VARIABLES FOR PBS. DO NO DELETE.
 export PBS_NODEFILE=`/fslapps/fslutils/generate_pbs_nodefile`
