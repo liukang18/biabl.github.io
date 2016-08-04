@@ -13,7 +13,7 @@ After you complete this section, you should be able to:
 1. Use a for loop to copy  and rename preprocessed images to a single directory
 2. Write a job script and submit it to the supercomputer compute nodes
 3. Create an initial population template
-4. Create a high-resolution population template
+4. Create a high-resolution population template and clean up your directory
 
 ## Copy Files
 
@@ -70,7 +70,7 @@ Copy and paste the following code into the script:
 {% highlight bash %}
 #!/bin/bash
 
-#SBATCH --time=05:00:00   # walltime
+#SBATCH --time=04:00:00   # walltime
 #SBATCH --ntasks=1   # number of processor cores (i.e. tasks)
 #SBATCH --nodes=1   # number of nodes
 #SBATCH --mem-per-cpu=16384M  # memory per CPU core
@@ -120,6 +120,10 @@ The initial template image will look something like this:
 
 ## Build Template
 
+<div class="embed-container">
+  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTN1htQi10SDVVSW8/preview"></iframe>
+</div>
+
 Once you have an initial template created, now a complete template can be generated.
 
 {% highlight bash %}
@@ -132,7 +136,7 @@ Create another job script, but add the initial template and change the output pr
 {% highlight bash %}
 #!/bin/bash
 
-#SBATCH --time=30:00:00   # walltime
+#SBATCH --time=10:00:00   # walltime
 #SBATCH --ntasks=1   # number of processor cores (i.e. tasks)
 #SBATCH --nodes=1   # number of nodes
 #SBATCH --mem-per-cpu=32768M  # memory per CPU core
@@ -170,7 +174,7 @@ sbatch \
 ~/scripts/class/template-pt2.sh
 {% endhighlight %}
 
-Now really really wait! It takes approximately 12 - 24 hours for the template to be created. You can check the progress by looking at the output file:
+Now really really wait! It takes approximately 5 - 10 hours for the template to be created. You can check the progress by looking at the output file:
 
 {% highlight bash %}
 cat ~/logfiles/$var/output-template-pt2.txt
@@ -179,6 +183,18 @@ cat ~/logfiles/$var/output-template-pt2.txt
 The final template image will look something like this:
 
 <img class="img-responsive" alt="" src="images/pt2template.png">
+
+### Clean Up directory
+
+The template pipeline generates a lot of files and directories and those can be cleaned up when you are done creating your template. Move the original image files to their own directory, data. Rename pt2template.nii.gz to template.nii.gz and find and delete all other files and directories:
+
+{% highlight bash %}
+cd ~/templates/class
+mkdir data
+mv img*.nii.gz data/
+mv pt2template.nii.gz template.nii.gz
+find . \( ! -name "data" ! -name "img*.nii.gz" ! -name "template.nii.gz" \) -exec rm -rf {} \;
+{% endhighlight %}
 
 ## Class Slides
 
