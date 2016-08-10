@@ -119,5 +119,5 @@ cat ~/logfiles/error-hostname.txt
 ## Class Slides
 
 <div class="embed-container">
-  <iframe src="//slides.com/njhunsak/preprocessing-t1-images-2-3/embed" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+  <iframe src="//slides.com/njhunsak/submit-job/embed" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>

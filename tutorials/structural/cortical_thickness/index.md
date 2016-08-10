@@ -12,9 +12,9 @@ After the preprocessing steps, there are some things to do that will be helpful 
 
 1. Understand the difference between ROIs and overlays
 2. Define brain mask & tissue segmentation
-3. Understand the importance of a template
-4. Run antsCorticalThickness.sh pipeline
-5. Describe possible analyses from output files
+3. Run antsCorticalThickness.sh pipeline
+4. Generate files to complete population specific template
+4. Describe possible analyses from output files
 
 ## ROIs versus Overlays
 
@@ -58,7 +58,7 @@ Back to the histogram of a brain. Recall that the histogram is voxel count versu
 
 Obviously, if you were just using histogram matching to do tissue segmentation, you would end up with a lot of incorrectly identified voxels. The ANTs pipeline accomplishes tissue segmentation not only using an algorithm to separate the various tissue gaussians, but also a probability approach. Part of the ANTs cortical thickness pipeline will take a template with known tissue segmentations and warp it to look like the participant image. The purpose is to create an overlay that gives the likelihood (or probability) for each voxel as to whether or not it is CSF, WM, or GM. By using this probability approach, you are able to reduce the total voxels within the histogram. By iterating between histograms and probability maps, ANTs cortical thickness is able to get closer to a valid tissue segmentation. The key ROIs generated are: CSF, WM, GM, subcortical gray matter, brainstem, and cerebellum.
 
-## Template
+## ANTs Cortical Thickness
 
 In order to run participants using a population specific template, we must acquire tissue segmentation within the population template first in addition to some other files. The precise files we need to generate for the ANTs Cortical Thickness pipeline are as follows:
 
@@ -158,5 +158,5 @@ From these outputs, you can do:
 ## Class Slides
 
 <div class="embed-container">
-
+  <iframe src="//slides.com/njhunsak/ants-cortical-thickness/embed" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>

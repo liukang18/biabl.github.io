@@ -199,5 +199,5 @@ find . \( ! -name "data" ! -name "img*.nii.gz" ! -name "template.nii.gz" \) -exe
 ## Class Slides
 
 <div class="embed-container">
-  <iframe src="//slides.com/njhunsak/preprocessing-t1-images-2-3-4/embed" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+  <iframe src="//slides.com/njhunsak/generate-template/embed" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
