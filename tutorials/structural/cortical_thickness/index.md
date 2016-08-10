@@ -62,26 +62,48 @@ Back to the histogram of a brain. Recall that the histogram is voxel count versu
 
 Obviously, if you were just using histogram matching to do tissue segmentation, you would end up with a lot of incorrectly identified voxels. The ANTs pipeline accomplishes tissue segmentation not only using an algorithm to separate the various tissue gaussians, but also a probability approach. Part of the ANTs cortical thickness pipeline will take a template with known tissue segmentations and warp it to look like the participant image. The purpose is to create an overlay that gives the likelihood (or probability) for each voxel as to whether or not it is CSF, WM, or GM. By using this probability approach, you are able to reduce the total voxels within the histogram. By iterating between histograms and probability maps, ANTs cortical thickness is able to get closer to a valid tissue segmentation. The key ROIs generated are: CSF, WM, GM, subcortical gray matter, brainstem, and cerebellum.
 
+## Template
+
+In order to run participants using our own generated template, we need to run our population template to get tissue segmentation. The exact files we need to generate are as follows:
+
+1. whole brain ROI mask
+2. brain only T1 image
+3. whole brain probability mask
+4. extraction mask (ROI mask dilated 28 vox)
+5. registration mask (ROI mask dilated 18 vox)
+6. 6 tissue priors: cerebral WM, GM, and CSF; basal ganglia; brainstem; and cerebellum
+
+After running ANTs cortical thickness on the population template, you will be able to generate the previous 6 files. First we need to download a template:
+
+{% highlight bash %}
+cd ~/templates/
+wget https://s3-eu-west-1.amazonaws.com/pfigshare-u-files/3133826/NKI.zip
+unzip NKI.zip
+rm -rf NKI.zip
+{% endhighlight %}
+
 Let's set the subject directory again and make an output directory for antsCorticalThickness.sh:
 
 {% highlight bash %}
-subjDir=</path/to/subject/directory>
-mkdir ${subjDir}/antsCorticalThickness/
+mkdir -p ~/templates/class/antsCorticalThickness/
 {% endhighlight %}
 
-Now let's set the template directory:
+Running this code will take 6+ hours, so place this code into a job script and submit the job script on the supercomputer:
 
 {% highlight bash %}
-templateDir=</path/to/template/directory>
+vi ~/scripts/class/antsCT.sh
 {% endhighlight %}
 
-Running this code will take 6+ hours, so run on the FSL supercomputer only:
+{% highlight bash %}
+#!/bin/bash#SBATCH --time=06:00:00   # walltime#SBATCH --ntasks=1   # number of processor cores (i.e. tasks)#SBATCH --nodes=1   # number of nodes#SBATCH --mem-per-cpu=16384M  # memory per CPU core# Compatibility variables for PBS. Delete if not needed.export PBS_NODEFILE=`/fslapps/fslutils/generate_pbs_nodefile`export PBS_JOBID=$SLURM_JOB_IDexport PBS_O_WORKDIR="$SLURM_SUBMIT_DIR"export PBS_QUEUE=batch# Set the max number of threads to use for programs using OpenMP.export OMP_NUM_THREADS=$SLURM_CPUS_ON_NODE# LOAD ENVIRONMENTAL VARIABLESvar=`id -un`export ANTSPATH=/fslhome/$var/apps/ants/bin/PATH=${ANTSPATH}:${PATH}# INSERT CODE, AND RUN YOUR PROGRAMS HEREdir=~/templates/class/template=~/templates/NKI/~/apps/ants/bin/antsCorticalThickness.sh \-d 3 \-a ${dir}/template.nii.gz \-e ${template}/T_template.nii.gz \-t ${template}/T_template_BrainCerebellum.nii.gz \-m ${template}/T_template_BrainCerebellumProbabilityMask.nii.gz \-f ${template}/T_template_BrainCerebellumExtractionMask.nii.gz \-p ${template}/Priors/priors%d.nii.gz \-q 1 \-o ${dir}/antsCorticalThickness/{% endhighlight %}
 
 {% highlight bash %}
-antsCorticalThickness.sh \-d 3 \-a ${subjDir}/n4.nii.gz \
--e ${templateDir}/T_template0.nii.gz \-t ${templateDir}/T_template0_BrainCerebellum.nii.gz \-m ${templateDir}/T_template0_BrainCerebellumProbabilityMask.nii.gz \
--f ${templateDir}/T_template0_BrainCerebellumExtractionMask.nii.gz \
--p ${templateDir}/Priors2/priors%d.nii.gz \-q 1 \-o ${subjDir}/antsCorticalThickness/
+var=`date +"%Y%m%d-%H%M%S"`
+mkdir -p ~/logfiles/$var
+sbatch \
+-o ~/logfiles/$var/output-antsCT.txt \
+-e ~/logfiles/$var/error-antsCT.txt \
+~/scripts/class/antsCT.sh
 {% endhighlight %}
 
 The output from this process is pure ***gold!***
