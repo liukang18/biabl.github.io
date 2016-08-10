@@ -3,7 +3,7 @@ layout: tutorials
 title: Tissue Segmentation and Cortical Thickness
 author: naomi
 comments: true
-date: 2016-08-04
+date: 2016-08-10
 ---
 
 ## Objectives
@@ -26,11 +26,9 @@ Regions of interest (ROIs) on the other hand have a single value within the ROI.
 
 <img class="img-responsive" alt="" src="images/roi.png">
 
-An overlay on the other hand is more like a regular scan acquired from the scanner. In fact, different sequences can be overlaid on top of each other: PET scan over a T1, fMRI activation over a T1. Overlays contain data can be visualized on top of a T1 or T2 or whatever. Overlays like normal T1 images have a range of values and not a single binary value.
+An overlay on the other hand is more like a regular scan acquired from the scanner. In fact, different sequences can be overlaid on top of each other: PET scan over a T1, fMRI activation over a T1. Overlays contain data can be visualized on top of a T1 or T2 or whatever. Overlays like normal T1 images have a range of values and not a single binary value. The following pipeline creates various ROIs and overlays that can be used in a number of ways.
 
 <img class="img-responsive" alt="" src="images/overlay.png">
-
-The following pipeline creates various ROIs and overlays that can be used in a number of ways.
 
 ## Brain Mask
 
@@ -40,9 +38,7 @@ Many programs will have their own brain extraction protocols. These protocols ar
 
 <img class="img-responsive" alt="" src="images/fsl.png">
 
-In my experience, if you are working with non-typical or even children images, these traditional brain extraction protocols will not be accurate enough.
-
-One alternative is to use a pipeline designed to utilize the analytical power of ANTs. Here's an example of the brain extraction from ANTs:
+In my experience, if you are working with non-typical or even children images, these traditional brain extraction protocols will not be accurate enough. One alternative is to use a pipeline designed to utilize the analytical power of ANTs. Here's an example of the brain extraction from ANTs:
 
 <img class="img-responsive" alt="" src="images/ants.png">
 
@@ -64,38 +60,67 @@ Obviously, if you were just using histogram matching to do tissue segmentation, 
 
 ## Template
 
-In order to run participants using our own generated template, we need to run our population template to get tissue segmentation. The exact files we need to generate are as follows:
+In order to run participants using a population specific template, we must acquire tissue segmentation within the population template first in addition to some other files. The precise files we need to generate for the ANTs Cortical Thickness pipeline are as follows:
 
 1. whole brain ROI mask
 2. brain only T1 image
 3. whole brain probability mask
 4. extraction mask (ROI mask dilated 28 vox)
 5. registration mask (ROI mask dilated 18 vox)
-6. 6 tissue priors: cerebral WM, GM, and CSF; basal ganglia; brainstem; and cerebellum
+6. 6 tissue segmentation
+7. 6 tissue priors
 
-After running ANTs cortical thickness on the population template, you will be able to generate the previous 6 files. First we need to download a template:
+After running ANTs cortical thickness on a population specific template, you will be able to generate the previous 6 files. First we need to download a general template. For this course, we will use a template that consists of boys and girls between ages 10 and 18:
 
 {% highlight bash %}
 cd ~/templates/
 wget https://s3-eu-west-1.amazonaws.com/pfigshare-u-files/3133826/NKI.zip
-unzip NKI.zip
-rm -rf NKI.zip
+unzip NKI.zip && rm -rf NKI.zip
 {% endhighlight %}
 
-Let's set the subject directory again and make an output directory for antsCorticalThickness.sh:
+Make an output directory for antsCorticalThickness.sh output files:
 
 {% highlight bash %}
-mkdir -p ~/templates/class/antsCorticalThickness/
+mkdir -p ~/templates/class/antsCT/
 {% endhighlight %}
 
-Running this code will take 6+ hours, so place this code into a job script and submit the job script on the supercomputer:
+Running antsCorticalThickness.sh will take 6+ hours, so place the code into a job script:
 
 {% highlight bash %}
 vi ~/scripts/class/antsCT.sh
 {% endhighlight %}
 
 {% highlight bash %}
-#!/bin/bash#SBATCH --time=06:00:00   # walltime#SBATCH --ntasks=1   # number of processor cores (i.e. tasks)#SBATCH --nodes=1   # number of nodes#SBATCH --mem-per-cpu=16384M  # memory per CPU core# Compatibility variables for PBS. Delete if not needed.export PBS_NODEFILE=`/fslapps/fslutils/generate_pbs_nodefile`export PBS_JOBID=$SLURM_JOB_IDexport PBS_O_WORKDIR="$SLURM_SUBMIT_DIR"export PBS_QUEUE=batch# Set the max number of threads to use for programs using OpenMP.export OMP_NUM_THREADS=$SLURM_CPUS_ON_NODE# LOAD ENVIRONMENTAL VARIABLESvar=`id -un`export ANTSPATH=/fslhome/$var/apps/ants/bin/PATH=${ANTSPATH}:${PATH}# INSERT CODE, AND RUN YOUR PROGRAMS HEREdir=~/templates/class/template=~/templates/NKI/~/apps/ants/bin/antsCorticalThickness.sh \-d 3 \-a ${dir}/template.nii.gz \-e ${template}/T_template.nii.gz \-t ${template}/T_template_BrainCerebellum.nii.gz \-m ${template}/T_template_BrainCerebellumProbabilityMask.nii.gz \-f ${template}/T_template_BrainCerebellumExtractionMask.nii.gz \-p ${template}/Priors/priors%d.nii.gz \-q 1 \-o ${dir}/antsCorticalThickness/{% endhighlight %}
+#!/bin/bash#SBATCH --time=06:00:00   # walltime#SBATCH --ntasks=1   # number of processor cores (i.e. tasks)#SBATCH --nodes=1   # number of nodes#SBATCH --mem-per-cpu=16384M  # memory per CPU core# Compatibility variables for PBS. Delete if not needed.export PBS_NODEFILE=`/fslapps/fslutils/generate_pbs_nodefile`export PBS_JOBID=$SLURM_JOB_IDexport PBS_O_WORKDIR="$SLURM_SUBMIT_DIR"export PBS_QUEUE=batch# Set the max number of threads to use for programs using OpenMP.export OMP_NUM_THREADS=$SLURM_CPUS_ON_NODE# LOAD ENVIRONMENTAL VARIABLESvar=`id -un`export ANTSPATH=/fslhome/$var/apps/ants/bin/PATH=${ANTSPATH}:${PATH}# INSERT CODE, AND RUN YOUR PROGRAMS HEREDATA_DIR=~/templates/class/TEMPLATE_DIR=~/templates/NKI/~/apps/ants/bin/antsCorticalThickness.sh \-d 3 \-a ${DATA_DIR}/template.nii.gz \-e ${TEMPLATE_DIR}/T_template.nii.gz \-t ${TEMPLATE_DIR}/T_template_BrainCerebellum.nii.gz \-m ${TEMPLATE_DIR}/T_template_BrainCerebellumProbabilityMask.nii.gz \-f ${TEMPLATE_DIR}/T_template_BrainCerebellumExtractionMask.nii.gz \-p ${TEMPLATE_DIR}/Priors/priors%d.nii.gz \-q 1 \-o ${DATA_DIR}/antsCT/
+## COPY MASK
+cp ${DATA_DIR}/antsCT/BrainExtractionMask.nii.gz ${DATA_DIR}/template_BrainCerebellumMask.nii.gz
+
+## EXTRACT BRAIN IMAGE
+${ANTSPATH}/ImageMath 3 ${DATA_DIR}/template_BrainCerebellum.nii.gz m ${DATA_DIR}/template_BrainCerebellumMask.nii.gz $INPUT_IMAGE
+
+# CONVERT MASK ROI TO PROBABILITY MASK
+${ANTSPATH}/SmoothImage 3 ${DATA_DIR}/template_BrainCerebellumMask.nii.gz 1 ${DATA_DIR}/template_BrainCerebellumProbabilityMask.nii.gz
+
+# DILATE MASK IMAGE TO GENERATE EXTRACTION MASK
+~/apps/c3d/bin/c3d ${DATA_DIR}/template_BrainCerebellumMask.nii.gz -dilate 1 28x28x28vox -o ${DATA_DIR}/template_BrainCerebellumExtractionMask.nii.gz
+
+# DILATE MASK IMAGE TO GENERATE REGISTRATION MASK
+~/apps/c3d/bin/c3d ${DATA_DIR}/template_BrainCerebellumMask.nii.gz -dilate 1 18x18x18vox -o ${DATA_DIR}/template_BrainCerebellumRegistrationMask.nii.gz
+
+# COPY TISSUE SEGMENTATION
+cp ${DATA_DIR}/antsCT/BrainSegmentation.nii.gz ${DATA_DIR}/template_6labels.nii.gz
+
+# COPY TISSUE PRIORS
+mkdir ${DATA_DIR}/priors/
+cp ${DATA_DIR}/antsCT/BrainSegmentationPosteriors1.nii.gz ${DATA_DIR}/priors/priors1.nii.gz
+cp ${DATA_DIR}/antsCT/BrainSegmentationPosteriors2.nii.gz ${DATA_DIR}/priors/priors2.nii.gz
+cp ${DATA_DIR}/antsCT/BrainSegmentationPosteriors3.nii.gz ${DATA_DIR}/priors/priors3.nii.gz
+cp ${DATA_DIR}/antsCT/BrainSegmentationPosteriors4.nii.gz ${DATA_DIR}/priors/priors4.nii.gz
+cp ${DATA_DIR}/antsCT/BrainSegmentationPosteriors5.nii.gz ${DATA_DIR}/priors/priors5.nii.gz
+cp ${DATA_DIR}/antsCT/BrainSegmentationPosteriors6.nii.gz ${DATA_DIR}/priors/priors6.nii.gz
+{% endhighlight %}
+
+And submit the job script on the supercomputer:
 
 {% highlight bash %}
 var=`date +"%Y%m%d-%H%M%S"`
@@ -118,9 +143,7 @@ The output of antsCorticalThickness.sh provides lots of outputs for tons of poss
 4. Tissue probability overlays of CSF, GM, WM, subcortical, brainstem, and cerebellum
 5. Cortical thickness overlay in participant space
 6. Cortical thickness overlay in template space
-7. Subject to template warp transformation plus an image of the subject morphed to look like template
-8. Template to subject warp transformation plus an image of the template morphed to look like subject
-9. Log Jacobian!
+7. Log Jacobian!
 
 <img class="img-responsive" alt="" src="images/segmentation.png">
 
@@ -131,3 +154,9 @@ From these outputs, you can do:
 1. Volumetric analysis on tissue segmentations
 2. Group cortical thickness analyses
 3. Morphometry
+
+## Class Slides
+
+<div class="embed-container">
+
+</div>
