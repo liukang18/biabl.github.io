@@ -22,7 +22,7 @@ This site contains all of the handouts and information presented in BYU's Fall 2
 9. [Generate Template](structural/template)
 10. [ANTs Cortical Thickness](structural/cortical_thickness)
 11. [How to Submit Batch Jobs on Supercomputer](general/submit-multiple-jobs)
-12. [FreeSurfer `recon-all`](structural/#)
+12. [FreeSurfer: recon-all](structural/#)
 
 ### Advanced Topics
 
