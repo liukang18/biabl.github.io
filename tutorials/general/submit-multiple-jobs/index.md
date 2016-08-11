@@ -185,6 +185,8 @@ mkdir -p ~/logfiles/$var
 sh ~/scripts/class/antsCT_batch.sh $var
 {% endhighlight %}
 
+The output from this process is pure ***gold!***
+
 ## Class Slides
 
 <div class="embed-container">

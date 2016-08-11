@@ -14,7 +14,6 @@ After the preprocessing steps, there are some things to do that will be helpful 
 2. Define brain mask & tissue segmentation
 3. Run antsCorticalThickness.sh pipeline
 4. Generate files to complete population specific template
-4. Describe possible analyses from output files
 
 ## ROIs versus Overlays
 
@@ -60,6 +59,10 @@ Obviously, if you were just using histogram matching to do tissue segmentation, 
 
 ## ANTs Cortical Thickness
 
+div class="embed-container">
+  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTZDBTT3dHTktkaDg/preview"></iframe>
+</div>
+
 In order to run participants using a population specific template, we must acquire tissue segmentation within the population template first in addition to some other files. The precise files we need to generate for the ANTs Cortical Thickness pipeline are as follows:
 
 1. whole brain ROI mask
@@ -97,7 +100,7 @@ vi ~/scripts/class/antsCT.sh
 cp ${DATA_DIR}/antsCT/BrainExtractionMask.nii.gz ${DATA_DIR}/template_BrainCerebellumMask.nii.gz
 
 ## EXTRACT BRAIN IMAGE
-${ANTSPATH}/ImageMath 3 ${DATA_DIR}/template_BrainCerebellum.nii.gz m ${DATA_DIR}/template_BrainCerebellumMask.nii.gz $INPUT_IMAGE
+${ANTSPATH}/ImageMath 3 ${DATA_DIR}/template_BrainCerebellum.nii.gz m ${DATA_DIR}/template_BrainCerebellumMask.nii.gz ${DATA_DIR}/template.nii.gz
 
 # CONVERT MASK ROI TO PROBABILITY MASK
 ${ANTSPATH}/SmoothImage 3 ${DATA_DIR}/template_BrainCerebellumMask.nii.gz 1 ${DATA_DIR}/template_BrainCerebellumProbabilityMask.nii.gz
@@ -131,30 +134,6 @@ sbatch \
 -e ~/logfiles/$var/error-antsCT.txt \
 ~/scripts/class/antsCT.sh
 {% endhighlight %}
-
-The output from this process is pure ***gold!***
-
-## Pot 'O Gold
-
-The output of antsCorticalThickness.sh provides lots of outputs for tons of possible analyses:
-
-1. Brain only image
-2. Brain mask
-3. Tissue ROI segmentation of CSF, GM, WM, subcortical, brainstem, and cerebellum
-4. Tissue probability overlays of CSF, GM, WM, subcortical, brainstem, and cerebellum
-5. Cortical thickness overlay in participant space
-6. Cortical thickness overlay in template space
-7. Log Jacobian!
-
-<img class="img-responsive" alt="" src="images/segmentation.png">
-
-<img class="img-responsive" alt="" src="images/corticalthickness.png">
-
-From these outputs, you can do:
-
-1. Volumetric analysis on tissue segmentations
-2. Group cortical thickness analyses
-3. Morphometry
 
 ## Class Slides
 
