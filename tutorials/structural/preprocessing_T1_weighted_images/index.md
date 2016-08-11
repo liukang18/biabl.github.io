@@ -6,6 +6,8 @@ comments: true
 date: 2016-07-25
 ---
 
+## Objectives
+
 After you complete this section, you should be able to:
 
 1. Convert a DICOM directory into a NIfTI image
