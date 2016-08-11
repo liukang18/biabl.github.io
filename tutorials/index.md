@@ -20,7 +20,8 @@ This site contains all of the handouts and information presented in BYU's Fall 2
 7. [How to Submit a Job to Compute Node](general/submit-single-job)
 8. [Generate Template](structural/template)
 9. [ANTs Cortical Thickness](structural/cortical_thickness)
+10. [How to Submit Batch Jobs on Supercomputer](general/submit-multiple-jobs)
 
 ### Advanced Topics
 
-Please review Beginner Topics before starting the Advanced Topics:
+Please review Beginner Topics before starting the Advanced Topics. You will need to complete lessons 5 - 10 on the sample dataset before beginning any of the advanced topics:
