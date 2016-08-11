@@ -16,6 +16,10 @@ After you complete this section, you should be able to:
 
 ## Special Variables
 
+<div class="embed-container">
+  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTdU9wYXVDVndFTms/preview"></iframe>
+</div>
+
 Let's create a script:
 
 {% highlight bash %}
@@ -53,6 +57,10 @@ arg 4:
 Argument 0 always refers to the script, and each $1 refers to the arguments to the script. The script prints the first 4 arguments, but there isn't a fourth argument. $4 is treated as the empty string.
 
 ## Job Script for Every Participant
+
+<div class="embed-container">
+
+</div>
 
 Consider the following job script:
 
