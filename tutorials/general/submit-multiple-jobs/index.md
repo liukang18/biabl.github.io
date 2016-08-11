@@ -58,10 +58,6 @@ Argument 0 always refers to the script, and each $1 refers to the arguments to t
 
 ## Job Script for Every Participant
 
-<div class="embed-container">
-  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTaDhtQzNYUzcwOEE/preview"></iframe>
-</div>
-
 Consider the following job script:
 
 {% highlight bash %}
@@ -102,6 +98,10 @@ TEMPLATE_DIR=~/templates/class/
 {% endhighlight %}
 
 You need to be able to set the DATA_DIR to a specific participant. What if you have a 100 participants? or 1,000? Are you going to edit and generate 100 or 1,000 job scripts and then try to individually submit each one? It does not make sense to generate that many job scripts, so here's how to run this job script within a for loop.
+
+<div class="embed-container">
+  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTaDhtQzNYUzcwOEE/preview"></iframe>
+</div>
 
 ### Batch Script
 
