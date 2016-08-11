@@ -9,18 +9,12 @@ This site contains all of the handouts and information presented in BYU's Fall 2
 
 **All students must complete the [Command Line course on Code Academy](https://www.codecademy.com/courses/learn-the-command-line) before beginning!**
 
-### Schedule
-
-<div class="embed-container">
-  <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=nhunsak%40gmail.com&amp;color=%232952A3&amp;ctz=America%2FDenver" style="border-width:0" frameborder="0" scrolling="no"></iframe>
-</div>
-
 ### Beginner Topics
 
 1. [Learn the Command Line](https://www.codecademy.com/learn/learn-the-command-line)
 2. [Unix Cheatsheet](general/unix-cheat-sheet)
 3. [Setting up your Mac](general/setting-up-your-mac)
-4. [Introduction to Fulton Supercomputer Lab ()](general/introduction-to-fulton-supercomputer-lab)
+4. [Introduction to Fulton Supercomputer Lab](general/introduction-to-fulton-supercomputer-lab)
 5. [Preprocessing T1-Weighted Images](structural/preprocessing_T1_weighted_images)
 6. [Measuring the Length](structural/#)
 7. [Spatial Normalization](structural/spatial_normalization)
