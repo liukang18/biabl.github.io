@@ -59,7 +59,7 @@ Obviously, if you were just using histogram matching to do tissue segmentation, 
 
 ## ANTs Cortical Thickness
 
-div class="embed-container">
+<div class="embed-container">
   <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTZDBTT3dHTktkaDg/preview"></iframe>
 </div>
 
