@@ -10,7 +10,7 @@ date: 2016-08-02
 
 After you complete this section, you should be able to:
 
-1. Understand batch job submission and required parameters
+1. Understand job submission and required parameters
 2. Generate your own script for job submission
 3. Submit a job script
 4. SLURM commands
