@@ -188,5 +188,5 @@ sh ~/scripts/class/antsCT_batch.sh $var
 ## Class Slides
 
 <div class="embed-container">
-
+  <iframe src="//slides.com/njhunsak/submit-multiple-jobs/embed" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
