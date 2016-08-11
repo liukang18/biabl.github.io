@@ -16,12 +16,13 @@ This site contains all of the handouts and information presented in BYU's Fall 2
 3. [Setting up your Mac](general/setting-up-your-mac)
 4. [Introduction to Fulton Supercomputer Lab](general/introduction-to-fulton-supercomputer-lab)
 5. [Preprocessing T1-Weighted Images](structural/preprocessing_T1_weighted_images)
-6. [Spatial Normalization](structural/spatial_normalization)
-7. [How to Submit a Job to Compute Node](general/submit-single-job)
-8. [Generate Template](structural/template)
-9. [ANTs Cortical Thickness](structural/cortical_thickness)
-10. [How to Submit Batch Jobs on Supercomputer](general/submit-multiple-jobs)
+6. [Measuring the Length](structural/#)
+7. [Spatial Normalization](structural/spatial_normalization)
+8. [How to Submit a Job to Compute Node](general/submit-single-job)
+9. [Generate Template](structural/template)
+10. [ANTs Cortical Thickness](structural/cortical_thickness)
+11. [How to Submit Batch Jobs on Supercomputer](general/submit-multiple-jobs)
 
 ### Advanced Topics
 
-Please review Beginner Topics before starting the Advanced Topics. You will need to complete lessons 5 - 10 on the sample dataset before beginning any of the advanced topics:
+Please review Beginner Topics before starting the Advanced Topics. You will need to complete lessons 5, 7-11 on the sample dataset before beginning any of the advanced topics:
