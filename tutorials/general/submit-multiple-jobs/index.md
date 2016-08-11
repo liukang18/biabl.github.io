@@ -93,7 +93,7 @@ TEMPLATE_DIR=~/templates/class/
 -o ${DATA_DIR}/antsCT/
 {% endhighlight %}
 
-You need to be able to set the DATA_DIR to a specific participant. What if you have a 100 participants? or 1,000? Are you going to edit and generate 100 or 1,000 job scripts and then try to individual submit each one? It does not make sense to generate that many job scripts, so here's how to run this job script within a for loop.
+You need to be able to set the DATA_DIR to a specific participant. What if you have a 100 participants? or 1,000? Are you going to edit and generate 100 or 1,000 job scripts and then try to individually submit each one? It does not make sense to generate that many job scripts, so here's how to run this job script within a for loop.
 
 ### Batch Script
 
@@ -130,7 +130,7 @@ The variable `$var` will be passed to the shell script as variable `$1`. This *f
 
 ### Job Script
 
-Instead of setting the participant ID in the job script, simply replace the participant ID with the variable `$1` or `${1}`, which is the same thing.
+Instead of setting the participant ID in the job script, simply replace the participant ID with the variable `$1` or `${1}`, which is the same thing. Remember that the batch script submitted a job script with the argument `${subj}`. Now whereever there is a `$1` in the job script, it will represent the subject ID.
 
 {% highlight bash %}
 #!/bin/bash
