@@ -138,7 +138,7 @@ The variable `$var` will be passed to the shell script as variable `$1`. This *f
 
 ### Job Script
 
-Instead of setting the participant ID in the job script, simply replace the participant ID with the variable `$1` or `${1}`, which is the same thing. Remember that the batch script submitted a job script with the argument `${subj}`. Now whereever there is a `$1` in the job script, it will represent the subject ID.
+Instead of setting the participant ID in the job script, simply replace the participant ID with the variable `$1` or `${1}`, which is the same thing. Remember that the batch script submitted a job script with the argument `${subj}`. Now wherever there is a `$1` in the job script, it will represent the subject ID.
 
 {% highlight bash %}
 #!/bin/bash
