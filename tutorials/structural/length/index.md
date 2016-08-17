@@ -14,6 +14,6 @@ After you complete this section, you should be able to:
 2. Export table and reformat table using regular expressions
 3. Upload formatted table and generate boxplot results
 
-<div class="embed-container">
+<div class="shiny-container">
   <iframe src="https://biabl.shinyapps.io/acpc/" style="border:none" scrolling="no"></iframe>
 </div>
