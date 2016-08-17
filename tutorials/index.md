@@ -20,7 +20,7 @@ This site contains all of the handouts and information presented in BYU's Fall 2
 
 1. [Introduction to Fulton Supercomputer Lab](general/introduction-to-fulton-supercomputer-lab)
 2. [Preprocessing T1-Weighted Images](structural/preprocessing_T1_weighted_images)
-3. [Measuring the Length](structural/#)
+3. [Measuring the Length](structural/length)
 4. [Spatial Normalization](structural/spatial_normalization)
 5. [How to Submit a Job to Compute Node](general/submit-single-job)
 6. [Generate Template](structural/template)
