@@ -29,6 +29,7 @@ source $FREESURFER_HOME/SetUpFreeSurfer.sh
 Full FreeSurfer parcellation involves many, many steps. These steps have been *conveniently* batched in a script called recon-all. The steps are as follows:
 
 **Autorecon Processing Stages:**
+
 1. Motion Correction and Conform
 2. NU (Non-Uniform intensity normalization)
 3. Talairach transform computation
