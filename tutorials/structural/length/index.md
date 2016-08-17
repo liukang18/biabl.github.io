@@ -16,14 +16,22 @@ After you complete this section, you should be able to:
 
 ## Measure Between AC-PC
 
+### Anterior Commissure
+
+<img class="img-responsive" alt="" src="images/ac.png">
+
+
+### Posterior Commissure
+
+<img class="img-responsive" alt="" src="images/ac.png">
+
+
 ## Upload Formatted Table
 
 Text
-
-<hr>
 
 <div class="shiny-container">
   <iframe src="https://biabl.shinyapps.io/acpc/" style="border:none" scrolling="no"></iframe>
 </div>
 
-<hr>
+##
