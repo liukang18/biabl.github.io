@@ -98,7 +98,7 @@ setwd("/path/to/data/")
 
 ### Import Data
 
-Import files and smooth - The following code creates a list of files in your working directory (*files*). Any empty list is created for when the images are smoothed they are added to the empty list (*ilist*). For each image in the *files* list, the are imported and smoothed and then added to the *ilist* list. 
+Import files and smooth - The following code creates a list of files in your working directory (*files*). Any empty list is created for when the images are smoothed they are added to the empty list (*ilist*). For each image in the *files* list, the are imported and smoothed and then added to the *ilist* list.
 
 {% highlight R %}
 files<-list.files()
@@ -139,7 +139,7 @@ Get rid of any missing data. R does **NOT** like missing data and will often not
 vardata<-na.omit(vardata)
 {% endhighlight %}
 
-Take the subject ID information from the files. Namely your files should be labeled as subject ID (again to make life easier). Since the names in the *files* list contain not only the subject ID but also the file type (.nii.gz), we want just the subject ID which is 10 characters long. We can then merge the *study id* list with the demographics *vardata* and make sure we just have demographics data for the participants with images. 
+Take the subject ID information from the files. Namely your files should be labeled as subject ID (again to make life easier). Since the names in the *files* list contain not only the subject ID but also the file type (.nii.gz), we want just the subject ID which is 10 characters long. We can then merge the *study id* list with the demographics *vardata* and make sure we just have demographics data for the participants with images.
 
 {% highlight R %}
 studyid=substr(files,1,11)

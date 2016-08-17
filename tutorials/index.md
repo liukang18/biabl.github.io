@@ -9,27 +9,31 @@ This site contains all of the handouts and information presented in BYU's Fall 2
 
 **All students must complete the [Command Line course on Code Academy](https://www.codecademy.com/courses/learn-the-command-line) before beginning!**
 
-### Beginner Topics
+### General Topics
 
 1. [Learn the Command Line](https://www.codecademy.com/learn/learn-the-command-line)
 2. [Unix Cheatsheet](general/unix-cheat-sheet)
 3. [Setting up your Mac](general/setting-up-your-mac)
-4. [Introduction to Fulton Supercomputer Lab](general/introduction-to-fulton-supercomputer-lab)
-5. [Preprocessing T1-Weighted Images](structural/preprocessing_T1_weighted_images)
-6. [Measuring the Length](structural/#)
-7. [Spatial Normalization](structural/spatial_normalization)
-8. [How to Submit a Job to Compute Node](general/submit-single-job)
-9. [Generate Template](structural/template)
-10. [ANTs Cortical Thickness](structural/cortical_thickness)
-11. [How to Submit Batch Jobs on Supercomputer](general/submit-multiple-jobs)
-12. [Joint Label Fusion](structural/#)
-13. [Morphometry](structural/#)
-14. [Analysis: Part 1](structural/#)
-15. [Analysis: Part 2](structural/#)
-16. [Analysis: Part 3](structural/#)
+4. [Learn R](general/R)
+
+### Beginner Topics
+
+1. [Introduction to Fulton Supercomputer Lab](general/introduction-to-fulton-supercomputer-lab)
+2. [Preprocessing T1-Weighted Images](structural/preprocessing_T1_weighted_images)
+3. [Measuring the Length](structural/#)
+4. [Spatial Normalization](structural/spatial_normalization)
+5. [How to Submit a Job to Compute Node](general/submit-single-job)
+6. [Generate Template](structural/template)
+7. [ANTs Cortical Thickness](structural/cortical_thickness)
+8. [How to Submit Batch Jobs on Supercomputer](general/submit-multiple-jobs)
+9. [FreeSurfer: recon-all](structural/freesurfer-recon-all)
+10. [Morphometry](structural/#)
+11. [Analysis: Part 1](structural/#)
+12. [Analysis: Part 2](structural/#)
+13. [Analysis: Part 3](structural/#)
 
 ### Advanced Topics
 
-Please review Beginner Topics before starting the Advanced Topics. You will need to complete lessons 5, 7-11 on the sample dataset before beginning any of the advanced topics:
+Please review Beginner Topics before starting the Advanced Topics. You will need to complete lessons 1-2, 4-8 on the sample dataset before beginning any of the advanced topics:
 
 1. [Installing Programs](general/#)

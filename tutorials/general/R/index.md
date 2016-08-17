@@ -3,10 +3,60 @@ layout: tutorials
 title: Learn R
 author: naomi
 comments: true
-date: 2015-12-09
+date: 2016-08-16
 ---
-       
-## Install Swirl
+
+## Install R
+
+R has already been installed on the supercomputer. Log into the supercomputer:
+
+{% highlight bash %}
+ssh USERNAME@ssh.fsl.byu.edu
+{% endhighlight %}
+
+Load the environmental variables so that R will run on the supercomputer:
+
+{% highlight bash %}
+module load cmake/2.8.10
+module load r/3.2.1
+{% endhighlight %}
+
+R relies on packages to run functions. There are currently 7462 packages available. Since any normal user probably only uses <10% of packages, you have to install the packages you will want to use. You need to create directory in your home directory to keep these packages. Once you've created this directory, you also need to set your R environment to know where to look for this directory:
+
+{% highlight bash %}
+mkdir ~/R
+echo 'R_LIBS_USER="~/R"' >  $HOME/.Renviron
+{% endhighlight %}
+
+The first package needs to be downloaded directly from source, all the other packages can be installed from within R:
+
+{% highlight bash %}
+cd ~/R
+wget https://github.com/Rexamine/stringi/archive/master.zip
+unzip master.zip
+R CMD INSTALL stringi-master
+{% endhighlight %}
+
+Launch R:
+
+{% highlight bash %}
+R
+{% endhighlight %}
+
+Let's install a couple of packages and their dependencies:
+
+{% highlight R %}
+options(download.file.method = "wget")
+pkgnames <- c("Rcpp", "tools", "methods", "drat")
+install.packages(pkgnames, dependencies = TRUE, repos="http://cran.rstudio.com/")
+{% endhighlight %}
+
+The following packages also need to be installed, but without dependencies:
+
+{% highlight R %}
+pkgnames <- c("stringr", "evaluate", "knitr", "magrittr")
+install.packages(pkgnames, dependencies = FALSE, repos="http://cran.rstudio.com/")
+{% endhighlight %}
 
 ### Step 1: Install R
 
@@ -54,9 +104,9 @@ Please complete all 12 lessons:
 9. vapply and tapply
 10. Looking at Data         
 11. Simulation
-12. Dates and Times 
+12. Dates and Times
 
-When you are done with a module, it will ask: "Would you like to inform someone about your successful completion of this lesson?". 
+When you are done with a module, it will ask: "Would you like to inform someone about your successful completion of this lesson?".
 
 Type 2, Yes.
 

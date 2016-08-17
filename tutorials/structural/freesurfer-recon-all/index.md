@@ -166,7 +166,23 @@ Some notes on the above command line:
 * The flag -f is used to load surfaces
 * white & pial surfaces are loaded for each hemisphere & with color indicated by 'edgecolor'
 
-After hitting enter, a freeview window should open showing you the outputs you specified:
+### Pial Surface
+
+<div class="embed-container">
+  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTc3F0Z1VwWUpNeEk/preview"></iframe>
+</div>
+
+### White Surface
+
+<div class="embed-container">
+  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTZzNxOGptSHQzTjQ/preview"></iframe>
+</div>
+
+### Subcortical Segmentation
+
+<div class="embed-container">
+  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTcklEZzZJY1VzS0k/preview"></iframe>
+</div
 
 ## Viewing Surfaces in 3D using Freeview
 
@@ -189,23 +205,33 @@ Some notes on the above command line:
 
 ### Pial Surface
 
+<img class="img-responsive" alt="" src="images/pialsurface.png">
+
 The first volume you see is the pial surface. The green regions are gyri and the red regions are sulci. With this surface, the sulci are mostly hidden.
 
 ### White Surface
 
-Press `Alt+c` to cycle to the white surface. The white surface shows the boundary between white matter and gray matter. With this surface, we are able to see the sulci a bit better.
+<img class="img-responsive" alt="" src="images/whitesurface.png">
+
+The white surface shows the boundary between white matter and gray matter. With this surface, we are able to see the sulci a bit better.
 
 ### Inflated Surface
 
-Press `Alt+c` to cycle to the curvature on the inflated surface. With the inflated surface, you can fully see the sulci.
+<img class="img-responsive" alt="" src="images/inflatedsurface.png">
+
+With the inflated surface, you can fully see the sulci.
 
 ### Thickness Map
 
-Press `Alt+c` to cycle to the thickness map on the inflated surface.
+<img class="img-responsive" alt="" src="images/thickness.png">
+
+On the inflated surface, you can see the cortical thickness map.
 
 ### Cortical Parcellation
 
-Press `Alt+c` to cycle to the cortical parcellation. Click on a color and view the name of the cortical region in the 'Cursor' or 'Mouse' windows next to where it says 'aparc.annot'. Rotate the brain so you are looking at the medial wall. Notice that all subcortical gray matter is not a part of the surface labels (because again, those areas do not count towards the cortical surface measures). The parcellation that is loaded here was created with the Desikan-Killiany atlas. By default there are two parcellations that are made when recon-all is run. The second parcellation, called ?h.aparc.a2009s.annot, is created with the Destrieux atlas. The difference is the number and designation of the areas that are labeled. You can load the Destrieux parcellation by clicking on the drop down box next to 'Annotation' on the left panel and choosing Load from file.... Browse to lh.aparc.a2009s.annot and hit 'Open'.
+<img class="img-responsive" alt="" src="images/corticalparcellation.png">
+
+The parcellation that is loaded here was created with the Desikan-Killiany atlas. By default there are two parcellations that are made when recon-all is run. The second parcellation, called ?h.aparc.a2009s.annot, is created with the Destrieux atlas. The difference is the number and designation of the areas that are labeled. You can load the Destrieux parcellation by clicking on the drop down box next to 'Annotation' on the left panel and choosing Load from file.... Browse to lh.aparc.a2009s.annot and hit 'Open'.
 
 ## Class Slides
 
