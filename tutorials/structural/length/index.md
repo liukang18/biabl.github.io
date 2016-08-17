@@ -15,5 +15,5 @@ After you complete this section, you should be able to:
 3. Upload formatted table and generate boxplot results
 
 <div class="embed-container">
-  <iframe src="https://biabl.shinyapps.io/acpc/" scrolling="no"></iframe>
+  <iframe src="https://biabl.shinyapps.io/acpc/" style="border:none" scrolling="no"></iframe>
 </div>
