@@ -3,7 +3,7 @@ layout: tutorials
 title: FreeSurfer: recon-all
 author: naomi
 comments: true
-date: 2016-08-16
+date: 2016-08-15
 ---
 
 ## Objectives
