@@ -182,7 +182,7 @@ Some notes on the above command line:
 
 <div class="embed-container">
   <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTcklEZzZJY1VzS0k/preview"></iframe>
-</div
+</div>
 
 ## Viewing Surfaces in 3D using Freeview
 
