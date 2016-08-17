@@ -1,6 +1,6 @@
 ---
 layout: tutorials
-title: FreeSurfer: recon-all
+title: FreeSurfer | recon-all
 author: naomi
 comments: true
 date: 2016-08-15
