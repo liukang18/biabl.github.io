@@ -44,9 +44,9 @@ The anterior commissure (AC) - posterior commissure (PC) line, also referred as 
   <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTV1NLNE4wRE8tY1E/preview"></iframe>
 </div>
 
-<img class="img-responsive" alt="" src="images/regex.png">
-
 Regular expressions (regex for short) are a powerful way for describing a text string search pattern. If you are familiar with the use of wildcards, e.g., \*, then you can think of regular expressions as wildcards on steroids. You are probably familiar with wildcard notations such as \*.txt to find all text files in a file manager. The regex equivalent is ^.\*\.txt$. Regular expressions are a sequence of characters that define a search pattern.
+
+<img class="img-responsive" alt="" src="images/regex.png">
 
 For our text example, let's assume the following is your text:
 
@@ -70,6 +70,47 @@ For our text example, let's assume the following is your text:
 > /fslhome/intj5/compute/class/2323/t1/t1_Crop_1_ACPC.txt:# AC-PC distance = 25.710 mm
 > /fslhome/intj5/compute/class/2324/t1/t1_Crop_1_ACPC.txt:# AC-PC distance = 23.022 mm
 > /fslhome/intj5/compute/class/2370/t1/t1_Crop_1_ACPC.txt:# AC-PC distance = 25.652 mm
+
+But we want our text to look like:
+
+> 1304,27.185
+> 1306,24.718
+> 1307,23.791
+> 1308,25.515
+> 1310,25.318
+> 1315,25.040
+> 1319,26.096
+> 1320,24.104
+> 1326,26.000
+> 1327,24.021
+> 2304,25.040
+> 2307,25.020
+> 2310,26.173
+> 2314,24.187
+> 2316,26.702
+> 2317,24.000
+> 2320,23.108
+> 2323,25.710
+> 2324,23.022
+> 2370,25.652
+
+How can we do that with regular expressions?
+
+| Text | Regular Expression | Notes |
+| :------------- | :------------- | :------------- |
+| /fslhome/intj5/compute/class/ | /fslhome/intj5/compute/class/ | Same across lines so no need to use regex |
+| 1304 | \d{4} | Represents 4 digits |
+| /t1/t1_Crop_1_ACPC.txt:# AC-PC distance = | /t1/t1_Crop_1_ACPC.txt:# AC-PC distance = | Same across lines so no need to use regex |
+| 25.020 | \d{2}\.\d{3} | Represents 2 digits, a period, and then 3 digits |
+| mm | mm | Same across lines so no need to use regex |
+
+In TextWrangler you would find:
+
+> (/fslhome/intj5/compute/class/)(\d{4})(/t1/t1_Crop_1_ACPC.txt:# AC-PC distance = )(\d{2}\.\d{3})( mm)
+
+And replace with:
+
+> \2,\4
 
 ## Upload Formatted Table
 
