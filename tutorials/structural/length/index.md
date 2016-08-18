@@ -31,7 +31,7 @@ After you complete this section, you should be able to:
 Text
 
 <div class="shiny-container">
-  <iframe src="https://biabl.shinyapps.io/acpc/" scrolling="no"></iframe>
+  <iframe src="https://biabl.shinyapps.io/acpc/" style="border:none" scrolling="no"></iframe>
 </div>
 
 ## Class
