@@ -17,7 +17,7 @@ After you complete this section, you should be able to:
 ## Special Variables
 
 <div class="embed-container">
-  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTdU9wYXVDVndFTms/preview"></iframe>
+<iframe src="https://player.vimeo.com/video/179372013?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
 
 Let's create a script:
@@ -100,7 +100,7 @@ TEMPLATE_DIR=~/templates/class/
 You need to be able to set the DATA_DIR to a specific participant. What if you have a 100 participants? or 1,000? Are you going to edit and generate 100 or 1,000 job scripts and then try to individually submit each one? It does not make sense to generate that many job scripts, so here's how to run this job script within a for loop.
 
 <div class="embed-container">
-  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTaDhtQzNYUzcwOEE/preview"></iframe>
+<iframe src="https://player.vimeo.com/video/179372006?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
 
 ### Batch Script
