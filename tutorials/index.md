@@ -14,7 +14,8 @@ This site contains all of the handouts and information presented in BYU's Fall 2
 1. [Learn the Command Line](https://www.codecademy.com/learn/learn-the-command-line)
 2. [Unix Cheatsheet](general/unix-cheat-sheet)
 3. [Setting up your Mac](general/setting-up-your-mac)
-4. [Learn R](general/R)
+4. [Learn Regular Expressions](http://regexone.com)
+5. [Learn R](general/R)
 
 ### Beginner Topics
 
