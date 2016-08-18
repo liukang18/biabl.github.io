@@ -17,7 +17,7 @@ After you complete this section, you should be able to:
 ## Download Data
 
 <div class="embed-container">
-  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTVW94QmVwU1N6aTA/preview"></iframe>
+<iframe src="https://player.vimeo.com/video/179386608?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
 
 Use the following rsync code to download the dataset from the remote computer to your local computer:
@@ -34,7 +34,7 @@ intj5@ssh.fsl.byu.edu:~/fsl_groups/fslg_byustudent/compute/examples/length \
 The anterior commissure (AC) - posterior commissure (PC) line, also referred as the bicommissural line, has been adopted as a convenient standard by the neuroimaging community, and in most instances is the reference plane for axial imaging in everyday scanning. The creation of a standard image plane makes easier the comparison among exams. When brain scans are aligned along the AC-PC line, then one can measure the length between these two structures as a proxy measurement for the third ventricle.
 
 <div class="embed-container">
-  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTeWVTRTdCcFpaME0/preview"></iframe>
+<iframe src="https://player.vimeo.com/video/179386606?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
 
 ### Anterior Commissure
@@ -52,7 +52,7 @@ The anterior commissure (AC) - posterior commissure (PC) line, also referred as 
 ## Regular Expressions
 
 <div class="embed-container">
-  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTV1NLNE4wRE8tY1E/preview"></iframe>
+<iframe src="https://player.vimeo.com/video/179372007?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
 
 <center><img class="img-responsive" alt="" src="images/regex.png" style="padding:10px;"></center>
@@ -125,7 +125,7 @@ And replace with:
 ## Upload Formatted Table
 
 <div class="embed-container">
-  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTRmJ5anNUMmlFLU0/preview"></iframe>
+<iframe src="https://player.vimeo.com/video/179386607?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
 
 <div class="shiny-container">
