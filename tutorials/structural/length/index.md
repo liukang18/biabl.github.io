@@ -46,7 +46,7 @@ The anterior commissure (AC) - posterior commissure (PC) line, also referred as 
 
 Regular expressions (regex for short) are a powerful way for describing a text string search pattern. If you are familiar with the use of wildcards, e.g., \*, then you can think of regular expressions as wildcards on steroids. You are probably familiar with wildcard notations such as \*.txt to find all text files in a file manager. The regex equivalent is ^.\*\.txt$. Regular expressions are a sequence of characters that define a search pattern.
 
-<img class="img-responsive" alt="" src="images/regex.png">
+<center><img class="img-responsive" alt="" src="images/regex.png"></center>
 
 For our text example, let's assume the following is your text:
 
@@ -96,17 +96,12 @@ But we want our text to look like:
 
 How can we do that with regular expressions?
 
-| Text | Regular Expression | Notes |
-| :------------- | :------------- | :------------- |
-| /fslhome/intj5/compute/class/ | /fslhome/intj5/compute/class/ | Same across lines so no need to use regex |
-| 1304 | \d{4} | Represents 4 digits |
-| /t1/t1_Crop_1_ACPC.txt:# AC-PC distance = | /t1/t1_Crop_1_ACPC.txt:# AC-PC distance = | Same across lines so no need to use regex |
-| 25.020 | \d{2}\.\d{3} | Represents 2 digits, a period, and then 3 digits |
-| mm | mm | Same across lines so no need to use regex |
+<center><img class="img-responsive" alt="" src="images/example-1.png"></center>
+<center><img class="img-responsive" alt="" src="images/example-2.png"></center>
 
 In TextWrangler you would find:
 
-> (/fslhome/intj5/compute/class/)(\d{4})(/t1/t1_Crop_1_ACPC.txt:# AC-PC distance = )(\d{2}\.\d{3})( mm)
+> (\/.*\/)(\d{4})(\/.*=\s)(\d{2}\.\d{3})( mm)
 
 And replace with:
 
