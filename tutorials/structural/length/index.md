@@ -55,9 +55,9 @@ The anterior commissure (AC) - posterior commissure (PC) line, also referred as 
   <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTV1NLNE4wRE8tY1E/preview"></iframe>
 </div>
 
-Regular expressions (regex for short) are a powerful way for describing a text string search pattern. If you are familiar with the use of wildcards, e.g., \*, then you can think of regular expressions as wildcards on steroids. You are probably familiar with wildcard notations such as \*.txt to find all text files in a file manager. The regex equivalent is ^.\*\.txt$. Regular expressions are a sequence of characters that define a search pattern.
-
 <center><img class="img-responsive" alt="" src="images/regex.png" style="padding:10px;"></center>
+
+Regular expressions (regex for short) are a powerful way for describing a text string search pattern. If you are familiar with the use of wildcards, e.g., \*, then you can think of regular expressions as wildcards on steroids. You are probably familiar with wildcard notations such as \*.txt to find all text files in a file manager. The regex equivalent is ^.\*\.txt$. Regular expressions are a sequence of characters that define a search pattern.
 
 For our text example, let's assume the following is your text:
 
@@ -84,26 +84,28 @@ For our text example, let's assume the following is your text:
 
 But we want our text to look like:
 
-> 1304,27.185
-1306,24.718
-> 1307,23.791
-> 1308,25.515
-> 1310,25.318
-> 1315,25.040
-> 1319,26.096
-> 1320,24.104
-> 1326,26.000
-> 1327,24.021
-> 2304,25.040
-> 2307,25.020
-> 2310,26.173
-> 2314,24.187
-> 2316,26.702
-> 2317,24.000
-> 2320,23.108
-> 2323,25.710
-> 2324,23.022
-> 2370,25.652
+<blockquote>
+<p>1304,27.185</p>
+<p>1306,24.718</p>
+<p>1307,23.791</p>
+<p>1308,25.515</p>
+<p>1310,25.318</p>
+<p>1315,25.040</p>
+<p>1319,26.096</p>
+<p>1320,24.104</p>
+<p>1326,26.000</p>
+<p>1327,24.021</p>
+<p>2304,25.040</p>
+<p>2307,25.020</p>
+<p>2310,26.173</p>
+<p>2314,24.187</p>
+<p>2316,26.702</p>
+<p>2317,24.000</p>
+<p>2320,23.108</p>
+<p>2323,25.710</p>
+<p>2324,23.022</p>
+<p>2370,25.652</p>
+</blockquote>
 
 How can we do that with regular expressions?
 
