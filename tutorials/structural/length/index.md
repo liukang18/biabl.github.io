@@ -14,9 +14,20 @@ After you complete this section, you should be able to:
 2. Export table and reformat table using regular expressions
 3. Upload formatted table and generate box plots
 
+## Download Data
+
 <div class="embed-container">
   <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTVW94QmVwU1N6aTA/preview"></iframe>
 </div>
+
+Use the following rsync code to download the dataset from the remote computer to your local computer:
+
+{% highlight bash %}
+rsync \
+-rauv \
+intj5@ssh.fsl.byu.edu:~/fsl_groups/fslg_byustudent/compute/examples/length \
+~/Desktop/
+{% endhighlight %}
 
 ## Measure Between AC-PC (Third Ventricle)
 
@@ -46,7 +57,7 @@ The anterior commissure (AC) - posterior commissure (PC) line, also referred as 
 
 Regular expressions (regex for short) are a powerful way for describing a text string search pattern. If you are familiar with the use of wildcards, e.g., \*, then you can think of regular expressions as wildcards on steroids. You are probably familiar with wildcard notations such as \*.txt to find all text files in a file manager. The regex equivalent is ^.\*\.txt$. Regular expressions are a sequence of characters that define a search pattern.
 
-<center><img class="img-responsive" alt="" src="images/regex.png" style="padding:5px;"></center>
+<center><img class="img-responsive" alt="" src="images/regex.png" style="padding:10px;"></center>
 
 For our text example, let's assume the following is your text:
 
@@ -74,7 +85,7 @@ For our text example, let's assume the following is your text:
 But we want our text to look like:
 
 > 1304,27.185
-> 1306,24.718
+1306,24.718
 > 1307,23.791
 > 1308,25.515
 > 1310,25.318
@@ -98,6 +109,8 @@ How can we do that with regular expressions?
 
 <center><img class="img-responsive" alt="" src="images/example-1.png"></center>
 <center><img class="img-responsive" alt="" src="images/example-2.png"></center>
+
+### Find and Replace
 
 In TextWrangler you would find:
 
