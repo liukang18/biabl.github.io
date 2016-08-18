@@ -18,13 +18,13 @@ After you complete this section, you should be able to:
 6. Double check the accuracy of your pipeline
 
 <div class="embed-container">
-  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTNXFCdkVmdG1XekE/preview"></iframe>
+<iframe src="https://player.vimeo.com/video/179387420?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
 
 ## Convert DICOM to NIfTI
 
 <div class="embed-container">
-  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTQzBuc2phTGhIWkk/preview"></iframe>
+<iframe src="https://player.vimeo.com/video/179372012?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
 
 Most imaging programs and pipelines do not actually use DICOMs, but some other "standardized" image format. Similar to how pictures can be in various formats like jpeg, tiff, png, etc. MR images can come in different formats as well. The most common format is the NIfTI format (.nii) or the zipped NIfTI format (.nii.gz). Most programs will be able to use the NIfTI and the zipped NIfTI interchangeably, but there are still a few programs that prefer one over the other. **For the first part of our pipeline, we will use the NIfTI format, but eventually we will move to using the zipped NIfTI format exclusively for the rest of the pipeline.**
@@ -73,7 +73,7 @@ The `dcm2niix` program will reorient and crop the images using the `-x` option.
 ## AC-PC Alignment
 
 <div class="embed-container">
-  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTUklPNzI3ODk4UUU/preview"></iframe>
+<iframe src="https://player.vimeo.com/video/179387417?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
 
 Participants are more times than not, not perfectly positioned in the scanner. In fact, misalignment is a common clinical occurrence. Image quality is compromised when the brain is not aligned in the scanner and there's a lack of standardization across participants and within participants if you are scanning over multiple sessions. Optimally, you want a way to standardize image acquisition and overall alignment.
@@ -103,7 +103,7 @@ acpcdetect \
 ## Correct Bias Field
 
 <div class="embed-container">
-  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTUFBKcUlDd0N5Szg/preview"></iframe>
+<iframe src="https://player.vimeo.com/video/179387418?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
 
 Images often exhibit image intensity non-uniformities that are the result of magnetic field variations. These artifacts, often described as shading or bias, can be produced by imperfections in the field coils. These variations are often seen as a signal gain change. This can result in white matter measurements in one part of the image with the same intensity value as grey matter measurements elsewhere; an ideal T1-weighted image would display brighter white matter throughout the brain image.
@@ -125,7 +125,7 @@ N4BiasFieldCorrection \
 ## Resample to 1 mm Isotropic
 
 <div class="embed-container">
-  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTZ2xnOXlWd25IYkk/preview"></iframe>
+<iframe src="https://player.vimeo.com/video/179387419?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
 
 Sometimes you will need to resample your images. For instance, if the study involves MR images acquired at different locations and they are not all using the same sequence, (2) the study is longitudinal and there's been a scanner or sequence upgrade between time points, or (3) the study involves DTI analyses, fMRI analyses, T2 weighted analyses, etc., then you will most likely have to resample your images.
@@ -142,7 +142,7 @@ ${subjDir}/t1/n4.nii.gz \
 ## Bringing It All Together
 
 <div class="embed-container">
-  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTNEhRODdzcmV6TDQ/preview"></iframe>
+<iframe src="https://player.vimeo.com/video/179387422?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
 
 Let's create a script you can use to run participants individually:
@@ -175,7 +175,7 @@ The variable `$1` will represent the path to the participant that you provided, 
 ## View the Files Locally
 
 <div class="embed-container">
-  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTT2dYdnFXZ3A2UGs/preview"></iframe>
+<iframe src="https://player.vimeo.com/video/179372008?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
 
 After you have processed all the participants, you'll want to confirm that your images weren't over cropped, AC-PC alignment was done correctly, and N4 bias field correction was enough. Remember that when you are logged onto the supercomputer, you are working on a remote machine and not your local machine. The connection is one way, so you cannot copy files to your local computer when you are logged on remotely. To pull the files from the remote computer to your local computer, you need to exit from the supercomputer then use rsync to copy files.
@@ -187,7 +187,7 @@ rsync -rauv --exclude="DICOM" intj5@ssh.fsl.byu.edu:~/compute/class/1304 ~/Deskt
 ## Advanced Techniques
 
 <div class="embed-container">
-  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTXzlPTFlzSFRCOW8/preview"></iframe>
+<iframe src="https://player.vimeo.com/video/179387423?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
 
 After eluding to a possible analysis, AC-PC distance, here's how to extract the data efficiently for graphing or statistical analyses. Use the following code to grab the pertinent information:
