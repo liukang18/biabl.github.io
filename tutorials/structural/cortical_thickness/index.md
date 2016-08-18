@@ -60,7 +60,7 @@ Obviously, if you were just using histogram matching to do tissue segmentation, 
 ## ANTs Cortical Thickness
 
 <div class="embed-container">
-  <iframe src="https://player.vimeo.com/video/179375598"frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+  <iframe src="https://player.vimeo.com/video/179375598" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
 
 In order to run participants using a population specific template, we must acquire tissue segmentation within the population template first in addition to some other files. The precise files we need to generate for the ANTs Cortical Thickness pipeline are as follows:
