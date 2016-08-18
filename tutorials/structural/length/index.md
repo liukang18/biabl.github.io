@@ -23,7 +23,7 @@ After you complete this section, you should be able to:
 
 ### Posterior Commissure
 
-<img class="img-responsive" alt="" src="images/ac.png">
+<img class="img-responsive" alt="" src="images/pc.png">
 
 
 ## Upload Formatted Table
@@ -31,7 +31,7 @@ After you complete this section, you should be able to:
 Text
 
 <div class="shiny-container">
-  <iframe src="https://biabl.shinyapps.io/acpc/" style="border:none" scrolling="no"></iframe>
+  <iframe src="https://biabl.shinyapps.io/acpc/" scrolling="no"></iframe>
 </div>
 
-##
+## Class
