@@ -17,7 +17,7 @@ After you complete this section, you should be able to:
 ## Before You Begin
 
 <div class="embed-container">
-  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTR2ZPa25qT09iT00/preview"></iframe>
+  <iframe src="https://player.vimeo.com/video/179372011?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
 
 Edit your ~/.bash_profile to include:
@@ -142,7 +142,7 @@ sh ~/scripts/class/freesurfer_batch.sh $var
 ## Viewing Volumes with Freeview
 
 <div class="embed-container">
-  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTOHdQdmRfdzlSSlU/preview"></iframe>
+  <iframe src="https://player.vimeo.com/video/179377542?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
 
 In order to view the output, you will need to download a participant directory to your local computer. Note you must have FreeSurfer installed on your local computer in order to run the following code:

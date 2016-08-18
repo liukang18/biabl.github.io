@@ -23,7 +23,7 @@ After you complete this section, you should be able to:
 ## Logging In
 
 <div class="embed-container">
-  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTZXFBVmtlNnU3RjA/preview"></iframe>
+  <iframe src="https://player.vimeo.com/video/179372014?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
 
 Interaction with the supercomputer is typically performed with command line tools. The command line tools can be run via a command prompt, also known as a shell. SSH is used to establish a secure shell with the supercomputer. In general, users should log in via the hostname ssh.fsl.byu.edu.
@@ -39,37 +39,37 @@ Programs can be tested from the interactive nodes, but anything left running for
 ### Insight Segmentation and Registration Toolkit (ITK)
 
 <div class="embed-container">
-  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTNzhHTXFXUHRoM1U/preview"></iframe>
+  <iframe src="https://player.vimeo.com/video/179385120?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
 
 ### dcm2niix
 
 <div class="embed-container">
-  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTMW5uTHJLUDhyZnM/preview"></iframe>
+  <iframe src="https://player.vimeo.com/video/179385119?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
 
 ### Advanced Normalization Tools (ANTs)
 
 <div class="embed-container">
-  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTd0E4anllMk56Snc/preview"></iframe>
+  <iframe src="https://player.vimeo.com/video/179385121?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
 
 ### acpcdetect
 
 <div class="embed-container">
-  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTMnNmRmdCcEtOYzA/preview"></iframe>
+  <iframe src="https://player.vimeo.com/video/179372009?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
 
 ### FreeSurfer
 
 <div class="embed-container">
-  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTUjJzcHJleWRheVk/preview"></iframe>
+  <iframe src="https://player.vimeo.com/video/179385122?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
 
 ### Convert3D
 
 <div class="embed-container">
-  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTMlhkZE8xdVg0czQ/preview"></iframe>
+  <iframe src="https://player.vimeo.com/video/179385123?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
 
 ## Update your .bash_profile
