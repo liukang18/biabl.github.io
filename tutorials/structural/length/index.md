@@ -116,20 +116,24 @@ How can we do that with regular expressions?
 
 In TextWrangler you would find:
 
-`(\/.*\/)(\d{4})(\/.*=\s)(\d{2}\.\d{3})( mm)`
+`(img_\d{4},img_)(\d{4},)(ROI Line \(#ff0000\),\d+.\d+,\d+.\d+,\d+.\d+,)(\d+.\d+)(,\d{2},)`
 
 And replace with:
 
-`\2,\4`
+`\2\4`
 
 ## Upload Formatted Table
 
 <div class="embed-container">
 <iframe src="https://player.vimeo.com/video/179386607?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
-
+<br>
 <div class="shiny-container">
   <iframe src="https://biabl.shinyapps.io/acpc/" style="border:none" scrolling="no"></iframe>
 </div>
 
 ## Class Slides
+
+<div class="embed-container">
+<iframe src="//slides.com/njhunsak/length/embed" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>

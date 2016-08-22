@@ -37,4 +37,4 @@ This site contains all of the handouts and information presented in BYU's Fall 2
 
 Please review Beginner Topics before starting the Advanced Topics. You will need to complete lessons 1-2, 4-8 on the sample dataset before beginning any of the advanced topics:
 
-1. [Installing Programs](general/#)
+1. [Installing Programs](diffusion/advanced-programs)

@@ -246,5 +246,5 @@ The parcellation that is loaded here was created with the Desikan-Killiany atlas
 ## Class Slides
 
 <div class="embed-container">
-
+  <iframe src="//slides.com/njhunsak/freesurfer-recon-all/embed" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
