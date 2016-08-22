@@ -10,87 +10,53 @@ date: 2016-08-22
 
 After you complete this section, you should be able to:
 
-1. Install FSL
+1. Install FSL and update shell environment
 2. Load MATLAB
-3. Use git to install vistasoft and AFQ
+3. Use git to install VistaSoft and AFQ
+4. Download and unzip SPM5 and SPM8
 
 ## FSL
 
 <div class="embed-container">
-  <iframe src="https://player.vimeo.com/video/179372014?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+<iframe src="https://player.vimeo.com/video/179801914?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
 
-Interaction with the supercomputer is typically performed with command line tools. The command line tools can be run via a command prompt, also known as a shell. SSH is used to establish a secure shell with the supercomputer. In general, users should log in via the hostname ssh.fsl.byu.edu.
+After following the instructions in the above video, you need to update your .bash_profile:
 
 {% highlight bash %}
-ssh BYUNetID@ssh.fsl.byu.edu
+vi ~/.bash_profile
 {% endhighlight %}
 
-Programs can be tested from the interactive nodes, but anything left running for more than an hour will be killed automatically.
-
-## Installing Programs
-
-### Insight Segmentation and Registration Toolkit (ITK)
-
-<div class="embed-container">
-  <iframe src="https://player.vimeo.com/video/179385120?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-</div>
-
-### dcm2niix
-
-<div class="embed-container">
-  <iframe src="https://player.vimeo.com/video/179385119?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-</div>
-
-### Advanced Normalization Tools (ANTs)
-
-<div class="embed-container">
-  <iframe src="https://player.vimeo.com/video/179385121?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-</div>
-
-### acpcdetect
-
-<div class="embed-container">
-  <iframe src="https://player.vimeo.com/video/179372009?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-</div>
-
-### FreeSurfer
-
-<div class="embed-container">
-  <iframe src="https://player.vimeo.com/video/179385122?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-</div>
-
-### Convert3D
-
-<div class="embed-container">
-  <iframe src="https://player.vimeo.com/video/179385123?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-</div>
-
-## Update your .bash_profile
-
-After following the instructions in the above video, your .bash_profile should have the following information. You can list the content of your .bash_profile:
+Add the following to the end of your .bash_profile:
 
 {% highlight bash %}
-cat ~/.bash_profile
+# FSL
+FSLDIR=/fslhome/intj5/apps/fsl/
+. ${FSLDIR}/etc/fslconf/fsl.sh
+PATH=${FSLDIR}/bin:${PATH}
+export FSLDIR PATH
 {% endhighlight %}
 
-The output should read:
-
-{% highlight bash %}
-# ANTs
-export ANTSPATH=/fslhome/BYUNetID/apps/ants/bin/
-PATH=${ANTSPATH}:${PATH}
-
-# acpcdetect
-ARTHOME=/fslhome/BYUNetID/apps/art/
-export ARTHOME
-
-# FreeSurfer
-export FREESURFER_HOME=/fslhome/BYUNetID/apps/freesurfer
-{% endhighlight %}
-
-## Class Slides
+## MATLAB
 
 <div class="embed-container">
-  <iframe src="http://slides.com/njhunsak/deck/embed" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+<iframe src="https://player.vimeo.com/video/179801915?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
+
+## VistaSoft
+
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/179801916?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+
+## Statistical Parametric Mapping (SPM)
+
+No need to provide a video...installation is straight-forward. Download the zip files and unzip:
+
+{% highlight bash %}
+cd ~/apps/matlab/
+wget http://www.fil.ion.ucl.ac.uk/spm/download/restricted/contradistinction/spm5.zip
+unzip spm5.zip && rm spm5.zip
+wget http://www.fil.ion.ucl.ac.uk/spm/download/restricted/idyll/spm8.zip
+unzip spm8.zip && rm spm8.zip
+{% endhighlight %}
