@@ -21,7 +21,7 @@ FreeSurfer parcellates that cortex with two different atlases. The first atlas, 
 
 ### Deskian Atlas
 
-<img class="img-responsive" alt="" src="images/annot-desikan.jpg"><img class="img-responsive" alt="" src="images/annot-desikan-m.jpg">
+<img class="img-responsive" alt="" src="images/annot-desikan.jpg">
 
 You can view the Deskin atlas segmentation with the following code:
 
@@ -34,7 +34,7 @@ freeview -v \
 
 ### Destrieux Atlas
 
-<img class="img-responsive" alt="" src="images/annot-destrieux.jpg"><img class="img-responsive" alt="" src="images/annot-destrieux-m.jpg">
+<img class="img-responsive" alt="" src="images/annot-destrieux.jpg">
 
 You can view the Destrieux atlas segmentation with the following code:
 
@@ -97,17 +97,17 @@ Right hemisphere:
 aparcstats2table --hemi rh --subjects 1304 1307 1310 1319 1326 2304 2310 2316 2320 2324 1306 1308 1315 1320 1327 2307 2314 2317 2323 2370 --meas thickness --parc aparc.a2009s --tablefile rh.aparc.a2009.thickness.table
 {% endhighlight %}
 
-## Results
+## Introduction to Graphing in R
+
+### Shinyapp
 
 {% highlight bash %}
 rsync -rauv
 {% endhighlight}
 
-<div class="shiny-container">
-  <iframe src="https://biabl.shinyapps.io/read-table/" style="border:none" scrolling="no"></iframe>
-</div>
+You can graph your results by going to the following website: [https://biabl.shinyapps.io/read-table/](https://biabl.shinyapps.io/read-table/). But you should be able to use R to graph your own data.
 
-##  Introduction to Graphing in R
+### R
 
 R is a powerful statistical and graphing program, but much like everything in this course, it requires you to learn a new coding language, R. Hopefully by now, you can easily pick out general items like variables, for loops, etc. The following code with import your aseg.vol.table, create a group variable and then using a for loop will loop through all the columns of data producing a box plot and give you the p-value for each column.
 
