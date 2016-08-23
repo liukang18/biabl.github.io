@@ -65,7 +65,9 @@ asegstats2table --subjects 1304 1307 1310 1319 1326 2304 2310 2316 2320 2324 130
 
 The file aseg.vol.table is your output - a text file consisting of all participants in your study and the values for all the structures. If you do the ls command, you should see that the text file aseg.vol.table has been created.
 
-### Table of Surface Area of each Cortical Parcellation in the Desikan Atlas
+### Table of Surface Area
+
+Table of surface area of each cortical parcellation in the Deskian atlas.
 
 Left hemisphere:
 
@@ -79,7 +81,9 @@ Right hemisphere:
 aparcstats2table --hemi rh --subjects 1304 1307 1310 1319 1326 2304 2310 2316 2320 2324 1306 1308 1315 1320 1327 2307 2314 2317 2323 2370 --tablefile rh.aparc.area.table
 {% endhighlight %}
 
-### Table of the Average Thickness of Each Cortical Parcellation in the Destrieux Atlas
+### Table of the Average Thickness
+
+Table of average thickness of each cortical parcellation in the Destrieux atlas.
 
 Left hemisphere:
 
