@@ -129,7 +129,7 @@ And replace with:
 </div>
 <br>
 <div class="shiny-container">
-  <iframe src="https://biabl.shinyapps.io/acpc/" style="border:none" scrolling="no"></iframe>
+  <iframe src="https://biabl.shinyapps.io/read-csv/" style="border:none" scrolling="no"></iframe>
 </div>
 
 ## Class Slides
