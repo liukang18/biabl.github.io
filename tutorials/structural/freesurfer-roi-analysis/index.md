@@ -79,7 +79,7 @@ Right hemisphere:
 
 {% highlight bash %}
 aparcstats2table --hemi rh --subjects 1304 1307 1310 1319 1326 2304 2310 2316 2320 2324 1306 1308 1315 1320 1327 2307 2314 2317 2323 2370 --tablefile rh.aparc.area.table
-{% endhighlight %s}
+{% endhighlight %}
 
 
 ### Table of the Average Thickness of Each Cortical Parcellation in the Destrieux Atlas
