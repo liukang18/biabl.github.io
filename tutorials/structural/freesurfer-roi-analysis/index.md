@@ -21,8 +21,7 @@ FreeSurfer parcellates that cortex with two different atlases. The first atlas, 
 
 ### Deskian Atlas
 
-<img class="img-responsive" alt="" src="images/annot-desikan.jpg">
-<img class="img-responsive" alt="" src="images/annot-desikan-m.jpg">
+<img class="img-responsive" alt="" src="images/annot-desikan.jpg"><img class="img-responsive" alt="" src="images/annot-desikan-m.jpg">
 
 You can view the Deskin atlas segmentation with the following code:
 
@@ -35,8 +34,7 @@ freeview -v \
 
 ### Destrieux Atlas
 
-<img class="img-responsive" alt="" src="images/annot-destrieux.jpg">
-<img class="img-responsive" alt="" src="images/annot-destrieux-m.jpg">
+<img class="img-responsive" alt="" src="images/annot-destrieux.jpg"><img class="img-responsive" alt="" src="images/annot-destrieux-m.jpg">
 
 You can view the Destrieux atlas segmentation with the following code:
 
