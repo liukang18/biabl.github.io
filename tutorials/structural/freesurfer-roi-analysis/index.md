@@ -99,8 +99,10 @@ aparcstats2table --hemi rh --subjects 1304 1307 1310 1319 1326 2304 2310 2316 23
 
 ## Results
 
+We need to move the table files to our local computer:
+
 {% highlight bash %}
-rsync -rauv
+scp intj5@ssh.fsl.byu.edu:~/compute/analyses/class/FreeSurfer/*.table ~/Desktop/
 {% endhighlight %}
 
 <div class="shiny-container">
@@ -113,7 +115,7 @@ R is a powerful statistical and graphing program, but much like everything in th
 
 {% gist njhunsak/8b47643e7735f29eb3861059b2caea66 aseg.vol.table.R %}
 
-Can you rewrite the code for the rest of your data sets? To get your started, here's the code edits if you wanted to look at the lh.aparc.area.table:
+Can you rewrite the code for the remainder of your data sets? To get your started, here's the code edits if you wanted to look at the lh.aparc.area.table:
 
 {% gist njhunsak/8b47643e7735f29eb3861059b2caea66 lh.aparc.area.table.R %}
 
