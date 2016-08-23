@@ -109,57 +109,11 @@ rsync -rauv
 
 R is a powerful statistical and graphing program, but much like everything in this course, it requires you to learn a new coding language, R. Hopefully by now, you can easily pick out general items like variables, for loops, etc. The following code with import your aseg.vol.table, create a group variable and then using a for loop will loop through all the columns of data producing a box plot and give you the p-value for each column.
 
-{% highlight R %}
-# Import data
-mydata=read.table("~/Desktop/aseg.vol.table",sep="\t",header=T)
-
-# Create group variable
-x=ifelse(grepl("13??",mydata[[1]]),"TBI","OI")
-
-# Create PDF and generate plots for each column
-pdf("~/Desktop/aseg.vol.table.pdf",width=4,height=5)
-for (n in 2:length(mydata))
-{
-  y=mydata[[n]]
-  pvalue=t.test(y~x)$p.value
-  selectedData=data.frame(cbind(x,y))
-  p=boxplot(y~x,
-    main=colnames(mydata[n]),
-    xlab=paste("p < ",pvalue,sep=""),
-    ylab="Volume mm^3",
-    col=c("blue","red")
-    )
-  print(p)
-}
-dev.off()
-{% endhighlight %}
+{% gist njhunsak/8b47643e7735f29eb3861059b2caea66 aseg.vol.table.R %}
 
 Can you rewrite the code for the rest of your data sets? To get your started, here's the code edits if you wanted to look at the lh.aparc.area.table:
 
-% highlight r %}
-# Import data
-mydata=read.table("~/Desktop/lh.aparc.area.table",sep="\t",header=T)
-
-# Create group variable
-x=ifelse(grepl("13??",mydata[[1]]),"TBI","OI")
-
-# Create PDF and generate plots for each column
-pdf("~/Desktop/lh.aparc.area.table.pdf",width=4,height=5)
-for (n in 2:length(mydata))
-{
-  y=mydata[[n]]
-  pvalue=t.test(y~x)$p.value
-  selectedData=data.frame(cbind(x,y))
-  p=boxplot(y~x,
-    main=colnames(mydata[n]),
-    xlab=paste("p < ",pvalue,sep=""),
-    ylab="Area mm^2",
-    col=c("blue","red")
-    )
-  print(p)
-}
-dev.off()
-{% endhighlight %}
+{% gist njhunsak/8b47643e7735f29eb3861059b2caea66 lh.aparc.area.table.R %}
 
 When you look at the ?h.aparc.a2009thickness.table, hint that thickness is just in mm.
 
