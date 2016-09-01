@@ -39,3 +39,4 @@ Please review Beginner Topics before starting the Advanced Topics. You will need
 
 1. [Installing Programs](diffusion/advanced-programs)
 2. [Preprocessing T1 and Diffusion Weighted Images](diffusion/preprocessing_t1_dwi_weighted_images)
+3. [Generate Template](diffusion/template)
