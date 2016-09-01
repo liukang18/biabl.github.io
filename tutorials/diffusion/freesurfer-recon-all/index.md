@@ -16,10 +16,6 @@ After you complete this section, you should be able to:
 
 ## Before You Begin
 
-<div class="embed-container">
-  <iframe src="https://player.vimeo.com/video/179372011?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-</div>
-
 Edit your ~/.bash_profile to include:
 
 {% highlight bash %}
