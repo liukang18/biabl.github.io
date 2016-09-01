@@ -36,7 +36,7 @@ done
 
 ## Build Initial Template
 
-When building a template you need to have a target image, it is advisable to run a few iterations with affine normalization only (-m 1x0x0) to get a sensible initial template, then pass this with -z to run full deformable registration. You will have to submit this script as a job:
+When building a template you need to have a target image, it is advisable to run a few iterations with affine normalization only (-m 1x0x0) to get a sensible initial template, then pass this with -z to run full deformable registration. Create a job script:
 
 {% highlight bash %}
 cd ~/scripts/EDSD/
