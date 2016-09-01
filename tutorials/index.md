@@ -38,3 +38,4 @@ This site contains all of the handouts and information presented in BYU's Fall 2
 Please review Beginner Topics before starting the Advanced Topics. You will need to be familiar with all the lessons before beginning any of the advanced topics:
 
 1. [Installing Programs](diffusion/advanced-programs)
+2. [Preprocessing T1 and Diffusion Weighted Images](diffusion/preprocessing_t1_dwi_weighted_images)

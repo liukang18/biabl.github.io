@@ -1,6 +1,6 @@
 ---
 layout: tutorials
-title: Preprocessing Diffusion Weighted Images
+title: Preprocessing T1 and Diffusion Weighted Images
 author: naomi
 comments: true
 date: 2016-08-01
@@ -43,7 +43,7 @@ Your b-vector are the gradient directions that you collect, often predetermined 
 
 We are going to use data for one site only just to keep our analyses consistent; however, future anayses really need to look at differences across sites and scanners. For more information about the EDSD refer to their manuscript:
 
-
+[http://dx.doi.org/10.1016/j.neuroimage.2016.03.067](http://dx.doi.org/10.1016/j.neuroimage.2016.03.067)
 
 ## Preprocess T1 and Diffusion Weighted Images
 
@@ -58,11 +58,11 @@ rsync -rauv
 The following script will be the job script that is submitted by the batch script to the supercomputer. Nothing in the script needs to be changed. It should only take the compute node a few minutes per participant. The following are the steps completed by the script:
 
 1. Make a **t1** and a **raw** directory under your participant directory.
-2. Convert the MPRAGE DICOMs into a NIfTI image and crop any excess neck and non-brain tissue and save the file as **t1.nii** under the **t1** directory.
-3. Convert the DWI DICOMs into a zipped NIfTI image as well as calculate the bval and bvec files and save the three files under the raw directory.
-4. AC-PC align the T1 image and save it as **acpc.nii**.
+2. Convert the MPRAGE DICOMs into a NIfTI image and crop any excess neck and non-brain tissue. Save the file as **t1.nii** under the **t1** directory.
+3. Convert the DWI DICOMs into a zipped NIfTI image as well as calculate the bval and bvec files. Save the three files under the **raw** directory.
+4. AC-PC align the cropped T1 image and save it as **acpc.nii**.
 5. Complete N4 bias field correction on the **acpc.nii** image and save as **n4.nii.gz**.
-6. Resample the **n4.nii.gz** image and make the image 1mm isotropic and save as **resampled.nii.gz** (note this probably doesn't need to be done for the current data set).
+6. Resample the **n4.nii.gz** image and make the image 1mm isotropic and save as **resampled.nii.gz**.
 
 For more detailed information about preprocessing T1 weighted images refer to this webpage: [http://biabl.github.io/tutorials/structural/preprocessing_T1_weighted_images/](http://biabl.github.io/tutorials/structural/preprocessing_T1_weighted_images/).
 
@@ -133,7 +133,7 @@ done
 
 ### Submit Batch Script
 
-Submit the batch script, which then proceed to submit a job script for each participant in your study directory:
+Submit the batch script, which will submit a job script for each participant in your study directory:
 
 {% highlight bash %}
 var=`date +"%Y%m%d-%H%M%S"`
