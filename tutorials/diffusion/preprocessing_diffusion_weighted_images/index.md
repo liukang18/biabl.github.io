@@ -3,51 +3,29 @@ layout: tutorials
 title: Preprocessing Diffusion Weighted Images
 author: naomi
 comments: true
-date: 2015-12-09
+date: 2016-08-01
 ---
 
 ## Objectives
 
 After you complete this section, you should be able to:
 
-1. Generate diffusion weighted image in NIfTI format and b-value and b-vector text file
-2. Preprocess T1 image and acquire a brain only image
-3. Set MATLAB environmental variables to use VISTASOFT software
-4. Import brain only T1 image for use in the VISTASOFT pipeline
-5. Fix any possible issues when using scans from Siemens or Phillips
-6. Preprocess diffusion weighted images
-7. Generate FA images
-8. Check for errors in preprocessing steps
-
-Note that everything in "< >" is to be replaced. For example, \<fileName\> --> iLovePeanuts.txt
+1. Define diffusion imaging
+2. Describe the need for the bval and bvec files
+3. Describe the structure of the European DTI Study of Dementia
+4. Preprocess T1 weighted images using job and batch scripts
 
 ## Diffusion Imaging
 
-*Diffusion weighted imaging* is based on water movement within a voxel of tissue. Therefore, the intensity value of each voxel represents the rate of water diffusion at that location. *Diffusion tensor imaging* is specific type of modeling of diffusion weighted images. The general theory behind DTI is that water molecules diffuse differently along the tissue depending on the tissue's type and integrity. With DTI analyses it is possible to infer at the level of each voxel properties like molecular diffusion rate (mean diffusivity), the direction preference of diffusion (fractional anisotropy), diffusion along the main axis (axial diffusivity), and diffusion in transverse direction (radial diffusivity).  
+*Diffusion weighted imaging* (DWI) is based on water movement within a voxel of tissue. Therefore, the intensity value of each voxel represents the rate of water diffusion at that location. *Diffusion tensor imaging* (DTI) is specific type of modeling of diffusion weighted images. The general theory behind DTI is that water molecules diffuse differently along the tissue depending on the tissue's type and integrity. With DTI analyses it is possible to infer at the level of each voxel properties like molecular diffusion rate (mean diffusivity), the direction preference of diffusion (fractional anisotropy), diffusion along the main axis (axial diffusivity), and diffusion in transverse direction (radial diffusivity).
 
-All DTI preprocessing steps are conducted using the dtiInit preprocessing pipeline wrapper from Stanford open-source VISTASOFT package. The steps of preprocessing any diffusion weighted images includes the following: 
+## Converting DICOM to NIfTI
 
-1. Eddy-current correction
-2. Register to T1 weighted image
-3. Tensor Fitting
-4. Compute DTI Scalars: FA, RD, MD, and AD
-
-## Convert DWIs and Scan Parameters from DICOM to NIfTI
-
-First let's create specific DWI directory within our participant directory. Often times you will be working with multiple scan modalities and you will want to put those in separate directories (e.g., DTI, fMRI, t2w, etc.). This directory is labeled raw and not dti simply because it follows the protocols as written by the [Stanford group whose pipeline is being used](http://white.stanford.edu/newlm/index.php/DTI_Preprocessing). You can change the name to something else if you prefer.
-
-{% highlight bash %}
-subjDir=</path/to/subject/directory>
-mkdir ${subjDir}/raw
-{% endhighlight %}	
-
-<img class="img-responsive" alt="" src="images/dti.png">
-
-Certain scan parameters must also be extracted from the DICOM files in order to determine tensor information in the DWIs. Two files need to be created: b-value file and diffusion gradient table.
+When converting DWI from DICOM to NIfTI certain scan parameters must also be extracted from the DICOM files in order to determine tensor information in the DWIs. Two files need to be created: b-value file and diffusion gradient table.
 
 ### B-Value (.bval)
 
-The b-values are the amount of diffusion weighting used for each volume. Depending on how many non-diffusion weighted or B0 scans you collect and what diffusion weighting max you use your b-value file is going to look something like this: 
+The b-values are the amount of diffusion weighting used for each volume. Depending on how many non-diffusion weighted or B0 scans you collect and what diffusion weighting max you use your b-value file is going to look something like this:
 
 <img class="img-responsive" alt="" src="images/bval.png">
 
@@ -57,219 +35,108 @@ Your b-vector are the gradient directions that you collect, often predetermined 
 
 <img class="img-responsive" alt="" src="images/bvec.png">
 
-In `dcm2nii` these files are automatically created. However, depending on the brand of the scanner, e.g., Siemens or GE, these scan parameters may not always be applied to the images correctly. **Therefore, it is important to always visually check that tensors were applied correctly.**
+**dcm2niix** automatically generates these files during DICOM conversion. However, depending on the brand of the scanner, e.g., Siemens or GE, these scan parameters may not always be applied to the images correctly. We will discuss this issue in more detail when we get to preprocessing.
+
+## European DTI Study of Dementia
+
+> The European DTI Study on Dementia (EDSD) is a multicenter framework created to study the diagnostic accuracy and inter-site variability of DTI-derived markers in patients with manifest and prodromal Alzheimer's disease (AD). The dynamically growing database presently includes 493 DTI, 512 T1-weighted MRI, and 300 FLAIR scans from patients with AD dementia, patients with Mild Cognitive Impairment (MCI) and matched Healthy Controls, acquired on 13 different scanner platforms. The imaging data is publicly available, along with the subjects' demographic and clinical characterization. Detailed neuropsychological information, cerebrospinal fluid information on biomarkers and clinical follow-up diagnoses are included for a subset of subjects. This paper describes the rationale and structure of the EDSD, summarizes the available data, and explains how to gain access to the database. The EDSD is a useful database for researchers seeking to investigate the contribution of DTI to dementia diagnostics.
+
+We are going to use data for one site only just to keep our analyses consistent; however, future anayses really need to look at differences across sites and scanners. For more information about the EDSD refer to their manuscript:
+
+
+
+## Preprocess T1 and Diffusion Weighted Images
+
+First copy the data from the shared directory to your user directory on the supercomputer:
 
 {% highlight bash %}
-dcm2nii \
--a y 
--g y \
--o ${subjDir}/raw \
-${subjDir}/DICOMs/*
+rsync -rauv
 {% endhighlight %}
 
-### Rename 
+### Job Script
 
-The output from the `dcm2nii` program results in file names that are uniquely different across participants. For analyses though, we want all the files named exactly the same from participant to participant. In this case, we want all files to be named exactly the same, dti.nii.gz. The .bvec and .bval files also need to be renamed, dti.bvec and dti.bval, respectively.
-  
-{% highlight bash %}
-cd ${subjDir}/raw
-mv -f 2*.nii.gz dti.nii.gz
-mv -f 2*.bval dti.bval
-mv -f 2*.bvec dti.bvec
-{% endhighlight %}
+The following script will be the job script that is submitted by the batch script to the supercomputer. Nothing in the script needs to be changed. It should only take the compute node a few minutes per participant. The following are the steps completed by the script:
 
-## Preprocess T1 Weighted Images
+1. Make a **t1** and a **raw** directory under your participant directory.
+2. Convert the MPRAGE DICOMs into a NIfTI image and crop any excess neck and non-brain tissue and save the file as **t1.nii** under the **t1** directory.
+3. Convert the DWI DICOMs into a zipped NIfTI image as well as calculate the bval and bvec files and save the three files under the raw directory.
+4. AC-PC align the T1 image and save it as **acpc.nii**.
+5. Complete N4 bias field correction on the **acpc.nii** image and save as **n4.nii.gz**.
+6. Resample the **n4.nii.gz** image and make the image 1mm isotropic and save as **resampled.nii.gz** (note this probably doesn't need to be done for the current data set).
 
-Refer to the information provided here: [http://njhunsak.github.io/neuroimaging-analysis/topics/preprocessing\_T1\_weighted_images/](http://njhunsak.github.io/neuroimaging-analysis/topics/preprocessing_T1_weighted_images/). You will need to perform the following steps:
+For more detailed information about preprocessing T1 weighted images refer to this webpage: [http://biabl.github.io/tutorials/structural/preprocessing_T1_weighted_images/](http://biabl.github.io/tutorials/structural/preprocessing_T1_weighted_images/).
 
-1. Convert DICOMs to NIfTI, cropping and reorienting the image
-2. AC-PC align the image
-3. Resample image to 1 isotropic
-4. Run the antsCorticalThickness.sh pipeline
-
-## VISTASOFT
-
-One of the outputs from the antsCorticalThickness.sh pipeline is a skull-stripped image; however, the image is sometimes named differently:
-
-* ExtractedBrain0N4.nii.gz
-* BrainSegmentation0N4.nii.gz
-
-Copy the brain only file into the `t1` directory and rename the file `brain.nii.gz`:
+Create a new scripts directory:
 
 {% highlight bash %}
-cd ${subjDir}/t1
-cp antsCorticalThickness/ExtractedBrain0N4.nii.gz brain.nii.gz
+mkdir -p ~/scripts/EDSD/
+vi ~/scripts/EDSD/preprocess_job.sh
 {% endhighlight %}
 
-### Set MATLAB Environmental Variables
+Copy and paste the following into the new script:
 
-DTI preprocessing uses a toolbox through MATLAB called VISTASOFT. For more information about how to install VISTASOFT visit [https://github.com/vistalab/vistasoft](https://github.com/vistalab/vistasoft). You will need to set the environment variables for MATLAB to find SPM5, VISTASOFT, and AFQ (which we will discuss later). The order in which you enter these environmental variables is ***CRITICAL***. Do not place vistaPath before SPM5. In MATLAB:
+{% highlight vim %}
+#!/bin/bash
 
-{% highlight matlab %}
-SPM5Path = '/1/spm5';
-addpath(genpath(SPM5Path));
-vistaPath = '/1/git/vistasoft';
-addpath(genpath(vistaPath));
-AFQPath = '/1/git/AFQ';
-addpath(genpath(AFQPath));
+#SBATCH --time=00:10:00   # walltime
+#SBATCH --ntasks=1   # number of processor cores (i.e. tasks)
+#SBATCH --nodes=1   # number of nodes
+#SBATCH --mem-per-cpu=16384M  # memory per CPU core
+
+# Compatibility variables for PBS. Delete if not needed.
+export PBS_NODEFILE=`/fslapps/fslutils/generate_pbs_nodefile`
+export PBS_JOBID=$SLURM_JOB_ID
+export PBS_O_WORKDIR="$SLURM_SUBMIT_DIR"
+export PBS_QUEUE=batch
+
+# Set the max number of threads to use for programs using OpenMP.
+export OMP_NUM_THREADS=$SLURM_CPUS_ON_NODE
+
+# LOAD ENVIRONMENTAL VARIABLES
+var=`id -un`
+export ANTSPATH=/fslhome/${var}/apps/ants/bin/
+PATH=${ANTSPATH}:${PATH}
+
+# INSERT CODE, AND RUN YOUR PROGRAMS HERE
+DATA_DIR=~/compute/images/EDSD/${1}/
+mkdir ${DATA_DIR}/t1
+mkdir ${DATA_DIR}/raw
+~/apps/dcm2niix/bin/dcm2niix -o ${DATA_DIR}/t1/ -f t1 -x y -z n ${DATA_DIR}/DICOM/mprage/
+~/apps/dcm2niix/bin/dcm2niix -o ${DATA_DIR}/raw/ -f dti -z y ${DATA_DIR}/DICOM/diff/
+~/apps/art/acpcdetect -M -o ${DATA_DIR}/t1/acpc.nii -i ${DATA_DIR}/t1/t1_Crop_1.nii
+~/apps/ants/bin/N4BiasFieldCorrection -v -d 3 -i  ${DATA_DIR}/t1/acpc.nii -o ${DATA_DIR}/t1/n4.nii.gz -s 4 -b [200] -c [50x50x50x50,0.000001]
+~/apps/c3d/bin/c3d ${DATA_DIR}/t1/n4.nii.gz -resample-mm 1x1x1mm -o ${DATA_DIR}/t1/resampled.nii.gz
 {% endhighlight %}
 
-### Prior to Running *dtiInit*
+### Batch Script
 
-Make sure you have your directory structure set up such that you have:
+Create a batch script:
 
 {% highlight bash %}
-.
-|-- <subjectDirectory>
-|	|-- t1
-|	|	|-- brain.nii.gz
-|	|-- raw
-|	|	|-- dti.nii.gz
-|	|	|-- dti.bvec
-|	|	|-- dti.bval
+vi ~/scripts/EDSD/preprocess_batch.sh
 {% endhighlight %}
 
-### Import T1 image
+Copy and paste the following into the batch script:
 
-If you have already processed your T1 files through another pipeline you could have difficulties aligning the DTI data to your T1. This is due to the header information being different from what is expected by the VISTASOFT software. This can be fixed by running (in MATLAB) `mrAnatAverageAcpcNifti`. Open MATLAB to update the brain image so it will work in the mrDiffusion pipeline and save the new brain image as aveT1.nii.gz. The T1 image ('t1/brain.nii.gz') is rigidly aligned to an MNI template ('templates/matlab.nii.gz'). Note that this alignment is rather arbitrary and is only useful in establishing the correct header information (e.g. origin, FOV size, etc.):
+{% highlight vim %}
+#!/bin/bash
 
-{% highlight matlab %}
-subjDir= ['</path/to/participant/directory/>'];
-brainFile = [subjDir,'/t1/brain.nii.gz'];
-t1File = [subjDir,'/t1/aveT1.nii.gz'];
-dtiFile = [subjDir,'/raw/dti.nii.gz'];
-cd (subjDir);
-mrAnatAverageAcpcNifti(brainFile,t1File,['</path/to/templates/matlab.nii.gz>']);
+for subj in $(ls ~/compute/images/EDSD/); do
+sbatch \
+-o ~/logfiles/${1}/output_${subj}.txt \
+-e ~/logfiles/${1}/error_${subj}.txt \
+~/scripts/EDSD/preprocess_job.sh \
+${subj}
+sleep 1
+done
 {% endhighlight %}
 
-### Fix *dcm2nii* Transformation
+### Submit Batch Script
 
-This section is for those who have collected diffusion data on a Siemens or Phillips scanner, or on a GE scanner using the GE-supplied diffusion sequence (rather than Roland Bammer's DTI sequence at the Stanford Lucas center). *dcm2nii* does not properly handle the transforms for use with the VISTASOFT pipeline. To fix this, run a little code in MATLAB that will fix that transform and get things working.
-
-To fix T1 image:
-
-{% highlight matlab %}
-ni = readFileNifti(t1File);
-ni = niftiSetQto(ni,ni.sto_xyz);
-writeFileNifti(ni,t1File);
-{% endhighlight %}
-
-To fix diffusion image:
-
-{% highlight matlab %}
-ni=readFileNifti(dtiFile);
-ni=niftiSetQto(ni,ni.sto_xyz);
-writeFileNifti(ni,dtiFile);
-{% endhighlight %}
-
-### Setting Parameters: *dtiInitParams*
-
-Specific parameters can be set using the function *dtiInitParams*:
-
-{% highlight matlab %}
-dwParams = dtiInitParams('rotateBvecsWithCanXform',1,'phaseEncodeDir',2,'clobber',1);
-{% endhighlight %}
-
-Note that for Siemens data, we need to change the parameter as follows:
-
-{% highlight matlab %}
-dwParams.rotateBvecsWithCanXform = 1
-{% endhighlight %}
-
-Check parameters. It should look like this:
-
-{% highlight matlab %}
-> dwParams
-
-dwParams =
-
-    bvalue: []
-    gradDirsCode: []
-    dt6BaseName: ''
-    flipLrApFlag: 0
-    numBootStrapSamples: 500
-    fitMethods: 'ls'
-    nStep: 50
-    eddyCorrect: 1
-    exclude Vols: []
-    bsplineInterpFlag: 0
-    phaseEncoderDir: 2
-    dwOutMm: [2 2 2]
-    rotateBvecsWithRx: 0
-    rotate BvecsWithCanXform: 1
-    bvecsFile: ''
-    bvalsFile: ''
-{% endhighlight %}
-
-### Running *dtiInit*
-
-Running dtiInit is very simple (usually):
-
-{% highlight matlab %}
-dtiInit(dtiFile, t1File, dwParams);
-{% endhighlight %}
-
-### Wait Awhile
-
-... and you're done! You should have a directory structure that looks something like the following.
+Submit the batch script, which then proceed to submit a job script for each participant in your study directory:
 
 {% highlight bash %}
-.
-|-- <subjectDirectory>
-|	|-- t1
-|	|	|-- brain.nii.gz
-|	|-- raw
-|	|	|-- dti.nii.gz
-|	|	|-- dti.bvec
-|	|	|-- dti.bval
-|	|-- dti32trilin
-|	|	|-- bin
-|	|	|	|-- tensors.nii.gz
-|	|	|	|-- b0.nii.gz
-|	|	|	|-- brainMask.nii.gz
-|	|	|	|-- vectorRBG.nii.gz
-|	|	|	|-- wmMask.nii.gz
-|	|	|	|-- wmProb.nii.gz
-|	|	|	|-- faStd.nii.gz
-|	|	|	|-- mdStd.nii.gz
-|	|	|	|-- pddDispersion.nii.gz
-|	|	|-- dt6.mat
-|	|	|-- t1ppd.png
+var=`date +"%Y%m%d-%H%M%S"`
+mkdir -p ~/logfiles/$var
+sh ~/scripts/class/preprocess_batch.sh $var
 {% endhighlight %}
-
-### Generate FA Maps
-
-If you ever need to place landmarks on the DTI image (e.g. fornix), then it is easiest on an FA image. To generate the FA map, use the following code:
-
-{% highlight matlab %}
-subjDir= ['</path/to/participant/directory/>'];
-cd (subjDir);
-[dt6, xformToAcpc, mmPerVox] = dtiLoadTensorsFromNifti('dt6dir/bin/tensors.nii.gz');
-[fa,md] = dtiComputeFA(dt6);
-dtiWriteNiftiWrapper(fa,xformToAcpc,'t1/fa.nii.gz',1,'FA');
-{% endhighlight %}
-
-<img class="img-responsive" alt="" src="images/fa.png">
-
-### Check Output
-
-Part of the output provides a file that shows the RGB vector overlay. The file is located under the dt6dir and is called, t1pdd.png. This file shows a montage of the brain with the RGB overlay. The colors of the overlay signify the tensor direction. When looking at DTI overlays, red indicates tensors that are orientated right to left, green indicates tensors that are orientated anterior to posterior, and blue indicates tensors that are orientated superior to inferior. When looking at the RGB overlay, the corpus callosum should be solid red, because the tensors are moving back and forth from the right hemisphere to left hemisphere. If the corpus callosum is not bright red, you know you immediately have an issue:
-
-<img class="img-responsive" alt="" src="images/rbg.png">
-
-Depending on the scanner and whether or not dcm2nii properly reads the header information, it is highly probable that the diffusion gradient directions may be reversed. After preprocessing, it is important that you check to make sure the gradient directions are visually inline with the white matter pathways. Here's an example of misalignment:
-
-<img class="img-responsive" alt="" src="images/notaligned.png">
-
-If the tensors are aligned correctly, they should like this:
-
-<img class="img-responsive" alt="" src="images/aligned.png">
-
-#### Reference Manuals
-
-* mrDiffusion - http://white.stanford.edu/newlm/index.php/DTI_Preprocessing
-
-### Additional Classroom Materials
-
-* [Lecture](presentation)
-* [Assignment](assignment)

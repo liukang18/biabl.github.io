@@ -15,6 +15,10 @@ After you complete this section, you should be able to:
 3. Use git to install VistaSoft and AFQ
 4. Download and unzip SPM5 and SPM8
 
+Before you install the following programs, make sure you have already installed the programs listed under the beginner tutorials:
+
+[http://biabl.github.io/tutorials/general/introduction-to-fulton-supercomputer-lab](http://biabl.github.io/tutorials/general/introduction-to-fulton-supercomputer-lab)
+
 ## FSL
 
 <div class="embed-container">
