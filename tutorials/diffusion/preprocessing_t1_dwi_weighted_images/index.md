@@ -50,7 +50,8 @@ We are going to use data for one site only just to keep our analyses consistent;
 First copy the data from the shared directory to your user directory on the supercomputer:
 
 {% highlight bash %}
-rsync -rauv
+mkdir -p ~/compute/images/
+rsync -rauv ~/fsl_groups/fslg_byustudent/compute/EDSD ~/compute/images/
 {% endhighlight %}
 
 ### Job Script
