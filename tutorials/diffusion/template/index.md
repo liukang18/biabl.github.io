@@ -23,14 +23,14 @@ The first step in generating a population template is to copy the preprocessed i
 First, create a template directory:
 
 {% highlight bash %}
-mkdir -p ~/templates/EDSD_FRE
+mkdir -p ~/templates/EDSD
 {% endhighlight %}
 
 Next, run this for loop to copy and rename the files:
 
 {% highlight bash %}
 for x in $(ls ~/compute/images/EDSD/); do
-cp -v ~/compute/images/EDSD/$x/t1/resampled.nii.gz ~/templates/EDSD_FRE/img_${x}.nii.gz
+cp -v ~/compute/images/EDSD/$x/t1/resampled.nii.gz ~/templates/EDSD/img_${x}.nii.gz
 done
 {% endhighlight %}
 
@@ -66,7 +66,7 @@ export ANTSPATH=/fslhome/${var}/apps/ants/bin/
 PATH=${ANTSPATH}:${PATH}
 
 # INSERT CODE, AND RUN YOUR PROGRAMS HERE
-cd ~/templates/EDSD_FRE/
+cd ~/templates/EDSD/
 ~/apps/ants/bin/buildtemplateparallel.sh \
 -d 3 \
 -m 1x0x0 \
@@ -128,7 +128,7 @@ export ANTSPATH=/fslhome/${var}/apps/ants/bin/
 PATH=${ANTSPATH}:${PATH}
 
 # INSERT CODE, AND RUN YOUR PROGRAMS HERE
-cd ~/templates/EDSD_FRE
+cd ~/templates/EDSD
 ~/apps/ants/bin/buildtemplateparallel.sh \
 -d 3 \
 -z ~/templates/class/pt1template.nii.gz \
@@ -163,7 +163,7 @@ The final template image will look something like this:
 The template pipeline generates a lot of files and directories and those can be cleaned up when you are done creating your template. Move the original image files to their own directory, data. Rename pt2template.nii.gz to template.nii.gz and find and delete all other files and directories:
 
 {% highlight bash %}
-cd ~/templates/EDSD_FRE
+cd ~/templates/EDSD
 mkdir data
 mv img*.nii.gz data/
 mv pt2template.nii.gz template.nii.gz
