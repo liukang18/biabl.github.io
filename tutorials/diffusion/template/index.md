@@ -39,8 +39,7 @@ done
 When building a template you need to have a target image, it is advisable to run a few iterations with affine normalization only (-m 1x0x0) to get a sensible initial template, then pass this with -z to run full deformable registration. Create a job script:
 
 {% highlight bash %}
-cd ~/scripts/EDSD/
-vi template-pt1.sh
+vi ~/scripts/EDSD/template-pt1.sh
 {% endhighlight %}
 
 Copy and paste the following code into the script:
@@ -101,8 +100,7 @@ The initial template image will look something like this:
 Once you have an initial template created, now a complete template can be generated.
 
 {% highlight bash %}
-cd ~/scripts/EDSD/
-vi template-pt2.sh
+vi ~/scripts/EDSD/template-pt2.sh
 {% endhighlight %}
 
 Create another job script, but add the initial template and change the output prefix:
