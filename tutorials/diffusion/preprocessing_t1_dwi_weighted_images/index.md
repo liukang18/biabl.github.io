@@ -44,11 +44,11 @@ Your b-vector are the gradient directions that you collect, often predetermined 
 
 We are going to use data for one site only just to keep our analyses consistent; however, future anayses really need to look at differences across sites and scanners. For more information about the EDSD refer to their manuscript: [http://dx.doi.org/10.1016/j.neuroimage.2016.03.067](http://dx.doi.org/10.1016/j.neuroimage.2016.03.067)
 
-## Preprocess T1 and Diffusion Weighted Images
-
 <div class="embed-container">
 <iframe src="https://player.vimeo.com/video/181807268?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
+
+## Preprocess T1 and Diffusion Weighted Images
 
 First copy the data from the shared directory to your user directory on the supercomputer:
 
