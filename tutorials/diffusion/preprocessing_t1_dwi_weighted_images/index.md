@@ -14,6 +14,7 @@ After you complete this section, you should be able to:
 2. Describe the need for the bval and bvec files
 3. Describe the structure of the European DTI Study of Dementia
 4. Preprocess T1 weighted images using job and batch scripts
+5. Verify preprocessing steps were completed correctly
 
 ## Diffusion Imaging
 
@@ -41,11 +42,13 @@ Your b-vector are the gradient directions that you collect, often predetermined 
 
 > The European DTI Study on Dementia (EDSD) is a multicenter framework created to study the diagnostic accuracy and inter-site variability of DTI-derived markers in patients with manifest and prodromal Alzheimer's disease (AD). The dynamically growing database presently includes 493 DTI, 512 T1-weighted MRI, and 300 FLAIR scans from patients with AD dementia, patients with Mild Cognitive Impairment (MCI) and matched Healthy Controls, acquired on 13 different scanner platforms. The imaging data is publicly available, along with the subjects' demographic and clinical characterization. Detailed neuropsychological information, cerebrospinal fluid information on biomarkers and clinical follow-up diagnoses are included for a subset of subjects. This paper describes the rationale and structure of the EDSD, summarizes the available data, and explains how to gain access to the database. The EDSD is a useful database for researchers seeking to investigate the contribution of DTI to dementia diagnostics.
 
-We are going to use data for one site only just to keep our analyses consistent; however, future anayses really need to look at differences across sites and scanners. For more information about the EDSD refer to their manuscript:
-
-[http://dx.doi.org/10.1016/j.neuroimage.2016.03.067](http://dx.doi.org/10.1016/j.neuroimage.2016.03.067)
+We are going to use data for one site only just to keep our analyses consistent; however, future anayses really need to look at differences across sites and scanners. For more information about the EDSD refer to their manuscript: [http://dx.doi.org/10.1016/j.neuroimage.2016.03.067](http://dx.doi.org/10.1016/j.neuroimage.2016.03.067)
 
 ## Preprocess T1 and Diffusion Weighted Images
+
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/181807268?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
 
 First copy the data from the shared directory to your user directory on the supercomputer:
 
@@ -140,4 +143,16 @@ Submit the batch script, which will submit a job script for each participant in 
 var=`date +"%Y%m%d-%H%M%S"`
 mkdir -p ~/logfiles/$var
 sh ~/scripts/EDSD/preprocess_batch.sh $var
+{% endhighlight %}
+
+## Verify
+
+The last step is to verify the preprocessing steps completed correctly. Copy the data to your local computer:
+
+{% highlight bash %}
+rsync \
+-rauv \
+--exclude="DICOM" \
+intj5@ssh.fsl.byu.edu:~/compute/images/EDSD \
+~/Desktop/
 {% endhighlight %}
