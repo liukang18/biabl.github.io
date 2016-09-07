@@ -139,5 +139,5 @@ Submit the batch script, which will submit a job script for each participant in 
 {% highlight bash %}
 var=`date +"%Y%m%d-%H%M%S"`
 mkdir -p ~/logfiles/$var
-sh ~/scripts/class/preprocess_batch.sh $var
+sh ~/scripts/EDSD/preprocess_batch.sh $var
 {% endhighlight %}
