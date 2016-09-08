@@ -185,7 +185,7 @@ mkdir -p ~/logfiles/$var
 sbatch \
 -o ~/logfiles/${var}/output.txt \
 -e ~/logfiles/${var}/error.txt \
-~/scripts/EDSD/tbss_2_preproc.sh
+~/scripts/EDSD/tbss_2_reg.sh
 {% endhighlight %}
 
 ### tbss_3_postreg

@@ -1,6 +1,6 @@
 ---
 layout: tutorials
-title: FreeSurfer | recon-all
+title: FreeSurfer recon-all
 author: naomi
 comments: true
 date: 2016-09-01
@@ -24,7 +24,7 @@ export FREESURFER_HOME=/fslhome/USERNAME/apps/freesurfer
 source $FREESURFER_HOME/SetUpFreeSurfer.sh
 {% endhighlight %}
 
-## Full Cortical Reconstruction, Parcellation, and Labeling
+## Full Cortical Parcellation
 
 Full FreeSurfer parcellation involves many, many steps. These steps have been *conveniently* batched in a script called recon-all.
 
