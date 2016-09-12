@@ -93,6 +93,7 @@ export ARTHOME
 
 # FreeSurfer
 export FREESURFER_HOME=/fslhome/BYUNetID/apps/freesurfer
+source $FREESURFER_HOME/SetUpFreeSurfer.sh
 {% endhighlight %}
 
 ## Class Slides
