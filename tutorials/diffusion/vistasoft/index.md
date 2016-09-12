@@ -148,17 +148,19 @@ ni=readFileNifti(dtiFile);
 ni=niftiSetQto(ni,ni.sto_xyz);
 writeFileNifti(ni,dtiFile);
 
-% In order to determine phase encode dir, we can find the information in the DICOM header
-% >info=dicominfo('/fslhome/intj5/compute/images/EDSD/FRE_AD001/DICOM/diff/MR.22533.01274.dcm');
+% Determine phase encode dir:
+% > info=dicominfo([var,'/compute/images/EDSD/FRE_AD001/DICOM/diff/MR.22533.01274.dcm']);
  % To get the manufacturer information
 % > info.(dicomlookup('0008','0070'))
 % To get the axis of phase encoding with respect to the image
 % > info.(dicomlookup('0018','1312'))
 % If phase encode dir is 'COL', then set 'phaseEncodeDir' to '2'
 % If phase encode dir is 'ROW', then set 'phaseEncodeDir' to '1'
-% For Siemens / Philips specific code we need to add 'rotateBvecsWithCanXform' (but always check phaseEncodeDir)
+% For Siemens / Philips specific code we need to add 'rotateBvecsWithCanXform'
+% BUT ALWAYS DOUBLE CHECK phaseEncodeDir:
 % > dwParams = dtiInitParams('rotateBvecsWithCanXform',1,'phaseEncodeDir',2,'clobber',1);
-% For GE specific code (but always check phaseEncodeDir)
+% For GE specific code
+% BUT ALWAYS DOUBLE CHECK phaseEncodeDir:
 % > dwParams = dtiInitParams('phaseEncodeDir',2,'clobber',1);
 dwParams = dtiInitParams('rotateBvecsWithCanXform',1,'phaseEncodeDir',2,'clobber',1);
 
