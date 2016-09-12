@@ -24,6 +24,8 @@ export FREESURFER_HOME=/fslhome/USERNAME/apps/freesurfer
 source $FREESURFER_HOME/SetUpFreeSurfer.sh
 {% endhighlight %}
 
+The reason we need to run FreeSurfer is so we can use the data later for TRACULA. TRACULA (TRActs Constrained by UnderLying Anatomy) is a tool for automatic reconstruction of a set of major white-matter pathways from diffusion-weighted MR images. It uses global probabilistic tractography with anatomical priors. Prior distributions on the neighboring anatomical structures of each pathway are derived from an atlas and combined with the FreeSurfer cortical parcellation and subcortical segmentation of the subject that is being analyzed to constrain the tractography solutions. This obviates the need for user interaction, e.g., to draw ROIs manually or to set thresholds on path angle and length, and thus automates the application of tractography to large datasets.
+
 ## Full Cortical Parcellation
 
 Full FreeSurfer parcellation involves many, many steps. These steps have been *conveniently* batched in a script called recon-all.
@@ -91,6 +93,8 @@ source $FREESURFER_HOME/SetUpFreeSurfer.sh
 -all \
 -sd /fslhome/${var}/compute/analyses/EDSD/FreeSurfer/
 {% endhighlight %}
+
+The only required option to run recon-all is **-subjid**; however, some additional options have been added. Since we already have a NIfTI image, we can use the **-i** to select the NIfTI image. To improve skull-stripping, add the **-wsatlas** option, which will use an atlas when skull stripping. To run all 31 steps, add the **-all** option. Finally, to specify the subject's directory, add the option **-sd** and path to directory. The default environmental variable, SUBJECTS_DIR will be used otherwise.
 
 ### Submit Jobs
 
