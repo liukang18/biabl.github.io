@@ -26,7 +26,8 @@ Tractography, whether you are using deterministic or probabilistic methods, can 
 ## VistaSoft
 
 Diffusion weighted images are preprocessed using the dtiInit preprocessing pipeline wrapper from Stanford open-source VISTASOFT package version 1.0 [https://github.com/vistalab/vistasoft](https://github.com/vistalab/vistasoft).
-First, the skull-stripped T1-weighted images need to be reformatted to be compatible with the current pipeline. But where are we going to get skull-stripped T1-weighted images? If you completed antsCorticalThickness.sh or antsBrainExtraction.sh, then you could get your brain image that way. However, you should have definitely run FreeSurfer on this dataset and you can grab the brain image from that pipeline as well. The FreeSurfer brain image may not be as accurate as ANTs, but it will suffice:
+
+First, the skull-stripped T1-weighted images need to be reformatted to be compatible with the current pipeline. But where are we going to get skull-stripped T1-weighted images? If you completed antsCorticalThickness.sh or antsBrainExtraction.sh, then you could get your brain image that way. However, you should have run FreeSurfer on this dataset and you can grab the brain image from that pipeline as well. The FreeSurfer brain image may not be as accurate as ANTs, but it will suffice:
 
 {% highlight bash %}
 for subj in $(ls ~/compute/images/EDSD); do
@@ -73,7 +74,7 @@ Copy and paste:
 {% highlight bash %}
 #!/bin/bash
 
-#SBATCH --time=01:00:00   # walltime
+#SBATCH --time=04:00:00   # walltime
 #SBATCH --ntasks=1  # number of processor cores (i.e. tasks)
 #SBATCH --nodes=1   # number of nodes
 #SBATCH --mem-per-cpu=24576M   # memory per CPU core
@@ -95,6 +96,14 @@ matlab -nodisplay -nojvm -nosplash -r "subjID('$1')"
 
 ### MATLAB function
 
+You can get the MATLAB template from the shared directory:
+
+{% highlight bash %}
+cp -v ~/fsl_groups/fslg_byustudent/compute/matlab.nii.gz ~/templates/
+{% endhighlight %}
+
+Create you MATLAB script:
+
 {% highlight bash %}
 vi ~/scripts/EDSD/subjID.m
 {% endhighlight %}
@@ -105,10 +114,13 @@ Copy and paste:
 %%%%%%%
 function subjID(x)
 
+% Display participant ID:
 display(x);
 
+% Get home directory:
 var = getenv('HOME');
 
+% Add modules to MATLAB. Do not change the order of these programs:
 SPM8Path = [var,'/apps/matlab/spm8'];
 addpath(genpath(SPM8Path));
 vistaPath = [var,'/apps/matlab/vistasoft'];
@@ -116,29 +128,52 @@ addpath(genpath(vistaPath));
 AFQPath = [var,'/apps/matlab/AFQ'];
 addpath(genpath(AFQPath));
 
+% Set file names
 subjDir= [var,'/compute/images/EDSD/',x];
 brainFile = [subjDir,'/t1/brain.nii.gz'];
 t1File = [subjDir,'/t1/matlab.nii.gz'];
 dtiFile = [subjDir,'/raw/dti.nii.gz'];
 cd (subjDir);
 
+% Move brain only image into the correct MATLAB FOV box:
 mrAnatAverageAcpcNifti(brainFile,t1File,[var,'/templates/matlab.nii.gz']);
 
+% Don't change the following code:
 ni = readFileNifti(t1File);
 ni = niftiSetQto(ni,ni.sto_xyz);
 writeFileNifti(ni,t1File);
 
+% Don't change the following code:
 ni=readFileNifti(dtiFile);
 ni=niftiSetQto(ni,ni.sto_xyz);
 writeFileNifti(ni,dtiFile);
 
+% In order to determine phase encode dir, we can find the information in the DICOM header
+% >info=dicominfo('/fslhome/intj5/compute/images/EDSD/FRE_AD001/DICOM/diff/MR.22533.01274.dcm');
+ % To get the manufacturer information
+% > info.(dicomlookup('0008','0070'))
+% To get the axis of phase encoding with respect to the image
+% > info.(dicomlookup('0018','1312'))
+% If phase encode dir is 'COL', then set 'phaseEncodeDir' to '2'
+% If phase encode dir is 'ROW', then set 'phaseEncodeDir' to '1'
+% For Siemens / Philips specific code we need to add 'rotateBvecsWithCanXform' (but always check phaseEncodeDir)
+% > dwParams = dtiInitParams('rotateBvecsWithCanXform',1,'phaseEncodeDir',2,'clobber',1);
+% For GE specific code (but always check phaseEncodeDir)
+% > dwParams = dtiInitParams('phaseEncodeDir',2,'clobber',1);
 dwParams = dtiInitParams('rotateBvecsWithCanXform',1,'phaseEncodeDir',2,'clobber',1);
+
+% Here's the one line of code to do the DTI preprocessing:
 dtiInit(dtiFile, t1File, dwParams);
+
+% Clean up files and exit:
+movefile('dti_*','raw/');
+movefile('dtiInitLog.mat','raw/');
 exit;
 {% endhighlight %}
 
 ### Submit Batch Script
 
+Finally, submit the whole process by submitting the batch script.
 
 {% highlight bash %}
 var=`date +"%Y%m%d-%H%M%S"`
