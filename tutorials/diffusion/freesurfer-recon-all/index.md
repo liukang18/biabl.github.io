@@ -94,7 +94,7 @@ source $FREESURFER_HOME/SetUpFreeSurfer.sh
 -sd /fslhome/${var}/compute/analyses/EDSD/FreeSurfer/
 {% endhighlight %}
 
-The only required option to run recon-all is **-subjid**; however, some additional options have been added. Since we already have a NIfTI image, we can use the **-i** to select the NIfTI image. To improve skull-stripping, add the **-wsatlas** option, which will use an atlas when skull stripping. To run all 31 steps, add the **-all** option. Finally, to specify the subject's directory, add the option **-sd** and path to directory. The default environmental variable, SUBJECTS_DIR will be used otherwise.
+The only required option to run recon-all is **-subjid**; however, some additional options have been added. Since we already have a NIfTI image, we can use the **-i** to select the NIfTI image. To improve skull-stripping, use **-wsatlas** option, which will use an atlas when skull stripping. To run all 31 steps, add the **-all** option. Finally, to specify the subject's directory, add the option **-sd** and path to directory. The default environmental variable, SUBJECTS_DIR will be used otherwise.
 
 ### Submit Jobs
 
