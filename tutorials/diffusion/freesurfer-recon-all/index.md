@@ -94,7 +94,7 @@ source $FREESURFER_HOME/SetUpFreeSurfer.sh
 -sd /fslhome/${var}/compute/analyses/EDSD/FreeSurfer/
 {% endhighlight %}
 
-The only required option to run recon-all is **-subjid**; however, some additional options have been added. Since we already have a NIfTI image, we can use the **-i** to select the NIfTI image. To improve skull-stripping, use **-wsatlas** option, which will use an atlas when skull stripping. To run all 31 steps, add the **-all** option. Finally, to specify the subject's directory, add the option **-sd** and path to directory. The default environmental variable, SUBJECTS_DIR will be used otherwise.
+The only required option to run recon-all is **-subjid**; however, some additional options have been added. Since we already have a NIfTI image, we can use the **-i** to select the NIfTI image. Use **-wsatlas** option to improve skull-stripping. To run all 31 steps, add the **-all** option. Finally, to specify the subject's directory, add the option **-sd** and path to directory. The default environmental variable, SUBJECTS_DIR will be used otherwise.
 
 ### Submit Jobs
 
@@ -110,7 +110,9 @@ sh ~/scripts/EDSD/freesurfer_batch.sh $var
 In order to view the output, you will need to download a participant directory to your local computer. Note you must have FreeSurfer installed on your local computer in order to run the following code:
 
 {% highlight bash %}
-rsync -rauv intj5@ssh.fsl.byu.edu:~/compute/analyses/EDSD/FreeSurfer/FRE_AD001 ~/Desktop/
+rsync -rauv \
+intj5@ssh.fsl.byu.edu:~/compute/analyses/EDSD/FreeSurfer/FRE_AD001 \
+~/Desktop/
 {% endhighlight %}
 
 With one Freeview command line, you can load several output volumes, such as brainmask.mgz and wm.mgz; the surfaces, rh.white and lh.white; and the subcortical segmentation, aseg.mgz. Copy and paste the command below inside the terminal window and press enter:
