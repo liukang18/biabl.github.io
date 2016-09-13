@@ -13,7 +13,9 @@ After you complete this section, you should be able to:
 1. Describe tractography
 2. Understand the difference between deterministic and probabilistic
 3. Understand the difference between local versus global tractography
-4.
+4. Generate MATLAB function that can be called within a job script
+5. Check Phase Encode direction and set the dwParams
+6. Adjust dwParams based upon scanner typer
 
 ## Tractography
 
@@ -102,13 +104,13 @@ You can get the MATLAB template from the shared directory:
 cp -v ~/fsl_groups/fslg_byustudent/compute/matlab.nii.gz ~/templates/
 {% endhighlight %}
 
-Create you MATLAB script:
+Create your MATLAB function. The reason we are creating a function versus a script, is so we can pass a variable, namely the participant ID, into the script:
 
 {% highlight bash %}
 vi ~/scripts/EDSD/subjID.m
 {% endhighlight %}
 
-Copy and paste:
+Copy and paste the following into your function. You do need all those percentages at the beginning of the function:
 
 {% highlight matlab %}
 %%%%%%%
@@ -128,7 +130,7 @@ addpath(genpath(vistaPath));
 AFQPath = [var,'/apps/matlab/AFQ'];
 addpath(genpath(AFQPath));
 
-% Set file names
+% Set file names:
 subjDir= [var,'/compute/images/EDSD/',x];
 brainFile = [subjDir,'/t1/brain.nii.gz'];
 t1File = [subjDir,'/t1/matlab.nii.gz'];
@@ -150,16 +152,16 @@ writeFileNifti(ni,dtiFile);
 
 % Determine phase encode dir:
 % > info=dicominfo([var,'/compute/images/EDSD/FRE_AD001/DICOM/diff/MR.22533.01274.dcm']);
- % To get the manufacturer information
+% To get the manufacturer information:
 % > info.(dicomlookup('0008','0070'))
-% To get the axis of phase encoding with respect to the image
+% To get the axis of phase encoding with respect to the image:
 % > info.(dicomlookup('0018','1312'))
 % If phase encode dir is 'COL', then set 'phaseEncodeDir' to '2'
 % If phase encode dir is 'ROW', then set 'phaseEncodeDir' to '1'
-% For Siemens / Philips specific code we need to add 'rotateBvecsWithCanXform'
+% For Siemens / Philips specific code we need to add 'rotateBvecsWithCanXform',
 % BUT ALWAYS DOUBLE CHECK phaseEncodeDir:
 % > dwParams = dtiInitParams('rotateBvecsWithCanXform',1,'phaseEncodeDir',2,'clobber',1);
-% For GE specific code
+% For GE specific code,
 % BUT ALWAYS DOUBLE CHECK phaseEncodeDir:
 % > dwParams = dtiInitParams('phaseEncodeDir',2,'clobber',1);
 dwParams = dtiInitParams('rotateBvecsWithCanXform',1,'phaseEncodeDir',2,'clobber',1);
@@ -173,9 +175,11 @@ movefile('dtiInitLog.mat','raw/');
 exit;
 {% endhighlight %}
 
+You should not have to change any of this code for the neuroimaging class; however, if you are processing your own dataset, you need to double check the manufacturer and phaseEncodeDir and change those within the dwParams command.
+
 ### Submit Batch Script
 
-Finally, submit the whole process by submitting the batch script.
+Finally, submit the whole process by submitting the batch script:
 
 {% highlight bash %}
 var=`date +"%Y%m%d-%H%M%S"`
