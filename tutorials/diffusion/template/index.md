@@ -16,6 +16,8 @@ After you complete this section, you should be able to:
 4. Create a high-resolution population template and clean up your directory
 5. Compare and contrast a child versus an older adult template.
 
+In this tutorial I am only showing you how to generate a population template. Unfortunately, because the advanced lessons are about DTI data, we won't be using this template for any of the analyses. If you would like to run antsCorticalThickness.sh on the EDSD data, review Beginner lessons 7 ([antsCorticalThickness](http://biabl.github.io/tutorials/structural/cortical_thickness/)) and 8 ([How to Submit Batch Jobs on the Supercomputer](http://biabl.github.io/tutorials/general/submit-multiple-jobs/)). Lesson 7 shows you how to generate template priors and ROIs, so when you run all your participants through antsCorticalThickness.sh in Lesson 8, you can use the population specific template!
+
 ## Copy Files
 
 <div class="embed-container">
