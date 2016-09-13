@@ -30,6 +30,11 @@ The reason we need to run FreeSurfer is so we can use the data later for TRACULA
 
 Full FreeSurfer parcellation involves many, many steps. These steps have been *conveniently* batched in a script called recon-all.
 
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/182604509?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+
+
 ### Batch Script
 
 Because FreeSurfer takes 24+ hours, the process will have to be submitted with both a batch and job script. Create a script that will batch submit your job script:
@@ -104,6 +109,10 @@ var=`date +"%Y%m%d-%H%M%S"`
 mkdir -p ~/logfiles/$var
 sh ~/scripts/EDSD/freesurfer_batch.sh $var
 {% endhighlight %}
+
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/182604509?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
 
 ## Viewing Volumes with Freeview
 
