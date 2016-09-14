@@ -10,41 +10,111 @@ date: 2016-08-02
 
 After you complete this section, you should be able to:
 
-1. Complete group statistics on FA, RD, AD, and MD.
-2. View results
+1. Setup design matrix and contrasts for a two-sample unpaired t-test
+2. Perform voxelwise statistics using FSL's tool randomise
+3. View and understand results
+
+## Analysis Design
+
+Before running **randomise** you will need to generate a design matrix file, e.g., **design.mat** and contrasts file, e.g., **design.con**. Note that the order of the entries (rows) in your design matrix must match the alphabetical order of your original FA images, as that determines the order of the aligned FA images in the final 4D file all_FA_skeletonised; check this with:
+
+{% highlight bash %}
+cd ~/compute/analyses/EDSD/TBSS/FA
+imglob *_FA.*
+{% endhighlight %}
+
+Luckily for our dataset, the first 10 participants are patients with Alzheimer's disease and the last 16 participants are healthy controls.
+
+### Design.mat
+
+First, you need to create a text file that contains your design matrix. Each column is an explanatory variable (EV) and each row represents a participant. In our design matrix, the first column represents the Alzheimer's disease group and the second column represents the healthy control group.
+
+{% highlight bash %}
+vi ~/compute/analyses/EDSD/TBSS/stats/design.txt
+{% endhighlight %}
+
+Copy and paste into the design.txt file:
+
+{% highlight vim %}
+1	0
+1	0
+1	0
+1	0
+1	0
+1	0
+1	0
+1	0
+1	0
+1	0
+0	1
+0	1
+0	1
+0	1
+0	1
+0	1
+0	1
+0	1
+0	1
+0	1
+0	1
+0	1
+0	1
+0	1
+0	1
+0	1
+{% endhighlight %}
+
+All you need to do is save this data as design.txt (or any other file name you fancy), then run the following:
+
+{% highlight bash %}
+cd ~/compute/analyses/EDSD/TBSS/stats/
+Text2Vest design.txt design.mat
+{% endhighlight %}
+
+This will convert the design matrix data into the format used by the FSL tools, and save the matrix as design.mat.
+
+### Design.con
+
+Contrast files must have one row for each contrast, and a column for each EV. For example, we have 2 EVs in our design matrix above. A contrast matrix for this design might look like this (four contrasts, first two giving the mean for each group in the study and the last two comparing the two groups):
+
+{% highlight bash %}
+1 0
+0 1
+1 -1
+-1 1
+{% endhighlight %}
+
+If you save this as contrasts.txt, simply run this:
+
+{% highlight bash %}
+Text2Vest contrasts.txt design.con
+{% endhighlight %}
+
+If you want to keep things easy to remember during the analyses, add the follow lines to the top of your design.con file:
+
+{% highlight vim %}
+/ContrastName1	AD mean
+/ContrastName2	HC mean
+/ContrastName3	AD > HC
+/ContrastName4	HC > AD
+{% endhighlight %}
 
 ## Voxelwise Statistics
 
-Before we perform statistics, we need to copy our non-FA images to our analysis directory:
+**randomise** is FSL's tool for nonparametric permutation inference on neuroimaging data. **randomise** allows modeling and inference using standard GLM design setup as used for example in FEAT. It can output voxelwise, cluster-based and TFCE-based tests, and also offers variance smoothing as an option. For more information about FSL's tool, [click here for the user guide](http://fsl.fmrib.ox.ac.uk/fsl/fslwiki/Randomise/UserGuide).
+
+Create a job script:
 
 {% highlight bash %}
-mkdir -p ~/compute/analyses/EDSD/TBSS/MD
-mkdir -p ~/compute/analyses/EDSD/TBSS/AD
-mkdir -p ~/compute/analyses/EDSD/TBSS/RD
-
-for i in $(ls ~/compute/images/EDSD/); do
-cp -v ~/compute/images/EDSD/${i}/raw/dti_MD.nii.gz ~/compute/analyses/EDSD/TBSS/MD/${i}_FA.nii.gz;
-cp -v ~/compute/images/EDSD/${i}/raw/dti_L1.nii.gz ~/compute/analyses/EDSD/TBSS/AD/${i}_FA.nii.gz;
-fslmaths ~/compute/images/EDSD/${i}/raw/dti_L2.nii.gz -add ~/compute/images/EDSD/${i}/raw/dti_L3.nii.gz -div 2 ~/compute/images/EDSD/${i}/raw/dti_RD.nii.gz;
-cp -v ~/compute/images/EDSD/${i}/raw/dti_RD.nii.gz ~/compute/analyses/EDSD/TBSS/RD/${i}_FA.nii.gz;
-done
+vi ~/scripts/EDSD/tbss_voxelwise.sh
 {% endhighlight %}
 
-Your base job script will contain the following. You will need to create four more jobs scripts:
-
-{% highlight bash %}
-touch ~/scripts/EDSD/voxelwise-group-AD.sh
-touch ~/scripts/EDSD/voxelwise-group-FA.sh
-touch ~/scripts/EDSD/voxelwise-group-MD.sh
-touch ~/scripts/EDSD/voxelwise-group-RD.sh
-{% endhighlight %}
-
-### FA
+Copy and paste into the job script:
 
 {% highlight bash %}
 #!/bin/bash
 
-#SBATCH --time=30:00:00   # walltime
+#SBATCH --time=40:00:00   # walltime
 #SBATCH --ntasks=1   # number of processor cores (i.e. tasks)
 #SBATCH --nodes=1   # number of nodes
 #SBATCH --mem-per-cpu=16384M  # memory per CPU core
@@ -67,5 +137,30 @@ export FSLDIR PATH
 
 # INSERT CODE, AND RUN YOUR PROGRAMS HERE
 cd ~/compute/analyses/EDSD/TBSS/stats/
-randomise -i all_FA_skeletonised -o tbss_FA -m mean_FA_skeleton_mask -d design.mat -t design.con -n 5000 --T2 -V
+randomise -i ${1} -o ${2} -m mean_FA_skeleton_mask -d design.mat -t design.con -n 5000 --T2 -V
+{% endhighlight %}
+
+### Submit Job Script
+
+When you submit the job script, you will need to include two command line arguments. The first, needs to be the name of your group skeletonised image, the second needs to be your output prefix.
+
+{% highlight bash %}
+var=`date +"%Y%m%d-%H%M%S"`
+mkdir -p ~/logfiles/$var
+sbatch \
+-o ~/logfiles/${var}/output.txt \
+-e ~/logfiles/${var}/error.txt \
+~/scripts/EDSD/tbss_voxelwise.sh \
+all_FA_skeletonised \
+tbss_FA
+{% endhighlight %}
+
+To analyze AD, use **all_AD_skeletonised** as your input file and **tbss_AD** as your output. To analyze RD, use **all_RD_skeletonised** as your input file and **tbss_RD** as your output. To analyze MD, use **all_AD_skeletonised** as your input file and **tbss_MD** as your output.
+
+## Results
+
+In order to view the results, you will need to download the TBSS stats directory to a local computer that has FSL installed:
+
+{% highlight bash %}
+rsync -rauv
 {% endhighlight %}
