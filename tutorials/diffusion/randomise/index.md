@@ -115,7 +115,7 @@ Copy and paste into the job script:
 {% highlight bash %}
 #!/bin/bash
 
-#SBATCH --time=04:00:00   # walltime
+#SBATCH --time=05:00:00   # walltime
 #SBATCH --ntasks=1   # number of processor cores (i.e. tasks)
 #SBATCH --nodes=1   # number of nodes
 #SBATCH --mem-per-cpu=16384M  # memory per CPU core
@@ -200,7 +200,7 @@ mean_FA_skeleton -l Green -b 0.2,0.8 \
 tbss_FA_tfce_corrp_tstat4_fill -l Red-Yellow
 {% endhighlight %}
 
-Here are the FA results. Recall that lower FA represents loss of white matter integrity. Therefore, we would hypothesize that FA will be reduced within the Alzheimer's disease group compared to healthy controls due to processes of neurodegeneration:
+Here are the FA results. Recall that lower FA represents loss of white matter integrity. Therefore, we would hypothesize that FA will be reduced within the Alzheimer's disease group compared to healthy controls due to neurodegeneration:
 
 <img class="img-responsive" alt="" src="images/FA-HC-AD.jpg">
 
@@ -228,3 +228,5 @@ done
 ### Mean Diffusivity
 
 <img class="img-responsive" alt="" src="images/MD-AD-HC.jpg">
+
+Just like previous studies, FA appears to be lower and AD, RD, and MD is higher in Alzheimer's disease compared to healthy controls. However, hopefully you begin to see a big limitation to TBSS analyses...what pathways are specifically altered in Alzheimer's disease? You basically have to grab an atlas and start trying to identify the location of the significant clusters. You also don't get a sense of how the DTI measures change at different points along the tracts. This is where tractography excels!
