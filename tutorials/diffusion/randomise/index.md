@@ -190,7 +190,7 @@ To view the contrast where FA is higher in Alzheimer's disease group compared to
 fslview $FSLDIR/data/standard/MNI152_T1_1mm \
 mean_FA_skeleton -l Green -b 0.2,0.8 \
 tbss_FA_tfce_corrp_tstat3_fill -l Red-Yellow
-{% endhighlight}
+{% endhighlight %}
 
 To view the contrast where FA is higher in healthy controls compared to the Alzheimer's disease group run:
 
