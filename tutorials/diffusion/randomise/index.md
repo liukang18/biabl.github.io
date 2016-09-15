@@ -217,6 +217,14 @@ tbss_fill tbss_${x}_tfce_corrp_tstat4 0.95 mean_FA tbss_${x}_tfce_corrp_tstat4_f
 done
 {% endhighlight %}
 
+### Radial Diffusivity
+
 <img class="img-responsive" alt="" src="images/RD-AD-HC.jpg">
+
+### Axial Diffusivity
+
 <img class="img-responsive" alt="" src="images/AD-AD-HC.jpg">
+
+### Mean Diffusivity
+
 <img class="img-responsive" alt="" src="images/MD-AD-HC.jpg">
