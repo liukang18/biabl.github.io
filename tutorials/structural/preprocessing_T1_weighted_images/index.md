@@ -158,7 +158,7 @@ In your script include:
 
 {% highlight bash %}
 mkdir $1/t1
-~/apps/dcm2niix/bin/dcm2niix -o $1/t1/ -x y $1/DICOM
+~/apps/dcm2niix/bin/dcm2niix -o $1/t1/ -f t1 -x y $1/DICOM
 ~/apps/art/acpcdetect -M -o $1/t1/acpc.nii -i $1/t1/t1_Crop_1.nii
 ~/apps/ants/bin/N4BiasFieldCorrection -v -d 3 -i $1/t1/acpc.nii -o $1/t1/n4.nii.gz -s 4 -b [200] -c [50x50x50x50,0.000001]
 ~/apps/c3d/bin/c3d $1/t1/n4.nii.gz -resample-mm 1x1x1mm -o $1/t1/resampled.nii.gz
