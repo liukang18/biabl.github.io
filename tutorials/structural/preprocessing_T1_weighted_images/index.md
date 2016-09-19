@@ -41,7 +41,8 @@ Time to convert the DICOMs to NIfTI format. The simplest way to run the code is:
 {% highlight bash %}
 dcm2niix \
 -o ${subjDir}/t1/ \
--x y
+-x y \
+-f t1 \
 ${subjDir}/DICOM/
 {% endhighlight %}
 
