@@ -185,6 +185,12 @@ After you have processed all the participants, you'll want to confirm that your 
 rsync -rauv --exclude="DICOM" intj5@ssh.fsl.byu.edu:~/compute/class/1304 ~/Desktop/
 {% endhighlight %}
 
+### For All Platforms
+
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/183505320?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+
 ## Advanced Techniques
 
 <div class="embed-container">
