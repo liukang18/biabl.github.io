@@ -151,7 +151,7 @@ Let's create a script you can use to run participants individually:
 {% highlight bash %}
 mkdir -p ~/scripts/class/
 cd ~/scripts/class/
-vi preprocess.sh
+vi preprocessed.sh
 {% endhighlight %}
 
 In your script include:
@@ -168,7 +168,7 @@ ls $1/t1/
 To run your script:
 
 {% highlight bash %}
-sh ~/scripts/class/preprocess.sh ~/compute/class/1306
+sh ~/scripts/class/preprocessed.sh ~/compute/class/1306
 {% endhighlight %}
 
 The variable `$1` will represent the path to the participant that you provided, i.e., `~/compute/class/1306`.
