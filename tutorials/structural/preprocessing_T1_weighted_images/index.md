@@ -32,7 +32,7 @@ Most imaging programs and pipelines do not actually use DICOMs, but some other "
 First let's create a T1 directory within our participant directory. Often times you will be working with multiple scan modalities and you will want to put those in separate directories (e.g., DTI, fMRI, T2w, etc.).
 
 {% highlight bash %}
-subjDir=</path/to/subject/directory>
+subjDir=~/compute/class/1304/
 mkdir ${subjDir}/t1
 {% endhighlight %}
 
