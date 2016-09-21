@@ -41,7 +41,7 @@ Please review Beginner Topics before starting the Advanced Topics. You will need
 2. [Preprocessing T1 and Diffusion Weighted Images](diffusion/preprocessing_t1_dwi_weighted_images)
 3. [Generate Template](diffusion/template)
 4. [FreeSurfer recon-all](diffusion/freesurfer-recon-all)
-5. [Tract-Based Spatial Statistics](diffusion/#)
+5. [Tract-Based Spatial Statistics](diffusion/tbss)
 6. [Randomise](diffusion/#)
 7. [Deterministic Tractography with VistaSoft](diffusion/#)
 8. [Automatic Fiber Quantification](diffusion/#)

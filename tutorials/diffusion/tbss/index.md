@@ -23,6 +23,10 @@ TBSS is an automated method that tries to combine the strengths of both voxel-ba
 
 ## Preprocessing DWI
 
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/183678370" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+
 Each diffusion-weighted image is registered to the non-diffusion-weighted (b=0) using linear image registration for motion correction using FSL eddy_correct program. After correction, diffusion weighted images are skull-stripped in order to exclude non-brain voxels from all analyses using FSL bet program. Last, the diffusion tensors are calculated with the FSL DTIfit program for whole brain volumes and resulting FA, RD, MD, and AD volumes can then be used in tract-based spatial statistics analysis.
 
 ### Job Script
@@ -103,6 +107,10 @@ sh ~/scripts/EDSD/fdt_batch.sh $var
 
 ### tbss_1_preproc
 
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/183678374" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+
 Prepare your FA data in your TBSS working directory. You will need to copy all the FA images into a single directory:
 
 {% highlight bash %}
@@ -164,6 +172,10 @@ sbatch \
 
 ### tbss_2_reg
 
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/183678376" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+
 Second, volumes are nonlinearly warped to the FMRIB58_FA template, which is supplied with FSL, by use of local deformation procedures performed by FNIRT, a nonlinear registration toolkit using a b-spline representation of the registration warp field.
 
 Copy the first job script to create a new job script:
@@ -190,6 +202,10 @@ sbatch \
 {% endhighlight %}
 
 ### tbss_3_postreg
+
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/183678375" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
 
 Next tbss_3_postreg generates a mean FA volume of all participants. This mean FA volume is thinned to create a mean FA skeleton representing the centers of all common tracts.
 
@@ -246,6 +262,10 @@ sbatch \
 **At this point you may be asking your self, "Why not just put all the tbss_1 through tbss_4 code in a single job script?" Perfectly great question to ask. When you submit a command line, it typically should wait until the process has completed before moving to the next line in your code. Unfortunately, FSL commands don't always play nice and wait, so while you submit your code for tbss_2 it will immediately try to run tbss_3 and ultimately fail!**
 
 ## Using non-FA Images in TBSS
+
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/183678372" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
 
 After you have run the full TBSS analysis on your FA data, the results can be applied to the other diffusion metrics: RD, AD, and MD. First, create a new directory called RD (or any other name) in your TBSS analysis directory (the one that contains the existing origdata, FA and stats directories from the FA analysis).
 
