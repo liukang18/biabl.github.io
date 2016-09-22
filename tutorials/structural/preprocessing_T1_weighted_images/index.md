@@ -39,7 +39,7 @@ mkdir ${subjDir}/t1
 Time to convert the DICOMs to NIfTI format. The simplest way to run the code is:
 
 {% highlight bash %}
-dcm2niix \
+~/apps/dcm2niix/bin/dcm2niix \
 -o ${subjDir}/t1/ \
 -x y \
 -f t1 \
@@ -86,7 +86,7 @@ Because it is very difficult to perfectly position people, a short sequence will
 Besides AC-PC alignment, you also don't want the brain tilted left or right. The interhemispheric fissure (AKA medial longitudinal fissure) should be straight! And finally, the alignment of the origin is also critical. In the native brain, you want some standardization of where the location of (0, 0, 0) is on the x-, y-, and z-axis. Typically, the origin is located at the anterior commissure or half way between the anterior commissure and posterior commissure along the horizontal plane. There's a program that can automatically fix all of these issues. However, the program only runs on Linux computers:
 
 {% highlight bash %}
-acpcdetect \
+~/apps/art/acpcdetect \
 -M \
 -o ${subjDir}/t1/acpc.nii \
 -i ${subjDir}/t1/t1.nii
@@ -114,7 +114,7 @@ Images often exhibit image intensity non-uniformities that are the result of mag
 Image processing algorithms such as tissue segmentation use the pixel gray level values. If there is a bias field, the gray level values of the pixels will cause the algorithms to produce unsatisfactory results. A pre-processing step is needed to correct for the bias field signal before submitting corrupted MRI images to such algorithms. ***Note that at this point, we will output our file as `.nii.gz`. From this point on, we will use `.nii.gz` files. Only the `acpcdetect` program requires NIfTI only files.***
 
 {% highlight bash %}
-N4BiasFieldCorrection \
+~/apps/ants/bin/N4BiasFieldCorrection \
 -d 3 \
 -i ${subjDir}/t1/acpc.nii \
 -o ${subjDir}/t1/n4.nii.gz \
@@ -134,7 +134,7 @@ Sometimes you will need to resample your images. For instance, if the study invo
 If you want to register a DTI image to your T1 image, you will definitely have to resample your T1 image. Most likely your T1 image will have about 1mm voxels, but your diffusion weighted image will be 2mm voxels. Therefore, you will have to resample your T1 image to have 2mm voxels.
 
 {% highlight bash %}
-c3d \
+~/apps/c3d/bin/c3d \
 ${subjDir}/t1/n4.nii.gz \
 -resample-mm 1x1x1mm \
 -o ${subjDir}/t1/resampled.nii.gz

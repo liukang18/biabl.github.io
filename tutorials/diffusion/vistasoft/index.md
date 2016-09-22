@@ -13,9 +13,10 @@ After you complete this section, you should be able to:
 1. Describe tractography
 2. Understand the difference between deterministic and probabilistic
 3. Understand the difference between local versus global tractography
-4. Generate MATLAB function that can be called within a job script
-5. Check Phase Encode direction and set the dwParams
-6. Adjust dwParams based upon scanner typer
+4. Fix the vistasoft code so it will run on the SuperComputer
+5. Generate MATLAB function that can be called within a job script
+6. Check Phase Encode direction and set the dwParams
+7. Adjust dwParams based upon scanner typer
 
 ## Tractography
 
@@ -24,6 +25,49 @@ Another diffusion imaging method is a tractography-based approach as opposed to 
 There are multiple tractography methods that can be used to determine the pathway between distant brain regions. When determining diffusion orientation at each voxel, there are two options: deterministic and probabilistic tractography. Deterministic (streamline) tractography models paths as a one-dimensional curve. Deterministic tractography uses the principal direction of diffusion to propagate trajectories from the defined anchor point until termination criterion are met (i.e., excessive angular deviation, minimum FA voxel threshold, and/or endpoint(s)). Probabilistic tractography generates a range of possible diffusion directions for each voxel instead of a single diffusion direction; therefore, probabilistic tractography actually models the uncertainty along the tract.
 
 Tractography, whether you are using deterministic or probabilistic methods, can be completed either locally or globally. Local tractography reconstructs the path step-by-step using just the local orientation at each voxel. Local tractography is best suited for exploratory studies of brain connectivity. Tracts are reconstructed starting from a single seed region and are not constrained to any given target region, therefore, endpoints can occur anywhere within the brain. On the other hand, global tractography fits the entire path at once, using diffusion orientation of all voxels along the path length. Global tractography is best suited for reconstructing known white-matter pathways. Tracts are constrained to connections of two specific end points and symmetric between beginning seed and end target regions.
+
+## Fix Code
+
+Unfortunately, the VistaSoft code is riddled with problems. Because the lab that originally has written the code is still running MATLAB r2012, newer versions or even different versions of MATLAB are going to have issues. Here are the changes you will need to make to your code in order for it to run correctly on the Supercomputer:
+
+{% highlight bash %}
+vi
+
+{% endhighlight %}
+
+Starting on line 34 add the new code below the stored transformation file code:
+
+{% highlight matlab %}
+% Load the stored transformation file.
+ec = load(ecXformFile);
+t = vertcat(ec.xform(:).ecParams);
+
+% NEW CODE (NJH 2016-09-22) Generate file that contains
+% the motion correction for each volume
+mc = t(:,1:6);
+mc(:,4:6) = (mc(:,4:6)/(2*pi)\*360);
+mc = dataset({mc 'x' 'y' 'z' 'pitch' 'roll' 'yaw'});
+{% endhighlight %}
+
+Shortly below that add the code to save the new datafile:
+
+{% highlight matlab %}
+% Save out a PNG figure with the same filename as the Eddy Currents correction xform.
+[p,f,~] = fileparts(ecXformFile);
+figurename = fullfile(p,[f,'.png']);
+
+% NEW CODE (NJH 2016-09-22) Add export csv file for motion correction
+filename = fullfile(p,[f,'.cxv']);
+export(mc,'File',filename,'Delimiter',',');
+{% endhighlight %}
+
+Finally, we need to comment out some bad code and insert new code that works:
+
+{% highlight matlab %}
+% ORIGINAL CODE% printCommand = sprintf('print(%s, ''-painters'',''-dpng'', ''-noui'', ''%s'')', num2str(fh),figurename);
+% NEW CODE (NJH 2016-09-22)
+printCommand = sprintf('saveas(fh,figurename)');
+{% endhighlight %}
 
 ## VistaSoft
 
@@ -43,7 +87,7 @@ To make the whole process of submitting jobs on the supercomputer even more conf
 
 ### Batch Script
 
-The batch script will use the for loop to loop through all the participant's under ~/compute/images/EDSD and submit the job script with the command line variable $subj:
+The batch script will use the for loop to loop through all the participant's under ~/compute/images/EDSD and submit the job script with the command line variable **subj**:
 
 {% highlight bash %}
 vi ~/scripts/EDSD/dtiInit_batch.sh
@@ -110,7 +154,7 @@ Create your MATLAB function. The reason we are creating a function versus a scri
 vi ~/scripts/EDSD/subjID.m
 {% endhighlight %}
 
-Copy and paste the following into your function. You do need all those percentages at the beginning of the function:
+Copy and paste the following into your function. You do need all those percent signs at the beginning of the function:
 
 {% highlight matlab %}
 %%%%%%%
@@ -159,10 +203,10 @@ writeFileNifti(ni,dtiFile);
 % If phase encode dir is 'COL', then set 'phaseEncodeDir' to '2'
 % If phase encode dir is 'ROW', then set 'phaseEncodeDir' to '1'
 % For Siemens / Philips specific code we need to add 'rotateBvecsWithCanXform',
-% BUT ALWAYS DOUBLE CHECK phaseEncodeDir:
+% AND ALWAYS DOUBLE CHECK phaseEncodeDir:
 % > dwParams = dtiInitParams('rotateBvecsWithCanXform',1,'phaseEncodeDir',2,'clobber',1);
 % For GE specific code,
-% BUT ALWAYS DOUBLE CHECK phaseEncodeDir:
+% AND ALWAYS DOUBLE CHECK phaseEncodeDir:
 % > dwParams = dtiInitParams('phaseEncodeDir',2,'clobber',1);
 dwParams = dtiInitParams('rotateBvecsWithCanXform',1,'phaseEncodeDir',2,'clobber',1);
 
