@@ -28,6 +28,11 @@ Luckily for our dataset, the first 10 participants are patients with Alzheimer's
 
 ### Design.mat
 
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/184030642" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+<br>
+
 To create your design matrix, start by creating a text file within your **stats** directory. Each column in the text file represents an explanatory variable (EV) and each row represents a participant. In our design matrix example, the first column represents the Alzheimer's disease group and the second column represents the healthy control group. Looking at the text file contents below, can you imagine if your list of participants weren't organized by group, how meticulous you would need to be to make sure each row corresponded perfectly with the correct participant?
 
 {% highlight bash %}
@@ -76,6 +81,11 @@ This will convert the design matrix data into the format used by the FSL tools, 
 
 ### Design.con
 
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/184030644" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+<br>
+
 Contrast files must have one row for each contrast, and a column for each EV. For example, we have 2 EVs in our design matrix above. A contrast matrix for this design might look like this (four contrasts, first two giving the mean for each group in the study and the last two comparing the two groups):
 
 {% highlight bash %}
@@ -101,6 +111,11 @@ Additionally, if you want to keep things easy to remember during the analyses, a
 {% endhighlight %}
 
 ## Voxelwise Statistics
+
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/184030643" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+<br>
 
 **randomise** is FSL's tool for nonparametric permutation inference on neuroimaging data. **randomise** allows modeling and inference using standard GLM design setup as used for example in FEAT. It can output voxelwise, cluster-based and TFCE-based tests, and also offers variance smoothing as an option. For more information about FSL's tool, [click here for the user guide](http://fsl.fmrib.ox.ac.uk/fsl/fslwiki/Randomise/UserGuide).
 
@@ -161,6 +176,11 @@ done
 
 ## Results
 
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/184030646" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+<br>
+
 In order to view the results, you will need to download the TBSS stats directory to a local computer that has FSL installed:
 
 {% highlight bash %}
@@ -205,6 +225,11 @@ Here are the FA results. Recall that lower FA represents loss of white matter in
 <img class="img-responsive" alt="" src="images/FA-HC-AD.jpg">
 
 ## How are FA, RD, AD, and MD related?
+
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/184030645" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+<br>
 
 Let's view the results for the rest of the DTI measures! How are the other DTI measures related to FA? Radial diffusivity, diffusion transverse to the main axis of diffusion (i.e., diffusion along the white matter tract), should have opposite results to FA. For example, we hypothesized that FA will be lower in Alzheimer's disease; therefore, we should predict that RD will be higher in Alzheimer's disease compared to healthy controls. Axial diffusivity represents diffusion along the principal axis of diffusion namely along the white matter tract. AD tends to be variable in white matter changes and pathology. AD can actually increase due to axonal inflammation, but then AD will decrease later on after axonal injury inflammation also decreases. All diffusion measures, AD, RD, and MD have been reported to be increased in Alzheimer's disease. Mean diffusivity is a separate measure and is more indicative of membrane integrity as opposed to tract integrity. Mean diffusivity is sensitive to cellularity, necrosis, and edema. There's reason to hypothesize the MD will increase in Alzheimer's disease because of neurodegeneration in the brain. Typically, MD is higher in damaged tissues as a result of increased free diffusion; in contrast, FA decreases due to the loss of coherence in the main preferred diffusion direction. Before we explore the results, let's make them easier to view:
 
