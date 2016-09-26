@@ -49,7 +49,7 @@ mc(:,4:6) = (mc(:,4:6)/(2*pi)\*360);
 mc = dataset({mc 'x' 'y' 'z' 'pitch' 'roll' 'yaw'});
 {% endhighlight %}
 
-Shortly below that add the code to save the new datafile:
+Shortly below those changes, add the code to save the new data file:
 
 {% highlight matlab %}
 % Save out a PNG figure with the same filename as the Eddy Currents correction xform.
@@ -64,7 +64,7 @@ export(mc,'File',filename,'Delimiter',',');
 Finally, we need to comment out some bad code and insert new code that works:
 
 {% highlight matlab %}
-% ORIGINAL CODE% printCommand = sprintf('print(%s, ''-painters'',''-dpng'', ''-noui'', ''%s'')', num2str(fh),figurename);
+% ORIGINAL CODE printCommand = sprintf('print(%s, ''-painters'',''-dpng'', ''-noui'', ''%s'')', num2str(fh),figurename);
 % NEW CODE (NJH 2016-09-22)
 printCommand = sprintf('saveas(fh,figurename)');
 {% endhighlight %}
