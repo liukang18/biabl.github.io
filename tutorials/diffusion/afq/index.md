@@ -54,7 +54,7 @@ The 8 regions of the corpus callosum are as follows:
 7. Occipital
 8. Temporal
 
-## VistaSoft
+## 
 
 
 

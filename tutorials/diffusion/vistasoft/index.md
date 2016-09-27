@@ -31,42 +31,13 @@ Tractography, whether you are using deterministic or probabilistic methods, can 
 Unfortunately, the VistaSoft code is riddled with problems. Because the lab that originally has written the code is still running MATLAB r2012, newer versions or even different versions of MATLAB are going to have issues. Here are the changes you will need to make to your code in order for it to run correctly on the Supercomputer:
 
 {% highlight bash %}
-vi
-
+vi ~/apps/matlab/vistasoft/mrDiffusion/dtiInit/dtiInit.m
 {% endhighlight %}
 
-Starting on line 34 add the new code below the stored transformation file code:
+Starting on line 170, we need to comment out one line of code. To comment out code in MATLAB, add a percent sign at the beginning of the command line:
 
 {% highlight matlab %}
-% Load the stored transformation file.
-ec = load(ecXformFile);
-t = vertcat(ec.xform(:).ecParams);
-
-% NEW CODE (NJH 2016-09-22) Generate file that contains
-% the motion correction for each volume
-mc = t(:,1:6);
-mc(:,4:6) = (mc(:,4:6)/(2*pi)\*360);
-mc = dataset({mc 'x' 'y' 'z' 'pitch' 'roll' 'yaw'});
-{% endhighlight %}
-
-Shortly below those changes, add the code to save the new data file:
-
-{% highlight matlab %}
-% Save out a PNG figure with the same filename as the Eddy Currents correction xform.
-[p,f,~] = fileparts(ecXformFile);
-figurename = fullfile(p,[f,'.png']);
-
-% NEW CODE (NJH 2016-09-22) Add export csv file for motion correction
-filename = fullfile(p,[f,'.cxv']);
-export(mc,'File',filename,'Delimiter',',');
-{% endhighlight %}
-
-Finally, we need to comment out some bad code and insert new code that works:
-
-{% highlight matlab %}
-% ORIGINAL CODE printCommand = sprintf('print(%s, ''-painters'',''-dpng'', ''-noui'', ''%s'')', num2str(fh),figurename);
-% NEW CODE (NJH 2016-09-22)
-printCommand = sprintf('saveas(fh,figurename)');
+% dtiCheckMotion(dwDir.ecFile,'off');
 {% endhighlight %}
 
 ## VistaSoft
@@ -136,7 +107,7 @@ export OMP_NUM_THREADS=$SLURM_CPUS_ON_NODE
 
 # LOAD MODULES, INSERT CODE, AND RUN YOUR PROGRAMS HERE
 cd ~/scripts/EDSD/
-module load matlab/r2010a
+module load matlab/r2013b
 matlab -nodisplay -nojvm -nosplash -r "subjID('$1')"
 {% endhighlight %}
 
@@ -216,6 +187,8 @@ dtiInit(dtiFile, t1File, dwParams);
 % Clean up files and exit:
 movefile('dti_*','raw/');
 movefile('dtiInitLog.mat','raw/');
+movefile('ROIs','*trilin');
+
 exit;
 {% endhighlight %}
 
