@@ -42,19 +42,7 @@ Starting on line 170, we need to comment out one line of code. To comment out co
 
 ## VistaSoft
 
-Diffusion weighted images are preprocessed using the dtiInit preprocessing pipeline wrapper from Stanford open-source VISTASOFT package version 1.0 [https://github.com/vistalab/vistasoft](https://github.com/vistalab/vistasoft).
-
-First, the skull-stripped T1-weighted images need to be reformatted to be compatible with the current pipeline. But where are we going to get skull-stripped T1-weighted images? If you completed antsCorticalThickness.sh or antsBrainExtraction.sh, then you could get your brain image that way. However, you should have run FreeSurfer on this dataset and you can grab the brain image from that pipeline as well. The FreeSurfer brain image may not be as accurate as ANTs, but it will suffice:
-
-{% highlight bash %}
-for subj in $(ls ~/compute/images/EDSD); do
-mri_convert \
-~/compute/analyses/EDSD/FreeSurfer/${subj}/mri/brain.mgz \
-~/compute/images/EDSD/${subj}/t1/brain.nii.gz
-done
-{% endhighlight %}
-
-To make the whole process of submitting jobs on the supercomputer even more confusing, you will submit a batch script, which will automatically submit a job script for each participant, and the job script will automatically run a MATLAB script to process the data. We will need to create a batch, job, and MATLAB function scripts.
+Diffusion weighted images are preprocessed using the dtiInit preprocessing pipeline wrapper from Stanford open-source VISTASOFT package version 1.0 [https://github.com/vistalab/vistasoft](https://github.com/vistalab/vistasoft). To make the whole process of submitting jobs on the supercomputer even more confusing, you will submit a batch script, which will automatically submit a job script for each participant, and the job script will automatically run a MATLAB script to process the data. We will need to create a batch, job, and MATLAB function scripts.
 
 ### Batch Script
 
@@ -113,12 +101,6 @@ matlab -nodisplay -nojvm -nosplash -r "subjID('$1')"
 
 ### MATLAB function
 
-You can get the MATLAB template from the shared directory:
-
-{% highlight bash %}
-cp -v ~/fsl_groups/fslg_byustudent/compute/matlab.nii.gz ~/templates/
-{% endhighlight %}
-
 Create your MATLAB function. The reason we are creating a function versus a script, is so we can pass a variable, namely the participant ID, into the script:
 
 {% highlight bash %}
@@ -147,18 +129,8 @@ addpath(genpath(AFQPath));
 
 % Set file names:
 subjDir= [var,'/compute/images/EDSD/',x];
-brainFile = [subjDir,'/t1/brain.nii.gz'];
-t1File = [subjDir,'/t1/matlab.nii.gz'];
 dtiFile = [subjDir,'/raw/dti.nii.gz'];
 cd (subjDir);
-
-% Move brain only image into the correct MATLAB FOV box:
-mrAnatAverageAcpcNifti(brainFile,t1File,[var,'/templates/matlab.nii.gz']);
-
-% Don't change the following code:
-ni = readFileNifti(t1File);
-ni = niftiSetQto(ni,ni.sto_xyz);
-writeFileNifti(ni,t1File);
 
 % Don't change the following code:
 ni=readFileNifti(dtiFile);
@@ -182,7 +154,7 @@ writeFileNifti(ni,dtiFile);
 dwParams = dtiInitParams('rotateBvecsWithCanXform',1,'phaseEncodeDir',2,'clobber',1);
 
 % Here's the one line of code to do the DTI preprocessing:
-dtiInit(dtiFile, t1File, dwParams);
+dtiInit(dtiFile, 'MNI', dwParams);
 
 % Clean up files and exit:
 movefile('dti_*','raw/');
