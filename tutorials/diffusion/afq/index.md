@@ -108,7 +108,7 @@ quit
 
 To run the script:
 
-{% hightlight bash %}
+{% highlight bash %}
 cd ~/scripts/EDSD/
 module load matlab
 matlab -nodisplay -nojvm -nosplash -r afq_parameters
