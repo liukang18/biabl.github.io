@@ -1,6 +1,6 @@
 ---
 layout: tutorials
-title: VistaSoft
+title: Automated Fiber Quantification
 author: naomi
 comments: true
 date: 2016-09-20
@@ -16,7 +16,7 @@ After you complete this section, you should be able to:
 4. Run AFQ on the supercomputer
 5. Segment the corpus callosum
 
-## Automated Fiber Quantification (AFQ)
+## Tracts
 
 Once preprocessing is completed using **dtiInit**, white matter pathways can be automatically identified using the software package, Automated Fiber Quantification version 1.2 (https://github.com/yeatmanlab/AFQ). First, whole-brain tractography is estimated using a deterministic streamline tracking algorithm (STT). Individual fibers are assigned to a fiber tract if they pass through two waypoint ROIs that were used to define the trajectory of the pathway. ROIs are automatically placed in equivalent anatomical locations across each participant by registering a template to each participant. Finally, identified fiber tracts are validated by comparing each tract to a fiber tract probability map. Fibers within the identified fiber tract of low probability are discarded, because they do not conform to the shape of the fiber tract as defined by the fiber probability map.
 
@@ -54,38 +54,73 @@ The 8 regions of the corpus callosum are as follows:
 7. Occipital
 8. Temporal
 
-## 
+## Automated Fiber Quantification (AFQ)
 
-
-
-### Batch Script
-
-The batch script will use the for loop to loop through all the participant's under ~/compute/images/EDSD and submit the job script with the command line variable **subj**:
+After you've preprocessed your diffusion weighted data using **dtiInit**, you are ready to run the AFQ pipeline. Let's create the output directories for these analyses:
 
 {% highlight bash %}
-vi ~/scripts/EDSD/dtiInit_batch.sh
+mkdir -p ~/compute/analyses/EDSD/AFQ
+mkdir -p ~/compute/analyses/EDSD/AFQ-CC
 {% endhighlight %}
 
-Copy and paste:
+### Parameters
+
+AFQ pipeline needs several MATLAB vectors in order to run. First, you will need to set the **path** to each participant's dt6.mat file under the variable **sub_dirs**, then you will need to set the group information (0 for the control group and 1 for study group) under the variable **sub_group**. In order to keep a record of the process, let's make this into a script. Create a script that will generate a variables, **sub_dirs** and **sub_group**, and save them as a .mat files:
 
 {% highlight bash %}
-#!/bin/bash
-for subj in $(ls ~/compute/images/EDSD/); do
-sbatch \
--o ~/logfiles/${1}/output_${subj}.txt \
--e ~/logfiles/${1}/error_${subj}.txt \
-~/scripts/EDSD/dtiInit_job.sh \
-${subj}
-sleep 1
-done
+vi ~/scripts/EDSD/afq_parameters.m
+{% endhighlight %}
+
+In the script, copy and paste your variable information:
+
+{% highlight matlab %}
+sub_dirs = {['/fslhome/intj5/compute/images/EDSD/FRE_AD001/dti55trilin/'],...
+['/fslhome/intj5/compute/images/EDSD/FRE_AD002/dti61trilin/'],...
+['/fslhome/intj5/compute/images/EDSD/FRE_AD003/dti61trilin/'],...
+['/fslhome/intj5/compute/images/EDSD/FRE_AD004/dti61trilin/'],...
+['/fslhome/intj5/compute/images/EDSD/FRE_AD005/dti61trilin/'],...
+['/fslhome/intj5/compute/images/EDSD/FRE_AD006/dti61trilin/'],...
+['/fslhome/intj5/compute/images/EDSD/FRE_AD007/dti61trilin/'],...
+['/fslhome/intj5/compute/images/EDSD/FRE_AD008/dti61trilin/'],...
+['/fslhome/intj5/compute/images/EDSD/FRE_AD009/dti61trilin/'],...
+['/fslhome/intj5/compute/images/EDSD/FRE_AD010/dti61trilin/'],...
+['/fslhome/intj5/compute/images/EDSD/FRE_HC001/dti61trilin/'],...
+['/fslhome/intj5/compute/images/EDSD/FRE_HC002/dti61trilin/'],...
+['/fslhome/intj5/compute/images/EDSD/FRE_HC003/dti61trilin/'],...
+['/fslhome/intj5/compute/images/EDSD/FRE_HC004/dti61trilin/'],...
+['/fslhome/intj5/compute/images/EDSD/FRE_HC005/dti61trilin/'],...
+['/fslhome/intj5/compute/images/EDSD/FRE_HC006/dti61trilin/'],...
+['/fslhome/intj5/compute/images/EDSD/FRE_HC007/dti61trilin/'],...
+['/fslhome/intj5/compute/images/EDSD/FRE_HC008/dti61trilin/'],...
+['/fslhome/intj5/compute/images/EDSD/FRE_HC009/dti61trilin/'],...
+['/fslhome/intj5/compute/images/EDSD/FRE_HC010/dti61trilin/'],...
+['/fslhome/intj5/compute/images/EDSD/FRE_HC011/dti61trilin/'],...
+['/fslhome/intj5/compute/images/EDSD/FRE_HC012/dti61trilin/'],...
+['/fslhome/intj5/compute/images/EDSD/FRE_HC013/dti61trilin/'],...
+['/fslhome/intj5/compute/images/EDSD/FRE_HC014/dti61trilin/'],...
+['/fslhome/intj5/compute/images/EDSD/FRE_HC015/dti61trilin/'],...
+['/fslhome/intj5/compute/images/EDSD/FRE_HC016/dti61trilin/']};
+sub_group = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+save('~/compute/analyses/EDSD/AFQ/sub_dirs.mat','sub_dirs');
+save('~/compute/analyses/EDSD/AFQ/sub_group.mat','sub_group');
+quit
+{% endhighlight %}
+
+To run the script:
+
+{% hightlight bash %}
+cd ~/scripts/EDSD/
+module load matlab
+matlab -nodisplay -nojvm -nosplash -r afq_parameters
+module unload matlab
 {% endhighlight %}
 
 ### Job Script
 
-The job script simply submits the MATLAB function **subjID** with the participant ID as a command line variable:
+The job script simply submits the MATLAB function **afq_analysis**:
 
 {% highlight bash %}
-vi ~/scripts/EDSD/dtiInit_job.sh
+vi ~/scripts/EDSD/afq_job.sh
 {% endhighlight %}
 
 Copy and paste:
@@ -93,7 +128,7 @@ Copy and paste:
 {% highlight bash %}
 #!/bin/bash
 
-#SBATCH --time=04:00:00   # walltime
+#SBATCH --time=10:00:00   # walltime
 #SBATCH --ntasks=1  # number of processor cores (i.e. tasks)
 #SBATCH --nodes=1   # number of nodes
 #SBATCH --mem-per-cpu=24576M   # memory per CPU core
@@ -109,33 +144,21 @@ export OMP_NUM_THREADS=$SLURM_CPUS_ON_NODE
 
 # LOAD MODULES, INSERT CODE, AND RUN YOUR PROGRAMS HERE
 cd ~/scripts/EDSD/
-module load matlab/r2010a
-matlab -nodisplay -nojvm -nosplash -r "subjID('$1')"
+module load matlab/r2013b
+matlab -nodisplay -nojvm -nosplash -r afq_analysis
 {% endhighlight %}
 
-### MATLAB function
+### MATLAB Script
 
-You can get the MATLAB template from the shared directory:
+Create your MATLAB script:
 
 {% highlight bash %}
-cp -v ~/fsl_groups/fslg_byustudent/compute/matlab.nii.gz ~/templates/
+vi ~/scripts/EDSD/afq_analysis.m
 {% endhighlight %}
 
-Create your MATLAB function. The reason we are creating a function versus a script, is so we can pass a variable, namely the participant ID, into the script:
-
-{% highlight bash %}
-vi ~/scripts/EDSD/subjID.m
-{% endhighlight %}
-
-Copy and paste the following into your function. You do need all those percent signs at the beginning of the function:
+Copy and paste the following into your script:
 
 {% highlight matlab %}
-%%%%%%%
-function subjID(x)
-
-% Display participant ID:
-display(x);
-
 % Get home directory:
 var = getenv('HOME');
 
@@ -147,59 +170,57 @@ addpath(genpath(vistaPath));
 AFQPath = [var,'/apps/matlab/AFQ'];
 addpath(genpath(AFQPath));
 
-% Set file names:
-subjDir= [var,'/compute/images/EDSD/',x];
-brainFile = [subjDir,'/t1/brain.nii.gz'];
-t1File = [subjDir,'/t1/matlab.nii.gz'];
-dtiFile = [subjDir,'/raw/dti.nii.gz'];
-cd (subjDir);
-
-% Move brain only image into the correct MATLAB FOV box:
-mrAnatAverageAcpcNifti(brainFile,t1File,[var,'/templates/matlab.nii.gz']);
-
-% Don't change the following code:
-ni = readFileNifti(t1File);
-ni = niftiSetQto(ni,ni.sto_xyz);
-writeFileNifti(ni,t1File);
-
-% Don't change the following code:
-ni=readFileNifti(dtiFile);
-ni=niftiSetQto(ni,ni.sto_xyz);
-writeFileNifti(ni,dtiFile);
-
-% Determine phase encode dir:
-% > info=dicominfo([var,'/compute/images/EDSD/FRE_AD001/DICOM/diff/MR.22533.01274.dcm']);
-% To get the manufacturer information:
-% > info.(dicomlookup('0008','0070'))
-% To get the axis of phase encoding with respect to the image:
-% > info.(dicomlookup('0018','1312'))
-% If phase encode dir is 'COL', then set 'phaseEncodeDir' to '2'
-% If phase encode dir is 'ROW', then set 'phaseEncodeDir' to '1'
-% For Siemens / Philips specific code we need to add 'rotateBvecsWithCanXform',
-% AND ALWAYS DOUBLE CHECK phaseEncodeDir:
-% > dwParams = dtiInitParams('rotateBvecsWithCanXform',1,'phaseEncodeDir',2,'clobber',1);
-% For GE specific code,
-% AND ALWAYS DOUBLE CHECK phaseEncodeDir:
-% > dwParams = dtiInitParams('phaseEncodeDir',2,'clobber',1);
-dwParams = dtiInitParams('rotateBvecsWithCanXform',1,'phaseEncodeDir',2,'clobber',1);
-
-% Here's the one line of code to do the DTI preprocessing:
-dtiInit(dtiFile, t1File, dwParams);
-
-% Clean up files and exit:
-movefile('dti_*','raw/');
-movefile('dtiInitLog.mat','raw/');
-exit;
+load ~/compute/analyses/EDSD/AFQ/sub_dirs.mat
+load ~/compute/analyses/EDSD/AFQ/sub_group.mat
+outdir = fullfile([var,'/compute/analyses/EDSD/AFQ/']);
+outname = fullfile(outdir,['afq_' datestr(now,'yyyy_mm_dd_HHMM')]);
+afq = AFQ_Create('sub_dirs', sub_dirs, 'sub_group', sub_group, 'showfigs', false);
+[afq, patient_data, control_data, norms, abn, abnTracts] = AFQ_run(sub_dirs, sub_group, afq);
+save(outname,'afq');
 {% endhighlight %}
 
-You should not have to change any of this code for the neuroimaging class; however, if you are processing your own dataset, you need to double check the manufacturer and phaseEncodeDir and change those within the dwParams command.
+### Submit Job Script
 
-### Submit Batch Script
-
-Finally, submit the whole process by submitting the batch script:
+Finally, submit the whole process by submitting the job script. AFQ runs serially on the supercomputer and currently there is no way to speed up the process and run it parallel:
 
 {% highlight bash %}
-var=`date +"%Y%m%d-%H%M%S"`
-mkdir -p ~/logfiles/${var}
-sh ~/scripts/EDSD/dtiInit_batch.sh $var
+{% endhighlight %}
+
+## Corpus Callosum
+
+### MATLAB Script
+
+Create your MATLAB script:
+
+{% highlight bash %}
+vi ~/scripts/EDSD/afq_cc_analysis.m
+{% endhighlight %}
+
+Copy and paste the following into your script:
+
+{% highlight matlab %}
+% Get home directory:
+var = getenv('HOME');
+
+% Add modules to MATLAB. Do not change the order of these programs:
+SPM8Path = [var,'/apps/matlab/spm8'];
+addpath(genpath(SPM8Path));
+vistaPath = [var,'/apps/matlab/vistasoft'];
+addpath(genpath(vistaPath));
+AFQPath = [var,'/apps/matlab/AFQ'];
+addpath(genpath(AFQPath));
+
+load ~/compute/analyses/EDSD/AFQ/sub_dirs.mat
+load ~/compute/analyses/EDSD/AFQ/sub_group.mat
+outdir = fullfile([var,'/compute/analyses/EDSD/AFQ/']);
+outname = fullfile(outdir,['afq_' datestr(now,'yyyy_mm_dd_HHMM')]);
+afq = AFQ_Create('sub_dirs', sub_dirs, 'sub_group', sub_group, 'showfigs', false);
+[afq, patient_data, control_data, norms, abn, abnTracts] = AFQ_run(sub_dirs, sub_group, afq);
+save(outname,'afq');
+
+load /fslhome/intj5/compute/projects/MIOS_AFQ/afq_2016_03_03_1143.mat
+outdir = fullfile('/fslhome/intj5/compute/projects/MIOS_CC/');
+outname = fullfile(outdir,['afq_cc_' datestr(now,'yyyy_mm_dd_HHMM')]);
+afq = AFQ_SegmentCallosum(afq,0)
+save(outname,'afq');
 {% endhighlight %}
