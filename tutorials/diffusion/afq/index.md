@@ -73,7 +73,7 @@ vi ~/scripts/EDSD/afq_parameters.m
 
 In the script, copy and paste your variable information:
 
-{% highlight matlab %}
+{% highlight MATLAB %}
 sub_dirs = {['/fslhome/intj5/compute/images/EDSD/FRE_AD001/dti55trilin/'],...
 ['/fslhome/intj5/compute/images/EDSD/FRE_AD002/dti61trilin/'],...
 ['/fslhome/intj5/compute/images/EDSD/FRE_AD003/dti61trilin/'],...
@@ -182,9 +182,6 @@ save(outname,'afq');
 ### Submit Job Script
 
 Finally, submit the whole process by submitting the job script. AFQ runs serially on the supercomputer and currently there is no way to speed up the process and run it parallel:
-
-{% highlight bash %}
-{% endhighlight %}
 
 ## Corpus Callosum
 
