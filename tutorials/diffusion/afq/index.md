@@ -22,22 +22,7 @@ Once preprocessing is completed using **dtiInit**, white matter pathways can be 
 
 ### Fiber Tracts
 
-AFQ identifies twenty major fiber tracts in an individual’s brain plus an added module will also segment the corpus callosum into 8 regions.
-
 <img class="img-responsive" alt="" src="images/afq.jpg">
-
-The 20 fiber tracts are as follows:
-
-1. Corpus callosum forceps major and minor
-2. Thalamic radiation, right and left hemisphere
-3. Cingulum cingulate, right and left hemisphere
-4. Cingulum hippocampus, right and left hemisphere
-5. Corticospinal tract, right and left hemisphere
-6. Superior Longitudinal Fasciculus, right and left hemisphere
-7. Inferior Longitudinal Fasciculus, right and left hemisphere
-8. Inferior Fronto-Occipital Fasciculus, right and left hemisphere
-9. Arcuate Fasciculus, right and left hemisphere
-10. Uncinate Fasciculus, right and left hemisphere
 
 ### Corpus Callosum
 
@@ -74,32 +59,33 @@ vi ~/scripts/EDSD/afq_parameters.m
 In the script, copy and paste your variable information:
 
 {% highlight MATLAB %}
-sub_dirs = {['/fslhome/intj5/compute/images/EDSD/FRE_AD001/dti55trilin/'],...
-['/fslhome/intj5/compute/images/EDSD/FRE_AD002/dti61trilin/'],...
-['/fslhome/intj5/compute/images/EDSD/FRE_AD003/dti61trilin/'],...
-['/fslhome/intj5/compute/images/EDSD/FRE_AD004/dti61trilin/'],...
-['/fslhome/intj5/compute/images/EDSD/FRE_AD005/dti61trilin/'],...
-['/fslhome/intj5/compute/images/EDSD/FRE_AD006/dti61trilin/'],...
-['/fslhome/intj5/compute/images/EDSD/FRE_AD007/dti61trilin/'],...
-['/fslhome/intj5/compute/images/EDSD/FRE_AD008/dti61trilin/'],...
-['/fslhome/intj5/compute/images/EDSD/FRE_AD009/dti61trilin/'],...
-['/fslhome/intj5/compute/images/EDSD/FRE_AD010/dti61trilin/'],...
-['/fslhome/intj5/compute/images/EDSD/FRE_HC001/dti61trilin/'],...
-['/fslhome/intj5/compute/images/EDSD/FRE_HC002/dti61trilin/'],...
-['/fslhome/intj5/compute/images/EDSD/FRE_HC003/dti61trilin/'],...
-['/fslhome/intj5/compute/images/EDSD/FRE_HC004/dti61trilin/'],...
-['/fslhome/intj5/compute/images/EDSD/FRE_HC005/dti61trilin/'],...
-['/fslhome/intj5/compute/images/EDSD/FRE_HC006/dti61trilin/'],...
-['/fslhome/intj5/compute/images/EDSD/FRE_HC007/dti61trilin/'],...
-['/fslhome/intj5/compute/images/EDSD/FRE_HC008/dti61trilin/'],...
-['/fslhome/intj5/compute/images/EDSD/FRE_HC009/dti61trilin/'],...
-['/fslhome/intj5/compute/images/EDSD/FRE_HC010/dti61trilin/'],...
-['/fslhome/intj5/compute/images/EDSD/FRE_HC011/dti61trilin/'],...
-['/fslhome/intj5/compute/images/EDSD/FRE_HC012/dti61trilin/'],...
-['/fslhome/intj5/compute/images/EDSD/FRE_HC013/dti61trilin/'],...
-['/fslhome/intj5/compute/images/EDSD/FRE_HC014/dti61trilin/'],...
-['/fslhome/intj5/compute/images/EDSD/FRE_HC015/dti61trilin/'],...
-['/fslhome/intj5/compute/images/EDSD/FRE_HC016/dti61trilin/']};
+var = getenv('HOME');
+sub_dirs = {[var,'/compute/images/EDSD/FRE_AD001/dti55trilin/'],...
+[var,'/compute/images/EDSD/FRE_AD002/dti61trilin/'],...
+[var,'/compute/images/EDSD/FRE_AD003/dti61trilin/'],...
+[var,'/compute/images/EDSD/FRE_AD004/dti61trilin/'],...
+[var,'/compute/images/EDSD/FRE_AD005/dti61trilin/'],...
+[var,'/compute/images/EDSD/FRE_AD006/dti61trilin/'],...
+[var,'/compute/images/EDSD/FRE_AD007/dti61trilin/'],...
+[var,'/compute/images/EDSD/FRE_AD008/dti61trilin/'],...
+[var,'/compute/images/EDSD/FRE_AD009/dti61trilin/'],...
+[var,'/compute/images/EDSD/FRE_AD010/dti61trilin/'],...
+[var,'/compute/images/EDSD/FRE_HC001/dti61trilin/'],...
+[var,'/compute/images/EDSD/FRE_HC002/dti61trilin/'],...
+[var,'/compute/images/EDSD/FRE_HC003/dti61trilin/'],...
+[var,'/compute/images/EDSD/FRE_HC004/dti61trilin/'],...
+[var,'/compute/images/EDSD/FRE_HC005/dti61trilin/'],...
+[var,'/compute/images/EDSD/FRE_HC006/dti61trilin/'],...
+[var,'/compute/images/EDSD/FRE_HC007/dti61trilin/'],...
+[var,'/compute/images/EDSD/FRE_HC008/dti61trilin/'],...
+[var,'/compute/images/EDSD/FRE_HC009/dti61trilin/'],...
+[var,'/compute/images/EDSD/FRE_HC010/dti61trilin/'],...
+[var,'/compute/images/EDSD/FRE_HC011/dti61trilin/'],...
+[var,'/compute/images/EDSD/FRE_HC012/dti61trilin/'],...
+[var,'/compute/images/EDSD/FRE_HC013/dti61trilin/'],...
+[var,'/compute/images/EDSD/FRE_HC014/dti61trilin/'],...
+[var,'/compute/images/EDSD/FRE_HC015/dti61trilin/'],...
+[var,'/compute/images/EDSD/FRE_HC016/dti61trilin/']};
 sub_group = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 save('~/compute/analyses/EDSD/AFQ/sub_dirs.mat','sub_dirs');
 save('~/compute/analyses/EDSD/AFQ/sub_group.mat','sub_group');
@@ -128,7 +114,7 @@ Copy and paste:
 {% highlight bash %}
 #!/bin/bash
 
-#SBATCH --time=10:00:00   # walltime
+#SBATCH --time=15:00:00   # walltime
 #SBATCH --ntasks=1  # number of processor cores (i.e. tasks)
 #SBATCH --nodes=1   # number of nodes
 #SBATCH --mem-per-cpu=24576M   # memory per CPU core
@@ -156,7 +142,11 @@ Create your MATLAB script:
 vi ~/scripts/EDSD/afq_analysis.m
 {% endhighlight %}
 
-Copy and paste the following into your script:
+**AFQ_run** is the main function to run the AFQ analysis pipeline.  When **AFQ_run** is used to analyze data all the proceeding analyses are organized into the **afq** data structure. You need to create a blank **afq** structure first using the **AFQ_Create** command and include the variables **sub_dirs** and **sub_group**. The **sub_dirs** variable should consist of a 1 x N cell array where N is the number of subjects in the study. Each cell should contain the full path to a subjects data directory where there dt6.mat file is (see above). The **sub_group** variable should consisit of a binary vector defining each subject's group. 0 for control and 1 for patient (see above). Since we've already created these variables above, we just have to load them in MATLAB and then we've able to use them to create our **afq** structure.
+
+The output from running **AFQ_run** is the **afq** structure containing **ALL** the results. Patient (sub_group = 1) and control (sub_group=0) data are split into a 1X20 structured array of tract diffusion profiles where data for each tract is in a cell of the structure (eg. patient_data(1) is data for the left thalamic radiation). Each diffusion properties is stored as a different field (eg. patient_data(1).FA is a matrix of FA profiles for the left thalamic radiation). Within the data matrix each subject is a row and each location is a column.nIf you want to see the afq structure for later analyses, it must be explicitly saved. In the code below, the **afq** structure is saved under the analyses directory and given a timestamp.
+
+Copy and paste the following into your MATLAB script:
 
 {% highlight matlab %}
 % Get home directory:
@@ -183,7 +173,51 @@ save(outname,'afq');
 
 Finally, submit the whole process by submitting the job script. AFQ runs serially on the supercomputer and currently there is no way to speed up the process and run it parallel:
 
+{% highlight bash %}
+var=`date +"%Y%m%d-%H%M%S"`
+mkdir -p ~/logfiles/${var}
+sbatch \
+-o ~/logfiles/${var}/ouput.txt \
+-e ~/logfiles/${var}/error.txt \
+~/scripts/EDSD/afq_job.sh
+{% endhighlight %}
+
 ## Corpus Callosum
+
+In order to segment the corpus callosum, we go through a similar process. Create a job script that will submit a new MATLAB script and then submit the job script to a compute node.
+
+### Job Script
+
+The job script simply submits the MATLAB function **afq_cc_analysis**:
+
+{% highlight bash %}
+vi ~/scripts/EDSD/afq_cc_job.sh
+{% endhighlight %}
+
+Copy and paste:
+
+{% highlight bash %}
+#!/bin/bash
+
+#SBATCH --time=15:00:00   # walltime
+#SBATCH --ntasks=1  # number of processor cores (i.e. tasks)
+#SBATCH --nodes=1   # number of nodes
+#SBATCH --mem-per-cpu=24576M   # memory per CPU core
+
+# Compatibility variables for PBS. Delete if not needed.
+export PBS_NODEFILE=`/fslapps/fslutils/generate_pbs_nodefile`
+export PBS_JOBID=$SLURM_JOB_ID
+export PBS_O_WORKDIR="$SLURM_SUBMIT_DIR"
+export PBS_QUEUE=batch
+
+# Set the max number of threads to use for programs using OpenMP. Should be <= ppn. Does nothing if the program doesn't use OpenMP.
+export OMP_NUM_THREADS=$SLURM_CPUS_ON_NODE
+
+# LOAD MODULES, INSERT CODE, AND RUN YOUR PROGRAMS HERE
+cd ~/scripts/EDSD/
+module load matlab/r2013b
+matlab -nodisplay -nojvm -nosplash -r afq_cc_analysis
+{% endhighlight %}
 
 ### MATLAB Script
 
@@ -207,17 +241,22 @@ addpath(genpath(vistaPath));
 AFQPath = [var,'/apps/matlab/AFQ'];
 addpath(genpath(AFQPath));
 
-load ~/compute/analyses/EDSD/AFQ/sub_dirs.mat
-load ~/compute/analyses/EDSD/AFQ/sub_group.mat
-outdir = fullfile([var,'/compute/analyses/EDSD/AFQ/']);
-outname = fullfile(outdir,['afq_' datestr(now,'yyyy_mm_dd_HHMM')]);
-afq = AFQ_Create('sub_dirs', sub_dirs, 'sub_group', sub_group, 'showfigs', false);
-[afq, patient_data, control_data, norms, abn, abnTracts] = AFQ_run(sub_dirs, sub_group, afq);
-save(outname,'afq');
-
-load /fslhome/intj5/compute/projects/MIOS_AFQ/afq_2016_03_03_1143.mat
-outdir = fullfile('/fslhome/intj5/compute/projects/MIOS_CC/');
+load ~/compute/analyses/EDSD/AFQ/afq_2016_09_29_0732.mat
+outdir = fullfile([var,'/compute/analyses/EDSD/AFQ-CC/']);
 outname = fullfile(outdir,['afq_cc_' datestr(now,'yyyy_mm_dd_HHMM')]);
 afq = AFQ_SegmentCallosum(afq,0)
 save(outname,'afq');
+{% endhighlight %}
+
+### Submit Job Script
+
+Finally, submit the whole process by submitting the job script. AFQ corpus callosum segmentation also runs serially on the supercomputer:
+
+{% highlight bash %}
+var=`date +"%Y%m%d-%H%M%S"`
+mkdir -p ~/logfiles/${var}
+sbatch \
+-o ~/logfiles/${var}/ouput.txt \
+-e ~/logfiles/${var}/error.txt \
+~/scripts/EDSD/afq_cc_job.sh
 {% endhighlight %}
