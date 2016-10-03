@@ -31,6 +31,7 @@ Tractography, whether you are using deterministic or probabilistic methods, can 
 <div class="embed-container">
 <iframe src="https://player.vimeo.com/video/185332684" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
+<br>
 
 Unfortunately, the VistaSoft code is riddled with problems. Because the lab that originally has written the code is still running MATLAB r2012, newer versions or even different versions of MATLAB are going to have issues. Here are the changes you will need to make to your code in order for it to run correctly on the Supercomputer:
 
@@ -49,6 +50,7 @@ Starting on line 170, we need to comment out one line of code. To comment out co
 <div class="embed-container">
 <iframe src="https://player.vimeo.com/video/185332685" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
+<br>
 
 Diffusion weighted images are preprocessed using the dtiInit preprocessing pipeline wrapper from Stanford open-source VISTASOFT package version 1.0 [https://github.com/vistalab/vistasoft](https://github.com/vistalab/vistasoft). To make the whole process of submitting jobs on the supercomputer even more confusing, you will submit a batch script, which will automatically submit a job script for each participant, and the job script will automatically run a MATLAB script to process the data. We will need to create a batch, job, and MATLAB function scripts.
 
