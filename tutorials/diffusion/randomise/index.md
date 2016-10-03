@@ -20,7 +20,7 @@ After you complete this section, you should be able to:
 1. Is white matter integrity correlated with education?
 2. Is white matter integrity corerlated with MMSE?
 
-[You can download the demographics for this sample data set here.](demographics.xls)
+[You can download the demographics for this sample data set here.](demographics.csv)
 
 ## Analysis Design
 
