@@ -16,7 +16,7 @@ After you complete this section, you should be able to:
 4. Fix the vistasoft code so it will run on the SuperComputer
 5. Generate MATLAB function that can be called within a job script
 6. Check Phase Encode direction and set the dwParams
-7. Adjust dwParams based upon scanner typer
+7. Adjust dwParams based upon scanner type
 
 ## Tractography
 
@@ -27,6 +27,10 @@ There are multiple tractography methods that can be used to determine the pathwa
 Tractography, whether you are using deterministic or probabilistic methods, can be completed either locally or globally. Local tractography reconstructs the path step-by-step using just the local orientation at each voxel. Local tractography is best suited for exploratory studies of brain connectivity. Tracts are reconstructed starting from a single seed region and are not constrained to any given target region, therefore, endpoints can occur anywhere within the brain. On the other hand, global tractography fits the entire path at once, using diffusion orientation of all voxels along the path length. Global tractography is best suited for reconstructing known white-matter pathways. Tracts are constrained to connections of two specific end points and symmetric between beginning seed and end target regions.
 
 ## Fix Code
+
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/185332684" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
 
 Unfortunately, the VistaSoft code is riddled with problems. Because the lab that originally has written the code is still running MATLAB r2012, newer versions or even different versions of MATLAB are going to have issues. Here are the changes you will need to make to your code in order for it to run correctly on the Supercomputer:
 
@@ -41,6 +45,10 @@ Starting on line 170, we need to comment out one line of code. To comment out co
 {% endhighlight %}
 
 ## VistaSoft
+
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/185332685" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
 
 Diffusion weighted images are preprocessed using the dtiInit preprocessing pipeline wrapper from Stanford open-source VISTASOFT package version 1.0 [https://github.com/vistalab/vistasoft](https://github.com/vistalab/vistasoft). To make the whole process of submitting jobs on the supercomputer even more confusing, you will submit a batch script, which will automatically submit a job script for each participant, and the job script will automatically run a MATLAB script to process the data. We will need to create a batch, job, and MATLAB function scripts.
 

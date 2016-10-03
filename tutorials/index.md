@@ -43,7 +43,7 @@ Please review Beginner Topics before starting the Advanced Topics. You will need
 4. [FreeSurfer recon-all](diffusion/freesurfer-recon-all)
 5. [Tract-Based Spatial Statistics](diffusion/tbss)
 6. [Randomise](diffusion/randomise)
-7. [Deterministic Tractography with VistaSoft](diffusion/#)
+7. [Deterministic Tractography with VistaSoft](diffusion/vistasoft)
 8. [Automatic Fiber Quantification](diffusion/#)
 9. [Along the Path](diffusion/#)
 10. [Probabilistic Tractography with TRACULA](diffusion/#)
