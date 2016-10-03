@@ -19,6 +19,7 @@ After you complete this section, you should be able to:
 
 1. Is white matter integrity correlated with education?
 2. Is white matter integrity corerlated with MMSE?
+3. Are there gender differences between and among the AD and HC groups? (i.e., male AD vs. male HC, female AD vs. female HC, male AD vs. female AD, and male HC vs. female HC)
 
 [You can download the demographics for this sample data set here.](demographics.csv)
 
