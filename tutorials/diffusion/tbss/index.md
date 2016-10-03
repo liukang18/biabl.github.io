@@ -26,6 +26,7 @@ TBSS is an automated method that tries to combine the strengths of both voxel-ba
 <div class="embed-container">
 <iframe src="https://player.vimeo.com/video/183678370" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
+<br>
 
 Each diffusion-weighted image is registered to the non-diffusion-weighted (b=0) using linear image registration for motion correction using FSL eddy_correct program. After correction, diffusion weighted images are skull-stripped in order to exclude non-brain voxels from all analyses using FSL bet program. Last, the diffusion tensors are calculated with the FSL DTIfit program for whole brain volumes and resulting FA, RD, MD, and AD volumes can then be used in tract-based spatial statistics analysis.
 
@@ -110,6 +111,7 @@ sh ~/scripts/EDSD/fdt_batch.sh $var
 <div class="embed-container">
 <iframe src="https://player.vimeo.com/video/183678374" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
+<br>
 
 Prepare your FA data in your TBSS working directory. You will need to copy all the FA images into a single directory:
 
@@ -175,6 +177,7 @@ sbatch \
 <div class="embed-container">
 <iframe src="https://player.vimeo.com/video/183678376" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
+<br>
 
 Second, volumes are nonlinearly warped to the FMRIB58_FA template, which is supplied with FSL, by use of local deformation procedures performed by FNIRT, a nonlinear registration toolkit using a b-spline representation of the registration warp field.
 
@@ -206,6 +209,7 @@ sbatch \
 <div class="embed-container">
 <iframe src="https://player.vimeo.com/video/183678375" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
+<br>
 
 Next tbss_3_postreg generates a mean FA volume of all participants. This mean FA volume is thinned to create a mean FA skeleton representing the centers of all common tracts.
 
@@ -266,6 +270,7 @@ sbatch \
 <div class="embed-container">
 <iframe src="https://player.vimeo.com/video/183678372" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
+<br>
 
 After you have run the full TBSS analysis on your FA data, the results can be applied to the other diffusion metrics: RD, AD, and MD. First, create a new directory called RD (or any other name) in your TBSS analysis directory (the one that contains the existing origdata, FA and stats directories from the FA analysis).
 

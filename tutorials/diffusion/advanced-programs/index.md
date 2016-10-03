@@ -22,6 +22,7 @@ After you complete this section, you should be able to:
 <div class="embed-container">
 <iframe src="https://player.vimeo.com/video/179801914?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
+<br>
 
 After following the instructions in the above video, you need to update your .bash_profile:
 

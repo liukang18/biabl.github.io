@@ -15,6 +15,13 @@ After you complete this section, you should be able to:
 3. View results
 4. Understand how FA, RD, AD, and MD are related
 
+**After you've completed the lesson, try running analyses to answer these hypotheses:**
+
+1. Is white matter integrity correlated with education?
+2. Is white matter integrity corerlated with MMSE?
+
+[You can download the demographics for this sample data set here.](demographics.xls)
+
 ## Analysis Design
 
 Before running **randomise** you will need to generate a design matrix file, e.g., **design.mat** and a contrasts file, e.g., **design.con**. Note that the order of the entries (rows) in your design matrix must match the alphabetical order of your original FA images, as that determines the order of the aligned FA images in the final 4D file all_FA_skeletonised; check this with:

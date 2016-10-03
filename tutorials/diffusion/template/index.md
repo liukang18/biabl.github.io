@@ -23,6 +23,7 @@ In this tutorial I am only showing you how to generate a population template. Un
 <div class="embed-container">
 <iframe src="https://player.vimeo.com/video/182561423?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
+<br>
 
 The first step in generating a population template is to copy the preprocessed images (i.e., resampled.nii.gz) to a single directory, but the files must be uniquely named. Currently all the files are named exactly the same, so copying files to a single directory would result in files just being overwritten. Not only do files have to be copied, but they also need to be renamed. You cannot use just the move command, because you want to leave the original file in the original location. Using a for loop allows iterate over each item in the list of files it finds and copy it to a new directory.
 
@@ -45,6 +46,7 @@ done
 <div class="embed-container">
 <iframe src="https://player.vimeo.com/video/182561419?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
+<br>
 
 When building a template you need to have a target image, it is advisable to run a few iterations with affine normalization only (-m 1x0x0) to get a sensible initial template, then pass this with -z to run full deformable registration. Create a job script:
 
@@ -110,6 +112,7 @@ The initial template image will look something like this:
 <div class="embed-container">
 <iframe src="https://player.vimeo.com/video/182561420?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
+<br>
 
 Once you have an initial template created, now a complete template can be generated.
 

@@ -19,6 +19,7 @@ After you complete this section, you should be able to:
 <div class="embed-container">
 <iframe src="https://player.vimeo.com/video/179386608?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
+<br>
 
 Use the following rsync code to download the dataset from the remote computer to your local computer:
 
