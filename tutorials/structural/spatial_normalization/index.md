@@ -88,7 +88,7 @@ pathDir=~/compute/examples/morphometry
 Here the participant image (moving) is rigidly aligned to the template (fixed). As you can see the participant brain moves to the same location within the field of view box. The size of the participant image is not altered.
 
 {% highlight bash %}
-~/apps/ants/bin/antsRegistrationSynQuick.sh \
+~/apps/ants/bin/antsRegistrationSyNQuick.sh \
 -d 3 \-f ${pathDir}/template.nii \-m ${pathDir}/t1.nii.gz \-o ${pathDir}/rigid_
 -t r
 {% endhighlight %}
@@ -108,7 +108,7 @@ Here the inverse warp occurred (a unique feature of ANTs). The template (fixed) 
 For this transformation, a rigid transformation is done first, then affine transformation. Here the participant image (moving) is affine aligned to the template (fixed). The participant image is also scaled to match the size of the template. In this case the small participant image was enlarged to fit.
 
 {% highlight bash %}
-~/apps/ants/bin/antsRegistrationSynQuick.sh \
+~/apps/ants/bin/antsRegistrationSyNQuick.sh \
 -d 3 \
 -f ${pathDir}/template.nii \
 -m ${pathDir}/t1.nii.gz \
@@ -131,7 +131,7 @@ The opposite is true when the inverse is applied. The template image shrinks in 
 For this transformation, rigid transformation is done first, then affine transformation, and finally diffeomorphic. You always want to do an affine transformation before a diffeomorphic transformation, because you want to eliminate brain size as a covariate. Therefore, any group analyses that result in differences is due to actual differences in regional volume and not due to general brain volume differences.
 
 {% highlight bash %}
-~/apps/ants/bin/antsRegistrationSynQuick.sh \
+~/apps/ants/bin/antsRegistrationSyNQuick.sh \
 -d 3 \
 -f ${pathDir}/template.nii \
 -m ${pathDir}/t1.nii.gz \
