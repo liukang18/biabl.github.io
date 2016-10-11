@@ -18,7 +18,7 @@ After you complete this section, you should be able to:
 
 ## Tracts
 
-Once preprocessing is completed using **dtiInit**, white matter pathways can be automatically identified using the software package, Automated Fiber Quantification version 1.2 (https://github.com/yeatmanlab/AFQ). First, whole-brain tractography is estimated using a deterministic streamline tracking algorithm (STT). Individual fibers are assigned to a fiber tract if they pass through two waypoint ROIs that were used to define the trajectory of the pathway. ROIs are automatically placed in equivalent anatomical locations across each participant by registering a template to each participant. Finally, identified fiber tracts are validated by comparing each tract to a fiber tract probability map. Fibers within the identified fiber tract of low probability are discarded, because they do not conform to the shape of the fiber tract as defined by the fiber probability map.
+Once preprocessing is completed using **dtiInit**, white matter pathways can be automatically identified using the software package, Automated Fiber Quantification version 1.2 (https://github.com/yeatmanlab/AFQ). First, whole-brain tractography is estimated using a deterministic streamline tracking algorithm (STT). Individual fibers are assigned to a fiber tract if they pass through two waypoint ROIs used to define the trajectory of the pathway. ROIs are automatically placed in equivalent anatomical locations across each participant by registering a template to each participant. Finally, identified fiber tracts are validated by comparing each tract to a fiber tract probability map. Fibers within the identified fiber tract of low probability are discarded, because they do not conform to the shape of the fiber tract as defined by the fiber probability map.
 
 ### Fiber Tracts
 
@@ -28,20 +28,20 @@ Once preprocessing is completed using **dtiInit**, white matter pathways can be 
 
 <img class="img-responsive" alt="" src="images/cc.jpg">
 
-The 8 regions of the corpus callosum are as follows:
+The 8 regions of the corpus callosum from anterior to posterior are as follows:
 
-1. Orbital frontal
-2. Superior frontal
-3. Anterior frontal
-4. Motor
-5. Superior Parietal
-6. Posterior Parietal
-7. Occipital
-8. Temporal
+1. Orbital frontal (red)
+2. Superior frontal (orange)
+3. Anterior frontal (yellow)
+4. Motor (green)
+5. Superior Parietal (blue)
+6. Posterior Parietal (purple)
+7. Occipital (pink)
+8. Temporal (cyan)
 
 ## Automated Fiber Quantification (AFQ)
 
-After you've preprocessed your diffusion weighted data using **dtiInit**, you are ready to run the AFQ pipeline. Let's create the output directories for these analyses:
+After you've preprocessed your diffusion weighted data using ***dtiInit***, you are ready to run the AFQ pipeline. Let's create the output directories for these analyses:
 
 {% highlight bash %}
 mkdir -p ~/compute/analyses/EDSD/AFQ
@@ -50,13 +50,13 @@ mkdir -p ~/compute/analyses/EDSD/AFQ-CC
 
 ### Parameters
 
-AFQ pipeline needs several MATLAB vectors in order to run. First, you will need to set the **path** to each participant's dt6.mat file under the variable **sub_dirs**, then you will need to set the group information (0 for the control group and 1 for study group) under the variable **sub_group**. In order to keep a record of the process, let's make this into a script. Create a script that will generate a variables, **sub_dirs** and **sub_group**, and save them as a .mat files:
+AFQ pipeline needs several MATLAB vectors in order to run. First, you will need to set the path to each participant's **dt6.mat** file under the variable **sub_dirs**, then you will need to set the group information (0 for the control group and 1 for study group) under the variable **sub_group**. In order to keep a record of the process, let's make this into a script. Create a script that will generate a variables, **sub_dirs** and **sub_group**, and save them as a .mat files:
 
 {% highlight bash %}
 vi ~/scripts/EDSD/afq_parameters.m
 {% endhighlight %}
 
-In the script, copy and paste your variable information:
+In the script, copy and paste your variable information. Note that in MATLAB the use of **...** is the same as a backwards slash, **\** in bash; it is how to inform MATLAB to ignore the newline option:
 
 {% highlight MATLAB %}
 var = getenv('HOME');
@@ -103,7 +103,7 @@ module unload matlab
 
 ### Job Script
 
-The job script simply submits the MATLAB function **afq_analysis**:
+The job script submits the MATLAB function, **afq_analysis**:
 
 {% highlight bash %}
 vi ~/scripts/EDSD/afq_job.sh
@@ -142,9 +142,9 @@ Create your MATLAB script:
 vi ~/scripts/EDSD/afq_analysis.m
 {% endhighlight %}
 
-**AFQ_run** is the main function to run the AFQ analysis pipeline.  When **AFQ_run** is used to analyze data all the proceeding analyses are organized into the **afq** data structure. You need to create a blank **afq** structure first using the **AFQ_Create** command and include the variables **sub_dirs** and **sub_group**. The **sub_dirs** variable should consist of a 1 x N cell array where N is the number of subjects in the study. Each cell should contain the full path to a subjects data directory where there dt6.mat file is (see above). The **sub_group** variable should consisit of a binary vector defining each subject's group. 0 for control and 1 for patient (see above). Since we've already created these variables above, we just have to load them in MATLAB and then we've able to use them to create our **afq** structure.
+**AFQ_run** is the main function to run the AFQ analysis pipeline.  When **AFQ_run** is used to analyze data all the proceeding analyses are organized into the **afq** data structure. You need to create a blank **afq** structure first using the **AFQ_Create** command and include the variables **sub_dirs** and **sub_group**. The **sub_dirs** variable should consist of a 1 x N cell array where N is the number of subjects in the study. Each cell should contain the *full* path to a subjects data directory where the dt6.mat file is located (see above). The **sub_group** variable should consist of a binary vector defining each subject's group, 0 for control and 1 for patient (see above). Since we've already created these variables above, we just have to load them in MATLAB and then we are able to use them to create our **afq** structure.
 
-The output from running **AFQ_run** is the **afq** structure containing **ALL** the results. Patient (sub_group = 1) and control (sub_group=0) data are split into a 1X20 structured array of tract diffusion profiles where data for each tract is in a cell of the structure (eg. patient_data(1) is data for the left thalamic radiation). Each diffusion properties is stored as a different field (eg. patient_data(1).FA is a matrix of FA profiles for the left thalamic radiation). Within the data matrix each subject is a row and each location is a column.nIf you want to see the afq structure for later analyses, it must be explicitly saved. In the code below, the **afq** structure is saved under the analyses directory and given a timestamp.
+The output from running **AFQ_run** is the **afq** structure containing **ALL** the results. Patient (sub_group = 1) and control (sub_group=0) data are split into a 1X20 structured array of tract diffusion profiles where data for each tract is in a cell of the structure (eg. patient_data(1) is data for the left thalamic radiation). Each diffusion properties is stored as a different field (eg. patient_data(1).FA is a matrix of FA profiles for the left thalamic radiation). Within the data matrix each subject is a row and each location is a column. If you want to see the afq structure for later analyses, it must be explicitly saved. In the code below, the **afq** structure is saved under the analyses directory and given a timestamp.
 
 Copy and paste the following into your MATLAB script:
 

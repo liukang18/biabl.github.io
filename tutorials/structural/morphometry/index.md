@@ -15,35 +15,22 @@ After you complete this section, you should be able to:
 3. Describe voxel based morphometry
 4. Know how to generate the image used in VBM
 
-Note that everything in "< >" is to be replaced. For example, \<fileName\> --> iLovePeanuts.txt
-
-
 ## Tensor Based Morphometry
 
 Tensor based morphometry measures the differences in shape of brain structures. Analyses are useful in studies interested in whether growth or volume loss has occurred. This analysis is also useful in detecting small changes in longitudinal studies.
 
-The warp field only represents positions of brain structures and not local shape information. Instead, the Jacobian determinant contains information about the local stretching, shearing and rotation involved in the deformation.
+The warp field only represents positions of brain structures and not local shape information. Instead, the Jacobian determinant contains information about the local stretching, shearing and rotation involved in the deformation. In other words, the warp field provides information about how to move the voxels to template space, whereas the Jacobian determinant represents the extent of movement. Overlaying the Jacobian determinant will show which brain regions has to undergrow significant growth or reducting as compared to the template.
 
-### Fixed Image
+Taking the log of the Jacobian makes it symmetric about zero. **Positive** values indicate tissue **enlargement**, whereas **negative** values indicate tissue **reduction** in the participant as compared to the template.
 
-<div class="row">
-    <div class="col-xs-6">
-		<img class="img-responsive" alt="" src="images/fixed.jpg">
-	</div>
-	<div class="col-xs-6">
-		<img class="img-responsive" alt="" src="images/moving.jpg">
-	</div>
-</div>
+<img class="img-responsive" alt="" src="images/tbm.jpeg">
 
-<img class="img-responsive" alt="" src="images/logjac.png">
+Since we have already completed antsCorticalThickness using a study specific template, we can easily generate the log Jacobian from the warp matrix:
 
-Taking the log of the Jacobian makes it symmetric about zero. Positive values indicate tissue enlargement, whereas negative values indicate tissue reduction in the participant as compared to the template.	
+{% hightlight bash %}
 
-### Group Analysis
 
-In order to complete group analyses, all images have to be template space so you know you are comparing apples to apples. For group analyses, images cannot be in native, participant space.
-
-The log Jacobian image is used for analyses. Running antsCorticalThickness pipeline will automatically generate the log Jacobian (i.e., *SubjectToTemplateLogJacobian.nii.gz*).
+{% endhighlight %}
 
 ## Voxel Based Morphometry
 
@@ -82,7 +69,7 @@ ${TEMPLATE_DIR}/T_template0_gm.nii.gz \
 
 <img class="img-responsive" alt="" src="images/segmented.png">
 
-The image has been normalized to a template, so at this point the image should be nearly indistinguishable from the template. Any comparison will result in null results. However, if you multiply the image by the log Jacobian, then you are adjusting the intensity of each gray matter voxel by the amount of stretching, shearing, and rotation that occurred. 
+The image has been normalized to a template, so at this point the image should be nearly indistinguishable from the template. Any comparison will result in null results. However, if you multiply the image by the log Jacobian, then you are adjusting the intensity of each gray matter voxel by the amount of stretching, shearing, and rotation that occurred.
 
 {% highlight bash %}
 c3d \
