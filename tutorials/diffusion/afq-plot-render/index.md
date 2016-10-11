@@ -41,9 +41,9 @@ unzip spm8.zip && rm spm8.zip
 
 ## Tract Profiles
 
-Due to anatomical factors like crossing fibers, nearness to cerebrospinal fluid and/or grey matter, or microstructural factors like axon density and/or diameter, diffusion measures can vary along tract trajectories. Averaging along the entire tract will obscure potentially important information and may not be optimal for localization of group differences. If there is damage or change that occurs within a small portion of the tract, those differences may be missed when the whole tract is averaged. Given that there are suffcient reports emphasizing the utility of analyzing diffusion properties along the tract in healthy brain anatomy, aging, and clinical conditions, any tractography analysis should look at diffusion measures along the tract and not average across the entire tract.
+Due to anatomical factors like crossing fibers, nearness to cerebrospinal fluid and/or grey matter, or microstructural factors like axon density and/or diameter, diffusion measures can vary along tract trajectories. Averaging along the entire tract will obscure potentially important information and may not be optimal for localization of group differences. If there is damage or change that occurs within a small portion of the tract, those differences may be missed when the whole tract is averaged. Given that there are suffcient reports emphasizing the utility of analyzing diffusion properties along the tract in healthy brain anatomy, aging, and clinical conditions, any tractography analysis should look at diffusion measures along the tract and not averaged across the entire tract.
 
-For identified pathways in each hemisphere, the average FA is calculated along the tract to generate tract profiles. Because the endpoints vary tremendously across participants, fiber tracts are clipped at each waypoint ROI. Remeber to generate the tracts, 2 waypoint ROIs were used to define the tract. Now those ROIs are used to clip the tract. With just the central portion of the fiber tracts, the AFQ program aligns and resamples each participant;s fiber tracts into 100 equidistant segments, then the average FA is calculated within each segment using a weighted-average approach. In other words, if you have 100 fibers forming the cingulum, those 100 fibers are segmented into 100 equal parts and the DTI scalars like FA are averaged across those 100 fibers within that segment only. This is different than just take FA across the whole fiber and across all 100 fibers and just generating a single data point. Although we are still averaging FA across all the fibers, it is not across the tract but only within 1 segment of the tract. 
+For identified pathways in each hemisphere, the average FA is calculated along the tract to generate tract profiles. Because the endpoints vary tremendously across participants, fiber tracts are clipped at each waypoint ROI. Remember that to generate the tracts, 2 waypoint ROIs were used to define the tract. Now those ROIs are used to clip the tract. With just the central portion of the fiber tracts, the AFQ program aligns and resamples each participant's fiber tracts into 100 equidistant segments, then the average FA is calculated within each segment using a weighted-average approach. In other words, if you have 100 fibers forming the cingulum, those 100 fibers are segmented into 100 equal parts and the DTI scalars like FA are averaged across those 100 fibers within a single segment. This is different than just takeing FA across the whole tract and across all 100 fibers and just generating a single data point. Although we are still averaging FA across all the fibers, it is not across the entire tract but only within 1 segment of the tract. The Tract Profile is created when you draw out all 100 segments to show how the DTI scalars change along the tracts.
 
 ## Plots
 
@@ -141,7 +141,7 @@ If you want to change from FA to other DTI scalars, change the 'property' option
 
 <img class="img-responsive" alt="" src="images/plot-heatmap.png">
 
-You are also able to plot a heatmap of the control group. The gray lines are individual participants and the average of the group is represented by the heatmap. The color changes with the y-axis, so in the following image as FA increases the heatmap gets redder and as FA decreases it goes bluer. This type of image is nice to pair with a 3D view of the tract later on.
+You are also able to plot a heatmap of the control group. The gray lines are individual participants and the average of the group is represented by the heatmap. The color changes with the y-axis, so in the following image as FA increases the heatmap gets redder and as FA decreases it goes bluer. This type of image is nice to pair with a 3D view of the tract later on. To change the fiber group, change the number associated with **'tracts',[3]**. The numbers correspond to each fiber group (see above):
 
 {% highlight matlab %}
 AFQ_plot(afq,'colormap','tracts',[3])
@@ -149,17 +149,17 @@ AFQ_plot(afq,'colormap','tracts',[3])
 
 ## Individual Renderings
 
-To look at an individual participant, you need to load their fiber group data, their processed DTI data, and their T1 image. For now let us just download one participant and not the entire data set:
+To look at an individual participant, you need to load their fiber group data, their processed DTI data, and a background image. For now let us just download one participant and not the entire data set:
 
 {% highlight bash %}
 rsync -rauv --exclude="DICOM" intj5@ssh.fsl.byu.edu:~/compute/images/EDSD/FRE_AD001 ~/Desktop/
 {% endhighlight %}
 
-In MATLAB, load the participant's fiber group (fg), their dt6.mat file (dt) and a t1 image to use as a background to overlay fibers. Because we registered all the participants brains affinely to an MNI template, we can use the MNI template as a general background. This is more for visualization and not about precision:
+In MATLAB, load the participant's fiber group (fg), their dt6.mat file (dt) and an image to use as a background to overlay fibers. Because we registered all the participants brains affinely to an MNI template, we can use the FA MNI template as a general background. This is more for visualization and not about precision:
 
 {% highlight matlab %}
-fg=dtiReadFibers(fullfile([var,'/Desktop/FRE_AD001/dti55trilin/fibers/MoriGroups_clean_D5_L4.mat']));
-dt=dtiLoadDt6(fullfile([var,'/Desktop/FRE_AD001/dti55trilin/dt6.mat']));
+fg = dtiReadFibers(fullfile([var,'/Desktop/FRE_AD001/dti55trilin/fibers/MoriGroups_clean_D5_L4.mat']));
+dt = dtiLoadDt6(fullfile([var,'/Desktop/FRE_AD001/dti55trilin/dt6.mat']));
 t1 = readFileNifti([var,'/Applications/vistasoft/mrDiffusion/templates/MNI_JHU_FA.nii.gz']);
 {% endhighlight %}
 
@@ -167,7 +167,7 @@ t1 = readFileNifti([var,'/Applications/vistasoft/mrDiffusion/templates/MNI_JHU_F
 
 <img class="img-responsive" alt="" src="images/render-individual.png">
 
-You can plot the fibers of a participant. There are a LOT of options under AFQ_RenderFibers, so explore the README file to learn more:
+You can plot the fibers of a participant. There are a LOT of options under AFQ_RenderFibers, so explore the help file (`help AFQ_RenderFibers`) to learn more:
 
 {% highlight matlab %}
 AFQ_RenderFibers(fg(3),'numfibers',500,'color',[1 0 0],'subplot',[1 2 1]);
@@ -192,7 +192,7 @@ AFQ_AddImageTo3dPlot(t1, [-5, 0, 0]);
 
 ## Group Renderings
 
-In order to generate a tract profile you can load on top of an individual tract, we have to perform statistics.
+In order to generate a tract profile you can load on top of an individual tract, we have to perform statistics. Note that these images are not the absolute statistics, because: (1) you are only running t-tests and cannot run statistics with any covariates, and (2) the t-tests do not control for multiple comparisons. This is JUST for **visualization** purposes only.
 
 ### Tract Profile
 
@@ -321,3 +321,5 @@ zlabel('RD');
 ylabel([]);
 zlim(zl1);
 {% endhighlight %}
+
+Official statistics and graphing will come in a later lesson as it is far more complex and time consuming.
