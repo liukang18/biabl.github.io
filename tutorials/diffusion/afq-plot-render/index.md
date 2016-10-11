@@ -10,6 +10,7 @@ date: 2016-10-06
 
 After you complete this section, you should be able to:
 
+1. Define Tract Profiles and describe why this analysis is better than taking tract averages
 1. Plot Tract Profiles for groups with 90% confidence interval
 2. Plot Tract Profiles for the control group with DTI scalar as a heatmap
 3. Render individual tracts for each participant
@@ -25,7 +26,7 @@ For most of the visualizations and analyses, the only file needed is the afq.mat
 rsync -rauv intj5@ssh.fsl.byu.edu:~/compute/analyses/EDSD/AFQ-CC/ ~/Desktop/
 {% endhighlight %}
 
-On your local computer, you need a working version of MATLAB and the following MATLAB packages: SPM 5, SPM 8, VistaSoft, and AFQ. You can follow the code here if you need to figure out how to install these additional packages:
+On your local computer, you need a working version of MATLAB and the following MATLAB packages: SPM 5, SPM 8, VistaSoft, AFQ, and LHON2. You can follow the code here if you need to figure out how to install these additional packages:
 
 {% highlight bash %}
 cd ~/Applications/
@@ -38,9 +39,15 @@ wget http://www.fil.ion.ucl.ac.uk/spm/download/restricted/idyll/spm8.zip
 unzip spm8.zip && rm spm8.zip
 {% endhighlight %}
 
+## Tract Profiles
+
+Due to anatomical factors like crossing fibers, nearness to cerebrospinal fluid and/or grey matter, or microstructural factors like axon density and/or diameter, diffusion measures can vary along tract trajectories. Averaging along the entire tract will obscure potentially important information and may not be optimal for localization of group differences. If there is damage or change that occurs within a small portion of the tract, those differences may be missed when the whole tract is averaged. Given that there are suffcient reports emphasizing the utility of analyzing diffusion properties along the tract in healthy brain anatomy, aging, and clinical conditions, any tractography analysis should look at diffusion measures along the tract and not average across the entire tract.
+
+For identified pathways in each hemisphere, the average FA is calculated along the tract to generate tract profiles. Because the endpoints vary tremendously across participants, fiber tracts are clipped at each waypoint ROI. Remeber to generate the tracts, 2 waypoint ROIs were used to define the tract. Now those ROIs are used to clip the tract. With just the central portion of the fiber tracts, the AFQ program aligns and resamples each participant;s fiber tracts into 100 equidistant segments, then the average FA is calculated within each segment using a weighted-average approach. In other words, if you have 100 fibers forming the cingulum, those 100 fibers are segmented into 100 equal parts and the DTI scalars like FA are averaged across those 100 fibers within that segment only. This is different than just take FA across the whole fiber and across all 100 fibers and just generating a single data point. Although we are still averaging FA across all the fibers, it is not across the tract but only within 1 segment of the tract. 
+
 ## Plots
 
-When you run MATLAB, you'll always need to run the following code to set MATLAB's path directory. If you ever quit MATLAB, these variables will always need to be reset:
+When you run MATLAB, you'll always need to run the following code to set MATLAB's path directory. If you ever quit MATLAB, these variables will always need to be re-entered:
 
 {% highlight matlab %}
 % Get home directory:
@@ -63,11 +70,51 @@ To load the afq.mat file type the following into MATLAB:
 load ~/Desktop/afq_cc_2016_09_30_1005.mat
 {% endhighlight %}
 
+### Fiber Groups
+
+You'll need to keep track of fiber group number and names. If at any point you need that information, it is contained within the afq matrix:
+
+{% highlight matlab %}
+afq.fgnames
+{% endhighlight %}
+
+Here's the fiber group and corresponding number:
+
+1. Left Thalamic Radiation
+2. Right Thalamic Radiation
+3. Left Corticospinal Tract
+4. Right Corticospinal Tract
+5. Left Cingulum Cingulate
+6. Right Cingulum Cingulate
+7. Left Cingulum Hippocampus
+8. Right Cingulum Hippocampus
+9. Corpus Callosum Forceps Major
+10. Corpus Callosum Forceps Minor
+11. Left IFOF
+12. Right IFOF
+13. Left ILF
+14. Right ILF
+15. Left SLF
+16. Right SLF
+17. Left Uncinate Fasciculus
+18. Right Uncinate Fasciculus
+19. Left Arcuate Fasciculus
+20. Right Arcuate Fasciculus
+21. Corpus Callosum Occipital Segment
+22. Corpus Callosum Posterior Parietal Segment
+23. Corpus Callsoum Superior Parietal Segment
+24. Corpus Callosum Motor Segment
+25. Corpus Callosum Superior Frontal Segment
+26. Corpus Callosum Anterior Frontal Segment
+27. Corpus Callosum Orbital Frontal Segment
+28. Corpus Callosum Temporal Lobe Segment
+
 ### Group Averages
 
 <img class="img-responsive" alt="" src="images/plot.png">
 
-Tract profiles (DTI scalars along the tract) can be automatically plotted in MATLAB though clumsily. Long term you'll want develop your own code in R to graph the results. After loading in your afq.mat dataset, you can generate group average graphs for ALL 28 tracts:
+
+Tract profiles (DTI scalars along the tract) can be automatically plotted in MATLAB though clumsily. Long term you'll want develop your own code in R to graph the results. After loading your afq.mat dataset, you can generate group average graphs for ALL 28 tracts:
 
 {% highlight matlab %}
 all = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28];
@@ -94,7 +141,7 @@ If you want to change from FA to other DTI scalars, change the 'property' option
 
 <img class="img-responsive" alt="" src="images/plot-heatmap.png">
 
-You are also able to plot a heatmap of the control group. The gray lines are individual participants and the average of the color group is represented by the heatmap. The color changes with the y-axis, so in the following image as FA increases the heatmap gets redder and as FA decreases it goes bluer. This type of image is nice to pair with a 3D view of the tract later on.
+You are also able to plot a heatmap of the control group. The gray lines are individual participants and the average of the group is represented by the heatmap. The color changes with the y-axis, so in the following image as FA increases the heatmap gets redder and as FA decreases it goes bluer. This type of image is nice to pair with a 3D view of the tract later on.
 
 {% highlight matlab %}
 AFQ_plot(afq,'colormap','tracts',[3])
