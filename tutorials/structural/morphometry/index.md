@@ -27,7 +27,7 @@ Taking the log of the Jacobian makes it symmetric about zero. **Positive** value
 
 Since we have already completed antsCorticalThickness using a study specific template, we can easily generate the log Jacobian from the warp matrix:
 
-{% hightlight bash %}
+{% highlight bash %}
 
 
 {% endhighlight %}
