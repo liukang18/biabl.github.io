@@ -28,7 +28,7 @@ This site contains all of the handouts and information presented in BYU's Fall 2
 7. [ANTs Cortical Thickness](structural/cortical_thickness)
 8. [How to Submit Batch Jobs on Supercomputer](general/submit-multiple-jobs)
 9. [Morphometry](structural/#)
-10. [Compare Two Populations](structural/#)
+10. [Compare Two Groups](structural/#)
 11. [FreeSurfer recon-all](structural/freesurfer-recon-all)
 12. [FreeSurfer ROI Analysis](structural/#)
 13. [FreeSurfer QDEC Analysis](structural/#)
@@ -44,7 +44,7 @@ Please review Beginner Topics before starting the Advanced Topics. You will need
 5. [Tract-Based Spatial Statistics](diffusion/tbss)
 6. [Randomise](diffusion/randomise)
 7. [Deterministic Tractography with VistaSoft](diffusion/vistasoft)
-8. [Automatic Fiber Quantification](diffusion/#)
+8. [Automatic Fiber Quantification](diffusion/afq)
 9. [Plot and Render Fibers](diffusion/#)
 10. [Probabilistic Tractography with TRACULA](diffusion/#)
 11. TBD

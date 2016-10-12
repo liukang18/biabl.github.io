@@ -41,6 +41,11 @@ The 8 regions of the corpus callosum from anterior to posterior are as follows:
 
 ## Automated Fiber Quantification (AFQ)
 
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/187078890?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+<br>
+
 After you've preprocessed your diffusion weighted data using ***dtiInit***, you are ready to run the AFQ pipeline. Let's create the output directories for these analyses:
 
 {% highlight bash %}
@@ -56,7 +61,7 @@ AFQ pipeline needs several MATLAB vectors in order to run. First, you will need 
 vi ~/scripts/EDSD/afq_parameters.m
 {% endhighlight %}
 
-In the script, copy and paste your variable information. Note that in MATLAB the use of **...** is the same as a backwards slash, **\** in bash; it is how to inform MATLAB to ignore the newline option:
+In the script, copy and paste your variable information. Note that in MATLAB the use of **...** is the same as a backwards slash, \\ in bash; it is how to inform MATLAB to ignore the newline option:
 
 {% highlight MATLAB %}
 var = getenv('HOME');
@@ -102,6 +107,11 @@ module unload matlab
 {% endhighlight %}
 
 ### Job Script
+
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/187078889?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+<br>
 
 The job script submits the MATLAB function, **afq_analysis**:
 
@@ -183,6 +193,11 @@ sbatch \
 {% endhighlight %}
 
 ## Corpus Callosum
+
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/187078892?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+<br>
 
 In order to segment the corpus callosum, we go through a similar process. Create a job script that will submit a new MATLAB script and then submit the job script to a compute node.
 
