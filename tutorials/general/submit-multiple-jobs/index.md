@@ -1,7 +1,7 @@
 ---
 layout: tutorials
 title: How to Submit Batch Jobs on Supercomputer
-author: naomi  
+author: naomi
 comments: true
 date: 2016-08-11
 ---
@@ -19,6 +19,7 @@ After you complete this section, you should be able to:
 <div class="embed-container">
 <iframe src="https://player.vimeo.com/video/179372013?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
+<br>
 
 Let's create a script:
 
@@ -29,8 +30,7 @@ vi ~/Desktop/printargs.sh
 Copy and paste the following code into the new script:
 
 {% highlight vim %}
-#!/bin/bash                                                                                                        
-
+#!/bin/bash
 echo "arg 0: $0"
 echo "arg 1: $1"
 echo "arg 2: $2"

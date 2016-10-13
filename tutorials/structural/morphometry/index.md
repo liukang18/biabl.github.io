@@ -19,7 +19,7 @@ After you complete this section, you should be able to:
 
 Tensor based morphometry measures the differences in shape of brain structures. Analyses are useful in studies interested in whether growth or volume loss has occurred. TBM is also useful in detecting small changes across time and is often used for longitudinal analyses.
 
-When you warp a participant image (target image) to a template (template image), one of the files created is a warp matrix. The warp field only represents positions of brain structures, much like GPS cooridinates only provide location information. Warp fields do not tell us anything about whether a brain structure had to shrink or expand or any other shape information. Instead, the Jacobian determinant contains information about the local stretching, shearing and rotation involved in the deformation. In other words, the warp field provides information about how to move the voxels to template space, whereas the Jacobian determinant represents the **extent** of movement. Overlaying the Jacobian determinant will show which brain regions has to undergrow significant growth or reduction as compared to the template.
+When you warp a participant image (target image) to a template (template image), one of the files created is a warp matrix. The warp field only represents positions of brain structures. Warp fields do not tell us anything about whether a brain structure had to shrink or expand or any other shape information. Instead, the Jacobian determinant contains information about the local stretching, shearing and rotation involved in the deformation. In other words, the warp field provides information about how to move the voxels to template space, whereas the Jacobian determinant represents the **extent** of movement. Overlaying the Jacobian determinant will show which brain regions has to undergrow significant growth or reduction as compared to the template.
 
 ### Log Jacobian
 
@@ -41,9 +41,7 @@ done
 
 ## Voxel Based Morphometry
 
-Voxel Based Morphometry measures structural differences in tissue classes (e.g., gray matter atrophy). Analyses are useful in studies interested in tissue specific volumetric differences.
-
-The normalized images (i.e., participant images in template space) are adjusted by scaling the intensity of each voxel by the log Jacobian. In other words the volume changes due to the non-linear spatial normalization are used to *modulate* the normalized image. Otherwise your analysis will give you null results because all the images look exactly alike (that's the point of normalizing to a template).
+Voxel Based Morphometry measures structural differences in tissue classes (e.g., gray matter atrophy). Analyses are useful in studies interested in tissue specific volumetric differences. The normalized images (i.e., participant images in template space) are adjusted by scaling the intensity of each voxel by the log Jacobian. In other words the volume changes due to the non-linear spatial normalization are used to *modulate* the normalized image. Otherwise your analysis will give you null results because all the images look exactly alike (that's the point of normalizing to a template).
 
 <img class="img-responsive" alt="" src="images/workflow.png">
 
@@ -88,3 +86,9 @@ done
 {% endhighlight %}
 
 <img class="img-responsive" alt="" src="images/modulated.png">
+
+## Class Slides
+
+<div class="embed-container">
+
+</div>

@@ -176,6 +176,36 @@ AFQ_RenderFibers(fg(4),'numfibers',500,'color',[1 0 0],'subplot',[1 2 2]);
 title(fg(4).name,'fontsize',18)
 {% endhighlight %}
 
+### Corpus Callosum
+
+Here's the code of rendering the corpus callosum fibers. You have to load each fiber group separately as they were created and saved separately:
+
+{% highlight matlab %}
+% Load Fiber Groups
+fg1=dtiReadFibers(fullfile([var,'/Desktop/FRE_AD001/dti55trilin/fibers/CC_Orb_Frontal_clean_D5_L4.mat']));
+fg2=dtiReadFibers(fullfile([var,'/Desktop/FRE_AD001/dti55trilin/fibers/CC_Ant_Frontal_clean_D5_L4.mat']));
+fg3=dtiReadFibers(fullfile([var,'/Desktop/FRE_AD001/dti55trilin/fibers/CC_Sup_Frontal_clean_D5_L4.mat']));
+fg4=dtiReadFibers(fullfile([var,'/Desktop/FRE_AD001/dti55trilin/fibers/CC_Motor_clean_D5_L4.mat']));
+fg5=dtiReadFibers(fullfile([var,'/Desktop/FRE_AD001/dti55trilin/fibers/CC_Sup_Parietal_clean_D5_L4.mat']));
+fg6=dtiReadFibers(fullfile([var,'/Desktop/FRE_AD001/dti55trilin/fibers/CC_Post_Parietal_clean_D5_L4.mat']));
+fg7=dtiReadFibers(fullfile([var,'/Desktop/FRE_AD001/dti55trilin/fibers/CC_Occipital_clean_D5_L4.mat']));
+fg8=dtiReadFibers(fullfile([var,'/Desktop/FRE_AD001/dti55trilin/fibers/CC_Temporal_clean_D5_L4.mat']));
+
+% Create Figure
+AFQ_RenderFibers(fg1,'numfibers',100,'color',[1 0 0],'camera','sagittal');
+AFQ_RenderFibers(fg2,'numfibers',200,'color',[1 .5 0],'newfig','0');
+AFQ_RenderFibers(fg3,'numfibers',100,'color',[1 1 0],'newfig','0');
+AFQ_RenderFibers(fg4,'numfibers',100,'color',[0 1 0],'newfig','0');
+AFQ_RenderFibers(fg5,'numfibers',100,'color',[0 0 1],'newfig','0');
+AFQ_RenderFibers(fg6,'numfibers',100,'color',[.6 0 .8275],'newfig','0');
+AFQ_RenderFibers(fg7,'numfibers',100,'color',[1 .2 .6],'newfig','0');
+AFQ_RenderFibers(fg8,'numfibers',100,'color',[0 1 1],'newfig','0');
+AFQ_AddImageTo3dPlot(t1, [-1, 0, 0]);
+set(gcf, 'Position', [100, 100, 780, 650]);
+set(gca, 'XTick', [], 'YTick', [], 'ZTick', [], 'xlabel', [], 'ylabel', [], 'zlabel', []);
+set(gca,'LooseInset',get(gca,'TightInset'))
+{% endhighlight %}
+
 ### Heatmap
 
 <img class="img-responsive" alt="" src="images/render-heatmap.png">
