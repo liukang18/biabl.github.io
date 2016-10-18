@@ -6,15 +6,9 @@ comments: true
 date: 2016-10-12
 ---
 
-## Objectives
-
-After you complete this section, you should be able to:
-
-1.
-
 ## Before You Begin
 
-At this point in the lessons, you should have three different group analyses you could complete:
+At this point, you should have three different group analyses you could complete:
 
 1. Cortical thickness analysis using the **CorticalThicknessNormalizedToTemplate.nii.gz** images
 2. Tensor Based Morphometry analysis using the **SubjectToTemplateLogJacobian.nii.gz** images
@@ -22,7 +16,7 @@ At this point in the lessons, you should have three different group analyses you
 
 ### Install FSL
 
-We will be using FSL's **randomise** software to complete statistical analyses. You will need FSL install on the supercomputer as well as your local computer:
+We will be using FSL's **randomise** software to complete statistical analyses. You will need FSL installed on the supercomputer as well as your local computer:
 
 <div class="embed-container">
 <iframe src="https://player.vimeo.com/video/179801914?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
@@ -30,7 +24,7 @@ We will be using FSL's **randomise** software to complete statistical analyses. 
 
 ### Copy Files
 
-For this lesson, we will be just focusing on the ANTs Cortical Thickness images, but this process can be applied to any of the above images to complete a TBM or even a VBM analysis as well. First, copy all the data into a single directory under your analyses directory. Much like we have done previously, rename each image with the participant ID:
+For this lesson, we will be just focusing on the ANTs cortical thickness images, but this process can be applied to any of the above images to complete a TBM or even a VBM analysis as well. First, copy all the data into a single directory under your analyses directory. Much like we have done previously, rename each image with the participant ID:
 
 {% highlight bash %}
 mkdir -p ~/compute/analyses/class/CT/data/
@@ -159,7 +153,7 @@ Additionally, if you want to keep things easy to remember during the analyses, a
 
 ## Voxelwise Statistics
 
-**randomise** is FSL's tool for nonparametric permutation inference on neuroimaging data. **randomise** allows modeling and inference using standard GLM design setup as used for example in FEAT. It can output voxelwise, cluster-based and TFCE-based tests. For more information about FSL's tool, [click here for the user guide](http://fsl.fmrib.ox.ac.uk/fsl/fslwiki/Randomise/UserGuide).
+**randomise** is FSL's tool for nonparametric permutation inference on neuroimaging data. For more information about FSL's tool, [click here for the user guide](http://fsl.fmrib.ox.ac.uk/fsl/fslwiki/Randomise/UserGuide).
 
 Create a job script:
 
@@ -248,7 +242,7 @@ BYUNetID@ssh.fsl.byu.edu:~/templates/class/template.nii.gz \
 ~/Desktop/
 {% endhighlight %}
 
-To view the images, you can use the folowing code to see if there are any significant clusters. What you are loading in fslview is the template image and overlaying the statistical results that have been corrected for multiple comparisons. The statistical overlay is thresholded so that p < 0.05 (FWE-corrected). If you remember when we set up our contrasts, the first contrast was TBI > OI, so that means the statistical image will show you any regions where cortical thickness is thicker in TBI compared to OI:
+To view the images, you can use the folowing code to see if there are any significant clusters. What you are loading in fslview is the template image and overlaying the statistical results that have been corrected for multiple comparisons. The statistical overlay is thresholded so that p < 0.05 (FWE-corrected). If you remember when we set up our contrasts, the first contrast was TBI > OI, so that means the statistical image will show you any regions where cortical thickness is thicker in TBI compared to OI. The files labeled with **tfce_corrp** is actually 1-p, so that's why the threshold, **-b** is set to 0.95 to 1:
 
 {% highlight bash %}
 fslview \
@@ -258,7 +252,7 @@ fslview \
 -b 0.95,1
 {% endhighlight %}
 
-We also want to check whether there are any regions in which corticl thickness is thicker in OI compared to TBI. Recall from our design.con file that contrast 2 was OI > TBI:
+We also want to check whether there are any regions in which cortical thickness is thicker in OI compared to TBI. Recall from our design.con file that contrast 2 was OI > TBI:
 
 {% highlight bash %}
 fslview \
@@ -268,4 +262,4 @@ fslview \
 -b 0.95,1
 {% endhighlight %}
 
-The results from the cortical thickness analysis is that the thickness of the cortex does not significantly differ between children with a traumatic brain injury and orthopedic controls.
+The results from the cortical thickness analysis is that the thickness of the cortex does not significantly differ between children with a traumatic brain injury and orthopedic controls even though it may look like it from the mean overlays (contrasts 3 and 4 above).

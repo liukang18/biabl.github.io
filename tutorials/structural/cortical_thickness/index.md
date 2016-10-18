@@ -31,7 +31,7 @@ An overlay on the other hand is more like a regular scan acquired from the scann
 
 ## Brain Mask
 
-The purpose of a brain mask is not for any specific quantification, but more generally, to remove "data" that does not need to be included in any analyses. Depending on what you want to analyze, it is always best to clean up your dataset. In terms of brain analyses, we want to remove anything not brain. This process is sometimes called brain extraction or skull-stripping. Most likely, you will never be analyzing the skull, dura mater, arachnoid space, etc. Therefore, you will want to remove these structures from the image. A "good" brain mask is typically the subarachnoid space and then all brain tissue therein contained.   
+The purpose of a brain mask is not for any specific quantification, but more generally, to remove "data" that does not need to be included in any analyses. Depending on what you want to analyze, it is always best to clean up your dataset. In terms of brain analyses, we want to remove anything not brain. This process is sometimes called brain extraction or skull-stripping. Most likely, you will never be analyzing the skull, dura mater, arachnoid space, etc. Therefore, you will want to remove these structures from the image. A "good" brain mask is typically the subarachnoid space and then all brain tissue therein contained.
 
 Many programs will have their own brain extraction protocols. These protocols are fast and not always reliable. For example, FSL brain extraction tool may be one of the more common brain extraction programs available. Here's an example of the FSL BET toolbox:
 
@@ -96,10 +96,10 @@ vi ~/scripts/class/antsCT.sh
 {% highlight bash %}
 #!/bin/bash#SBATCH --time=06:00:00   # walltime#SBATCH --ntasks=1   # number of processor cores (i.e. tasks)#SBATCH --nodes=1   # number of nodes#SBATCH --mem-per-cpu=16384M  # memory per CPU core# Compatibility variables for PBS. Delete if not needed.export PBS_NODEFILE=`/fslapps/fslutils/generate_pbs_nodefile`export PBS_JOBID=$SLURM_JOB_IDexport PBS_O_WORKDIR="$SLURM_SUBMIT_DIR"export PBS_QUEUE=batch# Set the max number of threads to use for programs using OpenMP.export OMP_NUM_THREADS=$SLURM_CPUS_ON_NODE# LOAD ENVIRONMENTAL VARIABLESvar=`id -un`export ANTSPATH=/fslhome/$var/apps/ants/bin/PATH=${ANTSPATH}:${PATH}# INSERT CODE, AND RUN YOUR PROGRAMS HEREDATA_DIR=~/templates/class/TEMPLATE_DIR=~/templates/NKI/~/apps/ants/bin/antsCorticalThickness.sh \-d 3 \-a ${DATA_DIR}/template.nii.gz \-e ${TEMPLATE_DIR}/T_template.nii.gz \-t ${TEMPLATE_DIR}/T_template_BrainCerebellum.nii.gz \-m ${TEMPLATE_DIR}/T_template_BrainCerebellumProbabilityMask.nii.gz \-f ${TEMPLATE_DIR}/T_template_BrainCerebellumExtractionMask.nii.gz \-p ${TEMPLATE_DIR}/Priors/priors%d.nii.gz \-q 1 \-o ${DATA_DIR}/antsCT/
 
-## COPY MASK
+# COPY MASK
 cp ${DATA_DIR}/antsCT/BrainExtractionMask.nii.gz ${DATA_DIR}/template_BrainCerebellumMask.nii.gz
 
-## EXTRACT BRAIN IMAGE
+# EXTRACT BRAIN IMAGE
 ${ANTSPATH}/ImageMath 3 ${DATA_DIR}/template_BrainCerebellum.nii.gz m ${DATA_DIR}/template_BrainCerebellumMask.nii.gz ${DATA_DIR}/template.nii.gz
 
 # CONVERT MASK ROI TO PROBABILITY MASK

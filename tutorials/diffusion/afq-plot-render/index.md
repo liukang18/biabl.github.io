@@ -270,7 +270,6 @@ mymap = [1 0 0
 crange = [0 1]; numfibers=200; radius = 5; subdivs = 100; cmap = mymap;
 
 AFQ_RenderFibers(fg(5),'color',[.75 .75 .75],'tractprofile',TractProfile(5),'val','pADval','numfibers',numfibers,'cmap',cmap,'crange',crange,'radius',[1 5],'subplot',[4 2 1]);
-t1 = readFileNifti(dt.files.t1);
 AFQ_AddImageTo3dPlot(t1,[1,0,0],[],[0]);
 title('Left Cingulum Cingulate','fontsize',18)
 colorbar('delete');
@@ -282,7 +281,6 @@ zl1=zlim;
 yl1=ylim;
 
 AFQ_RenderFibers(fg(6),'color',[.75 .75 .75],'tractprofile',TractProfile(6),'val','pADval','numfibers',numfibers,'cmap',cmap,'crange',crange,'radius',[1 5],'subplot',[4 2 2],'camera',[90 0]);
-t1 = readFileNifti(dt.files.t1);
 AFQ_AddImageTo3dPlot(t1,[1,0,0],[],[0]);
 title('Right Cingulum Cingulate','fontsize',18)
 colorbar('delete');
@@ -293,7 +291,6 @@ ylabel([]);
 zlim(zl1);
 
 AFQ_RenderFibers(fg(5),'color',[.75 .75 .75],'tractprofile',TractProfile(5),'val','pFAval','numfibers',numfibers,'cmap',cmap,'crange',crange,'radius',[1 5],'subplot',[4 2 3]);
-t1 = readFileNifti(dt.files.t1);
 AFQ_AddImageTo3dPlot(t1,[1,0,0],[],[0]);
 colorbar('delete');
 set(gca,'ZTickLabel',[],'YTickLabel',[]);
@@ -303,7 +300,6 @@ ylabel([]);
 zlim(zl1);
 
 AFQ_RenderFibers(fg(6),'color',[.75 .75 .75],'tractprofile',TractProfile(6),'val','pFAval','numfibers',numfibers,'cmap',cmap,'crange',crange,'radius',[1 5],'subplot',[4 2 4],'camera',[90 0]);
-t1 = readFileNifti(dt.files.t1);
 AFQ_AddImageTo3dPlot(t1,[1,0,0],[],[0]);
 colorbar('delete');
 set(gca,'ZTickLabel',[],'YTickLabel',[]);
@@ -313,7 +309,6 @@ ylabel([]);
 zlim(zl1);
 
 AFQ_RenderFibers(fg(5),'color',[.75 .75 .75],'tractprofile',TractProfile(5),'val','pMDval','numfibers',numfibers,'cmap',cmap,'crange',crange,'radius',[1 5],'subplot',[4 2 5]);
-t1 = readFileNifti(dt.files.t1);
 AFQ_AddImageTo3dPlot(t1,[1,0,0],[],[0]);
 colorbar('delete');
 set(gca,'ZTickLabel',[],'YTickLabel',[]);
@@ -322,7 +317,6 @@ zlabel('MD');
 ylabel([]);
 
 AFQ_RenderFibers(fg(6),'color',[.75 .75 .75],'tractprofile',TractProfile(6),'val','pMDval','numfibers',numfibers,'cmap',cmap,'crange',crange,'radius',[1 5],'subplot',[4 2 6],'camera',[90 0]);
-t1 = readFileNifti(dt.files.t1);
 AFQ_AddImageTo3dPlot(t1,[1,0,0],[],[0]);
 colorbar('delete');
 set(gca,'ZTickLabel',[],'YTickLabel',[]);
@@ -332,7 +326,6 @@ ylabel([]);
 zlim(zl1);
 
 AFQ_RenderFibers(fg(5),'color',[.75 .75 .75],'tractprofile',TractProfile(5),'val','pRDval','numfibers',numfibers,'cmap',cmap,'crange',crange,'radius',[1 5],'subplot',[4 2 7]);
-t1 = readFileNifti(dt.files.t1);
 AFQ_AddImageTo3dPlot(t1,[1,0,0],[],[0]);
 colorbar('delete');
 set(gca,'ZTickLabel',[],'YTickLabel',[]);
@@ -342,7 +335,6 @@ ylabel([]);
 zlim(zl1);
 
 AFQ_RenderFibers(fg(6),'color',[.75 .75 .75],'tractprofile',TractProfile(6),'val','pRDval','numfibers',numfibers,'cmap',cmap,'crange',crange,'radius',[1 5],'subplot',[4 2 8],'camera',[90 0]);
-t1 = readFileNifti(dt.files.t1);
 AFQ_AddImageTo3dPlot(t1,[1,0,0],[],[0]);
 colorbar('delete');
 set(gca,'ZTickLabel',[],'YTickLabel',[]);
