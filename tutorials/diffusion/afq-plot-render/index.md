@@ -218,7 +218,7 @@ AFQ_RenderFibers(fg5, 'numfibers', 100, 'color', [0 0 1], 'newfig', '0');
 AFQ_RenderFibers(fg6, 'numfibers', 100, 'color', [.6 0 .8275], 'newfig', '0');
 AFQ_RenderFibers(fg7, 'numfibers', 100, 'color', [1 .2 .6], 'newfig', '0');
 AFQ_RenderFibers(fg8, 'numfibers', 100, 'color', [0 1 1], 'newfig', '0');
-AFQ_AddImageTo3dPlot(t1, [- 1, 0, 0]);
+AFQ_AddImageTo3dPlot(t1, [-1, 0, 0]);
 set(gcf, 'Position', [100, 100, 780, 650]);
 set(gca, 'XTick', [], 'YTick', [], 'ZTick', [], 'xlabel', [], 'ylabel', [], 'zlabel', []);
 set(gca, 'LooseInset', get(gca, 'TightInset'))
@@ -235,7 +235,7 @@ crange = [.3 .6]; numfibers = 200; radius = 5; subdivs = 100; cmap = 'jet'; newf
 Profile = SO_FiberValsInTractProfiles(fg(3), dt, 'SI', 100, 1);
 AFQ_RenderFibers(fg(3), 'numfibers', 500, 'color', [.5 .5 .5], 'alpha', 0.5);
 AFQ_RenderTractProfile(Profile.coords.acpc, radius, Profile.vals.fa, subdivs, cmap, crange, newfig);
-AFQ_AddImageTo3dPlot(t1, [- 5, 0, 0]);
+AFQ_AddImageTo3dPlot(t1, [-5, 0, 0]);
 {% endhighlight %}
 
 ## Group Renderings
