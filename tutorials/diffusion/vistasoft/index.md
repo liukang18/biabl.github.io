@@ -123,55 +123,55 @@ Copy and paste the following into your function. You do need all those percent s
 %%%%%%%
 function subjID(x)
 
-% Display participant ID:
-display(x);
+    % Display participant ID:
+    display(x);
 
-% Get home directory:
-var = getenv('HOME');
+    % Get home directory:
+    var = getenv('HOME');
 
-% Add modules to MATLAB. Do not change the order of these programs:
-SPM8Path = [var,'/apps/matlab/spm8'];
-addpath(genpath(SPM8Path));
-vistaPath = [var,'/apps/matlab/vistasoft'];
-addpath(genpath(vistaPath));
-AFQPath = [var,'/apps/matlab/AFQ'];
-addpath(genpath(AFQPath));
+    % Add modules to MATLAB. Do not change the order of these programs:
+    SPM8Path = [var, '/apps/matlab/spm8'];
+    addpath(genpath(SPM8Path));
+    vistaPath = [var, '/apps/matlab/vistasoft'];
+    addpath(genpath(vistaPath));
+    AFQPath = [var, '/apps/matlab/AFQ'];
+    addpath(genpath(AFQPath));
 
-% Set file names:
-subjDir= [var,'/compute/images/EDSD/',x];
-dtiFile = [subjDir,'/raw/dti.nii.gz'];
-cd (subjDir);
+    % Set file names:
+    subjDir = [var, '/compute/images/EDSD/', x];
+    dtiFile = [subjDir, '/raw/dti.nii.gz'];
+    cd (subjDir);
 
-% Don't change the following code:
-ni=readFileNifti(dtiFile);
-ni=niftiSetQto(ni,ni.sto_xyz);
-writeFileNifti(ni,dtiFile);
+    % Don't change the following code:
+    ni = readFileNifti(dtiFile);
+    ni = niftiSetQto(ni, ni.sto_xyz);
+    writeFileNifti(ni, dtiFile);
 
-% Determine phase encode dir:
-% > info=dicominfo([var,'/compute/images/EDSD/FRE_AD001/DICOM/diff/MR.22533.01274.dcm']);
-% To get the manufacturer information:
-% > info.(dicomlookup('0008','0070'))
-% To get the axis of phase encoding with respect to the image:
-% > info.(dicomlookup('0018','1312'))
-% If phase encode dir is 'COL', then set 'phaseEncodeDir' to '2'
-% If phase encode dir is 'ROW', then set 'phaseEncodeDir' to '1'
-% For Siemens / Philips specific code we need to add 'rotateBvecsWithCanXform',
-% AND ALWAYS DOUBLE CHECK phaseEncodeDir:
-% > dwParams = dtiInitParams('rotateBvecsWithCanXform',1,'phaseEncodeDir',2,'clobber',1);
-% For GE specific code,
-% AND ALWAYS DOUBLE CHECK phaseEncodeDir:
-% > dwParams = dtiInitParams('phaseEncodeDir',2,'clobber',1);
-dwParams = dtiInitParams('rotateBvecsWithCanXform',1,'phaseEncodeDir',2,'clobber',1);
+    % Determine phase encode dir:
+    % > info=dicominfo([var,'/compute/images/EDSD/FRE_AD001/DICOM/diff/MR.22533.01274.dcm']);
+    % To get the manufacturer information:
+    % > info.(dicomlookup('0008','0070'))
+    % To get the axis of phase encoding with respect to the image:
+    % > info.(dicomlookup('0018','1312'))
+    % If phase encode dir is 'COL', then set 'phaseEncodeDir' to '2'
+    % If phase encode dir is 'ROW', then set 'phaseEncodeDir' to '1'
+    % For Siemens / Philips specific code we need to add 'rotateBvecsWithCanXform',
+    % AND ALWAYS DOUBLE CHECK phaseEncodeDir:
+    % > dwParams = dtiInitParams('rotateBvecsWithCanXform',1,'phaseEncodeDir',2,'clobber',1);
+    % For GE specific code,
+    % AND ALWAYS DOUBLE CHECK phaseEncodeDir:
+    % > dwParams = dtiInitParams('phaseEncodeDir',2,'clobber',1);
+    dwParams = dtiInitParams('rotateBvecsWithCanXform', 1, 'phaseEncodeDir', 2, 'clobber', 1);
 
-% Here's the one line of code to do the DTI preprocessing:
-dtiInit(dtiFile, 'MNI', dwParams);
+    % Here's the one line of code to do the DTI preprocessing:
+    dtiInit(dtiFile, 'MNI', dwParams);
 
-% Clean up files and exit:
-movefile('dti_*','raw/');
-movefile('dtiInitLog.mat','raw/');
-movefile('ROIs','*trilin');
+    % Clean up files and exit:
+    movefile('dti_*', 'raw/');
+    movefile('dtiInitLog.mat', 'raw/');
+    movefile('ROIs', '*trilin');
 
-exit;
+    exit;
 {% endhighlight %}
 
 You should not have to change any of this code for the neuroimaging class; however, if you are processing your own dataset, you need to double check the manufacturer and phaseEncodeDir and change those within the dwParams command.

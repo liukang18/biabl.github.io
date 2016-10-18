@@ -126,22 +126,24 @@ Here's the fiber group and corresponding number:
 Tract profiles (DTI scalars along the tract) can be automatically plotted in MATLAB though clumsily. Long term you'll want develop your own code in R to graph the results. After loading your afq.mat dataset, you can generate group average graphs for ALL 28 tracts:
 
 {% highlight matlab %}
-all = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28];
-AFQ_plot('AD',afq.patient_data,...
-'HC',afq.control_data,...
-'tracts',all,...
-'group',...
-'property','fa');
+all = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, ...
+  11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...
+  21, 22, 23, 24, 25, 26, 27, 28];
+AFQ_plot('AD', afq.patient_data, ...
+  'HC', afq.control_data, ...
+  'tracts', all, ...
+  'group', ...
+  'property', 'fa');
 {% endhighlight %}
 
 If you just want to look at one specific tract type:
 
 {% highlight matlab %}
-AFQ_plot('AD',afq.patient_data,...
-'HC',afq.control_data,...
-'tracts',[1],...
-'group',...
-'property','fa');
+AFQ_plot('AD', afq.patient_data, ...
+  'HC', afq.control_data, ...
+  'tracts', [1], ...
+  'group', ...
+  'property', 'fa');
 {% endhighlight %}
 
 If you want to change from FA to other DTI scalars, change the 'property' option to either: 'fa', 'rd', 'md', 'ad'.
@@ -153,7 +155,7 @@ If you want to change from FA to other DTI scalars, change the 'property' option
 You are also able to plot a heatmap of the control group. The gray lines are individual participants and the average of the group is represented by the heatmap. The color changes with the y-axis, so in the following image as FA increases the heatmap gets redder and as FA decreases it goes bluer. This type of image is nice to pair with a 3D view of the tract later on. To change the fiber group, change the number associated with **'tracts',[3]**. The numbers correspond to each fiber group (see above):
 
 {% highlight matlab %}
-AFQ_plot(afq,'colormap','tracts',[3])
+AFQ_plot(afq, 'colormap', 'tracts', [3])
 {% endhighlight %}
 
 ## Individual Renderings
@@ -172,9 +174,9 @@ rsync -rauv --exclude="DICOM" intj5@ssh.fsl.byu.edu:~/compute/images/EDSD/FRE_AD
 In MATLAB, load the participant's fiber group (fg), their dt6.mat file (dt) and an image to use as a background to overlay fibers. Because we registered all the participants brains affinely to an MNI template, we can use the FA MNI template as a general background. This is more for visualization and not about precision:
 
 {% highlight matlab %}
-fg = dtiReadFibers(fullfile([var,'/Desktop/FRE_AD001/dti55trilin/fibers/MoriGroups_clean_D5_L4.mat']));
-dt = dtiLoadDt6(fullfile([var,'/Desktop/FRE_AD001/dti55trilin/dt6.mat']));
-t1 = readFileNifti([var,'/Applications/vistasoft/mrDiffusion/templates/MNI_JHU_FA.nii.gz']);
+fg = dtiReadFibers(fullfile([var, '/Desktop/FRE_AD001/dti55trilin/fibers/MoriGroups_clean_D5_L4.mat']));
+dt = dtiLoadDt6(fullfile([var, '/Desktop/FRE_AD001/dti55trilin/dt6.mat']));
+t1 = readFileNifti([var, '/Applications/vistasoft/mrDiffusion/templates/MNI_JHU_FA.nii.gz']);
 {% endhighlight %}
 
 ### Fiber Tracts
@@ -184,40 +186,42 @@ t1 = readFileNifti([var,'/Applications/vistasoft/mrDiffusion/templates/MNI_JHU_F
 You can plot the fibers of a participant. There are a LOT of options under AFQ_RenderFibers, so explore the help file (`help AFQ_RenderFibers`) to learn more:
 
 {% highlight matlab %}
-AFQ_RenderFibers(fg(3),'numfibers',500,'color',[1 0 0],'subplot',[1 2 1]);
-title(fg(3).name,'fontsize',18)
-AFQ_RenderFibers(fg(4),'numfibers',500,'color',[1 0 0],'subplot',[1 2 2]);
-title(fg(4).name,'fontsize',18)
+AFQ_RenderFibers(fg(3), 'numfibers', 500, 'color', [1 0 0], 'subplot', [1 2 1]);
+title(fg(3).name, 'fontsize', 18)
+AFQ_RenderFibers(fg(4), 'numfibers', 500, 'color', [1 0 0], 'subplot', [1 2 2]);
+title(fg(4).name, 'fontsize', 18)
 {% endhighlight %}
 
 ### Corpus Callosum
+
+<img class="img-responsive" alt="" src="images/cc.jpg">
 
 Here's the code of rendering the corpus callosum fibers. You have to load each fiber group separately as they were created and saved separately:
 
 {% highlight matlab %}
 % Load Fiber Groups
-fg1=dtiReadFibers(fullfile([var,'/Desktop/FRE_AD001/dti55trilin/fibers/CC_Orb_Frontal_clean_D5_L4.mat']));
-fg2=dtiReadFibers(fullfile([var,'/Desktop/FRE_AD001/dti55trilin/fibers/CC_Ant_Frontal_clean_D5_L4.mat']));
-fg3=dtiReadFibers(fullfile([var,'/Desktop/FRE_AD001/dti55trilin/fibers/CC_Sup_Frontal_clean_D5_L4.mat']));
-fg4=dtiReadFibers(fullfile([var,'/Desktop/FRE_AD001/dti55trilin/fibers/CC_Motor_clean_D5_L4.mat']));
-fg5=dtiReadFibers(fullfile([var,'/Desktop/FRE_AD001/dti55trilin/fibers/CC_Sup_Parietal_clean_D5_L4.mat']));
-fg6=dtiReadFibers(fullfile([var,'/Desktop/FRE_AD001/dti55trilin/fibers/CC_Post_Parietal_clean_D5_L4.mat']));
-fg7=dtiReadFibers(fullfile([var,'/Desktop/FRE_AD001/dti55trilin/fibers/CC_Occipital_clean_D5_L4.mat']));
-fg8=dtiReadFibers(fullfile([var,'/Desktop/FRE_AD001/dti55trilin/fibers/CC_Temporal_clean_D5_L4.mat']));
+fg1 = dtiReadFibers(fullfile([var, '/Desktop/FRE_AD001/dti55trilin/fibers/CC_Orb_Frontal_clean_D5_L4.mat']));
+fg2 = dtiReadFibers(fullfile([var, '/Desktop/FRE_AD001/dti55trilin/fibers/CC_Ant_Frontal_clean_D5_L4.mat']));
+fg3 = dtiReadFibers(fullfile([var, '/Desktop/FRE_AD001/dti55trilin/fibers/CC_Sup_Frontal_clean_D5_L4.mat']));
+fg4 = dtiReadFibers(fullfile([var, '/Desktop/FRE_AD001/dti55trilin/fibers/CC_Motor_clean_D5_L4.mat']));
+fg5 = dtiReadFibers(fullfile([var, '/Desktop/FRE_AD001/dti55trilin/fibers/CC_Sup_Parietal_clean_D5_L4.mat']));
+fg6 = dtiReadFibers(fullfile([var, '/Desktop/FRE_AD001/dti55trilin/fibers/CC_Post_Parietal_clean_D5_L4.mat']));
+fg7 = dtiReadFibers(fullfile([var, '/Desktop/FRE_AD001/dti55trilin/fibers/CC_Occipital_clean_D5_L4.mat']));
+fg8 = dtiReadFibers(fullfile([var, '/Desktop/FRE_AD001/dti55trilin/fibers/CC_Temporal_clean_D5_L4.mat']));
 
 % Create Figure
-AFQ_RenderFibers(fg1,'numfibers',100,'color',[1 0 0],'camera','sagittal');
-AFQ_RenderFibers(fg2,'numfibers',200,'color',[1 .5 0],'newfig','0');
-AFQ_RenderFibers(fg3,'numfibers',100,'color',[1 1 0],'newfig','0');
-AFQ_RenderFibers(fg4,'numfibers',100,'color',[0 1 0],'newfig','0');
-AFQ_RenderFibers(fg5,'numfibers',100,'color',[0 0 1],'newfig','0');
-AFQ_RenderFibers(fg6,'numfibers',100,'color',[.6 0 .8275],'newfig','0');
-AFQ_RenderFibers(fg7,'numfibers',100,'color',[1 .2 .6],'newfig','0');
-AFQ_RenderFibers(fg8,'numfibers',100,'color',[0 1 1],'newfig','0');
-AFQ_AddImageTo3dPlot(t1, [-1, 0, 0]);
+AFQ_RenderFibers(fg1, 'numfibers', 100, 'color', [1 0 0], 'camera', 'sagittal');
+AFQ_RenderFibers(fg2, 'numfibers', 200, 'color', [1 .5 0], 'newfig', '0');
+AFQ_RenderFibers(fg3, 'numfibers', 100, 'color', [1 1 0], 'newfig', '0');
+AFQ_RenderFibers(fg4, 'numfibers', 100, 'color', [0 1 0], 'newfig', '0');
+AFQ_RenderFibers(fg5, 'numfibers', 100, 'color', [0 0 1], 'newfig', '0');
+AFQ_RenderFibers(fg6, 'numfibers', 100, 'color', [.6 0 .8275], 'newfig', '0');
+AFQ_RenderFibers(fg7, 'numfibers', 100, 'color', [1 .2 .6], 'newfig', '0');
+AFQ_RenderFibers(fg8, 'numfibers', 100, 'color', [0 1 1], 'newfig', '0');
+AFQ_AddImageTo3dPlot(t1, [- 1, 0, 0]);
 set(gcf, 'Position', [100, 100, 780, 650]);
 set(gca, 'XTick', [], 'YTick', [], 'ZTick', [], 'xlabel', [], 'ylabel', [], 'zlabel', []);
-set(gca,'LooseInset',get(gca,'TightInset'))
+set(gca, 'LooseInset', get(gca, 'TightInset'))
 {% endhighlight %}
 
 ### Heatmap
@@ -227,11 +231,11 @@ set(gca,'LooseInset',get(gca,'TightInset'))
 You can also look at the heatmap of an individual participant:
 
 {% highlight matlab %}
-crange = [.3 .6]; numfibers=200; radius = 5; subdivs = 100; cmap = 'jet'; newfig = 0;
-Profile = SO_FiberValsInTractProfiles(fg(3),dt,'SI',100,1);
-AFQ_RenderFibers(fg(3),'numfibers',500,'color',[.5 .5 .5],'alpha',0.5);
+crange = [.3 .6]; numfibers = 200; radius = 5; subdivs = 100; cmap = 'jet'; newfig = 0;
+Profile = SO_FiberValsInTractProfiles(fg(3), dt, 'SI', 100, 1);
+AFQ_RenderFibers(fg(3), 'numfibers', 500, 'color', [.5 .5 .5], 'alpha', 0.5);
 AFQ_RenderTractProfile(Profile.coords.acpc, radius, Profile.vals.fa, subdivs, cmap, crange, newfig);
-AFQ_AddImageTo3dPlot(t1, [-5, 0, 0]);
+AFQ_AddImageTo3dPlot(t1, [- 5, 0, 0]);
 {% endhighlight %}
 
 ## Group Renderings
@@ -249,10 +253,10 @@ First, run a t-test between groups:
 
 {% highlight matlab %}
 for jj = 1:20
-    [hAD(jj,:),pAD(jj,:),~,TstatsAD(jj)] = ttest2(afq.patient_data(jj).AD,afq.control_data(jj).AD);
-    [hFA(jj,:),pFA(jj,:),~,TstatsFA(jj)] = ttest2(afq.patient_data(jj).FA,afq.control_data(jj).FA);
-    [hMD(jj,:),pMD(jj,:),~,TstatsMD(jj)] = ttest2(afq.patient_data(jj).MD,afq.control_data(jj).MD);
-    [hRD(jj,:),pRD(jj,:),~,TstatsRD(jj)] = ttest2(afq.patient_data(jj).RD,afq.control_data(jj).RD);
+    [hAD(jj, :), pAD(jj, :), ~, TstatsAD(jj)] = ttest2(afq.patient_data(jj).AD, afq.control_data(jj).AD);
+    [hFA(jj, :), pFA(jj, :), ~, TstatsFA(jj)] = ttest2(afq.patient_data(jj).FA, afq.control_data(jj).FA);
+    [hMD(jj, :), pMD(jj, :), ~, TstatsMD(jj)] = ttest2(afq.patient_data(jj).MD, afq.control_data(jj).MD);
+    [hRD(jj, :), pRD(jj, :), ~, TstatsRD(jj)] = ttest2(afq.patient_data(jj).RD, afq.control_data(jj).RD);
 end
 {% endhighlight %}
 
@@ -260,16 +264,16 @@ Next, convert the results into a way that can be visually mapped on the tracts:
 
 {% highlight matlab %}
 numNodes = 100;
-[fa, md, rd, ad, cl, volume, TractProfile] = AFQ_ComputeTractProperties(fg,dt,numNodes);
+[fa, md, rd, ad, cl, volume, TractProfile] = AFQ_ComputeTractProperties(fg, dt, numNodes);
 for jj = 1:20
-    TractProfile(jj) = AFQ_TractProfileSet(TractProfile(jj),'vals','pADval',pAD(jj,:));
-    TractProfile(jj) = AFQ_TractProfileSet(TractProfile(jj),'vals','pFAval',pFA(jj,:));
-    TractProfile(jj) = AFQ_TractProfileSet(TractProfile(jj),'vals','pMDval',pMD(jj,:));
-    TractProfile(jj) = AFQ_TractProfileSet(TractProfile(jj),'vals','pRDval',pRD(jj,:));
-    TractProfile(jj) = AFQ_TractProfileSet(TractProfile(jj),'vals','TstatAD',TstatsAD(jj).tstat);
-    TractProfile(jj) = AFQ_TractProfileSet(TractProfile(jj),'vals','TstatFA',TstatsFA(jj).tstat);
-    TractProfile(jj) = AFQ_TractProfileSet(TractProfile(jj),'vals','TstatMD',TstatsMD(jj).tstat);
-    TractProfile(jj) = AFQ_TractProfileSet(TractProfile(jj),'vals','TstatRD',TstatsRD(jj).tstat);
+    TractProfile(jj) = AFQ_TractProfileSet(TractProfile(jj), 'vals', 'pADval', pAD(jj, :));
+    TractProfile(jj) = AFQ_TractProfileSet(TractProfile(jj), 'vals', 'pFAval', pFA(jj, :));
+    TractProfile(jj) = AFQ_TractProfileSet(TractProfile(jj), 'vals', 'pMDval', pMD(jj, :));
+    TractProfile(jj) = AFQ_TractProfileSet(TractProfile(jj), 'vals', 'pRDval', pRD(jj, :));
+    TractProfile(jj) = AFQ_TractProfileSet(TractProfile(jj), 'vals', 'TstatAD', TstatsAD(jj).tstat);
+    TractProfile(jj) = AFQ_TractProfileSet(TractProfile(jj), 'vals', 'TstatFA', TstatsFA(jj).tstat);
+    TractProfile(jj) = AFQ_TractProfileSet(TractProfile(jj), 'vals', 'TstatMD', TstatsMD(jj).tstat);
+    TractProfile(jj) = AFQ_TractProfileSet(TractProfile(jj), 'vals', 'TstatRD', TstatsRD(jj).tstat);
 end
 {% endhighlight %}
 
@@ -286,77 +290,77 @@ save([var,'/Desktop/TractProfile_' datestr(now,'yyyy_mm_dd_HHMM')],'TractProfile
 {% highlight matlab %}
 mymap = [1 0 0
 1 1 1];
-crange = [0 1]; numfibers=200; radius = 5; subdivs = 100; cmap = mymap;
+crange = [0 1]; numfibers = 200; radius = 5; subdivs = 100; cmap = mymap;
 
-AFQ_RenderFibers(fg(5),'color',[.75 .75 .75],'tractprofile',TractProfile(5),'val','pADval','numfibers',numfibers,'cmap',cmap,'crange',crange,'radius',[1 5],'subplot',[4 2 1]);
-AFQ_AddImageTo3dPlot(t1,[1,0,0],[],[0]);
-title('Left Cingulum Cingulate','fontsize',18)
+AFQ_RenderFibers(fg(5), 'color', [.75 .75 .75], 'tractprofile', TractProfile(5), 'val', 'pADval', 'numfibers', numfibers, 'cmap', cmap, 'crange', crange, 'radius', [1 5], 'subplot', [4 2 1]);
+AFQ_AddImageTo3dPlot(t1, [1, 0, 0], [], [0]);
+title('Left Cingulum Cingulate', 'fontsize', 18)
 colorbar('delete');
-set(gca,'ZTickLabel',[],'YTickLabel',[]);
+set(gca, 'ZTickLabel', [], 'YTickLabel', []);
 set(gca, 'CLim', [0, 0.05]);
 zlabel('AD');
 ylabel([]);
-zl1=zlim;
-yl1=ylim;
+zl1 = zlim;
+yl1 = ylim;
 
-AFQ_RenderFibers(fg(6),'color',[.75 .75 .75],'tractprofile',TractProfile(6),'val','pADval','numfibers',numfibers,'cmap',cmap,'crange',crange,'radius',[1 5],'subplot',[4 2 2],'camera',[90 0]);
-AFQ_AddImageTo3dPlot(t1,[1,0,0],[],[0]);
-title('Right Cingulum Cingulate','fontsize',18)
+AFQ_RenderFibers(fg(6), 'color', [.75 .75 .75], 'tractprofile', TractProfile(6), 'val', 'pADval', 'numfibers', numfibers, 'cmap', cmap, 'crange', crange, 'radius', [1 5], 'subplot', [4 2 2], 'camera', [90 0]);
+AFQ_AddImageTo3dPlot(t1, [1, 0, 0], [], [0]);
+title('Right Cingulum Cingulate', 'fontsize', 18)
 colorbar('delete');
-set(gca,'ZTickLabel',[],'YTickLabel',[]);
+set(gca, 'ZTickLabel', [], 'YTickLabel', []);
 set(gca, 'CLim', [0, 0.05]);
 zlabel('AD');
 ylabel([]);
 zlim(zl1);
 
-AFQ_RenderFibers(fg(5),'color',[.75 .75 .75],'tractprofile',TractProfile(5),'val','pFAval','numfibers',numfibers,'cmap',cmap,'crange',crange,'radius',[1 5],'subplot',[4 2 3]);
-AFQ_AddImageTo3dPlot(t1,[1,0,0],[],[0]);
+AFQ_RenderFibers(fg(5), 'color', [.75 .75 .75], 'tractprofile', TractProfile(5), 'val', 'pFAval', 'numfibers', numfibers, 'cmap', cmap, 'crange', crange, 'radius', [1 5], 'subplot', [4 2 3]);
+AFQ_AddImageTo3dPlot(t1, [1, 0, 0], [], [0]);
 colorbar('delete');
-set(gca,'ZTickLabel',[],'YTickLabel',[]);
+set(gca, 'ZTickLabel', [], 'YTickLabel', []);
 set(gca, 'CLim', [0, 0.05]);
 zlabel('FA');
 ylabel([]);
 zlim(zl1);
 
-AFQ_RenderFibers(fg(6),'color',[.75 .75 .75],'tractprofile',TractProfile(6),'val','pFAval','numfibers',numfibers,'cmap',cmap,'crange',crange,'radius',[1 5],'subplot',[4 2 4],'camera',[90 0]);
-AFQ_AddImageTo3dPlot(t1,[1,0,0],[],[0]);
+AFQ_RenderFibers(fg(6), 'color', [.75 .75 .75], 'tractprofile', TractProfile(6), 'val', 'pFAval', 'numfibers', numfibers, 'cmap', cmap, 'crange', crange, 'radius', [1 5], 'subplot', [4 2 4], 'camera', [90 0]);
+AFQ_AddImageTo3dPlot(t1, [1, 0, 0], [], [0]);
 colorbar('delete');
-set(gca,'ZTickLabel',[],'YTickLabel',[]);
+set(gca, 'ZTickLabel', [], 'YTickLabel', []);
 set(gca, 'CLim', [0, 0.05]);
 zlabel('FA');
 ylabel([]);
 zlim(zl1);
 
-AFQ_RenderFibers(fg(5),'color',[.75 .75 .75],'tractprofile',TractProfile(5),'val','pMDval','numfibers',numfibers,'cmap',cmap,'crange',crange,'radius',[1 5],'subplot',[4 2 5]);
-AFQ_AddImageTo3dPlot(t1,[1,0,0],[],[0]);
+AFQ_RenderFibers(fg(5), 'color', [.75 .75 .75], 'tractprofile', TractProfile(5), 'val', 'pMDval', 'numfibers', numfibers, 'cmap', cmap, 'crange', crange, 'radius', [1 5], 'subplot', [4 2 5]);
+AFQ_AddImageTo3dPlot(t1, [1, 0, 0], [], [0]);
 colorbar('delete');
-set(gca,'ZTickLabel',[],'YTickLabel',[]);
+set(gca, 'ZTickLabel', [], 'YTickLabel', []);
 set(gca, 'CLim', [0, 0.05]);
 zlabel('MD');
 ylabel([]);
 
-AFQ_RenderFibers(fg(6),'color',[.75 .75 .75],'tractprofile',TractProfile(6),'val','pMDval','numfibers',numfibers,'cmap',cmap,'crange',crange,'radius',[1 5],'subplot',[4 2 6],'camera',[90 0]);
-AFQ_AddImageTo3dPlot(t1,[1,0,0],[],[0]);
+AFQ_RenderFibers(fg(6), 'color', [.75 .75 .75], 'tractprofile', TractProfile(6), 'val', 'pMDval', 'numfibers', numfibers, 'cmap', cmap, 'crange', crange, 'radius', [1 5], 'subplot', [4 2 6], 'camera', [90 0]);
+AFQ_AddImageTo3dPlot(t1, [1, 0, 0], [], [0]);
 colorbar('delete');
-set(gca,'ZTickLabel',[],'YTickLabel',[]);
+set(gca, 'ZTickLabel', [], 'YTickLabel', []);
 set(gca, 'CLim', [0, 0.05]);
 zlabel('MD');
 ylabel([]);
 zlim(zl1);
 
-AFQ_RenderFibers(fg(5),'color',[.75 .75 .75],'tractprofile',TractProfile(5),'val','pRDval','numfibers',numfibers,'cmap',cmap,'crange',crange,'radius',[1 5],'subplot',[4 2 7]);
-AFQ_AddImageTo3dPlot(t1,[1,0,0],[],[0]);
+AFQ_RenderFibers(fg(5), 'color', [.75 .75 .75], 'tractprofile', TractProfile(5), 'val', 'pRDval', 'numfibers', numfibers, 'cmap', cmap, 'crange', crange, 'radius', [1 5], 'subplot', [4 2 7]);
+AFQ_AddImageTo3dPlot(t1, [1, 0, 0], [], [0]);
 colorbar('delete');
-set(gca,'ZTickLabel',[],'YTickLabel',[]);
+set(gca, 'ZTickLabel', [], 'YTickLabel', []);
 set(gca, 'CLim', [0, 0.05]);
 zlabel('RD');
 ylabel([]);
 zlim(zl1);
 
-AFQ_RenderFibers(fg(6),'color',[.75 .75 .75],'tractprofile',TractProfile(6),'val','pRDval','numfibers',numfibers,'cmap',cmap,'crange',crange,'radius',[1 5],'subplot',[4 2 8],'camera',[90 0]);
-AFQ_AddImageTo3dPlot(t1,[1,0,0],[],[0]);
+AFQ_RenderFibers(fg(6), 'color', [.75 .75 .75], 'tractprofile', TractProfile(6), 'val', 'pRDval', 'numfibers', numfibers, 'cmap', cmap, 'crange', crange, 'radius', [1 5], 'subplot', [4 2 8], 'camera', [90 0]);
+AFQ_AddImageTo3dPlot(t1, [1, 0, 0], [], [0]);
 colorbar('delete');
-set(gca,'ZTickLabel',[],'YTickLabel',[]);
+set(gca, 'ZTickLabel', [], 'YTickLabel', []);
 set(gca, 'CLim', [0, 0.05]);
 zlabel('RD');
 ylabel([]);
