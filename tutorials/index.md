@@ -45,7 +45,7 @@ Please review Beginner Topics before starting the Advanced Topics. You will need
 6. [Randomise](diffusion/randomise)
 7. [Deterministic Tractography with VistaSoft](diffusion/vistasoft)
 8. [Automatic Fiber Quantification](diffusion/afq)
-9. [Plot and Render Fibers](diffusion/#)
+9. [Plot and Render Fibers](diffusion/afq-plot-render)
 10. [Probabilistic Tractography with TRACULA](diffusion/#)
 11. TBD
 12. [Advanced Graphing and Statistics using R](diffusion/#)

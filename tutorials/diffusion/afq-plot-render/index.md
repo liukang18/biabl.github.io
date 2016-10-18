@@ -20,6 +20,11 @@ After you complete this section, you should be able to:
 
 ## Before You Begin
 
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/187850291?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+<br>
+
 For most of the visualizations and analyses, the only file needed is the afq.mat file that also contains the corpus callosum segmentation:
 
 {% highlight bash %}
@@ -111,8 +116,12 @@ Here's the fiber group and corresponding number:
 
 ### Group Averages
 
-<img class="img-responsive" alt="" src="images/plot.png">
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/187850294?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+<br>
 
+<img class="img-responsive" alt="" src="images/plot.png">
 
 Tract profiles (DTI scalars along the tract) can be automatically plotted in MATLAB though clumsily. Long term you'll want develop your own code in R to graph the results. After loading your afq.mat dataset, you can generate group average graphs for ALL 28 tracts:
 
@@ -148,6 +157,11 @@ AFQ_plot(afq,'colormap','tracts',[3])
 {% endhighlight %}
 
 ## Individual Renderings
+
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/187850293?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+<br>
 
 To look at an individual participant, you need to load their fiber group data, their processed DTI data, and a background image. For now let us just download one participant and not the entire data set:
 
@@ -221,6 +235,11 @@ AFQ_AddImageTo3dPlot(t1, [-5, 0, 0]);
 {% endhighlight %}
 
 ## Group Renderings
+
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/187850292?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+<br>
 
 In order to generate a tract profile you can load on top of an individual tract, we have to perform statistics. Note that these images are not the absolute statistics, because: (1) you are only running t-tests and cannot run statistics with any covariates, and (2) the t-tests do not control for multiple comparisons. This is JUST for **visualization** purposes only.
 
