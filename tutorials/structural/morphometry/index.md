@@ -47,16 +47,20 @@ Voxel Based Morphometry measures structural differences in tissue classes (e.g.,
 
 ### Grey Matter Image
 
-First, you will take the participant's GM ROI and multiply it with the normalized whole brain image. Remember the value inside the ROI is 1 and the value outside the ROI is 0. When you multiply anything by 0 it equals 0, so when you multiply these two images together, you are left with just normalized gray matter.
-
 <div class="row">
-    <div class="col-xs-6">
+    <div class="col-xs-4">
 		<img class="img-responsive" alt="" src="images/brain.png">
 	</div>
-	<div class="col-xs-6">
+	<div class="col-xs-4">
 		<img class="img-responsive" alt="" src="images/roi.png">
 	</div>
+  <div class="col-xs-4">
+		<img class="img-responsive" alt="" src="images/segmented.png">
+	</div>
 </div>
+<br>
+
+First, you will take the participant's GM ROI and multiply it with the normalized whole brain image. Remember the value inside the ROI is 1 and the value outside the ROI is 0. When you multiply anything by 0 it equals 0, so when you multiply these two images together, you are left with just normalized gray matter.
 
 {% highlight bash %}
 for subj in $(ls ~/compute/class/); do
@@ -69,9 +73,9 @@ for subj in $(ls ~/compute/class/); do
 done
 {% endhighlight %}
 
-<img class="img-responsive" alt="" src="images/segmented.png">
-
 ### Modulated Grey Matter Image
+
+<img class="img-responsive" alt="" src="images/modulated.png">
 
 The image has been normalized to a template, so at this point the image should be nearly indistinguishable from the template. Any comparison will result in null results. However, if you multiply the image by the log Jacobian, then you are adjusting the intensity of each gray matter voxel by the amount of stretching, shearing, and rotation that occurred.
 
@@ -85,10 +89,8 @@ for subj in $(ls ~/compute/class/); do
 done
 {% endhighlight %}
 
-<img class="img-responsive" alt="" src="images/modulated.png">
-
 ## Class Slides
 
 <div class="embed-container">
-
+<iframe src="//slides.com/njhunsak/morphometry/embed" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
