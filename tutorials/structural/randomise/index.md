@@ -1,6 +1,6 @@
 ---
 layout: tutorials
-title: Randomise
+title: Compare Two Groups
 author: naomi
 comments: true
 date: 2016-10-12
@@ -8,7 +8,7 @@ date: 2016-10-12
 
 ## Before You Begin
 
-At this point, you should have three different group analyses you could complete:
+At this point, you have three different group analyses you can complete:
 
 1. Cortical thickness analysis using the **CorticalThicknessNormalizedToTemplate.nii.gz** images
 2. Tensor Based Morphometry analysis using the **SubjectToTemplateLogJacobian.nii.gz** images
@@ -24,6 +24,11 @@ We will be using FSL's **randomise** software to complete statistical analyses. 
 
 ### Copy Files
 
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/189049495?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+<br>
+
 For this lesson, we will be just focusing on the ANTs cortical thickness images, but this process can be applied to any of the above images to complete a TBM or even a VBM analysis as well. First, copy all the data into a single directory under your analyses directory. Much like we have done previously, rename each image with the participant ID:
 
 {% highlight bash %}
@@ -37,7 +42,7 @@ done
 
 ### Smoothing
 
-If you are completing these analyses with the Log Jacobian image or the modulate GM image, you need to smooth the image. The cortical thickness image has already been smoothed. The basic form of the code:
+If you are completing these analyses with the Log Jacobian image or the modulated GM image, you need to smooth the image. The cortical thickness image has already been smoothed. The basic form of the code:
 
 {% highlight bash %}
 ~/apps/ants/bin/SmoothImage \
@@ -67,6 +72,11 @@ cp -v \
 {% endhighlight %}
 
 ## Analysis Design
+
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/189049494?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+<br>
 
 Before running **randomise** you will need to generate a design matrix file, e.g., **design.mat** and a contrasts file, e.g., **design.con**. Note that the order of the entries (rows) in your design matrix must match the order of your images in the 4D image. You can check the order with:
 
@@ -153,6 +163,11 @@ Additionally, if you want to keep things easy to remember during the analyses, a
 
 ## Voxelwise Statistics
 
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/189049493?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+<br>
+
 **randomise** is FSL's tool for nonparametric permutation inference on neuroimaging data. For more information about FSL's tool, [click here for the user guide](http://fsl.fmrib.ox.ac.uk/fsl/fslwiki/Randomise/UserGuide).
 
 Create a job script:
@@ -166,7 +181,7 @@ Copy and paste into the job script:
 {% highlight bash %}
 #!/bin/bash
 
-#SBATCH --time=05:00:00   # walltime
+#SBATCH --time=30:00:00   # walltime
 #SBATCH --ntasks=1   # number of processor cores (i.e. tasks)
 #SBATCH --nodes=1   # number of nodes
 #SBATCH --mem-per-cpu=16384M  # memory per CPU core
@@ -263,3 +278,9 @@ fslview \
 {% endhighlight %}
 
 The results from the cortical thickness analysis is that the thickness of the cortex does not significantly differ between children with a traumatic brain injury and orthopedic controls even though it may look like it from the mean overlays (contrasts 3 and 4 above).
+
+## Class Slides
+
+<div class="embed-container">
+<iframe src="//slides.com/njhunsak/statistics/embed" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>

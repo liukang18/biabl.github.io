@@ -28,7 +28,7 @@ This site contains all of the handouts and information presented in BYU's Fall 2
 7. [ANTs Cortical Thickness](structural/cortical_thickness)
 8. [How to Submit Batch Jobs on Supercomputer](general/submit-multiple-jobs)
 9. [Morphometry](structural/morphometry)
-10. [Compare Two Groups](structural/#)
+10. [Compare Two Groups](structural/randomise)
 11. [FreeSurfer recon-all](structural/freesurfer-recon-all)
 12. [FreeSurfer ROI Analysis](structural/#)
 13. [FreeSurfer QDEC Analysis](structural/#)
