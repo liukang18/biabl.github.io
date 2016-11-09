@@ -10,6 +10,11 @@ date: 2016-11-02
 
 ## TRACULA
 
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/190892663?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+<br>
+
 TRACULA uses the prior anatomical information derived from the cortical parcellation and subcortical segmentation obtained from FreeSurfer. Let us make sure you have the latest version of TRACULA:
 
 {% highlight bash %}
@@ -62,6 +67,11 @@ done
 {% endhighlight %}
 
 ## Preprocessing
+
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/190892666?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+<br>
 
 The preprocessing workflow of TRACULA is based on a standardized routine that utilizes tools available in the software library of FSL. Image distortions induced by eddy currents and head motion are corrected by aligning each image to the mean non-diffusion-weighted (b=0) using linear image registration using FSL eddy_correct program. After correction, diffusion weighted images are skull-stripped in order to exclude non-brain voxels from all analyses using FSL bet program. Once skull-stripped, a diffusion tensor model was fit at each voxel, generating fractional anisotropy (FA) maps using FSL DTIfit program. Although we've already completed these steps, the TRACULA pipeline redoes them for us. Once diffusion-weighted images are processed, the individual anatomical T1-weighted images are aligned to the b=0 images, and then all participants’ images are aligned to the MNI152 atlas through affine registration. Note that affine registration occurs and not diffeomorphic. Affine registration is used because it places all the participant images in a common space.
 
@@ -130,6 +140,11 @@ sh ~/scripts/EDSD/tracula-prep-batch.sh $var
 {% endhighlight %}
 
 ## Reconstruct Pathways
+
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/190892664?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+<br>
 
 FSL’s bedpostX is used to apply the ball- and-stick model of diffusion. TRACULA then uses the individual participant’s ball-and-stick model of local diffusion orientations, as well as the participant’s cortical and subcortical segmentation labels, combined with prior information of each tract to estimate the probability distributions of each tract. Eighteen major pathways are reconstructed: corticospinal tract, inferior longitudinal fasciculus, uncinate fasciculus, anterior thalamic radiation, cingulum-cingulate gyrus bundle, cingulum-angular bundle, superior longitudinal fasciculus-parietal bundle, superior longitudinal fasciculus-temporal bundle, and forceps major and forceps minor of the corpus callosum.
 
@@ -262,6 +277,11 @@ sh ~/scripts/EDSD/tracula-path-batch.sh $var
 {% endhighlight %}
 
 ## Quality Assessment
+
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/190892665?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+<br>
 
 Since diffusion weighted imaging analyses are designed to detect the motion of water molecules, this makes diffusion MR images particularly sensitive to head motion. Head motion results in not only misalignment between consecutive diffusion weighted images, but also intensity changes. Misalignment can be corrected by registering the diffusion weighted images to each other; however, intensity alterations cannot be corrected. There are four measures of head motion outputted from the TRACULA pipeline: the average volume-by-volume translation and rotation, the percent of slices with excessive intensity drop-out, and the average drop-out score for slices with excessive intensity drop-out.
 
