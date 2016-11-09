@@ -54,6 +54,7 @@ set bvalfile = /fslhome/intj5/compute/images/EDSD/FRE_AD001/raw/dti.bval
 Now that we have one configuration file, using the **sed** command, we can find and replace **FRE_AD001** with the remaining participant IDs to create configuration files for all the participants:
 
 {% highlight bash %}
+cd ~/compute/analyses/EDSD/TRACULA/
 subjects=( FRE_AD001 FRE_AD002 FRE_AD003 FRE_AD004 FRE_AD005 FRE_AD006 FRE_AD007 FRE_AD008 FRE_AD009 FRE_AD010 FRE_HC001 FRE_HC002 FRE_HC003 FRE_HC004 FRE_HC005 FRE_HC006 FRE_HC007 FRE_HC008 FRE_HC009 FRE_HC010 FRE_HC011 FRE_HC012 FRE_HC013 FRE_HC014 FRE_HC015 FRE_HC016 )
 for (( i=0; i<${#subjects[@]}; i++ )); do
 sed "s/${subjects[$i]}/${subjects[$i+1]}/g" ${subjects[$i]}.config > ${subjects[$i+1]}.config;
@@ -265,7 +266,7 @@ sh ~/scripts/EDSD/tracula-path-batch.sh $var
 Since diffusion weighted imaging analyses are designed to detect the motion of water molecules, this makes diffusion MR images particularly sensitive to head motion. Head motion results in not only misalignment between consecutive diffusion weighted images, but also intensity changes. Misalignment can be corrected by registering the diffusion weighted images to each other; however, intensity alterations cannot be corrected. There are four measures of head motion outputted from the TRACULA pipeline: the average volume-by-volume translation and rotation, the percent of slices with excessive intensity drop-out, and the average drop-out score for slices with excessive intensity drop-out.
 
 {% highlight bash %}
-~/compute/analyses/EDSD/TRACULA/data/FRE_AD001/dmri/dwi_motion.txt
+cat ~/compute/analyses/EDSD/TRACULA/data/FRE_AD001/dmri/dwi_motion.txt
 {% endhighlight %}
 
 Participant FRE_AD001 was pretty well-behaved. These motion measures can be used to ensure that groups of participants are matched with respect to head motion or be used as nuissance regressor in group analyses:
