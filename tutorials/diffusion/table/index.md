@@ -3,10 +3,15 @@ layout: tutorials
 title: Extracting Tables
 author: naomi
 comments: true
-date: 2016-11-02
+date: 2016-11-09
 ---
 
 ## AFQ
+
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/190931148?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+<br>
 
 This section of the tutorial will teach you how to extract values on anisotropy and diffusivity measures for the white-matter pathways reconstructed by AFQ.
 
@@ -65,6 +70,11 @@ end
 {% endhighlight %}
 
 ## TRACULA
+
+<div class="embed-container">
+<iframe src="https://player.vimeo.com/video/190931150?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+<br>
 
 This section of the tutorial will teach you how to extract values on anisotropy and diffusivity measures for the white-matter pathways reconstructed by TRACULA.
 

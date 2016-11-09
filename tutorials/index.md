@@ -47,5 +47,4 @@ Please review Beginner Topics before starting the Advanced Topics. You will need
 8. [Automatic Fiber Quantification](diffusion/afq)
 9. [Plot and Render Fibers](diffusion/afq-plot-render)
 10. [Probabilistic Tractography with TRACULA](diffusion/tracula)
-11. [TRACULA Statistics](diffusion/#)
-12. [Advanced Graphing and Statistics using R](diffusion/#)
+11. [Extract Tables](diffusion/table)
