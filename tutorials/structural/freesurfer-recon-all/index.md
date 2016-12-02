@@ -8,162 +8,243 @@ date: 2016-08-15
 
 ## Objectives
 
-After you complete this section you should be able to:
+After you complete this section, you should be able to:
 
-1. Inspect images processed by FreeSurfer and know how to identify common errors and inaccuracies
-2. Utilize the various FreeSurfer tools and procedures to correct errors
-3. Export segmentation and parcellation statistics on FreeSurfer Regions-of-Interest for use in statistical packages
+1. Perform full cortical reconstruction, parcellation, and labeling using FreeSurfer
+2. View brain volumes in 2D: brain mask, white matter mask, and subcortical segmentation
+3. View surfaces in 3D: pial, white and inflated surface; sulcal and curvature maps; thickness maps; cortical parcellation
 
 ## Before You Begin
 
-*IMPORTANT* FreeSurfer’s viewing and editing software must be installed on the local machine you are using with either a Linux or Mac operating system; it cannot be used while logged onto the FSL.
+<div class="embed-container">
+  <iframe src="https://player.vimeo.com/video/179372011?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
 
-## Copying Subjects from the FSL to Your Local Machine
-
-From your terminal window you will need to run a command that copies files of interest in a secure manner. The ‘scp’ (secure copy) or ‘rsync’ Unix commands are ideal for these situations.
+Edit your ~/.bash_profile to include:
 
 {% highlight bash %}
-scp -r \
-<username>@ssh.fsl.byu.edu:~/compute/analyses/class/FreeSurfer/<subjid> \
-~/Desktop
+# FREESURFER
+export FREESURFER_HOME=/fslhome/USERNAME/apps/freesurfer
+source $FREESURFER_HOME/SetUpFreeSurfer.sh
 {% endhighlight %}
 
-## Identifying Errors
+## Full Cortical Reconstruction, Parcellation, and Labeling
 
-Make sure to source, or start-up, FreeSurfer in your terminal before you begin.
+Full FreeSurfer parcellation involves many, many steps. These steps have been *conveniently* batched in a script called recon-all. The steps are as follows:
 
-Errors occur when recon-all finishes but the white or pial surfaces (or less frequently, the aseg) are inaccurate. When the surfaces are inaccurate, you have to manually change the erroneous information in the file and then regenerate the surface. It is not possible to directly edit the location of a surface.
+**Autorecon Processing Stages:**
 
-To begin checking the recon for accuracy, first ask yourself these two questions:
+1. Motion Correction and Conform
+2. NU (Non-Uniform intensity normalization)
+3. Talairach transform computation
+4. Intensity Normalization 1
+5. Skull Strip
+6. EM Register (linear volumetric registration)
+7. CA Intensity Normalization
+8. CA Non-linear Volumetric Registration
+9. Remove neck
+10. EM Register, with skull
+11. CA Label (Aseg: Volumetric Labeling) and Statistics
+12. Intensity Normalization 2 (start here for control points)
+13. White matter segmentation
+14. Edit WM With ASeg
+15. Fill (start here for wm edits)
+16. Tessellation (begins per-hemisphere operations)
+17. Smooth1
+18. Inflate1
+19. QSphere
+20. Automatic Topology Fixer
+21. Final Surfs (start here for brain edits for pial surf)
+22. Smooth2
+23. Inflate2
+24. Spherical Mapping
+25. Spherical Registration
+26. Spherical Registration, Contralater hemisphere
+27. Map average curvature to subject
+28. Cortical Parcellation (Labeling)
+29. Cortical Parcellation Statistics
+30. Cortical Ribbon Mask
+31. Cortical Parcellation mapped to ASeg
 
-*	Do the surfaces follow gray matter/white matter borders?
-*	Does the subcortical segmentation follow intensity boundaries?
+### Batch Script
 
-If the answer to either is 'no', you will have to manually edit your subject.
-
-There are five main types of errors/recon-all failures, and four main ways to fix these errors. The types of errors are:
-
-1. Skull Strip Errors
-2. Segmentation Errors
-3. Intensity Normalization Error
-4. Pial Surface misplacement
-5. Topological Defect
-
-And ways to fix these errors:
-
-1. Erase voxels
-2. Fill voxels
-3. Clone voxels (i.e., copy from one volume to another)
-4. Add “Control Points”
-
-Remember to think about the image in 3 dimensions and not just a single slice. To aid in this mindset when editing view your subject from multiple orientations (e.g., coronal, axial, sagittal).
-
-## Fixing Errors
-
-Some subjects will need substantial editing while others may not. To ensure accuracy in your data, all subjects should be reviewed thoroughly; however, for the purpose of this tutorial you only need to pick 2 of the ones you processed to review.
-
-To load a subject:
+Because FreeSurfer takes 24+ hours, the process will have to be submitted with both a batch and job script. Create a script that will batch submit your job script:
 
 {% highlight bash %}
-freeview -v <subjectname>/mri/T1.mgz \
-<subjectname>/mri/brainmask.mgz \
--f <subjectname>/surf/lh.white:edgecolor=yellow \
-<subjectname>/surf/lh.pial:edgecolor=red \
-<subjectname>/surf/rh.white:edgecolor=yellow \
-<subjectname>/surf/rh.pial:edgecolor=red
+vi ~/scripts/class/freesurfer_batch.sh
 {% endhighlight %}
 
-Skim through each subject in all 3 planes to ensure accuracy. To correct errors follow guidelines for each below, you may or may not need to do all or any of these for each subject:
-
-1. Skull Strip Errors - https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/SkullStripFix_freeview
-2. Segmentation (wm) Errors - https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/WhiteMatterEdits_freeview
-3. Intensity Normalization Errors - https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/ControlPoints_freeview
-4. Pial Surface misplacement - https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/PialEdits_freeview
-5. Topological Defect - https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/TopologicalDefect_freeview
-6. Talairach Errors (uncommon) - https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/Talairach_freeview
-
-## Region of Interest (ROI) Analysis
-
-Recall that statistics for default parcellation schemes are automatically generated as part of the FreeSurfer processing stream. You can find these files in the ‘stats’ directory under each subject’s FS directory:
-
-| []() | []() | []() |
-|---|---|---|
-| subjid --> | stats --> | lh.aparc.stats |
-| | | rh.aparc.stats  |
-| | | lh.aparc.a2009s.stats  |
-| | | rh.aparc.a2009s.stats  |
-| | | etc. |
-
-To become familiar with these stats files, locate one for one of your subjects and open it in a text viewer (e.g., vi, TextWrangler, etc.). Notice that the headers for some columns do not exactly align with the remaining column (see below), this is to facilitate the space-separated nature of the file for exporting, but is not very useful as a ‘human-readable’ file. Of all the values these files give you, only a few are particularly meaningful for study. For the aparc.stats ones, these include: StructName (name of the structure), SurfArea (surface area in mm2), GrayVol (cortical gray matter volume in mm3), and ThickAvg (average cortical thickness in mm).
-
-| StructName              | NumVert | SurfArea | GrayVol | ThickAvg | ThickStd | MeanCurv | GausCurv | FoldInd | CurvInd |
-|-------------------------|---------|----------|---------|----------|----------|----------|----------|---------|---------|
-| bankssts                | 1053    | 745      | 1253    | 1.654    | 0.434    | 0.122    | 0.034    | 10      | 1.3     |
-| caudalanteriorcingulate | 993     | 686      | 1885    | 2.547    | 0.593    | 0.171    | 0.053    | 29      | 2.2     |
-| caudalmiddlefrontal     | 2940    | 1992     | 4907    | 2.245    | 0.553    | 0.113    | 0.029    | 24      | 3.6     |
-| cuneus                  | 2745    | 1759     | 3583    | 1.893    | 0.439    | 0.158    | 0.059    | 47      | 6.7     |
-| entorhinal              | 747     | 486      | 2168    | 3.259    | 0.89     | 0.114    | 0.036    | 7       | 1       |
-| fusiform                | 3984    | 2704     | 8296    | 2.649    | 0.669    | 0.148    | 0.049    | 66      | 8.1     |
-| inferiorparietal        | 6082    | 4057     | 8907    | 1.955    | 0.511    | 0.139    | 0.048    | 93      | 12      |
-| inferiortemporal        | 4428    | 2872     | 7118    | 2.152    | 0.689    | 0.152    | 0.088    | 118     | 14.2    |
-| isthmuscingulate        | 1539    | 969      | 2324    | 2.338    | 0.707    | 0.145    | 0.051    | 29      | 3.1     |
-| lateraloccipital        | 7599    | 4976     | 10972   | 1.936    | 0.544    | 0.151    | 0.051    | 121     | 15.3    |
-| lateralorbitofrontal    | 4335    | 2742     | 6790    | 2.286    | 0.574    | 0.148    | 0.067    | 101     | 12.9    |
-| lingual                 | 5231    | 3372     | 7507    | 2.045    | 0.607    | 0.15     | 0.054    | 83      | 11.8    |
-
-Exporting these values into a single text file for group analysis can be accomplished via several FS scripts: asegstats2table, aparcstats2table. While useful, these commands are not able to export all measurements (e.g., volume, surface area, thickness) for each structure from both hemispheres in a single process; multiple instances of the command must be run with different flags, then the files combined ‘by hand.’ To exercise your Unix skills and improve your familiarity with ‘for’ loops, below are some scripting commands you can use to create the desired output file with all of the data you desire.
-
-Create a text file named ‘subjids.txt’ that contains the names of your subjects, with each subject name on a single line. For example:
-
-1310
-1315
-1319
-1320
-1326
-etc...
-
-You can type this out ‘by hand’ easily since there are only a few subjects, but what if you have hundreds of subjects? Here is a quick command line trick to get an id file quickly.
+Copy and paste this code into your batch script:
 
 {% highlight bash %}
-cd <FSsubjectdirectory>
-/bin/ls -1d * > subjid.txt
-{% endhighlight %}
+#!/bin/bash
 
-What this does is take the output of an ```ls``` command and directs it to a text file. Using ```/bin/ls``` strips the command of any special options that may be present in your .bashrc file, which could mess with the text formatting. The flag ```-1d``` prints out only directories (```d```) and puts them on a single line (```1```). The wildcard (```*```) means it’ll list everything in the folder to the text file because it matches any number of characters in a filename, including none. A smarter way to do this is use the ```?``` wildcard, which matches only a single character. For example, the command ```ls ?????``` will only list out matches that are 5 characters in width, whereas the command ```ls ????????``` will only list out matches 8 characters in width. Thus, the smart way to create our subject id file in the command line is to run:
-
-{% highlight bash %}
-/bin/ls -1d ???? > subjid.txt{% endhighlight %}
-
-This works because it will only return to us names that are 4 characters wide, which is the format of our subject ids (e.g., 1310). If our subject ids were both 4 and 6 characters wide (e.g., 1310, 061413), then this wouldn’t work in one step, we would have to do it twice (one for ???? and one for ??????), then combine the files.
-
-Once you have your subjid.txt file completed, the following script can be used to generate a .csv file that contains data for all of the default FS cortical ROIs:
-
-{% highlight bash %}
-# Set variables
-cd <yourFSdirectory>
-SUBJECTS_DIR=<yourFSdirectory>
-ids=( `cat subjectids.txt` )
-outfile=$SUBJECTS_DIR/mris_aparc.stats.csv
-label=( `cat ${ids[0]}/stats/lh.aparc.stats | sed -n '/^#/ !p' | egrep -o [a-z]\+` )
-
-# Create outfile headers
-echo -n "SubjID," > $outfile
-for roi in ${label[@]}; do
-    for hemi in lh rh; do
-        for measure in sa vol thk; do
-	    echo -n "${hemi}_${roi}_${measure}," >> $outfile
-        done
-    done
-done
-
-# Echo out data for each subject into new datafile
-for subj in ${ids[@]}; do
-    echo -ne "\n$subj" >> $outfile
-    for roi in ${label[@]}; do
-        for hemi in lh rh; do
-            stats=( `cat $subj/stats/$hemi.aparc.stats | egrep ^"${roi} " | sed -n '$ p'` )
-            echo -n ,${stats[2]},${stats[3]},${stats[4]} >> $outfile
-        done
-    done
+for subj in $(ls ~/compute/class/); do
+sbatch \
+-o ~/logfiles/${1}/output_${subj}.txt \
+-e ~/logfiles/${1}/error_${subj}.txt \
+~/scripts/class/freesurfer_job.sh \
+${subj}
+sleep 1
 done
 {% endhighlight %}
+
+### Job Script
+
+Create a job script:
+
+{% highlight bash %}
+vi ~/scripts/class/freesurfer_job.sh
+{% endhighlight %}
+
+Copy and paste this code into your job script:
+
+{% highlight bash %}
+#!/bin/bash
+
+#SBATCH --time=30:00:00   # walltime
+#SBATCH --ntasks=1   # number of processor cores (i.e. tasks)
+#SBATCH --nodes=1   # number of nodes
+#SBATCH --mem-per-cpu=16384M  # memory per CPU core
+
+# Compatibility variables for PBS. Delete if not needed.
+export PBS_NODEFILE=`/fslapps/fslutils/generate_pbs_nodefile`
+export PBS_JOBID=$SLURM_JOB_ID
+export PBS_O_WORKDIR="$SLURM_SUBMIT_DIR"
+export PBS_QUEUE=batch
+
+# Set the max number of threads to use for programs using OpenMP.
+export OMP_NUM_THREADS=$SLURM_CPUS_ON_NODE
+
+# LOAD ENVIRONMENTAL VARIABLES
+var=`id -un`
+export FREESURFER_HOME=/fslhome/${var}/apps/freesurfer
+source $FREESURFER_HOME/SetUpFreeSurfer.sh
+
+# INSERT CODE, AND RUN YOUR PROGRAMS HERE
+~/apps/freesurfer/bin/recon-all \
+-subjid ${1} \
+-i /fslhome/${var}/compute/class/${1}/t1/resampled.nii.gz \
+-wsatlas \
+-all \
+-sd /fslhome/${var}/compute/analyses/class/FreeSurfer/
+{% endhighlight %}
+
+### Submit Jobs
+
+{% highlight bash %}
+mkdir -p ~/compute/analyses/class/FreeSurfer/
+var=`date +"%Y%m%d-%H%M%S"`
+mkdir -p ~/logfiles/$var
+sh ~/scripts/class/freesurfer_batch.sh $var
+{% endhighlight %}
+
+## Viewing Volumes with Freeview
+
+<div class="embed-container">
+  <iframe src="https://player.vimeo.com/video/179377542?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+
+In order to view the output, you will need to download a participant directory to your local computer. Note you must have FreeSurfer installed on your local computer in order to run the following code:
+
+{% highlight bash %}
+rsync -rauv intj5@ssh.fsl.byu.edu:~/compute/analyses/class/FreeSurfer/1304 ~/Desktop/
+{% endhighlight %}
+
+With one Freeview command line, you can load several output volumes, such as brainmask.mgz and wm.mgz; the surfaces, rh.white and lh.white; and the subcortical segmentation, aseg.mgz. Copy and paste the command below inside the terminal window and press enter:
+
+{% highlight bash %}
+cd ~/Desktop/
+freeview -v \
+1304/mri/T1.mgz \
+1304/mri/wm.mgz \
+1304/mri/brainmask.mgz \
+1304/mri/aseg.mgz:colormap=lut:opacity=0.2 \
+-f 1304/surf/lh.white:edgecolor=blue \
+1304/surf/lh.pial:edgecolor=red \
+1304/surf/rh.white:edgecolor=blue \
+1304/surf/rh.pial:edgecolor=red
+{% endhighlight %}
+
+Some notes on the above command line:
+
+* 1304 is the name of the subject
+* The flag -v is used to open volumes
+* brainmask.mgz : skull-stripped volume primarily used for troubleshooting
+* wm.mgz : white matter mask also used for troubleshooting
+* aseg.mgz : subcortical segmentation loaded with its corresponding color table and at a low opacity
+* The flag -f is used to load surfaces
+* white & pial surfaces are loaded for each hemisphere & with color indicated by 'edgecolor'
+
+### Pial Surface
+
+<div class="embed-container">
+  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTc3F0Z1VwWUpNeEk/preview"></iframe>
+</div>
+
+### White Surface
+
+<div class="embed-container">
+  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTZzNxOGptSHQzTjQ/preview"></iframe>
+</div>
+
+### Subcortical Segmentation
+
+<div class="embed-container">
+  <iframe src="https://drive.google.com/file/d/0B7gwoaKa2xaTcklEZzZJY1VzS0k/preview"></iframe>
+</div>
+
+## Viewing Surfaces in 3D using Freeview
+
+With one Freeview command line, you can also view several surface volumes, such as pial, white and inflated surface; thickness maps; sulcal and curvature maps; and cortical parcellation. You can load them all in Freeview with the command below (be patient while they all load). The follow command only loads the left hemisphere, however you could also just view the right hemisphere or both hemispheres at the same time:
+
+{% highlight bash %}
+freeview -f  1304/surf/lh.pial:annot=aparc.annot:name=pial_aparc:visible=0 \
+1304/surf/lh.inflated:overlay=lh.thickness:overlay_threshold=0.1,3::name=inflated_thickness:visible=0 \
+1304/surf/lh.inflated:visible=0 \
+1304/surf/lh.white:visible=0 \
+1304/surf/lh.pial \
+--viewport 3d
+{% endhighlight %}
+
+Some notes on the above command line:
+
+* lh.pial:annot=aparc.annot loads the Desikan-Killiany cortical parcellation on the pial surface
+  * :name=pial_aparc:visible=0 changes which name shows up in the menu display and turns off this layer
+* lh.inflated:overlay=lh.thickness:overlay_threshold=0.1,3 loads the thickness overlay on top of the inflated surface and sets the min and max thresholds to display
+
+### Pial Surface
+
+<img class="img-responsive" alt="" src="images/pialsurface.png">
+
+The first volume you see is the pial surface. The green regions are gyri and the red regions are sulci. With this surface, the sulci are mostly hidden.
+
+### White Surface
+
+<img class="img-responsive" alt="" src="images/whitesurface.png">
+
+The white surface shows the boundary between white matter and gray matter. With this surface, we are able to see the sulci a bit better.
+
+### Inflated Surface
+
+<img class="img-responsive" alt="" src="images/inflatedsurface.png">
+
+With the inflated surface, you can fully see the sulci.
+
+### Thickness Map
+
+<img class="img-responsive" alt="" src="images/thickness.png">
+
+On the inflated surface, you can see the cortical thickness map.
+
+### Cortical Parcellation
+
+<img class="img-responsive" alt="" src="images/corticalparcellation.png">
+
+The parcellation that is loaded here was created with the Desikan-Killiany atlas. By default there are two parcellations that are made when recon-all is run. The second parcellation, called ?h.aparc.a2009s.annot, is created with the Destrieux atlas. The difference is the number and designation of the areas that are labeled. You can load the Destrieux parcellation by clicking on the drop down box next to 'Annotation' on the left panel and choosing Load from file.... Browse to lh.aparc.a2009s.annot and hit 'Open'.
+
+## Class Slides
+
+<div class="embed-container">
+  <iframe src="//slides.com/njhunsak/freesurfer-recon-all/embed" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
