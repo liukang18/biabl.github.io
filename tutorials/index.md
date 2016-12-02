@@ -30,7 +30,7 @@ This site contains all of the handouts and information presented in BYU's Fall 2
 9. [Morphometry](structural/morphometry)
 10. [Compare Two Groups](structural/randomise)
 11. [FreeSurfer recon-all](structural/freesurfer-recon-all)
-12. [FreeSurfer ROI Analysis](structural/#)
+12. [FreeSurfer ROI Analysis](structural/freesurfer-roi-analysis)
 13. [FreeSurfer QDEC Analysis](structural/#)
 
 ### Advanced Topics

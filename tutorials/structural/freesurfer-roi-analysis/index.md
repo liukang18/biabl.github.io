@@ -115,12 +115,12 @@ Exporting these values into a single text file for group analysis can be accompl
 
 Create a text file named ‘subjids.txt’ that contains the names of your subjects, with each subject name on a single line. For example:
 
-1310
-1315
-1319
-1320
-1326
-etc...
+> 1310
+> 1315
+> 1319
+> 1320
+> 1326
+> etc...
 
 You can type this out ‘by hand’ easily since there are only a few subjects, but what if you have hundreds of subjects? Here is a quick command line trick to get an id file quickly.
 
@@ -150,21 +150,21 @@ label=( `cat ${ids[0]}/stats/lh.aparc.stats | sed -n '/^#/ !p' | egrep -o [a-z]\
 # Create outfile headers
 echo -n "SubjID," > $outfile
 for roi in ${label[@]}; do
-    for hemi in lh rh; do
-        for measure in sa vol thk; do
-	    echo -n "${hemi}_${roi}_${measure}," >> $outfile
-        done
+  for hemi in lh rh; do
+    for measure in sa vol thk; do
+      echo -n "${hemi}_${roi}_${measure}," >> $outfile
     done
   done
+done
 
 # Echo out data for each subject into new datafile
 for subj in ${ids[@]}; do
-    echo -ne "\n$subj" >> $outfile
-    for roi in ${label[@]}; do
-        for hemi in lh rh; do
-            stats=( `cat $subj/stats/$hemi.aparc.stats | egrep ^"${roi} " | sed -n '$ p'` )
-            echo -n ,${stats[2]},${stats[3]},${stats[4]} >> $outfile
-        done
+  echo -ne "\n$subj" >> $outfile
+  for roi in ${label[@]}; do
+    for hemi in lh rh; do
+      stats=( `cat $subj/stats/$hemi.aparc.stats | egrep ^"${roi} " | sed -n '$ p'` )
+      echo -n ,${stats[2]},${stats[3]},${stats[4]} >> $outfile
     done
+  done
 done
 {% endhighlight %}
