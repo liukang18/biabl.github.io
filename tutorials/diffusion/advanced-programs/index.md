@@ -63,3 +63,9 @@ unzip spm5.zip && rm spm5.zip
 wget http://www.fil.ion.ucl.ac.uk/spm/download/restricted/idyll/spm8.zip
 unzip spm8.zip && rm spm8.zip
 {% endhighlight %}
+
+## Class Slides
+
+<div class="embed-container">
+  <iframe src="//slides.com/njhunsak/welcome/embed" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
