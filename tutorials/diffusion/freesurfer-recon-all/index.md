@@ -16,11 +16,31 @@ After you complete this section, you should be able to:
 
 ## Before You Begin
 
-Edit your ~/.bash_profile to include:
+**UPDATE TO FREESURFER 6.0**
+
+Log into the supercomputer:
+
+{% highlight bash %}
+cd ~/build/
+wget ftp://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/6.0.0/freesurfer-Linux-centos6_x86_64-stable-pub-v6.0.0.tar.gz
+tar -C ~/apps/ -xzvf freesurfer-Linux-centos6_x86_64-stable-pub-v6.0.0.tar.gz
+{% endhighlight %}
+
+The brainstem and hippocampal subfield modules in FreeSurfer 6.0 require the Matlab R2012 runtime. This runtime is free, and therefore NO MATLAB LICENSES ARE REQUIRED TO USE THESE PACKAGES.
+
+{% highlight bash %}
+export FREESURFER_HOME=/fslhome/<USERNAME>/apps/freesurfer
+cd $FREESURFER_HOME
+curl "http://surfer.nmr.mgh.harvard.edu/fswiki/MatlabRuntime?action=AttachFile&do=get&target=runtime2012bLinux.tar.gz" -o "runtime2012b.tar.gz"
+tar xvf runtime2012b.tar.gz
+rm $FREESURFER_HOME/runtime2012b.tar.gz
+{% endhighlight %}
+
+Make sure your ~/.bash_profile includes the following:
 
 {% highlight bash %}
 # FREESURFER
-export FREESURFER_HOME=/fslhome/USERNAME/apps/freesurfer
+export FREESURFER_HOME=/fslhome/<USERNAME>/apps/freesurfer
 source $FREESURFER_HOME/SetUpFreeSurfer.sh
 {% endhighlight %}
 
@@ -33,7 +53,6 @@ Full FreeSurfer parcellation involves many, many steps. These steps have been *c
 <div class="embed-container">
 <iframe src="https://player.vimeo.com/video/182604509?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
-
 
 ### Batch Script
 
@@ -66,7 +85,7 @@ Create a job script:
 vi ~/scripts/EDSD/freesurfer_job.sh
 {% endhighlight %}
 
-Copy and paste this code into your job script:
+**Note the additional option to process the hippocampal subregions**. In order to run this, you need to be running FreeSurfer v6.0 (see above). Copy and paste this code into your job script:
 
 {% highlight bash %}
 #!/bin/bash
@@ -96,6 +115,7 @@ source $FREESURFER_HOME/SetUpFreeSurfer.sh
 -i /fslhome/${var}/compute/images/EDSD/${1}/t1/resampled.nii.gz \
 -wsatlas \
 -all \
+-hippocampal-subfields-T1 \
 -sd /fslhome/${var}/compute/analyses/EDSD/FreeSurfer/
 {% endhighlight %}
 
