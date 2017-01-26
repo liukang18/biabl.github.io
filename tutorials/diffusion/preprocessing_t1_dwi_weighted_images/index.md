@@ -156,3 +156,9 @@ rsync \
 intj5@ssh.fsl.byu.edu:~/compute/images/EDSD \
 ~/Desktop/
 {% endhighlight %}
+
+## Class Slides
+
+<div class="embed-container">
+<iframe src="//slides.com/njhunsak/preprocessing-t1-dti/embed" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
