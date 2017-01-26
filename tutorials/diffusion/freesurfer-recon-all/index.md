@@ -130,10 +130,6 @@ mkdir -p ~/logfiles/$var
 sh ~/scripts/EDSD/freesurfer_batch.sh $var
 {% endhighlight %}
 
-<div class="embed-container">
-<iframe src="https://player.vimeo.com/video/182604509?byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-</div>
-
 ## Viewing Volumes with Freeview
 
 In order to view the output, you will need to download a participant directory to your local computer. Note you must have FreeSurfer installed on your local computer in order to run the following code:
