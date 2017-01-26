@@ -56,7 +56,7 @@ Full FreeSurfer parcellation involves many, many steps. These steps have been *c
 
 ### Batch Script
 
-Because FreeSurfer takes 24+ hours, the process will have to be submitted with both a batch and job script. Create a script that will batch submit your job script:
+Because FreeSurfer takes 8+ hours, the process will have to be submitted with both a batch and job script. Create a script that will batch submit your job script:
 
 {% highlight bash %}
 vi ~/scripts/EDSD/freesurfer_batch.sh
@@ -90,7 +90,7 @@ vi ~/scripts/EDSD/freesurfer_job.sh
 {% highlight bash %}
 #!/bin/bash
 
-#SBATCH --time=30:00:00   # walltime
+#SBATCH --time=15:00:00   # walltime
 #SBATCH --ntasks=1   # number of processor cores (i.e. tasks)
 #SBATCH --nodes=1   # number of nodes
 #SBATCH --mem-per-cpu=16384M  # memory per CPU core
