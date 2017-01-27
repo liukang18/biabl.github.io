@@ -399,4 +399,4 @@ cd ~/Desktop/FreeSurfer/FRE_AD001/mri
 freeview -v nu.mgz -v lh.hippoSfLabels-T1.v10.mgz:colormap=lut -v rh.hippoSfLabels-T1.v10.mgz:colormap=lut
 {% endhighlight %}
 
-
+<img class="img-responsive" alt="" src="images/FRE_AD001.png">
