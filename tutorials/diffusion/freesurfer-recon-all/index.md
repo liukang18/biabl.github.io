@@ -384,6 +384,8 @@ Once you have generated your PDF, open a new terminal window and copy the PDF to
 scp intj5@ssh.fsl.byu.edu:~/compute/analyses/EDSD/HPC/boxplot.pdf ~/Desktop/
 {% endhighlight %}
 
+<img class="img-responsive" alt="" src="images/boxplot.png">
+
 ## View Segmentation in FreeView
 
 Download all FreeSurfer results locally (check that you have 10 GB of free space available):
