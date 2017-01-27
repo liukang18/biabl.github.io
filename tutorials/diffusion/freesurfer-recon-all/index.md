@@ -397,7 +397,10 @@ intj5@ssh.fsl.byu.edu:/fslhome/intj5/compute/analyses/EDSD/FreeSurfer \
 Using Freeview, you can view the hippocampal segmentation:
 
 {% highlight bash %}
+# Go to the participant directory
 cd ~/Desktop/FreeSurfer/FRE_AD001/mri
+
+# Load segmentation in Freeview
 freeview -v nu.mgz \
 -v lh.hippoSfLabels-T1.v10.mgz:colormap=lut \
 -v rh.hippoSfLabels-T1.v10.mgz:colormap=lut
