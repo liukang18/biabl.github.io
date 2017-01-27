@@ -332,7 +332,10 @@ We will graph the hippocampal subfield results using R:
 mkdir -p ~/compute/analyses/EDSD/HPC
 
 # Run FreeSurfer script that combines the data from all participants
-quantifyHippocampalSubfields.sh T1 ~/compute/analyses/EDSD/HPC/volumes.txt ~/compute/analyses/EDSD/FreeSurfer/
+quantifyHippocampalSubfields.sh \
+T1 \
+~/compute/analyses/EDSD/HPC/volumes.txt \
+~/compute/analyses/EDSD/FreeSurfer/
 
 # Set the R environmental variables
 module load r
@@ -363,12 +366,12 @@ for (i in 2:(length(mydata)-1)){
 sig=round(t.test(mydata[[i]]~mydata$group)$p.value,6)
 
 # Generate a box plot
-boxplot(mydata[[i]]~mydata$group, 
-	data=mydata, 
+boxplot(mydata[[i]]~mydata$group,
+	data=mydata,
 	col=(c("deeppink","cyan")),
-  main=colnames(mydata[i]),
-  xlab=paste("p = ",sig,sep=""),
-  ylab=expression(paste("Volume in ",mm^3,sep="")))
+	main=colnames(mydata[i]),
+	xlab=paste("p = ",sig,sep=""),
+	ylab=expression(paste("Volume in ",mm^3,sep="")))
 }
 
 # Save PDF file
@@ -380,4 +383,3 @@ Once you've generated your PDF, open a new terminal window and copy the PDF to y
 {% highlight bash %}
 scp intj5@ssh.fsl.byu.edu:~/compute/analyses/EDSD/HPC/boxplot.pdf ~/Desktop/
 {% endhighlight %}
-
