@@ -130,48 +130,254 @@ mkdir -p ~/logfiles/$var
 sh ~/scripts/EDSD/freesurfer_batch.sh $var
 {% endhighlight %}
 
-## Viewing Volumes with Freeview
+## Hippocampal Subregion Analysis
 
-In order to view the output, you will need to download a participant directory to your local computer. Note you must have FreeSurfer installed on your local computer in order to run the following code:
-
-{% highlight bash %}
-rsync -rauv \
-intj5@ssh.fsl.byu.edu:~/compute/analyses/EDSD/FreeSurfer/FRE_AD001 \
-~/Desktop/
-{% endhighlight %}
-
-With one Freeview command line, you can load several output volumes, such as brainmask.mgz and wm.mgz; the surfaces, rh.white and lh.white; and the subcortical segmentation, aseg.mgz. Copy and paste the command below inside the terminal window and press enter:
+Check that FreeSurfer ran completely with no errors, navigate to the logfile directory that contains the error and output files:
 
 {% highlight bash %}
-cd ~/Desktop/
-freeview -v \
-FRE_AD001/mri/T1.mgz \
-FRE_AD001/mri/wm.mgz \
-FRE_AD001/mri/brainmask.mgz \
-FRE_AD001/mri/aseg.mgz:colormap=lut:opacity=0.2 \
--f FRE_AD001/surf/lh.white:edgecolor=blue \
-FRE_AD001/surf/lh.pial:edgecolor=red \
-FRE_AD001/surf/rh.white:edgecolor=blue \
-FRE_AD001/surf/rh.pial:edgecolor=red
+cd ~/logfiles/20170126-103140/
+tail -n 5 output_FRE_*
 {% endhighlight %}
 
-For more information about the different views:
-
-[http://biabl.github.io/tutorials/structural/freesurfer-recon-all/](http://biabl.github.io/tutorials/structural/freesurfer-recon-all/)
-
-## Viewing Surfaces in 3D using Freeview
-
-With one Freeview command line, you can also view several surface volumes, such as pial, white and inflated surface; thickness maps; sulcal and curvature maps; and cortical parcellation. You can load them all in Freeview with the command below (be patient while they all load). The follow command only loads the left hemisphere, however you could also just view the right hemisphere or both hemispheres at the same time:
+You should see the following result from the `tail` command:
 
 {% highlight bash %}
-freeview -f  FRE_AD001/surf/lh.pial:annot=aparc.annot:name=pial_aparc:visible=0 \
-FRE_AD001/surf/lh.inflated:overlay=lh.thickness:overlay_threshold=0.1,3::name=inflated_thickness:visible=0 \
-FRE_AD001/surf/lh.inflated:visible=0 \
-FRE_AD001/surf/lh.white:visible=0 \
-FRE_AD001/surf/lh.pial \
---viewport 3d
+==> output_FRE_AD001.txt <==
+Started at Thu Jan 26 10:34:48 MST 2017 
+Ended   at Thu Jan 26 20:48:16 MST 2017
+#@#%# recon-all-run-time-hours 10.224
+recon-all -s FRE_AD001 finished without error at Thu Jan 26 20:48:17 MST 2017
+done
+
+==> output_FRE_AD002.txt <==
+Started at Thu Jan 26 10:34:48 MST 2017 
+Ended   at Thu Jan 26 20:55:23 MST 2017
+#@#%# recon-all-run-time-hours 10.343
+recon-all -s FRE_AD002 finished without error at Thu Jan 26 20:55:23 MST 2017
+done
+
+==> output_FRE_AD003.txt <==
+Started at Thu Jan 26 10:34:53 MST 2017 
+Ended   at Thu Jan 26 20:22:02 MST 2017
+#@#%# recon-all-run-time-hours 9.786
+recon-all -s FRE_AD003 finished without error at Thu Jan 26 20:22:02 MST 2017
+done
+
+==> output_FRE_AD004.txt <==
+Started at Thu Jan 26 10:34:59 MST 2017 
+Ended   at Thu Jan 26 20:39:40 MST 2017
+#@#%# recon-all-run-time-hours 10.078
+recon-all -s FRE_AD004 finished without error at Thu Jan 26 20:39:40 MST 2017
+done
+
+==> output_FRE_AD005.txt <==
+Started at Thu Jan 26 10:35:24 MST 2017 
+Ended   at Thu Jan 26 20:57:10 MST 2017
+#@#%# recon-all-run-time-hours 10.363
+recon-all -s FRE_AD005 finished without error at Thu Jan 26 20:57:10 MST 2017
+done
+
+==> output_FRE_AD006.txt <==
+Started at Thu Jan 26 10:35:24 MST 2017 
+Ended   at Thu Jan 26 20:06:51 MST 2017
+#@#%# recon-all-run-time-hours 9.524
+recon-all -s FRE_AD006 finished without error at Thu Jan 26 20:06:52 MST 2017
+done
+
+==> output_FRE_AD007.txt <==
+Started at Thu Jan 26 10:35:24 MST 2017 
+Ended   at Thu Jan 26 21:21:16 MST 2017
+#@#%# recon-all-run-time-hours 10.764
+recon-all -s FRE_AD007 finished without error at Thu Jan 26 21:21:16 MST 2017
+done
+
+==> output_FRE_AD008.txt <==
+Started at Thu Jan 26 10:35:24 MST 2017 
+Ended   at Thu Jan 26 21:37:38 MST 2017
+#@#%# recon-all-run-time-hours 11.037
+recon-all -s FRE_AD008 finished without error at Thu Jan 26 21:37:38 MST 2017
+done
+
+==> output_FRE_AD009.txt <==
+Started at Thu Jan 26 10:35:24 MST 2017 
+Ended   at Thu Jan 26 18:37:04 MST 2017
+#@#%# recon-all-run-time-hours 8.028
+recon-all -s FRE_AD009 finished without error at Thu Jan 26 18:37:04 MST 2017
+done
+
+==> output_FRE_AD010.txt <==
+Started at Thu Jan 26 10:35:24 MST 2017 
+Ended   at Thu Jan 26 20:27:54 MST 2017
+#@#%# recon-all-run-time-hours 9.875
+recon-all -s FRE_AD010 finished without error at Thu Jan 26 20:27:54 MST 2017
+done
+
+==> output_FRE_HC001.txt <==
+Started at Thu Jan 26 10:35:24 MST 2017 
+Ended   at Thu Jan 26 20:05:17 MST 2017
+#@#%# recon-all-run-time-hours 9.498
+recon-all -s FRE_HC001 finished without error at Thu Jan 26 20:05:17 MST 2017
+done
+
+==> output_FRE_HC002.txt <==
+Started at Thu Jan 26 10:35:24 MST 2017 
+Ended   at Thu Jan 26 19:24:21 MST 2017
+#@#%# recon-all-run-time-hours 8.816
+recon-all -s FRE_HC002 finished without error at Thu Jan 26 19:24:21 MST 2017
+done
+
+==> output_FRE_HC003.txt <==
+Started at Thu Jan 26 10:35:24 MST 2017 
+Ended   at Thu Jan 26 20:24:59 MST 2017
+#@#%# recon-all-run-time-hours 9.826
+recon-all -s FRE_HC003 finished without error at Thu Jan 26 20:24:59 MST 2017
+done
+
+==> output_FRE_HC004.txt <==
+Started at Thu Jan 26 10:35:24 MST 2017 
+Ended   at Thu Jan 26 22:11:03 MST 2017
+#@#%# recon-all-run-time-hours 11.594
+recon-all -s FRE_HC004 finished without error at Thu Jan 26 22:11:03 MST 2017
+done
+
+==> output_FRE_HC005.txt <==
+Started at Thu Jan 26 10:35:24 MST 2017 
+Ended   at Thu Jan 26 19:51:31 MST 2017
+#@#%# recon-all-run-time-hours 9.269
+recon-all -s FRE_HC005 finished without error at Thu Jan 26 19:51:31 MST 2017
+done
+
+==> output_FRE_HC006.txt <==
+Started at Thu Jan 26 10:35:24 MST 2017 
+Ended   at Thu Jan 26 22:28:17 MST 2017
+#@#%# recon-all-run-time-hours 11.881
+recon-all -s FRE_HC006 finished without error at Thu Jan 26 22:28:17 MST 2017
+done
+
+==> output_FRE_HC007.txt <==
+Started at Thu Jan 26 10:35:24 MST 2017 
+Ended   at Thu Jan 26 19:19:21 MST 2017
+#@#%# recon-all-run-time-hours 8.733
+recon-all -s FRE_HC007 finished without error at Thu Jan 26 19:19:21 MST 2017
+done
+
+==> output_FRE_HC008.txt <==
+Started at Thu Jan 26 10:35:25 MST 2017 
+Ended   at Thu Jan 26 19:44:30 MST 2017
+#@#%# recon-all-run-time-hours 9.151
+recon-all -s FRE_HC008 finished without error at Thu Jan 26 19:44:31 MST 2017
+done
+
+==> output_FRE_HC009.txt <==
+Started at Thu Jan 26 10:35:24 MST 2017 
+Ended   at Thu Jan 26 20:26:29 MST 2017
+#@#%# recon-all-run-time-hours 9.851
+recon-all -s FRE_HC009 finished without error at Thu Jan 26 20:26:29 MST 2017
+done
+
+==> output_FRE_HC010.txt <==
+Started at Thu Jan 26 10:35:24 MST 2017 
+Ended   at Thu Jan 26 18:17:06 MST 2017
+#@#%# recon-all-run-time-hours 7.695
+recon-all -s FRE_HC010 finished without error at Thu Jan 26 18:17:06 MST 2017
+done
+
+==> output_FRE_HC011.txt <==
+Started at Thu Jan 26 10:35:27 MST 2017 
+Ended   at Thu Jan 26 20:22:26 MST 2017
+#@#%# recon-all-run-time-hours 9.783
+recon-all -s FRE_HC011 finished without error at Thu Jan 26 20:22:27 MST 2017
+done
+
+==> output_FRE_HC012.txt <==
+Started at Thu Jan 26 10:35:31 MST 2017 
+Ended   at Thu Jan 26 19:46:44 MST 2017
+#@#%# recon-all-run-time-hours 9.187
+recon-all -s FRE_HC012 finished without error at Thu Jan 26 19:46:45 MST 2017
+done
+
+==> output_FRE_HC013.txt <==
+Started at Thu Jan 26 10:35:37 MST 2017 
+Ended   at Thu Jan 26 23:01:45 MST 2017
+#@#%# recon-all-run-time-hours 12.436
+recon-all -s FRE_HC013 finished without error at Thu Jan 26 23:01:45 MST 2017
+done
+
+==> output_FRE_HC014.txt <==
+Started at Thu Jan 26 10:35:55 MST 2017 
+Ended   at Thu Jan 26 21:09:40 MST 2017
+#@#%# recon-all-run-time-hours 10.562
+recon-all -s FRE_HC014 finished without error at Thu Jan 26 21:09:40 MST 2017
+done
+
+==> output_FRE_HC015.txt <==
+Started at Thu Jan 26 10:36:24 MST 2017 
+Ended   at Thu Jan 26 22:02:56 MST 2017
+#@#%# recon-all-run-time-hours 11.442
+recon-all -s FRE_HC015 finished without error at Thu Jan 26 22:02:56 MST 2017
+done
+
+==> output_FRE_HC016.txt <==
+Started at Thu Jan 26 10:36:24 MST 2017 
+Ended   at Thu Jan 26 19:24:34 MST 2017
+#@#%# recon-all-run-time-hours 8.803
+recon-all -s FRE_HC016 finished without error at Thu Jan 26 19:24:34 MST 2017
+done
 {% endhighlight %}
 
-For more information about the different views:
+We will graph the hippocampal subfield results using R:
 
-[http://biabl.github.io/tutorials/structural/freesurfer-recon-all/](http://biabl.github.io/tutorials/structural/freesurfer-recon-all/)
+{% highlight bash %}
+# Make a directory to organize the data and graphs
+mkdir -p ~/compute/analyses/EDSD/HPC
+
+# Run FreeSurfer script that combines the data from all participants
+quantifyHippocampalSubfields.sh T1 ~/compute/analyses/EDSD/HPC/volumes.txt ~/compute/analyses/EDSD/FreeSurfer/
+
+# Set the R environmental variables
+module load r
+
+# Run R
+R
+{% endhighlight %}
+
+When R is loaded, run the following code:
+
+{% highlight r %}
+# Import data
+mydata=read.table('~/compute/analyses/EDSD/HPC/volumes.txt',header=T,sep=" ")
+
+# Create a groups variable
+mydata$group=ifelse(grepl("FRE_AD???",mydata$Subject),"AD","HC")
+
+# Set the output path for your PDF
+pdf("~/compute/analyses/EDSD/HPC/boxplot.pdf")
+
+# Add padding around your graph
+par(oma=c(2,2,2,2))
+
+# For loop across all your data columns
+for (i in 2:(length(mydata)-1)){
+
+# Calculate the p-value
+sig=round(t.test(mydata[[i]]~mydata$group)$p.value,6)
+
+# Generate a box plot
+boxplot(mydata[[i]]~mydata$group, 
+	data=mydata, 
+	col=(c("deeppink","cyan")),
+  main=colnames(mydata[i]),
+  xlab=paste("p = ",sig,sep=""),
+  ylab=expression(paste("Volume in ",mm^3,sep="")))
+}
+
+# Save PDF file
+dev.off()
+{% endhighlight %}
+
+Once you've generated your PDF, open a new terminal window and copy the PDF to your local computer:
+
+{% highlight bash %}
+scp intj5@ssh.fsl.byu.edu:~/compute/analyses/EDSD/HPC/boxplot.pdf ~/Desktop/
+{% endhighlight %}
+
