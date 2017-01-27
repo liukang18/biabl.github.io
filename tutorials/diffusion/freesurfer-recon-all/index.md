@@ -363,15 +363,15 @@ par(oma=c(2,2,2,2))
 for (i in 2:(length(mydata)-1)){
 
 # Calculate the p-value
-sig=round(t.test(mydata[[i]]~mydata$group)$p.value,6)
+	sig=round(t.test(mydata[[i]]~mydata$group)$p.value,6)
 
 # Generate a box plot
-boxplot(mydata[[i]]~mydata$group,
-	data=mydata,
-	col=(c("deeppink","cyan")),
-	main=colnames(mydata[i]),
-	xlab=paste("p = ",sig,sep=""),
-	ylab=expression(paste("Volume in ",mm^3,sep="")))
+	boxplot(mydata[[i]]~mydata$group,
+		data=mydata,
+		col=(c("deeppink","cyan")),
+		main=colnames(mydata[i]),
+		xlab=paste("p = ",sig,sep=""),
+		ylab=expression(paste("Volume in ",mm^3,sep="")))
 }
 
 # Save PDF file
