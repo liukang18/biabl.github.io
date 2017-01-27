@@ -389,14 +389,18 @@ scp intj5@ssh.fsl.byu.edu:~/compute/analyses/EDSD/HPC/boxplot.pdf ~/Desktop/
 Download all FreeSurfer results locally (check that you have 10 GB of free space available):
 
 {% highlight bash %}
-rsync -rauv intj5@ssh.fsl.byu.edu:/fslhome/intj5/compute/analyses/EDSD/FreeSurfer ~/Desktop/
+rsync -rauv \
+intj5@ssh.fsl.byu.edu:/fslhome/intj5/compute/analyses/EDSD/FreeSurfer \
+~/Desktop/
 {% endhighlight %}
 
 Using Freeview, you can view the hippocampal segmentation:
 
 {% highlight bash %}
 cd ~/Desktop/FreeSurfer/FRE_AD001/mri
-freeview -v nu.mgz -v lh.hippoSfLabels-T1.v10.mgz:colormap=lut -v rh.hippoSfLabels-T1.v10.mgz:colormap=lut
+freeview -v nu.mgz \
+-v lh.hippoSfLabels-T1.v10.mgz:colormap=lut \
+-v rh.hippoSfLabels-T1.v10.mgz:colormap=lut
 {% endhighlight %}
 
 <img class="img-responsive" alt="" src="images/FRE_AD001.png">
