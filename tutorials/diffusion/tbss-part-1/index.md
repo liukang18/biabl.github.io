@@ -56,6 +56,7 @@ export PBS_QUEUE=batch
 export OMP_NUM_THREADS=$SLURM_CPUS_ON_NODE
 
 # LOAD ENVIRONMENTAL VARIABLES
+module load python/2/7
 var=`id -un`
 FSLDIR=/fslhome/$var/apps/fsl
 PATH=${FSLDIR}/bin:${PATH}
