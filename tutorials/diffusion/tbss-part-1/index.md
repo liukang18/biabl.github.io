@@ -127,7 +127,7 @@ Change the DTI display options to, "Lines (RGB)".
 
 Now you can inspect your images to confirm proper tensor orientation.
 
-<img class="img-responsive" alt="" src="images/tensor.png">
+<img class="img-responsive" alt="" src="images/tensor_coronal.png">
 
 ## Class Slides
 
