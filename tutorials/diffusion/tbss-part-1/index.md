@@ -119,9 +119,15 @@ fslview -m ortho ~/Desktop/EDSD/FRE_AD001/raw/dti_V1.nii.gz
 
 Once FSLView opens, click the "info" button in the bottom left quadrant.
 
+<img class="img-responsive" alt="" src="images/info.png">
+
 Change the DTI display options to, "Lines (RGB)".
 
+<img class="img-responsive" alt="" src="images/dti.png">
+
 Now you can inspect your images to confirm proper tensor orientation.
+
+<img class="img-responsive" alt="" src="images/tensor.png">
 
 ## Class Slides
 
