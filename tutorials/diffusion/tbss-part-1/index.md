@@ -102,3 +102,9 @@ var=`date +"%Y%m%d-%H%M%S"`
 mkdir -p ~/logfiles/$var
 sh ~/scripts/EDSD/fdt_batch.sh $var
 {% endhighlight %}
+
+## Class Slides
+
+<div class="embed-container">
+<iframe src="//slides.com/njhunsak/tbss-part-1/embed" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
