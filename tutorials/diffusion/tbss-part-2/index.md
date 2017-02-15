@@ -88,7 +88,7 @@ rsync -rauv intj5@ssh.fsl.byu.edu:~/compute/analyses/EDSD/TBSS ~/Desktop/ --excl
 
 Type the following URL into your internet browser (edit according to your system): file:///Users/njhunsak/Desktop/TBSS/FA/slicesdir/index.html
 
-
+<img class="img-responsive" alt="" src="images/slicedir.png">
 
 ## tbss_2_reg
 
@@ -153,6 +153,18 @@ sbatch \
 -e ~/logfiles/${var}/error.txt \
 ~/scripts/EDSD/tbss_3_postreg.sh
 {% endhighlight %}
+
+The above results in a standard-space version of each subject's FA image; next these are all merged into a single 4D image file called *all_FA*, created in a new subdirectory called *stats*. 
+
+<img class="img-responsive" alt="" src="images/all_FA.png">
+
+Next, the mean of all FA images is created, called *mean_FA*.
+
+<img class="img-responsive" alt="" src="images/mean_FA.png">
+
+This is then fed into the FA skeletonisation program to create *mean_FA_skeleton*.
+
+<img class="img-responsive" alt="" src="images/mean_FA_skeleton.png">
 
 ## tbss_4_prestats
 
