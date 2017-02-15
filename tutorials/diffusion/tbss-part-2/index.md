@@ -62,6 +62,7 @@ FSLDIR=/fslhome/$var/apps/fsl
 PATH=${FSLDIR}/bin:${PATH}
 export FSLDIR PATH
 . ${FSLDIR}/etc/fslconf/fsl.sh
+module load python/2/7
 
 # INSERT CODE, AND RUN YOUR PROGRAMS HERE
 cd ~/compute/analyses/EDSD/TBSS/
