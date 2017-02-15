@@ -103,6 +103,26 @@ mkdir -p ~/logfiles/$var
 sh ~/scripts/EDSD/fdt_batch.sh $var
 {% endhighlight %}
 
+## Quality Control
+
+After the preprocessing steps have been completed, you always want to double check your data and confirm tensors are in the right direction. In order to view the tensor images, the data must be downloaded to your local computer:
+
+{% highlight bash %}
+rsync -rauv --exclude="DICOM" --exclude="t1" intj5@ssh.fsl.byu.edu:~/compute/images/EDSD ~/Desktop
+{% endhighlight %}
+
+In order to view the images, you will need to have FSL installed locally:
+
+{% highlight bash %}
+fslview -m ortho ~/Desktop/EDSD/FRE_AD001/raw/dti_V1.nii.gz
+{% endhighlight %}
+
+Once FSLView opens, click the "info" button in the bottom left quadrant.
+
+Change the DTI display options to, "Lines (RGB)".
+
+Now you can inspect your images to confirm proper tensor orientation.
+
 ## Class Slides
 
 <div class="embed-container">
