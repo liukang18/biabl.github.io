@@ -121,11 +121,11 @@ Once FSLView opens, click the "info" button in the bottom left quadrant.
 
 <img class="img-responsive" alt="" src="images/info.png">
 
-Change the DTI display options to, "Lines (RGB)".
+Change the DTI display option to, "Lines (RGB)".
 
 <img class="img-responsive" alt="" src="images/dti.png">
 
-Now you can inspect your images to confirm proper tensor orientation.
+Now you can inspect your images to confirm proper tensor orientation. Fibers going from left to right should be red (e.g., corpus callosum). Fibers going up (superior) and down (inferior) should be blue (e.g., corticospinal tracts). Fibers going front (anterior) to back (posterior) should be green (e.g., cingulum, superior longitudinal fasciculus). 
 
 <img class="img-responsive" alt="" src="images/tensor_coronal.png">
 
