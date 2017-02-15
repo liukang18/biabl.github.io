@@ -80,6 +80,16 @@ sbatch \
 ~/scripts/EDSD/tbss_1_preproc.sh
 {% endhighlight %}
 
+Finally, the script runs slicesdir, which creates an overview webpage containing a static view of each of the input images, so that you can then quickly view each of them for obvious problems. You'll need to view these on your local computer:
+
+{% highlight bash %}
+rsync -rauv intj5@ssh.fsl.byu.edu:~/compute/analyses/EDSD/TBSS ~/Desktop/ --exclude="*target*" --exclude="stats" --exclude="*.nii.gz" --exclude="tbss_logs"
+{% endhighlight %}
+
+Type the following URL into your internet browser (edit according to your system): file:///Users/njhunsak/Desktop/TBSS/FA/slicesdir/index.html
+
+
+
 ## tbss_2_reg
 
 <div class="embed-container">
