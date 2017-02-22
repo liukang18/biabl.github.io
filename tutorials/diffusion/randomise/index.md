@@ -18,7 +18,7 @@ After you complete this section, you should be able to:
 **After you've completed the lesson, try running analyses to answer these hypotheses:**
 
 1. Is white matter integrity correlated with education?
-2. Is white matter integrity corerlated with MMSE?
+2. Is white matter integrity correlated with MMSE?
 3. Are there gender differences between and among the AD and HC groups? (i.e., male AD vs. male HC, female AD vs. female HC, male AD vs. female AD, and male HC vs. female HC)
 
 [You can download the demographics for this sample data set here.](demographics.csv)
@@ -111,11 +111,12 @@ Text2Vest contrasts.txt design.con
 
 Additionally, if you want to keep things easy to remember during the analyses, add the follow lines to the top of your design.con file:
 
-{% highlight vim %}
-/ContrastName1	AD mean
-/ContrastName2	HC mean
-/ContrastName3	AD > HC
-/ContrastName4	HC > AD
+{% highlight bash %}
+cd ~/compute/analyses/EDSD/TBSS/stats/
+sed -i '1s/^/\/ContrastName4\ HC > AD\n/' design.con
+sed -i '1s/^/\/ContrastName3\ AD > HC\n/' design.con
+sed -i '1s/^/\/ContrastName2\ HC mean\n/' design.con
+sed -i '1s/^/\/ContrastName1\ AD mean\n/' design.con
 {% endhighlight %}
 
 ## Voxelwise Statistics
