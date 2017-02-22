@@ -233,10 +233,3 @@ tbss_non_FA RD
 {% endhighlight %}
 
 Now you are ready to run voxelwise statistics!
-
-## Class Slides
-
-<div class="embed-container">
-<iframe src="//slides.com/njhunsak/tbss-part-2/embed" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-</div>
- 
