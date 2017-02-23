@@ -5,7 +5,7 @@ title: "Tutorials"
 
 ## Where to Begin
 
-This site contains all of the handouts and information presented in BYU's Fall 2016 Neuroimaging Analysis course. Go to the <a href="https://marylou.byu.edu/account/create/">Supercomputing Account Request page</a>. I've whitelisted the course, so you should be able to get access to the Supercomputer immediately. You will need to have access to the Supercomputer for our first lecture. Happy coding!
+This site contains all of the handouts and information presented in BYU's Fall 2016 / Winter 2017 Neuroimaging Analysis course. Go to the <a href="https://marylou.byu.edu/account/create/">Supercomputing Account Request page</a>. I've whitelisted the course, so you should be able to get access to the Supercomputer immediately. You will need to have access to the Supercomputer for our first lecture. Happy coding!
 
 **All beginner students must complete the [Command Line course on Code Academy](https://www.codecademy.com/courses/learn-the-command-line) before beginning!**
 
