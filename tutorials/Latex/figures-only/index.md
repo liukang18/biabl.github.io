@@ -1,6 +1,6 @@
 ---
 layout: tutorials
-title: LaTeX Figure Only Document
+title: Document with Only Figures
 author: naomi
 comments: true
 date: 2017-02-23
