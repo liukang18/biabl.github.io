@@ -18,7 +18,7 @@ After you complete this section, you should be able to:
 
 For these tutorials I will be using [ShareLatex](http://www.sharelatex.com), a free online LaTeX editor.
 
-The first thing you'll want to do is to create a *new blank document*. To start a new project from scratch, in the main page click the New Project button, you will see the next drop-down menu. 
+The first thing you'll want to do is to create a *new blank document*. To start a new project from scratch, in the main page click the New Project button, you will see the next drop-down menu.
 
 <img class="img-responsive" alt="" src="images/TheFirstDocumentEx4.png">
 
@@ -40,7 +40,7 @@ There you can either drag and drop your files or click Select files(s) to open a
 
 <img class="img-responsive" alt="" src="images/blank.png">
 
-There some text preloaded, but delete the text and use the following code to generate the basic structure of your document:
+There some text preloaded, but delete the text and use the following code to generate the basic structure of your document.
 
 ``` latex
 \documentclass[doc]{apa6}
@@ -91,6 +91,20 @@ There some text preloaded, but delete the text and use the following code to gen
 \end{figure*}
 
 \end{document}
+```
+
+Before you compile your LaTeX code, you will need to change the `\author` information, obviously, but also the name of your figures you've uploaded. The text for identifying your figures is as follows:
+
+```latex
+\includegraphics[width=\textwidth]{MD-AD-HC.jpg}
+```
+
+The file name `MD-AD-HC.jpg` is unique to my system. Depending on how you labeled your figure image, change *MD-AD-HC.jpg* accordingly.
+
+To change the figure caption, edit the text found within these curly brackets:
+
+```latex
+\caption{Provide figure description here.}
 ```
 
 ## Export to PDF
