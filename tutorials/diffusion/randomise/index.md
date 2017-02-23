@@ -264,3 +264,8 @@ done
 <img class="img-responsive" alt="" src="images/MD-AD-HC.jpg">
 
 Just like previous studies, FA appears to be lower and AD, RD, and MD is higher in Alzheimer's disease compared to healthy controls. However, hopefully you begin to see a big limitation to TBSS analyses...what pathways are specifically altered in Alzheimer's disease? You basically have to grab an atlas and start trying to identify the location of the significant clusters. You also don't get a sense of how the DTI measures change at different points along the tracts. This is where tractography excels!
+
+## Class Slides
+
+<div class="embed-container">
+<iframe src="//slides.com/njhunsak/randomise/embed" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>

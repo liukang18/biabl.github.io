@@ -39,7 +39,7 @@ Unfortunately, the VistaSoft code is riddled with problems. Because the lab that
 vi ~/apps/matlab/vistasoft/mrDiffusion/dtiInit/dtiInit.m
 {% endhighlight %}
 
-Starting on line 170, we need to comment out one line of code. To comment out code in MATLAB, add a percent sign at the beginning of the command line:
+Starting on line 170 (or maybe 163), we need to comment out one line of code. To comment out code in MATLAB, add a percent sign at the beginning of the command line:
 
 {% highlight matlab %}
 % dtiCheckMotion(dwDir.ecFile,'off');
