@@ -49,3 +49,7 @@ Please review Beginner Topics before starting the Advanced Topics. You will need
 10. [Plot and Render Fibers](diffusion/afq-plot-render)
 11. [Probabilistic Tractography with TRACULA](diffusion/tracula)
 12. [Extract Tables](diffusion/table)
+
+### LaTeX
+
+1. [Figure Only Document](Latex/figures-only)
