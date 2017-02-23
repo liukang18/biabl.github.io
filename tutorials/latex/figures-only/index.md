@@ -99,7 +99,7 @@ Before you compile your LaTeX code, you will need to change the `\author` inform
 \includegraphics[width=\textwidth]{MD-AD-HC.jpg}
 ```
 
-The file name `MD-AD-HC.jpg` is unique to my system. Depending on how you labeled your figure image, change *MD-AD-HC.jpg* accordingly.
+The file name ***MD-AD-HC.jpg*** is unique to my system. Depending on how you labeled your figure image, change ***MD-AD-HC.jpg*** accordingly.
 
 To change the figure caption, edit the text found within these curly brackets:
 
