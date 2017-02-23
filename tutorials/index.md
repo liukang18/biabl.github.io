@@ -52,4 +52,4 @@ Please review Beginner Topics before starting the Advanced Topics. You will need
 
 ### LaTeX
 
-1. [Figure Only Document](Latex/figures-only)
+1. [Just Figures Document](Latex/figures-only)
