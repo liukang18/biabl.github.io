@@ -20,18 +20,25 @@ For these tutorials I will be using [ShareLatex](http://www.sharelatex.com), a f
 
 The first thing you'll want to do is to create a *new blank document*. To start a new project from scratch, in the main page click the New Project button, you will see the next drop-down menu. 
 
+<img class="img-responsive" alt="" src="images/TheFirstDocumentEx4.png">
+
 Then click Blank Project. A box will open where you should enter the name of your new project, then click Create.
+
+<img class="img-responsive" alt="" src="images/TheFirstDocumentEx5.png">
 
 After that you will be redirected to the editor.
 
 ## Upload Figures
 
-To upload an image, in the editor go to the upper left corner and click the upload icon Uploadicon.png. Next, a dialogue box will pop up for you to upload your files.
+To upload an image, in the editor go to the upper left corner and click the upload icon. Next, a dialogue box will pop up for you to upload your files.
 
+<img class="img-responsive" alt="" src="images/UploadingImagesEx2.png">
 
 There you can either drag and drop your files or click Select files(s) to open a file browser. Navigate to the right folder and select the images to upload. You can upload several files at once. After the upload process is complete you will see the files in the left panel.
 
 ## Edit Text
+
+<img class="img-responsive" alt="" src="images/blank.png">
 
 There some text preloaded, but delete the text and use the following code to generate the basic structure of your document:
 
@@ -88,4 +95,4 @@ There some text preloaded, but delete the text and use the following code to gen
 
 ## Export to PDF
 
-To download your final PDF file, in the editor click the Menu icon Menuicon.png in the upper left corner. Then in the download area click the PDF icon Pdficon.png After that and depending on your web browser, a window will pop up to open the file, save it to your Downloads folder or select a different location for the downloaded file. Unless you enter a different name, the downloaded PDF will have the same name as your project.
+To download your final PDF file, in the editor click the Menu icon in the upper left corner. Then in the download area click the PDF icon. After that and depending on your web browser, a window will pop up to open the file, save it to your Downloads folder or select a different location for the downloaded file. Unless you enter a different name, the downloaded PDF will have the same name as your project.
