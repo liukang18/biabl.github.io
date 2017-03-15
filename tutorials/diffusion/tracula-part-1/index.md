@@ -144,5 +144,5 @@ sh ~/scripts/EDSD/tracula-prep-batch.sh $var
 ## Class Slides
 
 <div class="embed-container">
-<iframe src="//slides.com/njhunsak/tracula/embed" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+<iframe src="//slides.com/njhunsak/tracula-part1/embed" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 </div>
