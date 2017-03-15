@@ -15,6 +15,8 @@ date: 2016-11-02
 </div>
 <br>
 
+**DO NOT DO THIS STEP IF YOU HAVE DOWNLOADED AND INSTALLED FREESURFER VERSION 6.0**
+
 TRACULA uses the prior anatomical information derived from the cortical parcellation and subcortical segmentation obtained from FreeSurfer. Let us make sure you have the latest version of TRACULA:
 
 {% highlight bash %}
