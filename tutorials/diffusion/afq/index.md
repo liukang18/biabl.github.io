@@ -275,3 +275,10 @@ sbatch \
 -e ~/logfiles/${var}/error.txt \
 ~/scripts/EDSD/afq_cc_job.sh
 {% endhighlight %}
+
+## Class Slides
+
+<div class="embed-container">
+<iframe src="//slides.com/njhunsak/afq/embed" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+
