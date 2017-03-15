@@ -29,15 +29,6 @@ Copy and paste the following code into the script:
 #SBATCH --nodes=1   # number of nodes
 #SBATCH --mem-per-cpu=16384M  # memory per CPU core
 
-# Compatibility variables for PBS. Delete if not needed.
-export PBS_NODEFILE=`/fslapps/fslutils/generate_pbs_nodefile`
-export PBS_JOBID=$SLURM_JOB_ID
-export PBS_O_WORKDIR="$SLURM_SUBMIT_DIR"
-export PBS_QUEUE=batch
-
-# Set the max number of threads to use for programs using OpenMP.
-export OMP_NUM_THREADS=$SLURM_CPUS_ON_NODE
-
 # LOAD ENVIRONMENTAL VARIABLES
 var=`id -un`
 export FREESURFER_HOME=/fslhome/${var}/apps/freesurfer
@@ -94,15 +85,6 @@ Copy and paste the following code into the script:
 #SBATCH --ntasks=1   # number of processor cores (i.e. tasks)
 #SBATCH --nodes=1   # number of nodes
 #SBATCH --mem-per-cpu=16384M  # memory per CPU core
-
-# Compatibility variables for PBS. Delete if not needed.
-export PBS_NODEFILE=`/fslapps/fslutils/generate_pbs_nodefile`
-export PBS_JOBID=$SLURM_JOB_ID
-export PBS_O_WORKDIR="$SLURM_SUBMIT_DIR"
-export PBS_QUEUE=batch
-
-# Set the max number of threads to use for programs using OpenMP.
-export OMP_NUM_THREADS=$SLURM_CPUS_ON_NODE
 
 # LOAD ENVIRONMENTAL VARIABLES
 var=`id -un`
@@ -204,3 +186,9 @@ freeview -tv dpath/merged_avg33_mni_bbr.mgz \
 {% endhighlight %}
 
 When you are done, close Freeview.
+
+## Class Slides
+
+<div class="embed-container">
+<iframe src="//slides.com/njhunsak/tracula-part2/embed" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
