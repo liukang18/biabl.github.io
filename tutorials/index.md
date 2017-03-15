@@ -47,8 +47,9 @@ Please review Beginner Topics before starting the Advanced Topics. You will need
 8. [Deterministic Tractography with VistaSoft](diffusion/vistasoft)
 9. [Automatic Fiber Quantification](diffusion/afq)
 10. [Plot and Render Fibers](diffusion/afq-plot-render)
-11. [Probabilistic Tractography with TRACULA](diffusion/tracula)
-12. [Extract Tables](diffusion/table)
+11. [Probabilistic Tractography with TRACULA Part 1](diffusion/tracula-part-1)
+12. [Probabilistic Tractography with TRACULA Part 2](diffusion/tracula-part-2)
+13. [Extract Tables](diffusion/table)
 
 ### LaTeX
 
