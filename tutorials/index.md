@@ -54,3 +54,4 @@ Please review Beginner Topics before starting the Advanced Topics. You will need
 ### LaTeX
 
 1. [Document with Only Figures](latex/figures-only)
+2. [Sectioning](latex/sectioning)
