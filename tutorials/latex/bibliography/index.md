@@ -10,7 +10,7 @@ date: 2017-02-23
 
 Bibliographic references are usually kept in a bibliography file whose extension is .bib, this file consists of a list of records and fields. Each bibliography record holds relevant information for a single entry.
 
-```latex
+```
 @article{           avants2014,
   author =          {Avants, BB and Tustison, N and Song, G},
   title =           {Advanced normalization tools ({ANTS})},
@@ -23,7 +23,7 @@ Bibliographic references are usually kept in a bibliography file whose extension
 }
 
 @book{              matlab2015,
-  title =           {{version 8.6.0 (R2015{b})}},
+  title =           {version 8.6.0 (R2015{b})},
   publisher =       {The MathWorks Inc.},
   author =          {MATLAB},
   date =            {2015},
