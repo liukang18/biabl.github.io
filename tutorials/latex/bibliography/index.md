@@ -63,21 +63,21 @@ bibtool -- "delete.field {file}" -i input.bib -o output.bib
 An easier way to deal with multiple options is to create a resource file:
 
 ```bash
-delete.field			= "annote"
-delete.field			= "file"
-delete.field			= "keywords"
-delete.field			= "abstract"
-delete.field			= "mendeley-tags"
-delete.field			= "language"
-delete.field			= "medline-pst"
-delete.field			= "date-modified"
-delete.field			= "institution"
-print.align.key		= 20
-print.align				= 20
-print.line.length	= 9999
-print.wide.equal	= on
-print.equal.right	= off
-print.use.tab			= off
+delete.field      = "annote"
+delete.field      = "file"
+delete.field      = "keywords"
+delete.field      = "abstract"
+delete.field      = "mendeley-tags"
+delete.field      = "language"
+delete.field      = "medline-pst"
+delete.field      = "date-modified"
+delete.field      = "institution"
+print.align.key   = 20
+print.align       = 20
+print.line.length = 9999
+print.wide.equal  = on
+print.equal.right = off
+print.use.tab     = off
 ```
 
 You can call this file directly with the -r option, e.g., `bibtool -r res_file -i input.bib -o output.bib`.
