@@ -268,7 +268,32 @@ set bveclist = ( /fslhome/intj5/compute/images/EDSD/FRE_AD001/raw/dti.bvec \
 /fslhome/intj5/compute/images/EDSD/FRE_HC015/raw/dti.bvec \
 /fslhome/intj5/compute/images/EDSD/FRE_HC016/raw/dti.bvec )
 
-set bvalfile = /fslhome/intj5/compute/images/EDSD/FRE_AD002/raw/dti.bval
+set bvallist = ( /fslhome/intj5/compute/images/EDSD/FRE_AD001/raw/dti.bvec \
+/fslhome/intj5/compute/images/EDSD/FRE_AD002/raw/dti.bvec \
+/fslhome/intj5/compute/images/EDSD/FRE_AD003/raw/dti.bvec \
+/fslhome/intj5/compute/images/EDSD/FRE_AD004/raw/dti.bvec \
+/fslhome/intj5/compute/images/EDSD/FRE_AD005/raw/dti.bvec \
+/fslhome/intj5/compute/images/EDSD/FRE_AD006/raw/dti.bvec \
+/fslhome/intj5/compute/images/EDSD/FRE_AD007/raw/dti.bvec \
+/fslhome/intj5/compute/images/EDSD/FRE_AD008/raw/dti.bvec \
+/fslhome/intj5/compute/images/EDSD/FRE_AD009/raw/dti.bvec \
+/fslhome/intj5/compute/images/EDSD/FRE_AD010/raw/dti.bvec \
+/fslhome/intj5/compute/images/EDSD/FRE_HC001/raw/dti.bvec \
+/fslhome/intj5/compute/images/EDSD/FRE_HC002/raw/dti.bvec \
+/fslhome/intj5/compute/images/EDSD/FRE_HC003/raw/dti.bvec \
+/fslhome/intj5/compute/images/EDSD/FRE_HC004/raw/dti.bvec \
+/fslhome/intj5/compute/images/EDSD/FRE_HC005/raw/dti.bvec \
+/fslhome/intj5/compute/images/EDSD/FRE_HC006/raw/dti.bvec \
+/fslhome/intj5/compute/images/EDSD/FRE_HC007/raw/dti.bvec \
+/fslhome/intj5/compute/images/EDSD/FRE_HC008/raw/dti.bvec \
+/fslhome/intj5/compute/images/EDSD/FRE_HC009/raw/dti.bvec \
+/fslhome/intj5/compute/images/EDSD/FRE_HC010/raw/dti.bvec \
+/fslhome/intj5/compute/images/EDSD/FRE_HC011/raw/dti.bvec \
+/fslhome/intj5/compute/images/EDSD/FRE_HC012/raw/dti.bvec \
+/fslhome/intj5/compute/images/EDSD/FRE_HC013/raw/dti.bvec \
+/fslhome/intj5/compute/images/EDSD/FRE_HC014/raw/dti.bvec \
+/fslhome/intj5/compute/images/EDSD/FRE_HC015/raw/dti.bvec \
+/fslhome/intj5/compute/images/EDSD/FRE_HC016/raw/dti.bvec )
 {% endhighlight %}
 
 The pathstats.byvoxel.txt files will generally not contain the same number of positions (rows) for each participant because the tracts are reconstructed in each participant's native diffusion space and not in a template space. Thus they are not ready for performing group analyses yet. To combine these files from multiple participants, interpolating the anisotropy and diffusivity values at corresponding positions along the tract for all participants, run the following:
