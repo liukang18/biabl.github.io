@@ -29,7 +29,7 @@ Bibliographic references are usually kept in a bibliography file whose extension
   date =            {2015},
   location =        {Natick, Massachusetts}
 }
-````
+```
 
 ## Using Google Scholar to download BibTeX citations
 
