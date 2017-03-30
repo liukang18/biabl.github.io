@@ -16,6 +16,23 @@ After you complete this section, you should be able to:
 4. Run AFQ on the supercomputer
 5. Segment the corpus callosum
 
+## Fix Code
+
+If you plan on running the corpus callosum segmentation, you will need to comment out some code that automatically generates images. Because we run this code on a remote computer, your code will immediately halt and won't finish. Here are the changes you will need to make to your code in order for it to run correctly on the Supercomputer:
+
+{% highlight bash hl_lines="8 13" %}
+vi ~/apps/matlab/AFQ/functions/AFQ_SegmentCallosum.m
+{% endhighlight %}
+
+Starting on line 90 comment out the following lines of code. To comment out code in MATLAB, add a percent sign at the beginning of the command line:
+
+{% highlight matlab %}
+%% fgNames = {'CC_Occipital' 'CC_Post_Parietal' ...
+%% 'CC_Sup_Parietal' 'CC_Motor' 'CC_Sup_Frontal' ...
+%% 'CC_Ant_Frontal' 'CC_Orb_Frontal' 'CC_Temporal'};
+%% AFQ_MakeFiberGroupMontage(afq, fgNames)
+{% endhighlight %}
+
 ## Tracts
 
 Once preprocessing is completed using **dtiInit**, white matter pathways can be automatically identified using the software package, Automated Fiber Quantification version 1.2 (https://github.com/yeatmanlab/AFQ). First, whole-brain tractography is estimated using a deterministic streamline tracking algorithm (STT). Individual fibers are assigned to a fiber tract if they pass through two waypoint ROIs used to define the trajectory of the pathway. ROIs are automatically placed in equivalent anatomical locations across each participant by registering a template to each participant. Finally, identified fiber tracts are validated by comparing each tract to a fiber tract probability map. Fibers within the identified fiber tract of low probability are discarded, because they do not conform to the shape of the fiber tract as defined by the fiber probability map.
