@@ -26,7 +26,7 @@ vi ~/apps/matlab/AFQ/functions/AFQ_SegmentCallosum.m
 
 Starting on line 90 comment out the following lines of code. To comment out code in MATLAB, add a percent sign at the beginning of the command line:
 
-{% highlight matlab linenos=table %}
+{% highlight matlab %}
 %% fgNames = {'CC_Occipital' 'CC_Post_Parietal' ...
 %% 'CC_Sup_Parietal' 'CC_Motor' 'CC_Sup_Frontal' ...
 %% 'CC_Ant_Frontal' 'CC_Orb_Frontal' 'CC_Temporal'};
