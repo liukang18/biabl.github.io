@@ -303,3 +303,9 @@ trac-all -stat -c ~/compute/analyses/EDSD/TRACULA/dmrirc.config
 {% endhighlight %}
 
 This will create a directory named **stats** under the main TRACULA output directory, **data**, and save one table per tract per diffusion measure. In these tables, each row is a different position along the trajectory of the tract and each column is a different participant.
+
+## Class Slides
+
+<div class="embed-container">
+<iframe src="//slides.com/njhunsak/extract-tables/embed" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
