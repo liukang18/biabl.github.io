@@ -225,3 +225,5 @@ The associated \*.bib file contains these references:
 ```
 
 The rendered PDF will look like this:
+
+<img class="img-responsive" alt="" src="images/bibliography.jpg">
