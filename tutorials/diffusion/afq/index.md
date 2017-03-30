@@ -20,13 +20,13 @@ After you complete this section, you should be able to:
 
 If you plan on running the corpus callosum segmentation, you will need to comment out some code that automatically generates images. Because we run this code on a remote computer, your code will immediately halt and won't finish. Here are the changes you will need to make to your code in order for it to run correctly on the Supercomputer:
 
-{% highlight bash linenos=table %}
+{% highlight bash %}
 vi ~/apps/matlab/AFQ/functions/AFQ_SegmentCallosum.m
 {% endhighlight %}
 
 Starting on line 90 comment out the following lines of code. To comment out code in MATLAB, add a percent sign at the beginning of the command line:
 
-{% highlight matlab %}
+{% highlight matlab linenos=table %}
 %% fgNames = {'CC_Occipital' 'CC_Post_Parietal' ...
 %% 'CC_Sup_Parietal' 'CC_Motor' 'CC_Sup_Frontal' ...
 %% 'CC_Ant_Frontal' 'CC_Orb_Frontal' 'CC_Temporal'};
