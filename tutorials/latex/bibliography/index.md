@@ -147,3 +147,81 @@ In BibLaTeX this actually does not print the bibliography itself, place the foll
 \printbibliography
 ```
 
+## Example
+
+Here's a LaTeX document example with the different types of citations:
+
+```latex
+\documentclass[doc]{apa6}
+
+%% Packages
+\usepackage{hyperref}
+\usepackage[american]{babel}
+\usepackage[style=apa,sortcites=true,sorting=nyt]{biblatex}
+\DeclareLanguageMapping{american}{american-apa}
+\addbibresource{myref.bib}
+
+%% Title
+\shorttitle{Hunsaker, N.}
+
+%% Begin Document
+\begin{document}
+
+\section{Example 1}
+
+\textcite{porter1998rhetorical} has stated that, ``The internetworked classroom has the potential (not yet realized) to empower students'' (p. 5), and this research project examines this potential.
+
+\section{Example 2}
+
+``Semantic frames/domains represent one of the two major organizing principles for conceptual structure'' \parencite[][32]{croft2004cognitive}.
+
+\section{Example 3}
+
+In arguing for frame semantics, \textcite{croft2004cognitive} asserted, ``Semantic frames/domains represent one of the two major organizing principles for conceptual structure'' (p. 32).
+
+\section{Example 4}
+
+\textcite{nicholson1820farmer} anticipated this effect when discussion farming methods in the nineteenth century:
+
+\begin{quote} 
+Perhaps it would be well, if some institution were devised, and supported at the expense of the State, which would be so organized as would tend most effectually to produce a due degree of emulation among Farmers, by rewards and honorary distinctions conferred by those who, by their successful experimental efforts and improvements, should render themselves duly entitled to them. (p. 92)
+\end{quote}
+
+%% Reference
+\printbibliography
+
+%% End Document
+\end{document}
+```
+
+The associated \*.bib file contains these references:
+
+```latex
+@book{porter1998rhetorical,
+  title={Rhetorical Ethics and Internetworked Writing},
+  author={Porter, J.E.},
+  series={New directions in computers and composition studies},
+  year={1998},
+  publisher={Ablex Pub.},
+  address={Greenwich, CT}
+}
+
+@book{croft2004cognitive,
+  title={Cognitive Linguistics},
+  author={Croft, W. and Cruse, D.A.},
+  series={Cambridge Textbooks in Linguistics},
+  year={2004},
+  publisher={Cambridge University Press},
+  address={Cambridge, UK}
+}
+
+@book{nicholson1820farmer,
+  title={The farmer's assistant: {B}eing a digest of all that relates to agriculture and the conducting of rural affairs, alphabetically arranged and adapted for the {U}nited {S}tates.},
+  author={Nicholson, J.},
+  year={1820},
+  publisher={Benjamin Warner},
+  address={Philedelphia, PA}
+}
+```
+
+The rendered PDF will look like this:
