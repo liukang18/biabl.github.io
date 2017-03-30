@@ -20,7 +20,7 @@ After you complete this section, you should be able to:
 
 If you plan on running the corpus callosum segmentation, you will need to comment out some code that automatically generates images. Because we run this code on a remote computer, your code will immediately halt and won't finish. Here are the changes you will need to make to your code in order for it to run correctly on the Supercomputer:
 
-{% highlight bash hl_lines="8 13" %}
+{% highlight bash linenos=table %}
 vi ~/apps/matlab/AFQ/functions/AFQ_SegmentCallosum.m
 {% endhighlight %}
 
