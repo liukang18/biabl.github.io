@@ -11,8 +11,6 @@ My current system is a MacBook Pro (Retina, 15-inch, Mid 2014) with 2.5 GHz Inte
 
 <!-- more -->
 
-[TOC]
-
 ## TextWrangler
 
 Install and download from the Mac App Store. Simple!
