@@ -27,53 +27,74 @@ tagline:
         <li>
         	<a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}" aria-label="Previous">
         		<span aria-hidden="true">&laquo;</span>
-<div class="row">
-	<div class="col-xs-8">
-		<div style="list-style-position: inside; margin-left: 2em">
-			{% for post in paginator.posts %}
-			<h1 class="title"><a href="{{%20post.url%20}}" rel="prefetch">{{ post.title }}</a></h1>
-			<h4><time datetime="{{ post.date | date:" pubdate="" title="{{ post.date | date: ">{{ post.date | date: "%B %d, %Y" }}</time></h4>
-			<p>{{ post.excerpt }}</p>
-			<hr>
-			{% endfor %}
-		</div>
-		<nav>
-			{% if paginator.total_pages &gt; 1 %}
-			<ul class="pagination pagination-lg">
-				<li style="list-style: none">{% if paginator.previous_page %}</li>
-				<li>
-					<a aria-label="Previous" href="{{%20paginator.previous_page_path%20|%20prepend:%20site.baseurl%20|%20replace:%20'//',%20'/'%20}}"><span aria-hidden="true">&laquo;</span></a>
-				</li>
-				<li style="list-style: none">{% else %}</li>
-				<li><span aria-hidden="true">&laquo;</span></li>
-				<li style="list-style: none">{% endif %} {% for page in (1..paginator.total_pages) %} {% if page == paginator.page %}</li>
-				<li class="active"><span>{{ page }}</span></li>
-				<li style="list-style: none">{% elsif page == 1 %}</li>
-				<li>
-					<a href="/">{{ page }}</a>
-				</li>
-				<li style="list-style: none">{% else %}</li>
-				<li>
-					<a href="{{%20site.paginate_path%20|%20prepend:%20site.baseurl%20|%20replace:%20'//',%20'/'%20|%20replace:%20':num',%20page%20}}"><span>{{ page }}</span></a>
-				</li>
-				<li style="list-style: none">{% endif %} {% endfor %} {% if paginator.next_page %}</li>
-				<li>
-					<a aria-label="Next" href="{{%20paginator.next_page_path%20|%20prepend:%20site.baseurl%20|%20replace:%20'//',%20'/'%20}}"><span aria-hidden="true">&raquo;</span></a>
-				</li>
-				<li style="list-style: none">{% else %}</li>
-				<li><span aria-hidden="true">&raquo;</span></li>
-				<li style="list-style: none">{% endif %}</li>
-			</ul>{% endif %}
-		</nav>
+        	</a>
+        </li>	
+      {% else %}
+      	<li>
+        	<span aria-hidden="true">&laquo;</span>
+        </li>
+      {% endif %}
+
+      {% for page in (1..paginator.total_pages) %}
+        {% if page == paginator.page %}
+          <li class="active">
+          	<span>{{ page }}</span>
+          </li>
+        {% elsif page == 1 %}
+          <li>
+          	<a href="/">{{ page }}</a>
+          </li>
+        {% else %}
+          <li>
+          	<a href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">
+          		<span>{{ page }}</span>
+          	</a>
+          </li>
+        {% endif %}
+      {% endfor %}
+
+      {% if paginator.next_page %}
+        <li>
+        	<a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}" aria-label="Next">
+        		<span aria-hidden="true">&raquo;</span>
+        	</a>
+        </li>
+      {% else %}
+        <li>
+        	<span aria-hidden="true">&raquo;</span>
+        </li>
+      {% endif %}
+    </ul>
+    {% endif %}
+  </nav>
+  </div>
+  <div class="col-xs-4">
+	<div class="panel panel-default">
+  	  <div class="panel-heading">
+    	<h3 class="panel-title">Tag Cloud</h3>
+      </div>
+      <div class="panel-body">
+  		{% assign tags = site.tags | sort %}
+  		{% for tag in tags %}
+  		<span class="site-tag">
+  			<a href="/tags.html#{{ tag | first }}-ref"
+        	style="font-size: {{ tag | last | size  |  times: 4 | plus: 80  }}%">
+            {{ tag[0] }} ({{ tag | last | size }})
+      		</a>
+  		</span>
+  		{% endfor %}  
+      </div>
 	</div>
-	<div class="col-xs-4">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">Tag Cloud</h3>
-			</div>
-			<div class="panel-body">
-				{% assign tags = site.tags | sort %} {% for tag in tags %} <span class="site-tag"><a href="/tags.html#{{%20tag%20|%20first%20}}-ref" style="font-size: {{ tag | last | size | times: 4 | plus: 80 }}%">{{ tag[0] }} ({{ tag | last | size }})</a></span> {% endfor %}
-			</div>
-		</div>
+	<div class="panel panel-default">
+  	  <div class="panel-heading">
+    	<h3 class="panel-title">Github Activity</h3>
+      </div>
+      <div class="panel-body">
+		<iframe class="embed-responsive-item" allowtransparency="true" frameborder="0" scrolling="yes" seamless="seamless" src="http://cdoyle.me/gh-activity/gh-activity.html?user=biabl&type=user" width="100%" height="250"></iframe>
+		<iframe class="embed-responsive-item" allowtransparency="true" frameborder="0" scrolling="yes" seamless="seamless" src="http://cdoyle.me/gh-activity/gh-activity.html?user=njhunsak&type=user" width="100%" height="250"></iframe>
+		<iframe class="embed-responsive-item" allowtransparency="true" frameborder="0" scrolling="yes" seamless="seamless" src="http://cdoyle.me/gh-activity/gh-activity.html?user=Tokazama&type=user" width="100%" height="250"></iframe>
+		<iframe class="embed-responsive-item" allowtransparency="true" frameborder="0" scrolling="yes" seamless="seamless" src="http://cdoyle.me/gh-activity/gh-activity.html?user=Trevh5&type=user" width="100%" height="250"></iframe>
+	  </div>
 	</div>
+  </div>
 </div>
