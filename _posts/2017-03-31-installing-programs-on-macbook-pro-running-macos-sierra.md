@@ -1,13 +1,15 @@
 ---
 excerpt_separator: <!-- more -->
 layout: post
-published: false
-title: 'Installing Programs on MacBook Pro Running macOS Sierra '
+published: true
+title: 'Installing Programs on MacBook Pro Running macOS Sierra'
 author: naomihunsaker
 tags:
   - 'tips '
 ---
-My current system is a MacBook Pro (Retina, 15-inch, Mid 2014) with 2.5 GHz Intel Core i7 processor and 16 GB of memory. I am currently running macOS Sierra (Version 10.12.4).
+My current system is a MacBook Pro (Retina, 15-inch, Mid 2014) with 2.5 GHz Intel Core i7 processor and 16 GB of memory. I am currently running macOS Sierra (Version 10.12.4). Here's the code and instruction for how to install all the current programs.
+
+<!-- more -->
 
 ## TextWrangler (mac app store)
 
