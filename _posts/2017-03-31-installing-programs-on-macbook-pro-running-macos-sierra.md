@@ -1,7 +1,7 @@
 ---
 excerpt_separator: <!-- more -->
 layout: post
-published: true
+published: false
 title: 'Installing Programs on MacBook Pro Running macOS Sierra'
 author: naomihunsaker
 tags:
