@@ -2,18 +2,20 @@
 excerpt_separator: <!-- more -->
 layout: post
 published: false
-title: 'Installing Programs on MacBook Pro Running macOS Sierra'
+title: Installing Programs on MacBook Pro Running macOS Sierra
 author: naomihunsaker
 tags:
   - 'tips '
 ---
-My current system is a MacBook Pro (Retina, 15-inch, Mid 2014) with 2.5 GHz Intel Core i7 processor and 16 GB of memory. I am currently running macOS Sierra (Version 10.12.4). Here's the code and instruction for how to install all the current programs.
+My current system is a MacBook Pro (Retina, 15-inch, Mid 2014) with 2.5 GHz Intel Core i7 processor and 16 GB of memory. I am currently running macOS Sierra (Version 10.12.4). Here's the code and instructions for how to install all the current programs. I will also post this page under tutorials!
 
 <!-- more -->
 
-## TextWrangler (mac app store)
+[TOC]
 
-Install and download from the Mac App Store. Simple.
+## TextWrangler
+
+Install and download from the Mac App Store. Simple!
 
 ## Homebrew
 
@@ -25,7 +27,7 @@ Open a new terminal window and type:
 
 This process should install Command Line Tools for Xcode, but here's the full output from the installation:
 
-```bash
+```sh
 ==> This script will install:
 /usr/local/bin/brew
 /usr/local/share/doc/homebrew
@@ -158,7 +160,7 @@ brew install wget
 
 The installation only takes a few seconds:
 
-```bash
+```sh
 ==> Installing dependencies for wget: openssl
 ==> Installing wget dependency: openssl
 ==> Downloading https://homebrew.bintray.com/bottles/openssl-1.0.2k.sierra.bottl
@@ -204,7 +206,7 @@ brew install cmake
 
 Again the process should only take a few seconds:
 
-```bash
+```sh
 ==> Downloading https://homebrew.bintray.com/bottles/cmake-3.7.2.sierra.bottle.tar.gz
 ==> Pouring cmake-3.7.2.sierra.bottle.tar.gz
 ==> Caveats
@@ -244,7 +246,7 @@ c3d -h
 
 The help file is long and extensive:
 
-```
+```sh
 Image Input/Output and Information: 
     -dicom-series-list              : List image series in a DICOM directory
     -dicom-series-read              : Read a DICOM image series
@@ -390,13 +392,13 @@ Getting help:
 ## dcm2niix
 
 
-Now we start downloading stuff off of GitHub. With all these unique neuroimaging programs, I find it helpful to create a user specific **Applications** directory. In the terminal window:
+Now we start downloading stuff off of GitHub. With all these unique neuroimaging programs, I find it helpful to create a user specific *Applications* directory. In the terminal window:
 
 ```bash
 mkdir -p ~/Applications/
 ```
 
-To install **dcm2nii** type the following into a terminal window:
+To install *dcm2nii* type the following into a terminal window:
 
 ```bash
 git clone https://github.com/rordenlab/dcm2niix.git
@@ -407,7 +409,7 @@ cmake ../
 
 This step should be quick:
 
-```bash
+```sh
 OFF
 -- Configuring done
 -- Generating done
@@ -422,7 +424,7 @@ make
 
 Building the program takes on a few minutes:
 
-```
+```sh
 Scanning dependencies of target dcm2niix
 [ 12%] Building CXX object console/CMakeFiles/dcm2niix.dir/main_console.cpp.o
 clang: warning: argument unused during compilation: '-dead_strip' [-Wunused-command-line-argument]
@@ -463,7 +465,7 @@ You can double check that dcm2niix is installed correctly by typing:
 
 The help file for this program is well documented:
 
-```bash
+```sh
 Compression will be faster with /usr/local/bin/pigz
 Chris Rorden's dcm2niiX version v1.0.20170314 (64-bit MacOS)
 usage: dcm2niix [options] <in_folder>
@@ -492,7 +494,7 @@ usage: dcm2niix [options] <in_folder>
 
 ## ANTs
 
-Here we will create a **build** directory in our **~/Applications* directory:
+Here we will create a *build* directory in our *~//Applications* directory:
 
 ```bash
 mkdir -p ~/Applications/build
@@ -513,13 +515,135 @@ mkdir ants && cd ants
 ccmake ../build/ANTs
 ```
 
-Press **c** to configure and continue to press **c** until your can press **g** to generate the configuration file. When you exit out of the cmake app type:
+Press *c* to configure and continue to press *c* until your can press *g* to generate the configuration file. When you exit out of the cmake app type:
 
 ```
 make
 ```
 
 This process takes approximately 30 minutes.
+
+When ANTs has installed we need to copy the script files into the right location:
+
+```bash
+cp -v ~/Applications/build/ANTs/Scripts/* ~/Applications/ants/bin/
+```
+
+Finally, we need to add some text to our bash_profile.
+
+```bash
+# ANTs
+export ANTSPATH=/Users/naomihunsaker/Applications/ants/bin/
+PATH=${ANTSPATH}:${PATH}
+```
+
+You know you have everything installed correctly if you can type the following into your terminal window:
+
+```bash
+N4BiasFieldCorrection
+```
+
+And you see the following output:
+
+```sh
+COMMAND: 
+     N4BiasFieldCorrection
+          N4 is a variant of the popular N3 (nonparameteric nonuniform normalization) 
+          retrospective bias correction algorithm. Based on the assumption that the 
+          corruption of the low frequency bias field can be modeled as a convolution of 
+          the intensity histogram by a Gaussian, the basic algorithmic protocol is to 
+          iterate between deconvolving the intensity histogram by a Gaussian, remapping 
+          the intensities, and then spatially smoothing this result by a B-spline modeling 
+          of the bias field itself. The modifications from and improvements obtained over 
+          the original N3 algorithm are described in the following paper: N. Tustison et 
+          al., N4ITK: Improved N3 Bias Correction, IEEE Transactions on Medical Imaging, 
+          29(6):1310-1320, June 2010. 
+
+OPTIONS: 
+     -d, --image-dimensionality 2/3/4
+          This option forces the image to be treated as a specified-dimensional image. If 
+          not specified, N4 tries to infer the dimensionality from the input image. 
+
+     -i, --input-image inputImageFilename
+          A scalar image is expected as input for bias correction. Since N4 log transforms 
+          the intensities, negative values or values close to zero should be processed 
+          prior to correction. 
+
+     -x, --mask-image maskImageFilename
+          If a mask image is specified, the final bias correction is only performed in the 
+          mask region. If a weight image is not specified, only intensity values inside 
+          the masked region are used during the execution of the algorithm. If a weight 
+          image is specified, only the non-zero weights are used in the execution of the 
+          algorithm although the mask region defines where bias correction is performed in 
+          the final output. Otherwise bias correction occurs over the entire image domain. 
+          See also the option description for the weight image. If a mask image is *not* 
+          specified then the entire image region will be used as the mask region. Note 
+          that this is different than the N3 implementation which uses the results of Otsu 
+          thresholding to define a mask. However, this leads to unknown anatomical regions 
+          being included and excluded during the bias correction. 
+
+     -r, --rescale-intensities 0/(1)
+          At each iteration, a new intensity mapping is calculated and applied but there 
+          is nothing which constrains the new intensity range to be within certain values. 
+          The result is that the range can "drift" from the original at each iteration. 
+          This option rescales to the [min,max] range of the original image intensities 
+          within the user-specified mask. 
+
+     -w, --weight-image weightImageFilename
+          The weight image allows the user to perform a relative weighting of specific 
+          voxels during the B-spline fitting. For example, some studies have shown that N3 
+          performed on white matter segmentations improves performance. If one has a 
+          spatial probability map of the white matter, one can use this map to weight the 
+          b-spline fitting towards those voxels which are more probabilistically 
+          classified as white matter. See also the option description for the mask image. 
+
+     -s, --shrink-factor 1/2/3/(4)/...
+          Running N4 on large images can be time consuming. To lessen computation time, 
+          the input image can be resampled. The shrink factor, specified as a single 
+          integer, describes this resampling. Shrink factors <= 4 are commonly used.Note 
+          that the shrink factor is only applied to the first two or three dimensions 
+          which we assume are spatial. 
+
+     -c, --convergence [<numberOfIterations=50x50x50x50>,<convergenceThreshold=0.0>]
+          Convergence is determined by calculating the coefficient of variation between 
+          subsequent iterations. When this value is less than the specified threshold from 
+          the previous iteration or the maximum number of iterations is exceeded the 
+          program terminates. Multiple resolutions can be specified by using 'x' between 
+          the number of iterations at each resolution, e.g. 100x50x50. 
+
+     -b, --bspline-fitting [splineDistance,<splineOrder=3>]
+                           [initialMeshResolution,<splineOrder=3>]
+          These options describe the b-spline fitting parameters. The initial b-spline 
+          mesh at the coarsest resolution is specified either as the number of elements in 
+          each dimension, e.g. 2x2x3 for 3-D images, or it can be specified as a single 
+          scalar parameter which describes the isotropic sizing of the mesh elements. The 
+          latter option is typically preferred. For each subsequent level, the spline 
+          distance decreases in half, or equivalently, the number of mesh elements doubles 
+          Cubic splines (order = 3) are typically used. The default setting is to employ a 
+          single mesh element over the entire domain, i.e., -b [1x1x1,3]. 
+
+     -t, --histogram-sharpening [<FWHM=0.15>,<wienerNoise=0.01>,<numberOfHistogramBins=200>]
+          These options describe the histogram sharpening parameters, i.e. the 
+          deconvolution step parameters described in the original N3 algorithm. The 
+          default values have been shown to work fairly well. 
+
+     -o, --output correctedImage
+                  [correctedImage,<biasField>]
+          The output consists of the bias corrected version of the input image. 
+          Optionally, one can also output the estimated bias field. 
+
+     --version 
+          Get Version Information. 
+
+     -v, --verbose (0)/1
+          Verbose output. 
+
+     -h 
+          Print the help menu (short version). 
+
+     --help 
+          Print the help menu. 
+```
 
 ## FreeSurfer
 
@@ -532,7 +656,7 @@ wget ftp://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/6.0.0/freesurfer-Darwi
 
 My internet speed as I'm doing this is a bit slow, 23.8 Mbps download and 3.22 Mbps upload. The download of FreeSurfer says it'll take approximately 30 minutes. So while ANTs is installing, I've also downloading FreeSurfer. '
 
-When it has finished downloading, double-click the installer in your **~/Applications/build/** folder. The installer will install freesurfer under **Applications**. You will need to add the following lines to your bash_profile as well:
+When it has finished downloading, double-click the installer in your *~/Applications/build/* folder. The installer will install freesurfer under *Applications*. You will need to add the following lines to your bash_profile as well:
 
 ```bash
 # FREESURFER
@@ -542,7 +666,7 @@ source $FREESURFER_HOME/SetUpFreeSurfer.sh
 
 If done correctly, you should see (remember you may need to `source ~/.bash_profile`):
 
-```bash
+```sh
 -------- freesurfer-Darwin-OSX-stable-pub-v6.0.0-2beb96c --------
 Setting up environment for FreeSurfer/FS-FAST (and FSL)
 FREESURFER_HOME   /Applications/freesurfer
@@ -564,16 +688,16 @@ python fslinstaller.py
 
 The installer asks you some questions:
 
-```bash
+```sh
 --- FSL Installer - Version 2.0.21 ---
 [Warning] Some operations of the installer require administative rights, for example installing into the default folder of /usr/local. If your account is an 'Administrator' (you have 'sudo' rights) then you will be prompted for your administrator password when necessary.
 [OK] Installer is current
 Where would you like to install FSL? [/usr/local]:
 ```
 
-Just hit **RETURN**. 
+Just hit *RETURN*: 
 
-```bash
+```sh
 [Warning] Unsupported OS (apple darwin 16.5). This version of the OS has not been fully tested.
 Downloading FSL version 5.0.9 (this may take some time)
 ```
