@@ -11,6 +11,8 @@ My current system is a MacBook Pro (Retina, 15-inch, Mid 2014) with 2.5 GHz Inte
 
 <!-- more -->
 
+[TOC]
+
 ## TextWrangler
 
 Install and download from the Mac App Store. Simple!
@@ -230,13 +232,13 @@ Download the XQuartz installer [here](https://www.xquartz.org). Double-click the
 
 Download the latest version from [here](http://www.itksnap.org/pmwiki/pmwiki.php?n=Downloads.C3D). Double-click the installer located in your Download folder. Drag and drop the Convert3DGUI into your Applications folder.
 
-In order to call the commands of Convert3D directly, we need to add the path in our bash_profile.
+In order to call the commands of Convert3D directly, we need to add the path in our ~/.bash_profile.
 
 ```bash
 export PATH="/Applications/Convert3DGUI.app/Contents/bin/:$PATH"
 ```
 
-Once you've added to the following to your bash_profile, you can check the Convert3D program:
+Once you've added to the following to your ~/.bash_profile, you can check the Convert3D program:
 
 ```bash
 c3d -h
@@ -527,7 +529,7 @@ When ANTs has installed we need to copy the script files into the right location
 cp -v ~/Applications/build/ANTs/Scripts/* ~/Applications/ants/bin/
 ```
 
-Finally, we need to add some text to our bash_profile.
+Finally, we need to add some text to our ~/.bash_profile.
 
 ```bash
 # ANTs
@@ -652,9 +654,9 @@ cd ~/Applications/build/
 wget ftp://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/6.0.0/freesurfer-Darwin-OSX-stable-pub-v6.0.0.dmg
 ```
 
-My internet speed as I'm doing this is a bit slow, 23.8 Mbps download and 3.22 Mbps upload. The download of FreeSurfer says it'll take approximately 30 minutes. So while ANTs is installing, I've also downloading FreeSurfer. '
+My internet speed as I'm doing this is a bit slow, 23.8 Mbps download and 3.22 Mbps upload. The download of FreeSurfer says it'll take approximately 30 minutes. So while ANTs is installing, I'm also downloading FreeSurfer.
 
-When it has finished downloading, double-click the installer in your *~/Applications/build/* folder. The installer will install freesurfer under *Applications*. You will need to add the following lines to your bash_profile as well:
+When it has finished downloading, double-click the installer in your *~/Applications/build/* folder. The installer will install freesurfer under *Applications*. You will need to add the following lines to your ~/.bash_profile as well:
 
 ```bash
 # FREESURFER
@@ -701,3 +703,20 @@ Downloading FSL version 5.0.9 (this may take some time)
 ```
 
 They are NOT kidding. This is a 45 - 60 minute download.
+
+## ~/.bash_profile
+
+When everything is installed, you should see the following text in your ~/.bash_profile:
+
+```bash
+# Convert3D
+export PATH="/Applications/Convert3DGUI.app/Contents/bin/:$PATH"
+
+# FreeSurfer
+export FREESURFER_HOME=/Applications/freesurfer
+source $FREESURFER_HOME/SetUpFreeSurfer.sh
+
+# ANTs
+export ANTSPATH=/Users/naomihunsaker/Applications/ants/bin/
+PATH=${ANTSPATH}:${PATH}
+```
