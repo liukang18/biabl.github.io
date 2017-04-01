@@ -1,5 +1,5 @@
 ---
-layout: tutorials
+layout: installation
 title: MacBook Pro (Mid 2014) running macOS Sierra (Version 10.12.4)
 author: naomi
 comments: true
