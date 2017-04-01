@@ -403,6 +403,7 @@ mkdir -p ~/Applications/
 To install *dcm2nii* type the following into a terminal window:
 
 ```bash
+cd ~/Applications/
 git clone https://github.com/rordenlab/dcm2niix.git
 cd dcm2niix
 mkdir build && cd build
@@ -771,7 +772,7 @@ export PATH=/Users/naomihunsaker/Applications/TORTOISE_V3.0.0/DRBUDDIV3/bin:${PA
 
 ## MATLAB
 
-This is the only program that isn't free, so install it if you can. I install MATLAB so I can run VISTASOFT software. I am currently running the latest version R2017a
+This is the only program that isn't free, so install it if you can. I install MATLAB so I can run VISTASOFT software. I am currently running the latest version R2017a.
 
 ### Packages
 
