@@ -1,7 +1,7 @@
 ---
 excerpt_separator: <!-- more -->
 layout: post
-published: false
+published: true
 title: Installing Programs on MacBook Pro Running macOS Sierra
 author: naomihunsaker
 tags:
@@ -10,8 +10,6 @@ tags:
 My current system is a MacBook Pro (Retina, 15-inch, Mid 2014) with 2.5 GHz Intel Core i7 processor and 16 GB of memory. I am currently running macOS Sierra (Version 10.12.4). Here's the code and instructions for how to install all the current programs. I will also post this page under tutorials!
 
 <!-- more -->
-
-[TOC]
 
 ## TextWrangler
 
@@ -195,6 +193,10 @@ For compilers to find this software you may need to set:
 ==> Pouring wget-1.19.1.sierra.bottle.tar.gz
 🍺  /usr/local/Cellar/wget/1.19.1: 10 files, 1.6MB
 ```
+
+## Xcode
+
+Install and download from the Mac App Store. Simple (fingers crossed)!
 
 ## cmake
 
@@ -704,6 +706,42 @@ Downloading FSL version 5.0.9 (this may take some time)
 
 They are NOT kidding. This is a 45 - 60 minute download.
 
+## TORTOISE
+
+I'm still learning how to use this program, but it'll be helpful to install. Create an account [here](https://tortoisedti.nichd.nih.gov/stbb/login.html) and download the latest version of TORTOISE. I am downloading v3.0.0.
+
+Double-click the downloaded tar ball in your Downloads folder. On your Mac, you should be able to automatically unpack the tar ball. When it is unpacked, drag and drop the TORTOISE directory into your *~/Applications/* directory.
+
+You also need to add text to your ~/.bash_profile:
+
+```bash
+# TORTOISE
+export PATH=/Users/naomihunsaker/Applications/TORTOISE_V3.0.0/DIFFPREPV3/bin/bin:${PATH}
+export PATH=/Users/naomihunsaker/Applications/TORTOISE_V3.0.0/DRBUDDIV3/bin:${PATH}
+```
+
+## MRtrix3
+
+If you currently do not plan to contribute to the Mrtrix3 code, the most convenient way to install Mrtrix3 on MacOS X is to install it via homebrew. First make sure your homebrew is up-to-date and you have qt5 installed (which takes a few minutes):
+
+```bash
+brew update
+brew install qt5
+```
+
+Next, you'll probably need to setup your command line tools again:
+
+```bash
+sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+```
+
+Finally, get the MRtrix3 files and install with brew:
+
+```bash
+brew tap MRtrix3/mrtrix3
+brew install mrtrix3
+```
+
 ## ~/.bash_profile
 
 When everything is installed, you should see the following text in your ~/.bash_profile:
@@ -719,4 +757,43 @@ source $FREESURFER_HOME/SetUpFreeSurfer.sh
 # ANTs
 export ANTSPATH=/Users/naomihunsaker/Applications/ants/bin/
 PATH=${ANTSPATH}:${PATH}
+
+# FSL Setup
+FSLDIR=/usr/local/fsl
+PATH=${FSLDIR}/bin:${PATH}
+export FSLDIR PATH
+. ${FSLDIR}/etc/fslconf/fsl.sh
+
+# TORTOISE
+export PATH=/Users/naomihunsaker/Applications/TORTOISE_V3.0.0/DIFFPREPV3/bin/bin:${PATH}
+export PATH=/Users/naomihunsaker/Applications/TORTOISE_V3.0.0/DRBUDDIV3/bin:${PATH}
 ```
+
+## MATLAB
+
+This is the only program that isn't free, so install it if you can. I install MATLAB so I can run VISTASOFT software. I am currently running the latest version R2017a
+
+### Packages
+
+I have included the follow add-on packages to MATLAB:
+
+* LHON2
+* Automated Fiber Quantification (AFQ)
+* VISTASOFT
+* SPM5
+* SPM8
+
+In terminal:
+
+```bash
+cd ~/Applications/
+git clone https://github.com/shmp0722/LHON2.git LHON2
+git clone https://github.com/yeatmanlab/AFQ.git afq
+git clone https://github.com/vistalab/vistasoft.git vistasoft
+wget http://www.fil.ion.ucl.ac.uk/spm/download/restricted/contradistinction/spm5.zip
+unzip spm5.zip && rm spm5.zip
+wget http://www.fil.ion.ucl.ac.uk/spm/download/restricted/idyll/spm8.zip
+unzip spm8.zip && rm spm8.zip
+```
+
+I am anxiously awaiting the release of the [Python version of AFQ](http://yeatmanlab.github.io/pyAFQ/) so I can move away from the MATLAB.
