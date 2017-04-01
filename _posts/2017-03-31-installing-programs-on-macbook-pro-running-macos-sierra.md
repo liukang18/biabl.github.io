@@ -11,6 +11,25 @@ My current system is a MacBook Pro (Retina, 15-inch, Mid 2014) with 2.5 GHz Inte
 
 <!-- more -->
 
+- [TextWrangler](#textwrangler)
+- [Homebrew](#homebrew)
+- [wget](#wget)
+- [Xcode](#xcode)
+- [cmake](#cmake)
+- [Multi-image Analysis GUI (MANGO)](#multi-image-analysis-gui--mango-)
+- [R for Mac OS X](#r-for-mac-os-x)
+- [XQuartz](#xquartz)
+- [Convert3D](#convert3d)
+- [dcm2niix](#dcm2niix)
+- [ANTs](#ants)
+- [FreeSurfer](#freesurfer)
+- [FSL](#fsl)
+- [TORTOISE](#tortoise)
+- [MRtrix3](#mrtrix3)
+- [~/.bash_profile](#--bash-profile)
+- [MATLAB](#matlab)
+  * [Packages](#packages)
+
 ## TextWrangler
 
 Install and download from the Mac App Store. Simple!
