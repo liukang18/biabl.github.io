@@ -6,7 +6,7 @@ comments: true
 date: 2017-04-01
 ---
 
-My current system is a MacBook Pro (Retina, 15-inch, Mid 2014) with 2.5 GHz Intel Core i7 processor and 16 GB of memory. I am currently running macOS Sierra (Version 10.12.4). Here's the code and instructions for how to install all the current programs. I will also post this page under tutorials!
+My current system is a MacBook Pro (Retina, 15-inch, Mid 2014) with 2.5 GHz Intel Core i7 processor and 16 GB of memory. I am currently running macOS Sierra (Version 10.12.4). Here's the code and instructions for how to install all the current programs.
 
 <!-- more -->
 
