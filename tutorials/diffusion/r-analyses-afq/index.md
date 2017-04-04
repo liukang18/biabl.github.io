@@ -1,14 +1,3 @@
-<html>
-<head>
-<style>
-.threecolumn {
-    -webkit-column-count: 3; /* Chrome, Safari, Opera */
-    -moz-column-count: 3; /* Firefox */
-    column-count: 3;
-}
-</style>
-</head>
-
 ---
 layout: tutorials
 title: R Statistical Analyses with AFQ Results

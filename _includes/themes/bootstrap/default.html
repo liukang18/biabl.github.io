@@ -10,7 +10,7 @@
 
     <link href="{{ ASSET_PATH }}/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ ASSET_PATH }}/css/pygments.css">
-  
+
     <!--[if lt IE 9]>
       <script src="{{ ASSET_PATH }}/resources/respond/Respond.min.js"></script>
     <![endif]-->
@@ -19,33 +19,39 @@
     <link href="{{ BASE_PATH }}{{ site.JB.rss_path }}" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
 
 	<style>
-		.embed-container { 
+		.embed-container {
   			position: relative; padding-bottom: 63%; height: 0;
   			overflow: hidden; max-width: 100%; height: auto;
 		}
-		.embed-container iframe, .embed-container object, 
-		.embed-container embed { 
-  			position: absolute; top: 0; left: 0; width: 100%; 
-  			height: 100%; 
+		.embed-container iframe, .embed-container object,
+		.embed-container embed {
+  			position: absolute; top: 0; left: 0; width: 100%;
+  			height: 100%;
 		}
-		
-		.shiny-container { 
+
+		.shiny-container {
   			position: relative; padding-bottom: 600px; height: 0;
   			overflow: visible; max-width: 100%; height: auto;
 		}
-		.shiny-container iframe, .shiny-container object, 
-		.shiny-container embed { 
-  			position: absolute; top: 0; left: 0; width: 100%; 
-  			height: 100%; 
+		.shiny-container iframe, .shiny-container object,
+		.shiny-container embed {
+  			position: absolute; top: 0; left: 0; width: 100%;
+  			height: 100%;
 		}
-		
+
 		.col-sm-9 {
     		text-align: justify;
     		text-justify: inter-word;
 		}
-		
+
 		.highlight {
 			border-radius: 10px;
+		}
+
+		.threecolumn {
+    -webkit-column-count: 3; /* Chrome, Safari, Opera */
+    -moz-column-count: 3; /* Firefox */
+    column-count: 3;
 		}
 	</style>
   </head>
