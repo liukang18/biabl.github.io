@@ -110,10 +110,14 @@ anova(lm(MMSE ~ diagnosis, data = mydata))
 
 Your results should give you a significant group difference as you would hope to see given that the MMSE is used to screen for dementia.
 
+<hr>
+
 |          | Df|   Sum Sq|  Mean Sq|  F value| Pr(>F)|
 |:---------|--:|--------:|--------:|--------:|------:|
 |diagnosis |  1| 236.5538| 236.5538| 57.00093|  1e-07|
 |Residuals | 24|  99.6000|   4.1500|       NA|     NA|
+
+<hr>
 
 You probably want to check that there are no group differences in education:
 
@@ -123,10 +127,14 @@ anova(lm(education ~ diagnosis, data = mydata))
 
 Looks like the groups are not statistically difference in amount of education:
 
+<hr>
+
 |          | Df|    Sum Sq|  Mean Sq|  F value|    Pr(>F)|
 |:---------|--:|---------:|--------:|--------:|---------:|
 |diagnosis |  1|  28.77788| 28.77788| 2.362575| 0.1373573|
 |Residuals | 24| 292.33750| 12.18073|       NA|        NA|
+
+<hr>
 
 ## Combine Tables
 
@@ -296,6 +304,8 @@ hc_right_uncinate_fa.csv
 hc_right_uncinate_md.csv
 hc_right_uncinate_rd.csv
 </div>
+
+<hr>
 
 Let's start by creating a new R script:
 
