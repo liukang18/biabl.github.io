@@ -405,7 +405,7 @@ source("~/Desktop/AFQ-CC/combine-tables.r")
 
 ## Statistics
 
-Recall that the tract profiles consist of 100 segments along the tract for each of the diffusion metrics. You need to statistically evaluate each 100 segment to determine if there are any group differences. That comes out to 100 segments x 4 diffusion properties x 20 fiber tracts = 8,000 t-tests comparing AD versus HC. Not only do we want to run these tests automatically, but at the very least we want to output the p-values to a table. Create a directory to output the p-value tables:
+Recall that the tract profiles consist of 100 segments along the tract for each of the diffusion metrics. You need to statistically evaluate each 100 segment to determine if there are any group differences. That comes out to 100 segments x 4 diffusion properties x 20 fiber tracts = 8,000 t-tests comparing AD versus HC. Not only do we want to run these tests automatically, but at the very least we want to output the p-values to a table. Create the directory to output the p-value tables:
 
 ```bash
 mkdir -p ~/Desktop/AFQ/stats/pvalue/fa
@@ -494,7 +494,7 @@ source("~/Desktop/AFQ-CC/pvalue.r")
 
 ## Graphs
 
-Now we can combine the data and p-value results into a graph. Now we've already created similar graphs using MATLAB [http://biabl.github.io/tutorials/diffusion/afq-plot-render/](http://biabl.github.io/tutorials/diffusion/afq-plot-render/), but now we can control the look of the graphs in R and add shaded information to represent statistical group differences. Create a directory to output the graphs:
+Now we can combine the data and p-value results into a graph. Now we've already created similar graphs using MATLAB [http://biabl.github.io/tutorials/diffusion/afq-plot-render/](http://biabl.github.io/tutorials/diffusion/afq-plot-render/), but now we can control the look of the graphs in R and add shaded information to represent statistical group differences. Create the directories to output the graphs:
 
 ```bash
 mkdir -p ~/Desktop/AFQ/stats/graphs/fa
