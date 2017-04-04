@@ -222,6 +222,7 @@ Currently the AFQ output results are separated by diagnosis group and diffusion 
 <li>ad_right_uncinate_fa.csv</li>
 <li>ad_right_uncinate_md.csv</li>
 <li>ad_right_uncinate_rd.csv</li>
+<li></li>
 <li>hc_callosum_forceps_major_ad.csv</li>
 <li>hc_callosum_forceps_major_fa.csv</li>
 <li>hc_callosum_forceps_major_md.csv</li>
@@ -405,7 +406,7 @@ source("~/Desktop/AFQ-CC/combine-tables.r")
 
 ## Statistics
 
-Recall that the tract profiles consist of 100 segments along the tract for each of the diffusion metrics. You need to statistically evaluate each 100 segment to determine if there are any group differences. That comes out to 100 segments x 4 diffusion properties x 20 fiber tracts = 8,000 t-tests comparing AD versus HC. Not only do we want to run these tests automatically, but at the very least we want to output the p-values to a table. Create the directory to output the p-value tables:
+Recall that the tract profiles consist of 100 segments along the tract for each of the diffusion metrics. You need to statistically evaluate each 100 segment to determine if there are any group differences. That comes out to 100 segments x 4 diffusion properties x 20 fiber tracts = 8,000 t-tests comparing AD versus HC. Not only do we want to run these tests automatically, but at the very least we want to output the p-values to a table. Create the directories to output the p-value tables:
 
 ```bash
 mkdir -p ~/Desktop/AFQ/stats/pvalue/fa
