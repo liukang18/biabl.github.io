@@ -11,7 +11,7 @@
 
 ---
 layout: tutorials
-title: R Statistical Analyses - AFQ
+title: R Statistical Analyses with AFQ Results
 author: naomi
 comments: true
 date: 2017-04-04
