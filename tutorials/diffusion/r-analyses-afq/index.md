@@ -222,8 +222,6 @@ Currently the AFQ output results are separated by diagnosis group and diffusion 
 <li>ad_right_uncinate_fa.csv</li>
 <li>ad_right_uncinate_md.csv</li>
 <li>ad_right_uncinate_rd.csv</li>
-<li>callosum_forceps_major.csv</li>
-<li>callosum_forceps_minor.csv</li>
 <li>hc_callosum_forceps_major_ad.csv</li>
 <li>hc_callosum_forceps_major_fa.csv</li>
 <li>hc_callosum_forceps_major_md.csv</li>
