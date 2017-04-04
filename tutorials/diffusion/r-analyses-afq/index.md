@@ -78,6 +78,7 @@ describeBy(mydata, mydata$diagnosis)
 
 You should get the following tables:
 
+<div class="results">
 |           | vars|  n| mean|       sd| median| trimmed|    mad| min| max| range|       skew|   kurtosis|        se|
 |:----------|----:|--:|----:|--------:|------:|-------:|------:|---:|---:|-----:|----------:|----------:|---------:|
 |subjID*    |    1| 10|  5.5| 3.027650|    5.5|   5.500| 3.7065|   1|  10|     9|  0.0000000| -1.5616364| 0.9574271|
@@ -86,6 +87,7 @@ You should get the following tables:
 |education  |    4| 10| 12.4| 3.657564|   11.0|  12.250| 2.9652|   8|  18|    10|  0.4350698| -1.6245619| 1.1566234|
 |gender*    |    5| 10|  1.2| 0.421637|    1.0|   1.125| 0.0000|   1|   2|     1|  1.2807225| -0.3675000| 0.1333333|
 |MMSE       |    6| 10| 22.8| 2.820559|   23.5|  23.125| 2.2239|  17|  26|     9| -0.8599269| -0.6356272| 0.8919392|
+</div>
 
 |           | vars|  n|    mean|        sd| median|   trimmed|    mad| min| max| range|       skew|   kurtosis|        se|
 |:----------|----:|--:|-------:|---------:|------:|---------:|------:|---:|---:|-----:|----------:|----------:|---------:|
@@ -126,7 +128,7 @@ Looks like the groups are not statistically difference in amount of education:
 
 Currently the AFQ output results are separated by diagnosis group and diffusion metrics. In order to graph and analyze group differences along the fiber tracts, we need to combine the AD and HC *.csv* files for each fiber group. While we are at it, we might as well also combine the files based on diffusion metrics (i.e., FA, AD, RD, and MD). Here's a list of output files you should have:
 
-<div class="threecolumn">
+<div class="twocolumn">
 ad_callosum_forceps_major_ad.csv
 ad_callosum_forceps_major_fa.csv
 ad_callosum_forceps_major_md.csv
