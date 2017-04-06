@@ -63,6 +63,7 @@ library(outliers)
 library(sm)
 library(rowr)
 library(pastecs)
+library(tcltk)
 ```
 
 Now when R loads, it will run the code automatically and load the libraries.
