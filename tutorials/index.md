@@ -58,3 +58,4 @@ Please review Beginner Topics before starting the Advanced Topics. You will need
 2. [Sectioning](latex/sectioning)
 3. [Bibliography](latex/bibliography)
 4. [Tables](latex/tables)
+5. [APA 6 Manuscript](https://www.sharelatex.com/project/533c4f484301a50022e1b2db)
