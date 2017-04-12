@@ -51,6 +51,7 @@ Please review Beginner Topics before starting the Advanced Topics. You will need
 12. [Probabilistic Tractography with TRACULA Part 2](diffusion/tracula-part-2)
 13. [Extract Tables](diffusion/table)
 14. [R Statistical Analyses with AFQ Results](diffusion/r-analyses-afq)
+15. [R Statistical Analyses with TRACULA Results](diffusion/r-analyses-tracula)
 
 ### LaTeX
 
