@@ -57,3 +57,4 @@ Please review Beginner Topics before starting the Advanced Topics. You will need
 1. [Document with Only Figures](latex/figures-only)
 2. [Sectioning](latex/sectioning)
 3. [Bibliography](latex/bibliography)
+4. [Tables](latex/tables)
