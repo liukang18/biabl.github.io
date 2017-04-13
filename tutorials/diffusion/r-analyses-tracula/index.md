@@ -90,10 +90,10 @@ source("~/Desktop/TRACULA/combine-tables.r")
 Recall that the tract profiles consist of segments along the tract for each of the diffusion metrics. You need to statistically evaluate each segment to determine if there are any group differences. Not only do we want to run these tests automatically, but at the very least we want to output the p-values to a table. Create the directories to output the p-value tables:
 
 ```bash
-mkdir -p ~/Desktop/TRACULA/pvalue/fa
-mkdir -p ~/Desktop/TRACULA/pvalue/rd
-mkdir -p ~/Desktop/TRACULA/pvalue/ad
-mkdir -p ~/Desktop/TRACULA/pvalue/md
+mkdir -p ~/Desktop/TRACULA/pvalue/FA
+mkdir -p ~/Desktop/TRACULA/pvalue/RD
+mkdir -p ~/Desktop/TRACULA/pvalue/AD
+mkdir -p ~/Desktop/TRACULA/pvalue/MD
 ```
 
 Create an R script:
