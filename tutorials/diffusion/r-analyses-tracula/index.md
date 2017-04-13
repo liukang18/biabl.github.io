@@ -142,10 +142,10 @@ source("~/Desktop/TRACULA/pvalue.r")
 Now we can combine the data and p-value results into a graph. Create the directories to output the graphs:
 
 ```bash
-mkdir -p ~/Desktop/TRACULA/graphs/fa
-mkdir -p ~/Desktop/TRACULA/graphs/rd
-mkdir -p ~/Desktop/TRACULA/graphs/ad
-mkdir -p ~/Desktop/TRACULA/graphs/md
+mkdir -p ~/Desktop/TRACULA/graphs/FA
+mkdir -p ~/Desktop/TRACULA/graphs/RD
+mkdir -p ~/Desktop/TRACULA/graphs/AD
+mkdir -p ~/Desktop/TRACULA/graphs/MD
 ```
 
 Create an R script:
