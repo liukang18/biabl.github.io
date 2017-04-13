@@ -99,7 +99,7 @@ mkdir -p ~/Desktop/TRACULA/pvalue/MD
 Create an R script:
 
 ```bash
-vi ~/Desktop/TRACULA/pvalue.R
+vi ~/Desktop/TRACULA/pvalue.r
 ```
 
 Copy and paste:
@@ -120,7 +120,7 @@ for (n in 1:length(rawdata)) {
     pvalue = data.frame()
     for (x in 1:(length(mydata)-7)) {
         node = paste("X", x, sep = "")
-        if (sum(is.na(mydata[[node]])) <= 20) {
+        if (sum(is.na(mydata[[node]])) < 20) {
         	diagnosis = anova(lm(mydata[[node]] ~ diagnosis, data = mydata, na.action=na.omit))[5][1,]
         	diagnosis = data.frame(diagnosis)
         	pvalue = rbind(pvalue, diagnosis)
