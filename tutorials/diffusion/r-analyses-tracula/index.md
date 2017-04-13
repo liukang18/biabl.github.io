@@ -151,7 +151,7 @@ mkdir -p ~/Desktop/TRACULA/graphs/md
 Create an R script:
 
 ```bash
-vi ~/Desktop/TRACULA/graphs.R
+vi ~/Desktop/TRACULA/graphs.r
 ```
 
 Copy and paste:
