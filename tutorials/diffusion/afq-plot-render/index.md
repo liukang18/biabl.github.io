@@ -50,6 +50,39 @@ Due to anatomical factors like crossing fibers, nearness to cerebrospinal fluid 
 
 For identified pathways in each hemisphere, the average FA is calculated along the tract to generate tract profiles. Because the endpoints vary tremendously across participants, fiber tracts are clipped at each waypoint ROI. Remember that to generate the tracts, 2 waypoint ROIs were used to define the tract. Now those ROIs are used to clip the tract. With just the central portion of the fiber tracts, the AFQ program aligns and resamples each participant's fiber tracts into 100 equidistant segments, then the average FA is calculated within each segment using a weighted-average approach. In other words, if you have 100 fibers forming the cingulum, those 100 fibers are segmented into 100 equal parts and the DTI scalars like FA are averaged across those 100 fibers within a single segment. This is different than just takeing FA across the whole tract and across all 100 fibers and just generating a single data point. Although we are still averaging FA across all the fibers, it is not across the entire tract but only within 1 segment of the tract. The Tract Profile is created when you draw out all 100 segments to show how the DTI scalars change along the tracts.
 
+AFQ pipeline automatically sets these ROIs and it is not always obvious which direction your tract profiles are plotted. Here is a list of fibers and their directions:
+
+* Corpus Callosum Forceps Minor
+	* Left hemisphere to right hemisphere
+* Corpus Callosum Forceps Major
+	* Left hemisphere to right hemisphere
+* Arcuate Fasciculus
+	* Anterior to posterior
+	* Frontal Lobe to Temporal Lobe
+* Corticospinal Tract
+	* Inferior to superior
+	* Brainstem to Corona Radiata
+* Cingulum
+	* Posterior to anterior
+	* Parietal Lobe to Frontal Lobe
+* Uncinate Fasciculus
+	* Posterior-medial to superior-anterior
+	* Temporal Lobe to Orbitofrontal Lobe
+* SLF
+	* Posterior to anterior
+	* Parietal Lobe to Frontal Lobe
+* Thalamic Radiation
+	* Posterior to anterior
+	* Thalamus to Frontal Lobe
+* ILF
+	* Posterior to Anterior
+	* Occipital Lobe to Temporal Lobe
+* IFOF
+	* Posterior to Anterior
+	* Occipital Lobe to Frontal Lobe
+
+<a href="https://doi.org/10.1371/journal.pone.0049790.g002" target="_blank"><img class="img-responsive" alt="" src="images/journal.pone.0049790.g002.png"></a>
+
 ## Plots
 
 When you run MATLAB, you'll always need to run the following code to set MATLAB's path directory. If you ever quit MATLAB, these variables will always need to be re-entered:
